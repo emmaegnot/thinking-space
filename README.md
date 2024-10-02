@@ -30,9 +30,9 @@ This has yet to be decided - hopefully we have more of an idea following our lec
   - **Aim**: To understand their child's emotions, and allow them to feel that their child is in capable hands at school
 
 ## User stories
-- As a child, I want to communicate my emotions effectively so that I can focus in class and get along with my peers.
-- As a teacher, I want to connect with my students so that I can understand how I can help them learn effectively.
-- As a parent, I want to understand my child so that I can provide them a healthy upbringing.
+- Children: as a child in a classroom, I may struggle with my emotions and that can lead to me disrupting the class, or a teacher spending valuable learning time trying to calm me down. A web app can provide me with the environment to understand and control my emotions, through features such as videos (for more visual learners) or the creative feature of picking a shape and colour. This should help me to focus more effectively in class, and learn more than I otherwise would have, or possibly allow me to get along better with my peers.
+- Teacher: teachers naturally want to get the best out of their students, but behavioural issues can cause disruption which can be costly for teaching time. This app will allow my students to focus better, and may even help me connect with them through understanding what they are going through. This should cause a better learning environment for everyone involved.
+- Parent: As a parent, I want my child to be getting a good education, and to not feel overly negative emotions. The app should help with both of these issues, allowing my child to focus in class, and providing them with a way to understand and deal with any feelings they may have. This may even help with the burdens of parenting in general, and could have a positive effect on home life too.
 
 ## Team members
 
