@@ -46,6 +46,8 @@ This has yet to be decided - hopefully we have more of an idea following our lec
 | Jackson Yan | po20297@bristol.ac.uk |
 
 ## Project structure
+- Backend
+- Frontend
 
 
 ## Architecture diagram
