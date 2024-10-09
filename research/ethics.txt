@@ -1,0 +1,41 @@
+Ethical issues - thinking space
+Protect rights, dignity, health, safety and privacy of anyone we interact with
+
+if working with real users/testers, we need to conform with the uni ethics regulation
+
+we already have approval that covers low-risk “users interaction with software”. this covers anonymous surveys, recording screengrabs of people using our system
+
+anything which could create a risk to the physical/mental health of users needs to be discussed with unit directors
+	⁃	this could be mental health of a child, such as exacerbating negative behaviour
+	⁃	this software is used when a child is most vulnerable, so we need to be careful
+	⁃	are we going to interview kids or just get information from the client?
+	⁃	are we going to test the product on kids or just have the client testing?
+	⁃	if we want children to be our test users we need a full faculty ethics review
+
+
+ethics pre-approval form:
+outline the project goals and the main functionality of the software
+
+describe the intended use of the software. In particular, what data users will enter, in particular if personal data is involved
+
+will you recruit anyone to evaluate your software, other than your clients?
+y/n
+if yes
+
+	•	describe that user group, how are you going to recruit them?
+	•	are there any potential participants who will be excluded? if so, what are the exclusion criteria
+	•	how many participants?
+	•	how will informed consent be obtained from all participant or their parents/guardians
+	•	how long to decide whether they give consent
+	•	are there potential risks (physical, psychological, legal, social) to the participants
+
+how to submit a faculty review
+first contact faculty research ethics admin (marc.moyce@bristol.ac.uk) to check it will all be approved and make it clear we are y2 undergrad!
+submit using orems
+info is here: https://www.bristol.ac.uk/students/support/academic-advice/research-ethics-review/
+will need to upload all participant facing study documents
+	⁃	recruitment ads
+	⁃	participant information sheet
+	⁃	consent form for adult & child participant
+	⁃	debriefing sheet or transcript
+	⁃	questionnaires
