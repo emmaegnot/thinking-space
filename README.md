@@ -45,3 +45,13 @@ This has yet to be decided - hopefully we have more of an idea following our lec
 | Zhongzheng Qu | xb23116@bristol.ac.uk |
 | Jackson Yan | po20297@bristol.ac.uk |
 
+## Project structure
+
+
+## Architecture diagram
+
+
+## User instructions
+
+
+## Developer instructions
