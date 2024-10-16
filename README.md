@@ -55,6 +55,7 @@ This website aims to tackle behavioural problems in children by providing them w
 
 ## Architecture diagram
 
+![project_arc_diagram drawio](https://github.com/user-attachments/assets/d15279f2-7546-464c-a4fb-e8187c439b09)
 
 ## User instructions
 
