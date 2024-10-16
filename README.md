@@ -10,7 +10,10 @@ This website aims to tackle behavioural problems in children by providing them w
 
 ## Technology Stack
 
-This has yet to be decided - hopefully we have more of an idea following our lecture on 4/10
+Languages: JavaScript, HTML, CSS, EJS to allow for dynamic pages
+Back End: Node.js, using express.js as the framework
+Database: MongoDB, using mongoose as an asynchronous javascript object modeling tool
+Targeted Platform: Browser
 
 ## Stakeholders
 - Raymer Enterprise Ltd
