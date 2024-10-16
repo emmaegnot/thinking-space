@@ -1,7 +1,7 @@
 **Before submitting this PR into the default branch, please make sure:** <br>
 
 -[] You have provided the description of the changes proposed in the pull request <br>
--[] You have provided reference to a related issue() in your repository.(if reqeired) https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#referencing-issues-and-pull-requests <br>
+-[] You have provided a reference to a related issue() in your repository.(if reqeired) https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#referencing-issues-and-pull-requests <br>
 -[] Your code builds clean without any errors or warnings <br>
 -[] You added comments <br>
 -[] You have added tests (if required) <br>
