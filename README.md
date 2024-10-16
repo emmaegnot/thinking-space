@@ -1,8 +1,15 @@
 # 2024-ThinkingSpace
+[Overview](#overview) <br>
+[Technology Stack](#technology-stack)<br>
+[Stakeholders](#stakeholders)<br>
+[User Stories](#user-stories)<br>
+[Team Members](#team-members)<br>
+[Architecture Diagram](#architecture-diagram)<br>
+[User Instructions](#user-instructions)<br>
+[Developer Intstructions](#developer-instructions)<br>
 
-## Gantt Chart
+## [Gantt Chart](https://uob-my.sharepoint.com/:x:/r/personal/xq23942_bristol_ac_uk/Documents/simple-gantt-chart_ms.xlsx?d=w8333c54edce74b24b194947af8785172&csf=1&web=1&e=Zb0YiD)
 
-https://uob-my.sharepoint.com/:x:/r/personal/xq23942_bristol_ac_uk/Documents/simple-gantt-chart_ms.xlsx?d=w8333c54edce74b24b194947af8785172&csf=1&web=1&e=Zb0YiD
 
 ## Overview
 
