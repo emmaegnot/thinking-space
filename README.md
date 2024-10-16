@@ -1,5 +1,5 @@
 # 2024-ThinkingSpace
-[Team Members](team-members)
+[Team Members](#team-members)
 
 ## Gantt Chart
 
