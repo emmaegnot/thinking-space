@@ -1,0 +1,41 @@
+html {
+    animation: fadein 2s;
+}
+
+body{
+    background-color: rgb(226, 226, 226);
+    margin: 0;
+    background-image: url(images/background-removebg.png);
+    background-size: cover;
+}
+
+.header{
+    color: rgb(121, 166, 224);
+    padding: 0;
+    list-style-type: none;
+    margin: 0;
+    overflow: hidden;
+    background-color: lightgray;
+}
+
+.header li {
+    float: left;
+}
+
+.header li a {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+}
+
+
+
+@font-face {
+    font-family: mouseM;
+    src: url(fonts/MouseMemoirs-Regular.ttf);
+}
+
+.mouseM { 
+    font-family: mouseM;
+    font-size: 2em;
+}
