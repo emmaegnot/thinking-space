@@ -10,7 +10,6 @@
 - [ ] You have added tests (if required) <br>
 - [ ] You have provided @mentions of the person or people responsible for reviewing proposed changes. (if required) <br>
 <br>
-To check an item in a checklist please put x in the brackeds. Example - [x] <br>
 
 **(1)** For providing a reference to related issue(): https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#referencing-issues-and-pull-requests <br>
 
