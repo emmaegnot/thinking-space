@@ -10,6 +10,7 @@
 
 ## [Gantt Chart](https://uob-my.sharepoint.com/:x:/r/personal/xq23942_bristol_ac_uk/Documents/simple-gantt-chart_ms.xlsx?d=w8333c54edce74b24b194947af8785172&csf=1&web=1&e=Zb0YiD)
 
+## [Kanban](https://github.com/orgs/spe-uob/projects/235)
 
 ## Overview
 
@@ -17,10 +18,10 @@ This website aims to tackle behavioural problems in children by providing them w
 
 ## Technology Stack
 
-- Languages: JavaScript, HTML, CSS, EJS to allow for dynamic pages
-- Back End: Node.js, using express.js as the framework
-- Database: MongoDB, using mongoose as an asynchronous javascript object modeling tool
-- Targeted Platform: Browser
+- **Languages:** JavaScript, HTML, CSS, EJS to allow for dynamic pages
+- **Back End:** Node.js, using express.js as the framework
+- **Database:** MongoDB, using mongoose as an asynchronous javascript object modeling tool
+- **Targeted Platform:** Browser
 
 ## Stakeholders
 - Raymer Enterprise Ltd
