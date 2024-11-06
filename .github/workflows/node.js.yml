@@ -26,6 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: './2024-ThinkingSpace/src/server/package-lock.json'
 
     # Install dependencies from the correct directory
     - name: Install dependencies
