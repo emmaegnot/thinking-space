@@ -24,7 +24,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: ./2024-ThinkingSpace/src/server/package-lock.json  # specify path to lock file
+        cache-dependency-path: ./2024-ThinkingSpace/src/server  # specify path to lock file
 
     - name: Install dependencies
       run: npm ci
