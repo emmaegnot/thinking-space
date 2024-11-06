@@ -30,3 +30,16 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+
+    # Set the working directory to where your lock file and node_modules are located
+    - name: Install dependencies
+      run: npm ci
+      working-directory: ./2024-ThinkingSpace/src/server
+
+    - name: Build the project
+      run: npm run build --if-present
+      working-directory: ./2024-ThinkingSpace/src/server
+
+    - name: Run tests
+      run: npm test
+      working-directory: ./2024-ThinkingSpace/src/server
