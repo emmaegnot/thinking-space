@@ -1,26 +1,34 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
+  <!-- Allows use of icons from fontawesome -->
+  <script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
  </head>
  <nav class="mouseM">
   <ul class="header">
-   <li><a>THE THINNKING SPACE</a></li>
-   <li class="home" style="float: right;"><a href="/">Home</a></li>
+   <li><a>THE THINKING SPACE</a></li>
+   <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
   </ul>
  </nav>
  <body>
-  <main>
-   <table>
-   <tr colspan="2">I am a...</tr>
-   <tr><td>Student</td><td></td></tr>
-   <tr><td>Teacher</td><td></td></tr>
-   </table>
-  </main>
+<div class="container mouseM">
+<h1 class="h1">I am a...</h1>
+  <div class="flex-container">
+        <button class="button" onClick="window.location.href='/student'">Student</button>
+      <i class="fa-solid fa-person student"></i>
+  </div>
+  <div class="flex-container">
+        <button class="button">Teacher</button>
+      <i class="fa-solid fa-person teacher"></i>
+  </div>
+ </div>
+  <img src="images/logo.png" class="logo" alt="Raymer Enterprises Ltd" width="212" height="104">
  </body>
  <nav class="mouseM">
- <span>With emotional health in mind</span>
+ 	
+    <span class="motto">With emotional health in mind</span>
  </nav>
 
 </html>
