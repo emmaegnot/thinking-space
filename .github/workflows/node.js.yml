@@ -24,6 +24,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        # Tell setup-node where to find the package-lock.json
+        cache-dependency-path: './2024-ThinkingSpace/src/server/package-lock.json'
 
     # Manually cache node_modules based on the correct directory
     - name: Cache node_modules
