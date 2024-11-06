@@ -24,16 +24,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        # Tell setup-node where to find the package-lock.json
-        cache-dependency-path: './2024-ThinkingSpace/src/server/package-lock.json'
-        cache-key: "npm-${{ runner.os }}-${{ hashFiles('./2024-ThinkingSpace/src/server/package-lock.json') }}"
 
-    # Manually cache node_modules based on the correct directory
-    - name: Cache node_modules
+    # Manually cache package-lock.json
+    - name: Cache package-lock.json
       uses: actions/cache@v3
       with:
-        path: ./2024-ThinkingSpace/src/server/node_modules  # Cache the entire node_modules folder
-        key: ${{ runner.os }}-node-${{ hashFiles('./2024-ThinkingSpace/src/server/package-lock.json') }}  # Use package-lock.json hash as cache key
+        path: ./2024-ThinkingSpace/src/server/package-lock.json  # Corrected path
+        key: ${{ runner.os }}-node-${{ hashFiles('./2024-ThinkingSpace/src/server/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
 
@@ -41,6 +38,15 @@ jobs:
     - name: Install dependencies
       run: npm ci
       working-directory: ./2024-ThinkingSpace/src/server
+
+    # Cache the node_modules directory after dependencies are installed
+    - name: Cache node_modules
+      uses: actions/cache@v3
+      with:
+        path: ./2024-ThinkingSpace/src/server/node_modules  # Corrected path
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('./2024-ThinkingSpace/src/server/package-lock.json') }}  # Cache based on package-lock.json
+        restore-keys: |
+          ${{ runner.os }}-node-modules-
 
     - name: Build the project
       run: npm run build --if-present
