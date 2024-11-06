@@ -1,0 +1,63 @@
+name: New Feature Issue
+description: Describe the new feature you are making or enhancing.
+title: "[Feature]: "
+labels: ["Type: Feature Request"]
+projects: ["2024-ThinkingSpace"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the following information to allow the team to understand the new feature you are working on.
+  - type: textarea
+    id: what-feature
+    attributes:
+      label: What feature are you adding?
+      description: Describe the feature you are adding or enhancing.
+      placeholder: Describe the feature you are adding.
+      value: "This feature is..."
+    validations:
+      required: true
+  - type: textarea
+    id: why-feature
+    attributes:
+      label: Why are you adding this feature?
+      description: Describe why you are adding this feature.
+      placeholder: Describe why you are adding this feature.
+      value: "Because this feature..."
+    validations:
+      required: true
+  - type: textarea
+    id: feature-requirements
+    attributes:
+      label: What are the requirements for this feature?
+      description: Describe the requirements for this feature.
+      placeholder: Describe the requirements for this feature.
+      value: "Some requirements are..."
+    validations:
+      required: true
+  - type: textarea
+    id: feature-implementation
+    attributes:
+      label: What does this feature need to be implemented?
+      description: Describe what is needed to implement this feature. Do you need to add new code, update existing code, add new tests, add or update backend services etc.?
+      placeholder: Describe what is needed to implement this feature.
+      value: "This feature needs..."
+    validations:
+      required: false
+  
+  - type: dropdown
+    id: feature-type
+    attributes:
+      label: What part of the code does this feature work on
+      options:
+        - Frontend
+        - Backend
+    
+  - type: dropdown
+    id: feature-priority
+    attributes:
+      label: What is the priority of this feature?
+      options:
+        - Low
+        - Medium
+        - High
