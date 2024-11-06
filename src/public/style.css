@@ -117,3 +117,11 @@ a:hover {
     font-size: 40px;
     margin-left: 10px;
 }
+
+td div:hover img{
+    border: 2px solid rgb(121, 166, 224);
+}
+
+.colouredText{
+    color: rgb(121, 166, 224);
+}
