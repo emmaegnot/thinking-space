@@ -27,34 +27,33 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    # Correct the path for package-lock.json
+    # Cache package-lock.json in the subfolder (src/server)
     - name: Cache package-lock.json
       uses: actions/cache@v3
       with:
-        path: ./2024-ThinkingSpace/src/server/package-lock.json  # Correct path to package-lock.json
-        key: ${{ runner.os }}-node-${{ hashFiles('./2024-ThinkingSpace/src/server/package-lock.json') }}
+        path: 2024-ThinkingSpace/src/server/package-lock.json  # Correct path
+        key: ${{ runner.os }}-node-${{ hashFiles('2024-ThinkingSpace/src/server/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
 
     # Install dependencies from the correct directory
     - name: Install dependencies
       run: npm ci
-      working-directory: ./2024-ThinkingSpace/src/server  # Ensure the working directory is correct
+      working-directory: 2024-ThinkingSpace/src/server  # Adjusted working directory
 
-    # Cache the node_modules directory after dependencies are installed
+    # Cache node_modules directory
     - name: Cache node_modules
       uses: actions/cache@v3
       with:
-        path: ./2024-ThinkingSpace/src/server/node_modules  # Correct path to node_modules
-        key: ${{ runner.os }}-node-modules-${{ hashFiles('./2024-ThinkingSpace/src/server/package-lock.json') }}  # Cache key based on package-lock.json
+        path: 2024-ThinkingSpace/src/server/node_modules  # Correct path to node_modules
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('2024-ThinkingSpace/src/server/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-modules-
 
     - name: Build the project
       run: npm run build --if-present
-      working-directory: ./2024-ThinkingSpace/src/server
+      working-directory: 2024-ThinkingSpace/src/server  # Ensure correct working directory
 
     - name: Run tests
       run: npm test
-      working-directory: ./2024-ThinkingSpace/src/server
-
+      working-directory: 2024-ThinkingSpace/src/server  # Ensure correct working directory
