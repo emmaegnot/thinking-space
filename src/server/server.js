@@ -15,6 +15,13 @@ app.get('/', (req,res) => {
     res.render('index');
 });
 
+document.getElementById("student").onclick = function(){
+    app.get('/', (req,res) => {
+        res.render('choose_shape');
+    });
+}
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
