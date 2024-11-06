@@ -11,14 +11,11 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-      # we are working with node 22 
         node-version: [22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
     - uses: actions/checkout@v4
@@ -27,11 +24,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+        cache-dependency-path: ./2024-ThinkingSpace/src/server/package-lock.json  # specify path to lock file
 
-    # Set the working directory to where your lock file and node_modules are located
     - name: Install dependencies
       run: npm ci
       working-directory: ./2024-ThinkingSpace/src/server
