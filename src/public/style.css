@@ -119,6 +119,10 @@ a:hover {
 }
 
 td div:hover img{
+    margin: -2px solid rgb(121, 166, 224);
+}
+
+td div:hover{
     border: 2px solid rgb(121, 166, 224);
 }
 
