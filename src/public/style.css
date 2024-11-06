@@ -118,13 +118,38 @@ a:hover {
     margin-left: 10px;
 }
 
-td div:hover img{
-    margin: -2px solid rgb(121, 166, 224);
-}
+  .shape-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    justify-items: center;
+  }
 
-td div:hover{
+  .shape-item {
+    text-align: center;
+  }
+
+  /* Hide radio input circles */
+  .shape-item input[type="radio"] {
+    display: none;
+  }
+
+  .shape-item img {
+    border-radius: 6px;
+    width: 140px;
+    height: 120px;
+    border: 2px solid transparent;
+    transition: border 0.3s ease;
+    cursor: pointer;
+  }
+
+  .shape-item:hover img {
+    border: 2px solid rgba(227, 227, 227, 0.9);
+  }
+
+  .shape-item input[type="radio"]:checked + img {
     border: 2px solid rgb(121, 166, 224);
-}
+  }
 
 .colouredText{
     color: rgb(121, 166, 224);
