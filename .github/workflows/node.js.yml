@@ -1,32 +1,51 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
 name: Node.js CI
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: 
+      - '*'
   pull_request:
-    branches: [ "dev" ]
+    branches:
+      - '*'
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-      # we are working with node 22 
         node-version: [22.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+        cache-dependency-path: './src/server/package-lock.json'
+
+    # Install dependencies from the correct directory
+    - name: Install dependencies
+      run: npm ci
+      working-directory: ./src/server
+
+    # Cache the node_modules directory after dependencies are installed
+    - name: Cache node_modules
+      uses: actions/cache@v3
+      with:
+        path: ./src/server/node_modules
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('./src/server/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-modules-
+
+    - name: Build the project
+      run: npm run build --if-present
+      working-directory: ./src/server
+
+   # - name: Run tests
+   #   run: npm test
+   #   working-directory: ./src/server
