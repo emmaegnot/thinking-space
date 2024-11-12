@@ -1,0 +1,34 @@
+name: Other issue
+description: File another issue
+title: "[Other]: "
+labels: [""]
+projects: ["2024-ThinkingSpace"]
+
+body:
+
+  - type: textarea
+    id: Describe-the-issue
+    attributes:
+      label: What is this issue for
+      description: Use as much detail as possible
+      placeholder: Details...
+      value: "Issue"
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: type
+    attributes:
+      label: What is the issue about?
+      multiple: true
+      options:
+        - Organisation
+        - Analysis
+        - Design
+        - Research
+        
+  - type: textarea
+    id: What-should-be-done
+    attributes:
+      label:  What needs to be done?
+      description: Inform people of what should be done to fix this issue
