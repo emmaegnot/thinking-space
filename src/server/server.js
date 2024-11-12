@@ -15,6 +15,12 @@ app.get('/', (req,res) => {
     res.render('index');
 });
 
+app.get('/choose_shape', (req,res) => {
+    res.render('choose_shape');
+});
+
+
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
