@@ -1,0 +1,124 @@
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+    <nav class="mouseM">
+      <ul class="header">
+        <li><a>THE THINKING SPACE</a></li>
+        <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
+      </ul>
+    </nav>
+    <div class="container mouseM">
+      <form action="submit-additional-words" method="post">
+        <h1 class="colouredText">Choose some more words...</h1>
+        <div class="word-container">
+          <div class="selected-words left-words">
+            <!-- Selected words on the left will appear here -->
+          </div>
+
+          <div align="center">
+            <img class="chosen-shape" src="<%= filepath %>" />
+          </div>
+
+          <div class="selected-words right-words">
+            <!-- Selected words on the right will appear here -->
+          </div>
+        </div>
+
+        <!-- Word Selection Items -->
+        <div class="word-selection">
+          <div class="word-item">
+            <label>
+              <input type="checkbox" name="words" value="<%= wordList[0] %>" onchange="updateSelectedWords()">
+              <%= wordList[0] %>
+            </label>
+          </div>
+          <div class="word-item">
+            <label>
+              <input type="checkbox" name="words" value="<%= wordList[1] %>" onchange="updateSelectedWords()">
+              <%= wordList[1] %>
+            </label>
+          </div>
+          <div class="word-item">
+            <label>
+              <input type="checkbox" name="words" value="<%= wordList[2] %>" onchange="updateSelectedWords()">
+              <%= wordList[2] %>
+            </label>
+          </div>
+          <div class="word-item">
+            <label>
+              <input type="checkbox" name="words" value="<%= wordList[3] %>" onchange="updateSelectedWords()">
+              <%= wordList[3] %>
+            </label>
+          </div>
+          <div class="word-item">
+            <label>
+              <input type="checkbox" name="words" value="<%= wordList[4] %>" onchange="updateSelectedWords()">
+              <%= wordList[4] %>
+            </label>
+          </div>
+          <div class="word-item">
+            <label>
+              <input type="checkbox" name="words" value="<%= wordList[5] %>" onchange="updateSelectedWords()">
+              <%= wordList[5] %>
+            </label>
+          </div>
+          <div class="word-item">
+            <label>
+              <input type="checkbox" name="words" value="<%= wordList[6] %>" onchange="updateSelectedWords()">
+              <%= wordList[6] %>
+            </label>
+          </div>
+          <div class="word-item">
+            <label>
+              <input type="checkbox" name="words" value="<%= wordList[7] %>" onchange="updateSelectedWords()">
+              <%= wordList[7] %>
+            </label>
+          </div>
+        </div>
+
+        <div class="button-div" align="center">
+          <button type="submit">NEXT</button>
+        </div>
+      </form>
+    </div>
+    <footer class="footer">
+      <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd">
+      <span class="motto mouseM">With emotional health in mind</span>
+    </footer>
+
+    <script>
+      function updateSelectedWords() {
+        // Get all checked word items
+        const selectedWords = Array.from(document.querySelectorAll('input[name="words"]:checked')).map(el => el.value);
+
+        // Clear and update the left and right word containers
+        const leftWordsContainer = document.querySelector('.left-words');
+        const rightWordsContainer = document.querySelector('.right-words');
+        leftWordsContainer.innerHTML = '';
+        rightWordsContainer.innerHTML = '';
+
+        selectedWords.forEach((word, index) => {
+          const wordElement = document.createElement('div');
+          wordElement.className = 'selected-word';
+          wordElement.textContent = word;
+          // Add to left or right container based on index
+          if (index % 2 === 0) {
+            leftWordsContainer.appendChild(wordElement);
+          } else {
+            rightWordsContainer.appendChild(wordElement);
+          }
+        });
+      }
+    </script>
+    <style>
+      .left-words, .right-words{
+        color: rgb(<%= colour.r %>, <%= colour.g %>, <%= colour.b %>);
+      }
+    </style>
+ </body>
+</html>
