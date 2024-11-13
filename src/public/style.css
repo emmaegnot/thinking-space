@@ -90,7 +90,7 @@ a:hover {
 .index-container {
     text-align: center;
     max-width: 50%;
-    margin: 1rem;
+    min-width: 190px;
     padding: 2rem;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
     border-radius: 20px;
