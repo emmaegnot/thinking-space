@@ -21,9 +21,9 @@
           <div align="center">
             <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape">
           </div>
-          <div class="colourPicker">
+          <div align="center">
            <label>
-            <input type="color" name="colour" value="#f6b73c">
+             <input class="colourPicker" type="color" name="colour" value="#f6b73c">
            </label>
           </div>
         </div>
@@ -41,4 +41,11 @@
       <span class="motto mouseM">With emotional health in mind</span>
     </footer>
  </body>
+ <script>
+  const colourPicker = document.querySelector(".colourPicker");
+  const image = document.querySelector(".chosen-shape");
+  colourPicker.addEventListener("input", function() {
+      image.style.backgroundColor = colourPicker.value;
+  });
+</script>
 </html>
