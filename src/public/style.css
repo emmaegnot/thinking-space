@@ -67,8 +67,9 @@ a:hover {
     color: rgb(121, 166, 224);
 }
 
-.logo {
-    max-width: 200px;
+.logo{
+    height: 60px;
+    width: 120px;
 }
 
 .motto {
@@ -79,7 +80,7 @@ a:hover {
 
 .container {
     max-width: 50%;
-    margin: 1rem auto 6rem;
+    margin: 1rem auto 2rem;
     padding: 2rem;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
     border-radius: 20px;
@@ -213,17 +214,36 @@ a:hover {
     color: rgb(121, 166, 224);
 }
 
+.index-footer{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1rem 5px;
+    color: rgb(121, 166, 224);
+}
+
 /* For smaller screens */
-@media (max-width: 600px) {
+@media (max-width: 750px) {
     .container {
         max-width: 90%;
         margin-bottom: 8rem;
     }
     .logo {
-        max-width: 160px;
+        height: 40px;
+        width: 80px;
     }
     .motto {
         font-size: 1.2em;
+    }
+}
+
+@media (max-height: 550px){
+    .footer{
+        position: relative
     }
 }
 
@@ -239,4 +259,31 @@ a:hover {
 .colourPicker{
     text-align: center;
     margin-bottom: 20px;
+}
+.word-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.selected-words {
+    width: 20%;
+    text-align: center;
+}
+
+.left-words, .right-words {
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.word-selection {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.word-item{
+    font-size: 1.5em;
 }
