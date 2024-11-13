@@ -29,13 +29,39 @@ const words = {
 function getSharedWords(shape, colour, word) {
     const shapeWords = shapes[shape] || [];
     const colourWords = colours[colour] || [];
-    const wordWords = words[word]|| []
+    const wordWords = words[word] || [];
 
-    const sharedWords = shapeWords.filter(word => 
-        colourWords.includes(word) && wordWords.includes(word)
-    );
+    // Combine all associations into a single array
+    const combinedWords = [...shapeWords, ...colourWords, ...wordWords];
 
-    return sharedWords;
+    // Create a frequency map for the associations
+    const wordCount = {};
+    combinedWords.forEach(word => {
+        if (word) {
+            wordCount[word] = (wordCount[word] || 0) + 1;
+        }
+    });
+
+    // Check if all counts are 1
+    const allCountsAreOne = Object.values(wordCount).every(count => count === 1);
+    if (allCountsAreOne) {
+        return []; // Return an empty array if all counts are 1 since no common associations
+    }
+
+    // Find the maximum count and the associated associations
+    let maxCount = 0;
+    const mostFrequentWords = [];
+    for (const [word, count] of Object.entries(wordCount)) {
+        if (count > maxCount) {
+            maxCount = count;
+            mostFrequentWords.length = 0; // Clear the array
+            mostFrequentWords.push(word);
+        } else if (count === maxCount) {
+            mostFrequentWords.push(word);
+        }
+    }
+
+    return mostFrequentWords; // Return the most frequent associations
 }
 
 
