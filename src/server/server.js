@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session'); //npm install express-session
+const cookieParser = require('cookie-parser');
 const path = require('path')
 
 
@@ -72,15 +73,31 @@ app.use(session({
     secret: /*process.env.SESSION_SECRET ||*/ 'we_should_come_up_with_a_key',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }   // secure should be true in production when using HTTPS
 }));
-
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname,'../public')));
 app.use(express.urlencoded({extended:true}))
 
 
 app.get('/', (req,res) => {
-    res.render('index');
+    // Check if the consent cookie exists
+    if (!req.cookies.consent) {
+        // Send HTML with a cookie consent banner
+        res.send(`
+            <h1>Welcome to Our Website</h1>
+            <p>We use cookies to enhance your experience. Do you accept?</p>
+            <button id="accept">Accept</button>
+            <script>
+                document.getElementById('accept').onclick = function() {
+                    document.cookie = "consent=true; path=/; max-age=" + 60*60*24*30; // 30 days
+                    location.reload();
+                };
+            </script>
+        `);
+    } else {
+        res.render('index');
+    }
+
 });
 
 app.get('/choose_shape', (req,res) => {
@@ -97,20 +114,18 @@ app.post('/submit-colour', (req, res) => {
     res.redirect('/choose_word');          
 });
 
+
 app.post('/submit-word', (req, res) => {
-    req.session.word = req.body.word;   // Save word selection to session
-    res.redirect('/summary');           // Redirect to the summary page
-});
-app.post('/submit-word', (req, res) => {
+    req.session.word = req.body.word
     const shape = req.session.shape;
-    const colour = req.session.color;
-    const word = req.body.word;
+    const colour = req.session.colour;
+    const word = req.session.word;
 
     const potentialMoods = getSharedWords(shape, colour, word)
     //Gets associations between all of the choicees
     let mood;
     if (potentialMoods.length === 0) {
-        mood = 'undecisive'; // We will have to think about this one
+        mood = 'indecisive'; // We will have to think about this one
     }
     else{
         const randomIndex = Math.floor(Math.random() * potentialMoods.length)
