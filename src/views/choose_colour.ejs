@@ -18,10 +18,14 @@
       <form action="submit-colour" method="post">
         <h1 class="colouredText">Choose a colour!</h1>
         <div class="colour-container">
-          <label>
-              <input type="color", name="colour", value="#f6b73c">
-          </label>
-          <img class="shape-item" src=<%= filepath %> alt="coloured shape" width="212" height="212">
+          <div align="center">
+            <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape">
+          </div>
+          <div class="colourPicker">
+           <label>
+            <input type="color" name="colour" value="#f6b73c">
+           </label>
+          </div>
         </div>
           
           <!-- Submit button -->
