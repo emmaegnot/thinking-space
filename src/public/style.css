@@ -87,6 +87,44 @@ a:hover {
     color: rgb(121, 166, 224);
 }
 
+.index-container {
+    text-align: center;
+    max-width: 50%;
+    margin: 1rem;
+    padding: 2rem;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    background: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(121, 166, 224);
+}
+
+.index-container .button {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(121, 166, 224);
+    margin: 5px;
+    width: 70%;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.index-container .button:hover {
+    background-color: rgba(227, 227, 227, 0.9);
+}
+
+.index-container h1 {
+    margin-top: 0px;
+}
+
 .container .button {
     text-align: center;
     background-color: rgba(0, 0, 0, 0);
@@ -111,10 +149,20 @@ a:hover {
     background-color: rgba(227, 227, 227, 0.9);
 }
 
+.index-container h1 {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
 .container h1 {
     text-align: center;
     margin: 0;
     margin-bottom: 10px;
+}
+
+.button-div{
+    margin-top: 10px;
 }
 
 .student {
