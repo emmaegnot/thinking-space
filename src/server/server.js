@@ -11,12 +11,24 @@ app.set('views', path.join(__dirname, '../views'))
 
 app.use(express.static(path.join(__dirname,'../public')));
 
-app.get('/', (req,res) => {
-    res.render('index');
-});
+// app.get('/', (req,res) => {
+//     res.render('index');
+// });
 
 app.get('/choose_shape', (req,res) => {
     res.render('choose_shape');
+});
+
+//PLACEHOLDER - Allows for testing of additional_words
+app.get('/', (req,res) => {
+    // Testing variables for now, server will do this in the future
+    const colour = {
+        r: 255,
+        g: 0,
+        b: 0,
+    }
+    wordList = ['Irritated', 'Resentful', 'Miffed', 'Upset', 'Mad', 'Furious', 'Raging', 'Hot']
+    res.render('additional_words', {filepath: "images/star.png", colour, wordList});
 });
 
 app.post('/submit-shape', (req,res) => {
