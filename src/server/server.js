@@ -80,17 +80,10 @@ app.use(express.urlencoded({extended:true}))
 
 
 app.get('/', (req,res) => {
-    delete req.session.shape;
-    delete req.session.colour;
-    delete req.session.word;
-    delete req.session.mood;
     res.render('index');
 });
 
 app.get('/choose_shape', (req,res) => {
-    delete req.session.colour;
-    delete req.session.word;
-    delete req.session.mood;
     res.render('choose_shape');
 });
 
@@ -100,14 +93,11 @@ app.post('/submit-shape', (req,res) => {
 })
 
 app.post('/submit-colour', (req, res) => {
-    delete req.session.word;
-    delete req.session.mood;
     req.session.colour = req.body.colour;  
     res.redirect('/choose_word');          
 });
 
 app.post('/submit-word', (req, res) => {
-    delete req.session.mood;
     req.session.word = req.body.word;   // Save word selection to session
     res.redirect('/summary');           // Redirect to the summary page
 });
