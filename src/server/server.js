@@ -3,6 +3,7 @@ const path = require('path')
 
 
 const app = express();
+app.use(express.urlencoded({extended:true}))
 const port = 3000;
 
 
@@ -23,10 +24,12 @@ app.get('/choose_shape', (req,res) => {
 
 app.post('/submit-shape', (req,res) => {
     var selectedShape = req.body.shape
+
     var filePath = "images/"
     filePath = filePath.concat(selectedShape, ".png")
     console.log(filePath)
     res.render('choose_colour', {shape: selectedShape, filepath: filePath});
+
 })
 
 
