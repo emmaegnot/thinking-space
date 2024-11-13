@@ -19,6 +19,10 @@ app.get('/choose_shape', (req,res) => {
     res.render('choose_shape');
 });
 
+app.post('/submit-shape', (req,res) => {
+    var selectedShape = req.shape
+    res.render('choose_colour', {shape: selectedShape});
+})
 
 
 app.listen(port, () => {
