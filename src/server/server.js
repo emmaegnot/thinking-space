@@ -150,7 +150,7 @@ app.post('/submit-word', (req, res) => {
     }
 
     req.session.mood = mood; // Save mood in session
-    res.redirect('???');     // Redirect to mood summary page
+    res.render('mood_summary', {mood : req.session.mood});     // Redirect to mood summary page
 });
 
 app.listen(port, () => {
