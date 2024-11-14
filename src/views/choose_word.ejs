@@ -120,6 +120,8 @@
   <div class="container mouseM">
     <form action="submit-word" method="post">
       <h1 class="colouredText">Choose a word!</h1>
+
+      <input type="hidden" id="selectedEmotion" name="selectedEmotion" value="">
       
       <div class="button-container">
         <div class="word-item">
@@ -158,6 +160,8 @@
       const buttons = document.querySelectorAll('.word-item button');
       buttons.forEach(btn => btn.classList.remove('active'));
       button.classList.add('active');
+
+      document.getElementById('selectedEmotion').value = button.value;
     }
   </script>
 </body>
