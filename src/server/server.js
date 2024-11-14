@@ -128,7 +128,7 @@ app.post('/submit-shape', (req,res) => {
 
 app.post('/submit-colour', (req, res) => {
     req.session.colour = req.body.colour;  
-    res.redirect('/choose_word');          
+    res.render('choose_word');          
 });
 
 
