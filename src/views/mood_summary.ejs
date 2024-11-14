@@ -13,26 +13,9 @@
       </ul>
     </nav>
 
-    <div class="container mouseM">
-        
-      <form action="submit-colour" method="post">
-        <h1 class="colouredText">Choose a colour!</h1>
-        <div class="colour-container">
-          <div align="center">
-            <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape">
-          </div>
-          <div align="center">
-           <label>
-             <input class="colourPicker" type="color" name="colour" value="#f6b73c">
-           </label>
-          </div>
-        </div>
-          
-          <!-- Submit button -->
-          <div align="center">
-            <button type="submit">NEXT</button>
-          </div>
-        </form>
+    <div class="container mouseM">  
+    <h1 class="colouredText">Mood Matcher</h1>
+    <h2 class="colouredText">Are you feeling <%= mood %> </h2>
     </div>
 
     <!-- Footer with logo and motto aligned to left and right -->
