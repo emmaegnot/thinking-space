@@ -1,0 +1,51 @@
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+    <nav class="mouseM">
+      <ul class="header">
+        <li><a>THE THINKING SPACE</a></li>
+        <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
+      </ul>
+    </nav>
+
+    <div class="container mouseM">
+        
+      <form action="submit-colour" method="post">
+        <h1 class="colouredText">Choose a colour!</h1>
+        <div class="colour-container">
+          <div align="center">
+            <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape">
+          </div>
+          <div align="center">
+           <label>
+             <input class="colourPicker" type="color" name="colour" value="#f6b73c">
+           </label>
+          </div>
+        </div>
+          
+          <!-- Submit button -->
+          <div align="center">
+            <button type="submit">NEXT</button>
+          </div>
+        </form>
+    </div>
+
+    <!-- Footer with logo and motto aligned to left and right -->
+    <footer class="footer">
+      <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
+      <span class="motto mouseM">With emotional health in mind</span>
+    </footer>
+ </body>
+ <script>
+  const colourPicker = document.querySelector(".colourPicker");
+  const image = document.querySelector(".chosen-shape");
+  colourPicker.addEventListener("input", function() {
+      image.style.backgroundColor = colourPicker.value;
+  });
+</script>
+</html>

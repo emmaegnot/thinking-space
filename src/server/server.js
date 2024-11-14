@@ -121,12 +121,14 @@ app.get('/choose_shape', (req,res) => {
 
 app.post('/submit-shape', (req,res) => {
     req.session.shape = req.body.shape
-    res.redirect('/choose_colour');
+    var filePath = "images/"
+    filePath = filePath.concat(req.session.shape, ".png")
+    res.render('choose_colour',{shape: req.session.shape, filepath: filePath});
 })
 
 app.post('/submit-colour', (req, res) => {
     req.session.colour = req.body.colour;  
-    res.redirect('/choose_word');          
+    res.render('choose_word');          
 });
 
 
@@ -148,7 +150,7 @@ app.post('/submit-word', (req, res) => {
     }
 
     req.session.mood = mood; // Save mood in session
-    res.redirect('???');     // Redirect to mood summary page
+    res.render('mood_summary', {mood : req.session.mood});     // Redirect to mood summary page
 });
 
 app.listen(port, () => {
