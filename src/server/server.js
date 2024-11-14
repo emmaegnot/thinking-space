@@ -121,7 +121,9 @@ app.get('/choose_shape', (req,res) => {
 
 app.post('/submit-shape', (req,res) => {
     req.session.shape = req.body.shape
-    res.redirect('/choose_colour');
+    var filePath = "images/"
+    filePath = filePath.concat(req.session.shape, ".png")
+    res.render('choose_colour',{shape: req.session.shape, filepath: filePath});
 })
 
 app.post('/submit-colour', (req, res) => {
