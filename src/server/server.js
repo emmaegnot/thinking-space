@@ -25,35 +25,46 @@ const colours = {
     black: ['scared', 'isolated']
 }
 const words = {
+    Angry: ['angry', 'concerned', 'confused', 'irritated'],
+    Disgusted: ['irritated'],
+    Fearful: ['scared', 'confused'],
+    Happy: ['happy', 'excited', 'dreamy'],
+    Sad: ['sad', 'concerned'],
+    Surprise: ['concerned', 'exited', 'confused', 'happy'],
 
 }
 // Find shared associations among word, shape and colour
 function getSharedWords(shape, colour, word) {
+    // Fetch words associated with the shape, colour, and word
     const shapeWords = shapes[shape] || [];
     const colourWords = colours[colour] || [];
     const wordWords = words[word] || [];
 
-    // Combine all associations into a single array
+    // Create an array combining all words
     const combinedWords = [...shapeWords, ...colourWords, ...wordWords];
 
-    // Create a frequency map for the associations
+    // Create a frequency map for the words
     const wordCount = {};
-    combinedWords.forEach(word => {
-        if (word) {
-            wordCount[word] = (wordCount[word] || 0) + 1;
+    combinedWords.forEach(w => {
+        if (w) {
+            wordCount[w] = (wordCount[w] || 0) + 1;
         }
     });
 
-    // Check if all counts are 1
-    const allCountsAreOne = Object.values(wordCount).every(count => count === 1);
-    if (allCountsAreOne) {
-        return []; // Return an empty array if all counts are 1 since no common associations
+    // Filter for common words that appear in at least two categories
+    const commonWords = Object.keys(wordCount).filter(word => wordCount[word] > 1);
+
+    // If no common words are found, return "indecisive"
+    if (commonWords.length === 0) {
+        return ['indecisive'];
     }
 
-    // Find the maximum count and the associated associations
+    // Find the most frequent words from the common words
     let maxCount = 0;
     const mostFrequentWords = [];
-    for (const [word, count] of Object.entries(wordCount)) {
+
+    commonWords.forEach(word => {
+        const count = wordCount[word];
         if (count > maxCount) {
             maxCount = count;
             mostFrequentWords.length = 0; // Clear the array
@@ -61,10 +72,12 @@ function getSharedWords(shape, colour, word) {
         } else if (count === maxCount) {
             mostFrequentWords.push(word);
         }
-    }
+    });
 
-    return mostFrequentWords; // Return the most frequent associations
+    // Return the most frequent shared words
+    return mostFrequentWords;
 }
+
 
 
 app.set('view engine','ejs');
@@ -122,35 +135,41 @@ app.get('/choose_shape', (req,res) => {
 app.post('/submit-shape', (req,res) => {
     req.session.shape = req.body.shape
     var filePath = "images/"
-    filePath = filePath.concat(req.session.shape, ".png")
-    res.render('choose_colour',{shape: req.session.shape, filepath: filePath});
+    req.session.filePath = filePath.concat(req.session.shape, ".png")
+    res.redirect('/choose_colour');
 })
+app.get('/choose_colour', (req,res) => {
+    res.render('choose_colour', {filepath: req.session.filePath});
+});
 
 app.post('/submit-colour', (req, res) => {
     req.session.colour = req.body.colour;  
-    res.render('choose_word');          
+    res.redirect('/choose_word');          
 });
 
+app.get('/choose_word', (req,res) => {
+    res.render('choose_word');
+});
 
 app.post('/submit-word', (req, res) => {
-    req.session.word = req.body.word
+    req.session.word = req.body.selectedEmotion;
+     // Save mood in session
+    res.redirect('/mood_summary');     // Redirect to mood summary page
+});
+
+app.get('/mood_summary', (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
     const word = req.session.word;
-
+    console.log(word)
     const potentialMoods = getSharedWords(shape, colour, word)
     //Gets associations between all of the choicees
     let mood;
-    if (potentialMoods.length === 0) {
-        mood = 'indecisive'; // We will have to think about this one
-    }
-    else{
-        const randomIndex = Math.floor(Math.random() * potentialMoods.length)
-        mood = potentialMoods[randomIndex]
-    }
+    const randomIndex = Math.floor(Math.random() * potentialMoods.length)
+    mood = potentialMoods[randomIndex]
 
-    req.session.mood = mood; // Save mood in session
-    res.render('mood_summary', {mood : req.session.mood});     // Redirect to mood summary page
+    req.session.mood = mood;
+    res.render('mood_summary', {mood: req.session.mood});
 });
 
 app.listen(port, () => {
