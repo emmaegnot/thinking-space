@@ -12,18 +12,9 @@ body:
     id: what-feature
     attributes:
       label: What feature are you adding?
-      description: Describe the feature you are adding or enhancing.
-      placeholder: Describe the feature you are adding.
-      value: "This feature is..."
-    validations:
-      required: true
-  - type: textarea
-    id: why-feature
-    attributes:
-      label: Why are you adding this feature?
-      description: Describe why you are adding this feature.
-      placeholder: Describe why you are adding this feature.
-      value: "Because this feature..."
+      description: Describe the feature you are adding or enhancing and why you are adding it.
+      placeholder: Describe the feature you are adding and why.
+      value: "This feature... "
     validations:
       required: true
   - type: textarea
@@ -32,16 +23,16 @@ body:
       label: What are the requirements for this feature?
       description: Describe the requirements for this feature.
       placeholder: Describe the requirements for this feature.
-      value: "Some requirements are..."
+      value: "Some requirements: "
     validations:
       required: true
   - type: textarea
     id: feature-implementation
     attributes:
-      label: What does this feature need to be implemented?
+      label: What are the dependencies of this feature?
       description: Describe what is needed to implement this feature. Do you need to add new code, update existing code, add new tests, add or update backend services etc.?
-      placeholder: Describe what is needed to implement this feature.
-      value: "This feature needs..."
+      placeholder: Describe what the dependencies are for this feature.
+      value: "This feature needs:"
     validations:
       required: false
   
@@ -52,6 +43,7 @@ body:
       options:
         - Frontend
         - Backend
+        - general
     
   - type: dropdown
     id: feature-priority
