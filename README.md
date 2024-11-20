@@ -1,8 +1,16 @@
 # 2024-ThinkingSpace
+[Overview](#overview) <br>
+[Technology Stack](#technology-stack)<br>
+[Stakeholders](#stakeholders)<br>
+[User Stories](#user-stories)<br>
+[Team Members](#team-members)<br>
+[Architecture Diagram](#architecture-diagram)<br>
+[User Instructions](#user-instructions)<br>
+[Developer Intstructions](#developer-instructions)<br>
 
-## Gantt Chart
+## [Gantt Chart](https://uob-my.sharepoint.com/:x:/r/personal/xq23942_bristol_ac_uk/Documents/simple-gantt-chart_ms.xlsx?d=w8333c54edce74b24b194947af8785172&csf=1&web=1&e=Zb0YiD)
 
-https://uob-my.sharepoint.com/:x:/r/personal/xq23942_bristol_ac_uk/Documents/simple-gantt-chart_ms.xlsx?d=w8333c54edce74b24b194947af8785172&csf=1&web=1&e=Zb0YiD
+## [Kanban](https://github.com/orgs/spe-uob/projects/235)
 
 ## Overview
 
@@ -10,7 +18,10 @@ This website aims to tackle behavioural problems in children by providing them w
 
 ## Technology Stack
 
-This has yet to be decided - hopefully we have more of an idea following our lecture on 4/10
+- **Languages:** JavaScript, HTML, CSS, EJS to allow for dynamic pages
+- **Back End:** Node.js, using express.js as the framework
+- **Database:** MongoDB, using mongoose as an asynchronous javascript object modeling tool
+- **Targeted Platform:** Browser
 
 ## Stakeholders
 - Raymer Enterprise Ltd
@@ -52,6 +63,7 @@ This has yet to be decided - hopefully we have more of an idea following our lec
 
 ## Architecture diagram
 
+![project_arc_diagram drawio](https://github.com/user-attachments/assets/d15279f2-7546-464c-a4fb-e8187c439b09)
 
 ## User instructions
 
