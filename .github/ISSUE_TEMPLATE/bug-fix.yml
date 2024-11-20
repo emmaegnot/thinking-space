@@ -1,0 +1,44 @@
+name: New Bug Fix Issue
+description: Describe the bug and how you will fix it
+title: "[Feature]: "
+labels: ["Type: Bug Fix"]
+projects: ["2024-ThinkingSpace"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the following information to allow the team to understand what needs fixing.
+  - type: textarea
+    id: what-bug
+    attributes:
+      label: What bug needs fixing?
+      description: Describe the bug which is causing problems.
+      value: "The issue is: "
+    validations:
+      required: true
+  - type: textarea
+    id: bug-fix-ideas
+    attributes:
+      label: How should this bug be fixed?
+      description: Describe an overview of how to fix it
+      value: "To fix it, we should: "
+    validations:
+      required: false
+  
+  - type: dropdown
+    id: bug-type
+    attributes:
+      label: What part of the code does this feature work on
+      options:
+        - Frontend
+        - Backend
+        - general
+    
+  - type: dropdown
+    id: bug-priority
+    attributes:
+      label: What is the priority of this bug?
+      options:
+        - Low
+        - Medium
+        - High
