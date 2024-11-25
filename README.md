@@ -66,6 +66,6 @@ This website aims to tackle behavioural problems in children by providing them w
 ![project_arc_diagram drawio](https://github.com/user-attachments/assets/d15279f2-7546-464c-a4fb-e8187c439b09)
 
 ## User instructions
-
+To host and view the website locally, navigate to the server folder in src, then in the terminal, run ```node server.js ```. On your browser, enter the url http://localhost:3000/ and the website will appear.
 
 ## Developer instructions
