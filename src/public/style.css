@@ -258,3 +258,31 @@ a:hover {
     margin: -20px 0px 20px 0px;
     width: fit-content;
 }
+
+.word-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.selected-words {
+    width: 20%;
+    text-align: center;
+}
+
+.left-words, .right-words {
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.word-selection {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.word-item{
+    font-size: 1.5em;
+}
