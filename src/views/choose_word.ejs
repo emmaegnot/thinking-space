@@ -118,7 +118,7 @@
   </nav>
 
   <div class="container mouseM">
-    <form action="submit-word" method="post">
+    <form id="wordForm" method="post">
       <h1 class="colouredText">Choose a word!</h1>
 
       <input type="hidden" id="selectedEmotion" name="selectedEmotion" value="">
@@ -145,7 +145,8 @@
       </div>
 
       <div class="button-div" align="center">
-        <button type="submit">NEXT</button>
+        <button type="previous" id="backButton">BACK</button>
+          <button type="submit" id="nextButton">NEXT</button>
       </div>
     </form>
   </div>
@@ -163,6 +164,17 @@
 
       document.getElementById('selectedEmotion').value = button.value;
     }
+    document.getElementById('backButton').addEventListener('click', function() {
+      const form = document.getElementById('wordForm');
+      form.action = '/previous-word';
+      form.submit();
+    });
+
+    document.getElementById('nextButton').addEventListener('click', function() {
+      const form = document.getElementById('wordForm');
+      form.action = '/next-word';
+      form.submit();
+    });
   </script>
 </body>
 </html>

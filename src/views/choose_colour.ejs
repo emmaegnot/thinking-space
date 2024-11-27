@@ -15,7 +15,7 @@
 
     <div class="container mouseM">
         
-      <form action="submit-colour" method="post">
+      <form id="colourForm" method="post">
         <h1 class="colouredText">Choose a colour!</h1>
         <div class="colour-container">
           <div align="center">
@@ -31,7 +31,8 @@
           
           <!-- Submit button -->
           <div align="center">
-            <button type="submit">NEXT</button>
+            <button type="previous" id="backButton">BACK</button>
+            <button type="submit" id="nextButton">NEXT</button>
           </div>
         </form>
     </div>
@@ -47,6 +48,17 @@
   const image = document.querySelector(".chosen-shape");
   colourPicker.addEventListener("input", function() {
       image.style.backgroundColor = colourPicker.value;
+  });
+  document.getElementById('backButton').addEventListener('click', function() {
+      const form = document.getElementById('colourForm');
+      form.action = '/previous-colour';
+      form.submit();
+  });
+
+  document.getElementById('nextButton').addEventListener('click', function() {
+      const form = document.getElementById('colourForm');
+      form.action = '/next-colour';
+      form.submit();
   });
 </script>
 </html>
