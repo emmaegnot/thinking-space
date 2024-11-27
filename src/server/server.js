@@ -78,22 +78,43 @@ function getSharedWords(shape, colour, word) {
     return mostFrequentWords;
 }
 
-function generaliseColour(colour){
-    //  colour is in form "#rrggbb" - array of length 7
-    // get decimal value of each rgb
+function colourToDec(colour){
     hexIndicate = "0x"
-    // red - take index 1,2 and concatenate to 0x
     red = hexIndicate.concat(colour.substring(1,3))
     red = Number(red)
     console.log(red)
-    // green - take index 3,4 and concatenate to 0x
     green = hexIndicate.concat(colour.substring(3,5))
     green = Number(green)
     console.log(green)
-    // blue - take index 5,6 and concatenate to 0x
     blue = hexIndicate.concat(colour.substring(5,7))
     blue = Number(blue)
     console.log(blue)
+    return [red,green,blue]
+}
+
+function generaliseColour(colour){
+    //  colour is in form "#rrggbb" - array of length 7
+    // get decimal value of each rgb
+    decRGB = colourToDec(colour)
+    // define RGB values for the colour set {red, orange, blue, green, yellow, pink, purple, black, white}
+    // colours map {red:[r,g,b,dist], orange: [r,g,b, dist]
+    const definedColours = new Map();
+    definedColours.set("red", [255,0,0])
+    definedColours.set("orange", [255,165,0])
+    definedColours.set("blue ", [0,0,255])
+    definedColours.set("green", [0,255,0])
+    definedColours.set("yellow", [255,255,0])
+    definedColours.set("pink", [255,192,203])
+    definedColours.set("purple", [128,0,128])
+    definedColours.set("black", [0,0,0])
+    definedColours.set("white", [255,255,255])
+    minDistance = 10000
+    // for each colour, find the euclidean distance between the input rgb colour and the predefined colour
+    
+    // get the array out
+    // work with it
+    //keep track of minimum distance
+    // the closest colour is the one with the minimum euclidean distance
 }
 
 
