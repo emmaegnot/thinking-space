@@ -175,7 +175,7 @@ app.post('/submit-colour', (req, res) => {
     req.session.colour = req.body.colour;
     console.log(req.session.colour)
     res.redirect('/choose_word'); 
-    generaliseColour(req.session.colour) //not sure if this is in the right place         
+    req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place         
 });
 
 app.get('/choose_word', (req,res) => {
