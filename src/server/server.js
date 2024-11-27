@@ -109,13 +109,13 @@ app.get('/', (req,res) => {
             </script>
         `);
     } else {
-        res.render('index');
+        res.render('index', {title: "Home"});
     }
 
 });
 
 app.get('/choose_shape', (req,res) => {
-    res.render('choose_shape');
+    res.render('choose_shape', {title: "Choose A Shape"});
 });
 
 //PLACEHOLDER - Allows for testing of additional_words, must comment out lines 14-16
@@ -129,7 +129,7 @@ app.get('/choose_shape', (req,res) => {
 //     // The words should be computed by server, then sent to a request like this (ideally)
 //     // I.e. in this case the original word picked was angry
 //     wordList = ['Irritated', 'Resentful', 'Miffed', 'Upset', 'Mad', 'Furious', 'Raging', 'Hot']
-//     res.render('additional_words', {filepath: "images/star.png", colour, wordList});
+//     res.render('additional_words', {filepath: "images/star.png", colour, wordList, title: "Additional words"});
 // });
 
 app.post('/submit-shape', (req,res) => {
@@ -139,7 +139,7 @@ app.post('/submit-shape', (req,res) => {
     res.redirect('/choose_colour');
 })
 app.get('/choose_colour', (req,res) => {
-    res.render('choose_colour', {filepath: req.session.filePath});
+    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour"});
 });
 
 app.post('/submit-colour', (req, res) => {
@@ -148,7 +148,7 @@ app.post('/submit-colour', (req, res) => {
 });
 
 app.get('/choose_word', (req,res) => {
-    res.render('choose_word');
+    res.render('choose_word', {title: "Choose A Word"});
 });
 
 app.post('/submit-word', (req, res) => {
@@ -169,7 +169,7 @@ app.get('/mood_summary', (req,res) => {
     mood = potentialMoods[randomIndex]
 
     req.session.mood = mood;
-    res.render('mood_summary', {mood: req.session.mood});
+    res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
 });
 
 app.listen(port, () => {
