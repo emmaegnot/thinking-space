@@ -78,6 +78,24 @@ function getSharedWords(shape, colour, word) {
     return mostFrequentWords;
 }
 
+function generaliseColour(colour){
+    //  colour is in form "#rrggbb" - array of length 7
+    // get decimal value of each rgb
+    hexIndicate = "0x"
+    // red - take index 1,2 and concatenate to 0x
+    red = hexIndicate.concat(colour.substring(1,3))
+    red = Number(red)
+    console.log(red)
+    // green - take index 3,4 and concatenate to 0x
+    green = hexIndicate.concat(colour.substring(3,5))
+    green = Number(green)
+    console.log(green)
+    // blue - take index 5,6 and concatenate to 0x
+    blue = hexIndicate.concat(colour.substring(5,7))
+    blue = Number(blue)
+    console.log(blue)
+}
+
 
 
 app.set('view engine','ejs');
@@ -118,20 +136,6 @@ app.get('/choose_shape', (req,res) => {
     res.render('choose_shape');
 });
 
-//PLACEHOLDER - Allows for testing of additional_words, must comment out lines 14-16
-// app.get('/', (req,res) => {
-//// Testing variables for now, server will do this in the future
-//     const colour = {
-//         r: 255,
-//         g: 0,
-//         b: 0,
-//     }
-//     // The words should be computed by server, then sent to a request like this (ideally)
-//     // I.e. in this case the original word picked was angry
-//     wordList = ['Irritated', 'Resentful', 'Miffed', 'Upset', 'Mad', 'Furious', 'Raging', 'Hot']
-//     res.render('additional_words', {filepath: "images/star.png", colour, wordList});
-// });
-
 app.post('/submit-shape', (req,res) => {
     req.session.shape = req.body.shape
     var filePath = "images/"
@@ -143,8 +147,10 @@ app.get('/choose_colour', (req,res) => {
 });
 
 app.post('/submit-colour', (req, res) => {
-    req.session.colour = req.body.colour;  
-    res.redirect('/choose_word');          
+    req.session.colour = req.body.colour;
+    console.log(req.session.colour)
+    res.redirect('/choose_word'); 
+    generaliseColour(req.session.colour) //not sure if this is in the right place         
 });
 
 app.get('/choose_word', (req,res) => {
