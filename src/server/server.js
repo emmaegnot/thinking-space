@@ -82,13 +82,10 @@ function colourToDec(colour){
     hexIndicate = "0x"
     red = hexIndicate.concat(colour.substring(1,3))
     red = Number(red)
-    console.log(red)
     green = hexIndicate.concat(colour.substring(3,5))
     green = Number(green)
-    console.log(green)
     blue = hexIndicate.concat(colour.substring(5,7))
     blue = Number(blue)
-    console.log(blue)
     return [red,green,blue]
 }
 
@@ -109,12 +106,19 @@ function generaliseColour(colour){
     definedColours.set("black", [0,0,0])
     definedColours.set("white", [255,255,255])
     minDistance = 10000
+    closestColour = "none";
     // for each colour, find the euclidean distance between the input rgb colour and the predefined colour
-    
-    // get the array out
-    // work with it
-    //keep track of minimum distance
-    // the closest colour is the one with the minimum euclidean distance
+    definedColours.forEach(function(value,key){
+        redLength = (decRGB[0] - value[0]) * (decRGB[0] - value[0])
+        greenLength = (decRGB[1] - value[1]) * (decRGB[1] - value[1])
+        blueLength = (decRGB[2] - value[2]) * (decRGB[2] - value[2])
+        distance = Math.sqrt(redLength + greenLength + blueLength)
+        if (distance < minDistance){
+            minDistance = distance
+            closestColour = key
+        }
+    })
+    console.log(closestColour)
 }
 
 
