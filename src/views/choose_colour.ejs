@@ -1,6 +1,8 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
   <script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
@@ -14,7 +16,6 @@
     </nav>
 
     <div class="container mouseM">
-        
       <form action="submit-colour" method="post">
         <h1 class="colouredText">Choose a colour!</h1>
         <div class="colour-container">
@@ -22,20 +23,15 @@
             <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape">
           </div>
           <div align="center">
-            <label>
-              <i class="fa-solid fa-palette palette"></i>
-              <input class="colourPicker" type="color" name="colour" value="#f6b73c">
-            </label>
+            <div id="color-picker"></div>
           </div>
         </div>
-          
-          <!-- Submit button -->
-          <div align="center">
-            <button type="submit">NEXT</button>
-          </div>
-        </form>
+        <!-- Submit button -->
+        <div align="center">
+          <button type="submit">NEXT</button>
+        </div>
+      </form>
     </div>
-
     <!-- Footer with logo and motto aligned to left and right -->
     <footer class="footer">
       <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
@@ -43,10 +39,30 @@
     </footer>
  </body>
  <script>
-  const colourPicker = document.querySelector(".colourPicker");
-  const image = document.querySelector(".chosen-shape");
-  colourPicker.addEventListener("input", function() {
-      image.style.backgroundColor = colourPicker.value;
+  const pickr = Pickr.create({
+    el: '#color-picker',
+    theme: 'classic',
+    default: '#f6b73c',
+
+    components: {
+      preview: true,
+      opacity: true,
+      hue: true,
+
+      interaction: {
+        hex: true,
+        rgba: true,
+        input: true,
+        save: true
+      }
+    }
+  });
+
+  // Update the chosen shape's background color on color change
+  const image = document.querySelector('.chosen-shape');
+  pickr.on('change', (color) => {
+    const rgbaColor = color.toRGBA().toString();
+    image.style.backgroundColor = rgbaColor;
   });
 </script>
 </html>
