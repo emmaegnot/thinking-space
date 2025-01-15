@@ -78,6 +78,49 @@ function getSharedWords(shape, colour, word) {
     return mostFrequentWords;
 }
 
+function colourToDec(colour){
+    hexIndicate = "0x"
+    red = hexIndicate.concat(colour.substring(1,3))
+    red = Number(red)
+    green = hexIndicate.concat(colour.substring(3,5))
+    green = Number(green)
+    blue = hexIndicate.concat(colour.substring(5,7))
+    blue = Number(blue)
+    return [red,green,blue]
+}
+
+function generaliseColour(colour){
+    //  colour is in form "#rrggbb" - array of length 7
+    // get decimal value of each rgb
+    decRGB = colourToDec(colour)
+    // define RGB values for the colour set {red, orange, blue, green, yellow, pink, purple, black, white}
+    // colours map {red:[r,g,b,dist], orange: [r,g,b, dist]
+    const definedColours = new Map();
+    definedColours.set("red", [255,0,0])
+    definedColours.set("orange", [255,165,0])
+    definedColours.set("blue ", [0,0,255])
+    definedColours.set("green", [0,255,0])
+    definedColours.set("yellow", [255,255,0])
+    definedColours.set("pink", [255,192,203])
+    definedColours.set("purple", [128,0,128])
+    definedColours.set("black", [0,0,0])
+    definedColours.set("white", [255,255,255])
+    minDistance = 10000
+    closestColour = "none";
+    // for each colour, find the euclidean distance between the input rgb colour and the predefined colour
+    definedColours.forEach(function(value,key){
+        redLength = (decRGB[0] - value[0]) * (decRGB[0] - value[0])
+        greenLength = (decRGB[1] - value[1]) * (decRGB[1] - value[1])
+        blueLength = (decRGB[2] - value[2]) * (decRGB[2] - value[2])
+        distance = Math.sqrt(redLength + greenLength + blueLength)
+        if (distance < minDistance){
+            minDistance = distance
+            closestColour = key
+        }
+    })
+    console.log(closestColour)
+}
+
 
 
 app.set('view engine','ejs');
@@ -118,20 +161,6 @@ app.get('/choose_shape', (req,res) => {
     res.render('choose_shape');
 });
 
-//PLACEHOLDER - Allows for testing of additional_words, must comment out lines 14-16
-// app.get('/', (req,res) => {
-//// Testing variables for now, server will do this in the future
-//     const colour = {
-//         r: 255,
-//         g: 0,
-//         b: 0,
-//     }
-//     // The words should be computed by server, then sent to a request like this (ideally)
-//     // I.e. in this case the original word picked was angry
-//     wordList = ['Irritated', 'Resentful', 'Miffed', 'Upset', 'Mad', 'Furious', 'Raging', 'Hot']
-//     res.render('additional_words', {filepath: "images/star.png", colour, wordList});
-// });
-
 app.post('/submit-shape', (req,res) => {
     req.session.shape = req.body.shape
     var filePath = "images/"
@@ -143,8 +172,10 @@ app.get('/choose_colour', (req,res) => {
 });
 
 app.post('/submit-colour', (req, res) => {
-    req.session.colour = req.body.colour;  
-    res.redirect('/choose_word');          
+    req.session.colour = req.body.colour;
+    console.log(req.session.colour)
+    res.redirect('/choose_word'); 
+    req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place         
 });
 
 app.get('/choose_word', (req,res) => {
