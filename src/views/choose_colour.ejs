@@ -17,6 +17,7 @@
 
     <div class="container mouseM">      
       <form id="colourForm" method="post">
+        <input type="hidden" id="colourInput" name="colour" value="#f6b73c">
         <h1 class="colouredText">Choose a colour!</h1>
         <div class="colour-container">
           <div align="center">
@@ -76,5 +77,12 @@
       form.action = '/next-colour';
       form.submit();
   });
+
+  pickr.on('change', (color) => {
+    const rgbaColor = color.toRGBA().toString();
+    image.style.backgroundColor = rgbaColor;
+    document.getElementById('colourInput').value = rgbaColor;
+});
+
 </script>
 </html>
