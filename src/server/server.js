@@ -19,6 +19,7 @@ const shapes = {
 };
 const colours = {
     red: ['angry', 'scared'],
+    orange: ['comfortable'],
     green: ['calm'],
     yellow: ['happy'],
     blue: ['dreamy'],
@@ -118,7 +119,7 @@ function generaliseColour(colour){
             closestColour = key
         }
     })
-    console.log(closestColour)
+    return closestColour
 }
 
 
@@ -182,11 +183,9 @@ app.post('/previous-colour', (req,res) => {
 
 app.post('/next-colour', (req, res) => {
     req.session.colour = req.body.colour;
-    console.log(req.session.colour)
     req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
-    console.log(req.session.colour)
     res.redirect('/choose_word'); 
-             
+    
 });
 
 app.get('/choose_word', (req,res) => {
