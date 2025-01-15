@@ -1,8 +1,13 @@
 {
+  "name": "my-node-app",
+  "version": "1.0.0",
   "dependencies": {
     "cookie-parser": "^1.4.7",
     "ejs": "^3.1.10",
     "express": "^4.21.1",
     "express-session": "^1.18.1"
+  },
+  "scripts": {
+    "start": "node server/server.js"
   }
 }
