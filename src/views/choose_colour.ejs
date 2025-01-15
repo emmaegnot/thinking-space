@@ -15,8 +15,8 @@
       </ul>
     </nav>
 
-    <div class="container mouseM">
-      <form action="submit-colour" method="post">
+    <div class="container mouseM">      
+      <form id="colourForm" method="post">
         <h1 class="colouredText">Choose a colour!</h1>
         <div class="colour-container">
           <div align="center">
@@ -26,11 +26,12 @@
             <div id="color-picker"></div>
           </div>
         </div>
-        <!-- Submit button -->
-        <div align="center">
-          <button type="submit">NEXT</button>
-        </div>
-      </form>
+          <!-- Submit button -->
+          <div align="center">
+            <button type="previous" id="backButton">BACK</button>
+            <button type="submit" id="nextButton">NEXT</button>
+          </div>
+        </form>
     </div>
     <!-- Footer with logo and motto aligned to left and right -->
     <footer class="footer">
@@ -63,6 +64,17 @@
   pickr.on('change', (color) => {
     const rgbaColor = color.toRGBA().toString();
     image.style.backgroundColor = rgbaColor;
+  });
+  document.getElementById('backButton').addEventListener('click', function() {
+      const form = document.getElementById('colourForm');
+      form.action = '/previous-colour';
+      form.submit();
+  });
+
+  document.getElementById('nextButton').addEventListener('click', function() {
+      const form = document.getElementById('colourForm');
+      form.action = '/next-colour';
+      form.submit();
   });
 </script>
 </html>

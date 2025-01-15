@@ -19,6 +19,7 @@ const shapes = {
 };
 const colours = {
     red: ['angry', 'scared'],
+    orange: ['comfortable'],
     green: ['calm'],
     yellow: ['happy'],
     blue: ['dreamy'],
@@ -118,7 +119,7 @@ function generaliseColour(colour){
             closestColour = key
         }
     })
-    console.log(closestColour)
+    return closestColour
 }
 
 
@@ -161,7 +162,12 @@ app.get('/choose_shape', (req,res) => {
     res.render('choose_shape');
 });
 
-app.post('/submit-shape', (req,res) => {
+
+app.post('/previous-shape', (req,res) => {
+    res.redirect('/');
+})
+
+app.post('/next-shape', (req,res) => {
     req.session.shape = req.body.shape
     var filePath = "images/"
     req.session.filePath = filePath.concat(req.session.shape, ".png")
@@ -171,18 +177,26 @@ app.get('/choose_colour', (req,res) => {
     res.render('choose_colour', {filepath: req.session.filePath});
 });
 
-app.post('/submit-colour', (req, res) => {
+app.post('/previous-colour', (req,res) => {
+    res.redirect('/choose_shape');
+})
+
+app.post('/next-colour', (req, res) => {
     req.session.colour = req.body.colour;
-    console.log(req.session.colour)
+    req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
     res.redirect('/choose_word'); 
-    req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place         
+    
 });
 
 app.get('/choose_word', (req,res) => {
     res.render('choose_word');
 });
 
-app.post('/submit-word', (req, res) => {
+app.post('/previous-word', (req,res) => {
+    res.redirect('/choose_colour');
+})
+
+app.post('/next-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
      // Save mood in session
     res.redirect('/mood_summary');     // Redirect to mood summary page
@@ -192,6 +206,8 @@ app.get('/mood_summary', (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
     const word = req.session.word;
+    console.log(shape)
+    console.log(colour)
     console.log(word)
     const potentialMoods = getSharedWords(shape, colour, word)
     //Gets associations between all of the choicees
