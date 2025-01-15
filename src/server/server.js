@@ -219,8 +219,8 @@ app.get('/mood_summary', (req,res) => {
     res.render('mood_summary', {mood: req.session.mood});
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-module.exports = generaliseColour;
+module.exports = {generaliseColour, server};
