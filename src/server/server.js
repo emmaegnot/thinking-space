@@ -99,7 +99,7 @@ function generaliseColour(colour){
     const definedColours = new Map();
     definedColours.set("red", [255,0,0])
     definedColours.set("orange", [255,165,0])
-    definedColours.set("blue ", [0,0,255])
+    definedColours.set("blue", [0,0,255])
     definedColours.set("green", [0,255,0])
     definedColours.set("yellow", [255,255,0])
     definedColours.set("pink", [255,192,203])
@@ -222,3 +222,5 @@ app.get('/mood_summary', (req,res) => {
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
+module.exports = generaliseColour;

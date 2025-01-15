@@ -45,7 +45,3 @@ jobs:
     - name: Build the project
       run: npm run build --if-present
       working-directory: ./src/server
-
-   # - name: Run tests
-   #   run: npm test
-   #   working-directory: ./src/server
