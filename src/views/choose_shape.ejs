@@ -8,7 +8,7 @@
       </ul>
     </nav>
     <div class="container mouseM">
-      <form action="submit-shape" method="post">
+      <form id="shapeForm" method="post">
         <h1 class="colouredText">Choose a shape!</h1>
         <div class="shape-container">
           <div class="shape-item">
@@ -61,7 +61,8 @@
           </div>
         </div>
         <div class="button-div" align="center">
-          <button type="submit">NEXT</button>
+          <button type="previous" id="backButton">BACK</button>
+          <button type="submit" id="nextButton">NEXT</button>
         </div>
       </form>
     </div>
@@ -69,5 +70,18 @@
       <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
       <span class="motto mouseM">With emotional health in mind</span>
     </footer>
+    <script>
+      document.getElementById('backButton').addEventListener('click', function() {
+      const form = document.getElementById('shapeForm');
+      form.action = '/previous-shape';
+      form.submit();
+    });
+
+    document.getElementById('nextButton').addEventListener('click', function() {
+      const form = document.getElementById('shapeForm');
+      form.action = '/next-shape';
+      form.submit();
+    });
+    </script>
  </body>
 </html>

@@ -19,6 +19,7 @@ const shapes = {
 };
 const colours = {
     red: ['angry', 'scared'],
+    orange: ['comfortable'],
     green: ['calm'],
     yellow: ['happy'],
     blue: ['dreamy'],
@@ -78,6 +79,49 @@ function getSharedWords(shape, colour, word) {
     return mostFrequentWords;
 }
 
+function colourToDec(colour){
+    hexIndicate = "0x"
+    red = hexIndicate.concat(colour.substring(1,3))
+    red = Number(red)
+    green = hexIndicate.concat(colour.substring(3,5))
+    green = Number(green)
+    blue = hexIndicate.concat(colour.substring(5,7))
+    blue = Number(blue)
+    return [red,green,blue]
+}
+
+function generaliseColour(colour){
+    //  colour is in form "#rrggbb" - array of length 7
+    // get decimal value of each rgb
+    decRGB = colourToDec(colour)
+    // define RGB values for the colour set {red, orange, blue, green, yellow, pink, purple, black, white}
+    // colours map {red:[r,g,b,dist], orange: [r,g,b, dist]
+    const definedColours = new Map();
+    definedColours.set("red", [255,0,0])
+    definedColours.set("orange", [255,165,0])
+    definedColours.set("blue ", [0,0,255])
+    definedColours.set("green", [0,255,0])
+    definedColours.set("yellow", [255,255,0])
+    definedColours.set("pink", [255,192,203])
+    definedColours.set("purple", [128,0,128])
+    definedColours.set("black", [0,0,0])
+    definedColours.set("white", [255,255,255])
+    minDistance = 10000
+    closestColour = "none";
+    // for each colour, find the euclidean distance between the input rgb colour and the predefined colour
+    definedColours.forEach(function(value,key){
+        redLength = (decRGB[0] - value[0]) * (decRGB[0] - value[0])
+        greenLength = (decRGB[1] - value[1]) * (decRGB[1] - value[1])
+        blueLength = (decRGB[2] - value[2]) * (decRGB[2] - value[2])
+        distance = Math.sqrt(redLength + greenLength + blueLength)
+        if (distance < minDistance){
+            minDistance = distance
+            closestColour = key
+        }
+    })
+    return closestColour
+}
+
 
 
 app.set('view engine','ejs');
@@ -132,7 +176,11 @@ app.get('/choose_shape', (req,res) => {
 //     res.render('additional_words', {filepath: "images/star.png", colour, wordList, title: "Additional words"});
 // });
 
-app.post('/submit-shape', (req,res) => {
+app.post('/previous-shape', (req,res) => {
+    res.redirect('/');
+})
+
+app.post('/next-shape', (req,res) => {
     req.session.shape = req.body.shape
     var filePath = "images/"
     req.session.filePath = filePath.concat(req.session.shape, ".png")
@@ -142,16 +190,26 @@ app.get('/choose_colour', (req,res) => {
     res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour"});
 });
 
-app.post('/submit-colour', (req, res) => {
-    req.session.colour = req.body.colour;  
-    res.redirect('/choose_word');          
+app.post('/previous-colour', (req,res) => {
+    res.redirect('/choose_shape');
+})
+
+app.post('/next-colour', (req, res) => {
+    req.session.colour = req.body.colour;
+    req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
+    res.redirect('/choose_word'); 
+    
 });
 
 app.get('/choose_word', (req,res) => {
     res.render('choose_word', {title: "Choose A Word"});
 });
 
-app.post('/submit-word', (req, res) => {
+app.post('/previous-word', (req,res) => {
+    res.redirect('/choose_colour');
+})
+
+app.post('/next-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
      // Save mood in session
     res.redirect('/mood_summary');     // Redirect to mood summary page
@@ -161,6 +219,8 @@ app.get('/mood_summary', (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
     const word = req.session.word;
+    console.log(shape)
+    console.log(colour)
     console.log(word)
     const potentialMoods = getSharedWords(shape, colour, word)
     //Gets associations between all of the choicees
