@@ -1,1 +1,87 @@
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
+  <script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+    <nav class="mouseM">
+      <ul class="header">
+        <li><a>THE THINKING SPACE</a></li>
+        <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
+      </ul>
+    </nav>
 
+ <div class="container mouseM">      
+      <h1>Weighing Things Up</h1>
+      <table width="100%" border="1">
+        <tr>
+          <td width="50%"><h2>Feeling &quot;Snappy&quot;? </h2></td>
+          <td width="50%">&nbsp;</td>
+        </tr>
+        <tr>
+          <td>How you are feeling or thinking is what we need to work on together. If you only think about things you are unhappy with it makes it harder to get out of that bad mood. </td>
+          <td>We need to &quot;weigh&quot; the good and not just the bad if we want to start feeling better again... </td>
+        </tr>
+      </table>
+	  <table border="0" width="100%">
+	  <tr>
+	  <td width="50%">Good</td>
+	  <td width="50%">Bad</td>
+	  </tr>
+	  <tr>
+	    <td><textarea rows="5" cols="50"></textarea></td>
+	    <td><textarea rows="5" cols="50"></textarea></td>
+	    </tr>
+	  </table>
+	  <div align="center"><progress style="width:40%" max="100" value="50"></progress></div>
+	  <div align="center"><button type="submit">Next</button></div>
+ </div>
+    <!-- Footer with logo and motto aligned to left and right -->
+    <footer class="footer">
+      <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
+      <span class="motto mouseM">With emotional health in mind</span>
+    </footer>
+ </body>
+ <script>
+  const pickr = Pickr.create({
+    el: '#color-picker',
+    theme: 'classic',
+    default: '#f6b73c',
+
+    components: {
+      preview: true,
+      opacity: false,
+      hue: true,
+
+      interaction: {
+        hex: true,
+        rgba: false,
+        input: false,
+        save: false
+      }
+    }
+  });
+
+  // Update the chosen shape's background color on color change
+  const image = document.querySelector('.chosen-shape');
+  pickr.on('change', (color) => {
+    const rgbaColor = color.toRGBA().toString();
+    image.style.backgroundColor = rgbaColor;
+  });
+  document.getElementById('backButton').addEventListener('click', function() {
+      const form = document.getElementById('colourForm');
+      form.action = '/previous-colour';
+      form.submit();
+  });
+
+  document.getElementById('nextButton').addEventListener('click', function() {
+      const form = document.getElementById('colourForm');
+      form.action = '/next-colour';
+      form.submit();
+  });
+</script>
+</html>
