@@ -63,8 +63,11 @@
   // Update the chosen shape's background color on color change
   const image = document.querySelector('.chosen-shape');
   pickr.on('change', (color) => {
-    const rgbaColor = color.toRGBA().toString();
-    image.style.backgroundColor = rgbaColor;
+    const rgbaColor = color.toRGBA();
+    document.getElementById('colourInput').value = rgbaColor;
+    //this shows as an array however the value is in rgba (w x y z) format??
+    console.log(rgbaColor)
+    image.style.backgroundColor = rgbaColor.toString();
   });
   document.getElementById('backButton').addEventListener('click', function() {
       const form = document.getElementById('colourForm');
@@ -78,12 +81,13 @@
       form.submit();
   });
 
-  pickr.on('change', (color) => {
-    const rgbaColor = color.toRGBA();
-    console.log(rgbaColor)
-    image.style.backgroundColor = rgbaColor.toString();
-    document.getElementById('colourInput').value = rgbaColor;
-});
+  // this seems like a repeat of previous code
+//   pickr.on('change', (color) => {
+//     const rgbaColor = color.toRGBA();
+//     console.log(rgbaColor)
+//     image.style.backgroundColor = rgbaColor.toString();
+//     document.getElementById('colourInput').value = rgbaColor;
+// });
 
 </script>
 </html>
