@@ -79,8 +79,9 @@
   });
 
   pickr.on('change', (color) => {
-    const rgbaColor = color.toRGBA().toString();
-    image.style.backgroundColor = rgbaColor;
+    const rgbaColor = color.toRGBA();
+    console.log(rgbaColor)
+    image.style.backgroundColor = rgbaColor.toString();
     document.getElementById('colourInput').value = rgbaColor;
 });
 
