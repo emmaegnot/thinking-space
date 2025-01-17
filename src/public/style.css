@@ -100,7 +100,7 @@ a:hover {
 
 .container {
     max-width: 50%;
-    margin: 1rem auto 2rem;
+    margin: 8rem auto 16rem;
     padding: 2rem;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
     border-radius: 20px;
