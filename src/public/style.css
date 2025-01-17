@@ -48,6 +48,24 @@ a:hover {
 
 @font-face {
     font-family: mouseM;
+    src: url(fonts/Stopbuck.ttf);
+}
+
+@font-face {
+    font-family: buycat;
+    src: url(fonts/Buycat.ttf);
+}
+
+.mouseM { 
+    font-family: mouseM;
+}
+
+.buycat { 
+    font-family: buycat;
+}
+
+@font-face {
+    font-family: mouseM;
     src: url(fonts/MouseMemoirs-Regular.ttf);
 }
 
