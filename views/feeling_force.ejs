@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="mouseM">
+    <ul class="header">
+        <li><a>THE THINKING SPACE</a></li>
+        <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
+    </ul>
+   </nav>
+
+<div class="container mouseM" style="width: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <h2 class = "colouredText" style="padding: 10px; margin: 20px;">Feeling force</h2>
+        <img id="arrow" src="images/arrow.png" width="130" height="120" style="transition: transform 0.5s ease; transform: rotate(283deg); position: absolute; z-index: 2;"> 
+        <!-- left: 565px; top:245px;  -->
+        <img src="images/meter.jpg" width="150" height="130" style="position: absolute; z-index: 1;">
+
+        <div style="display: flex; align-items: center;">
+            <div style="padding: 20px; margin: 70px;">
+                <button onclick="decrease()">-</button>
+            </div>
+
+            <div style="padding: 20px; margin: 70px;">
+                <button onclick="increase()">+</button>
+            </div>
+            
+            <script> 
+                let rotationAngle = 283; // Initial rotation angle
+                let clickCount = 0;
+                
+                function decrease() {
+                    const n = -15; // Number of degrees to rotate on each click
+                    if (rotationAngle + n >= 150) {
+                    rotationAngle += n; // Increase the rotation by n degrees each time
+                    if (clickCount < -8) {
+                        clickCount--;
+                    }
+                    document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
+                    sendDataToServer(clickCount);
+                    }
+                }
+            </script>
+
+            <script>
+                 function increase() {
+                    const n = 15;
+                    if (rotationAngle + n <= 410) {
+                    rotationAngle += n;
+                    if (clickCount < 8) {
+                        clickCount++;
+                    }
+                    document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
+                    sendDataToServer(clickCount);
+                    }
+                }
+                function sendDataToServer(count) {
+                }
+                </script>
+        </div>
+
+<!-- pass a force value -->
+
+<form action="submit-force" method="post">
+        <div class="button-div" style="text-align: center; margin-top: 20px;">
+            <button style="padding: 1px; margin: 2px; display: inline-block; text-align: center; "type="submit" >NEXT</button>
+          </div>
+        </form>
+    </div>
+  
+    <footer class="footer">
+        <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
+        <span class="motto mouseM">With emotional health in mind</span>
+      </footer>
+
+</body>
+</html>

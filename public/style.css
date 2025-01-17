@@ -1,0 +1,310 @@
+html {
+    animation: fadein 2s;
+    height: 100%;
+    margin: 0;
+}
+
+body{
+    background-color: rgb(226, 226, 226);
+    height: 100%;
+    margin: 20px;
+    background-image: url(images/background-removebg.png);
+    background-size: cover;
+}
+
+.header {
+    border-radius: 25px;
+    font-size: 46px;
+    color: rgb(121, 166, 224);
+    padding: 0;
+    list-style-type: none;
+    margin: 0;
+    overflow: hidden;
+    background-color: rgb(255, 241, 195);
+    width: 100%;
+    height: 80px
+  }
+
+.home{
+    color: rgb(121, 166, 224);
+}
+
+/* Prevents home icon from being purple once clicked*/
+a:visited {
+    color: rgb(121, 166, 224);
+}
+
+a:hover {
+    color: rgb(141, 169, 206);
+}
+
+.header li {
+    float: left;
+}
+
+.header li a {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+}
+
+@font-face {
+    font-family: mouseM;
+    src: url(fonts/Stopbuck.ttf);
+}
+
+@font-face {
+    font-family: buycat;
+    src: url(fonts/Buycat.ttf);
+}
+
+.mouseM { 
+    font-family: mouseM;
+}
+
+.buycat { 
+    font-family: buycat;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1rem 5px;
+    color: rgb(121, 166, 224);
+}
+
+.logo{
+    height: 60px;
+    width: 120px;
+}
+
+.motto {
+    color: black;
+    font-size: 1.5em;
+    text-align: right;
+}
+
+.container {
+    max-width: 50%;
+    margin: 12rem auto 24rem;
+    padding: 2rem;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    background: #ffffff;
+    color: rgb(121, 166, 224);
+}
+
+.index-container {
+    text-align: center;
+    max-width: 50%;
+    min-width: 190px;
+    padding: 2rem;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    background: #ffffff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(121, 166, 224);
+}
+
+.index-container .button {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(121, 166, 224);
+    margin: 5px;
+    width: 70%;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.index-container .button:hover {
+    background-color: rgba(227, 227, 227, 0.9);
+}
+
+.index-container h1 {
+    margin-top: 0px;
+}
+
+.container .button {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(121, 166, 224);
+    margin: 5px;
+    width: 70%;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.flex-container {
+    display: flex; 
+    align-items: center;
+    margin: 10px 0;
+}
+
+.container .button:hover {
+    background-color: rgba(227, 227, 227, 0.9);
+}
+
+.index-container h1 {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.container h1 {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.button-div{
+    margin-top: 10px;
+}
+
+.student {
+    font-size: 25px;
+    margin-left: 13.5px;
+}
+
+.teacher {
+    font-size: 40px;
+    margin-left: 10px;
+}
+
+.shape-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    justify-items: center;
+  }
+
+.shape-item {
+    text-align: center;
+  }
+
+/* Hide radio input circles */
+.shape-item input[type="radio"] {
+    display: none;
+  }
+
+.shape-item img {
+    border-radius: 6px;
+    width: 100%;
+    max-width: 180px;
+    max-height: 160px;
+    border: 2px solid transparent;
+    transition: border 0.3s ease;
+    cursor: pointer;
+  }
+
+.shape-item:hover img {
+    border: 2px solid rgba(227, 227, 227, 0.9);
+  }
+
+.shape-item input[type="radio"]:checked + img {
+    border: 2px solid rgb(121, 166, 224);
+  }
+
+.colouredText{
+    color: rgb(121, 166, 224);
+}
+
+.index-footer{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1rem 5px;
+    color: rgb(121, 166, 224);
+}
+
+/* For smaller screens */
+@media (max-width: 750px) {
+    .container {
+        max-width: 90%;
+        margin-bottom: 8rem;
+    }
+    .logo {
+        height: 40px;
+        width: 80px;
+    }
+    .motto {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-height: 550px){
+    .footer{
+        position: relative
+    }
+}
+
+.chosen-shape{
+    border-radius: 10px;
+    width: 100%;
+    max-width: 180px;
+    max-height: 160px;
+    margin: 30px 0px;
+}
+
+.colourPicker{
+    display: none;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.word-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.selected-words {
+    width: 20%;
+    text-align: center;
+}
+
+.left-words, .right-words {
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+.word-selection {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.word-item{
+    font-size: 1.5em;
+}
+
+.palette{
+    color:rgb(133, 87, 66);
+    margin: -15px 0px 20px 0px;
+    font-size: 40px;
+}
+
+.palette:hover{
+    color: rgb(177, 117, 90);
+}
