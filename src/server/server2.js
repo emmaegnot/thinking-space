@@ -163,7 +163,7 @@ app.get('/feeling_force', (req,res) => {
 });
 
 app.post('/submit-force', (req, res) => {
-    req.session.colour = req.body.colour;  
+    req.session.force = req.body.clickCount;  
     res.redirect('/mood_summary');          
 });
 
