@@ -145,15 +145,6 @@ app.get('/choose_colour', (req,res) => {
 
 app.post('/submit-colour', (req, res) => {
     req.session.colour = req.body.colour;  
-    res.redirect('/feeling_force');          
-});
-
-app.get('/feeling_force', (req,res) => {
-    res.render('feeling_force');
-});
-
-app.post('/submit-force', (req, res) => {
-    req.session.colour = req.body.colour;  
     res.redirect('/choose_word');          
 });
 
@@ -164,7 +155,16 @@ app.get('/choose_word', (req,res) => {
 app.post('/submit-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
      // Save mood in session
-    res.redirect('/mood_summary');     // Redirect to mood summary page
+    res.redirect('/feeling_force');     // Redirect to feeling force page
+});
+
+app.get('/feeling_force', (req,res) => {
+    res.render('feeling_force');
+});
+
+app.post('/submit-force', (req, res) => {
+    req.session.colour = req.body.colour;  
+    res.redirect('/mood_summary');          
 });
 
 app.get('/mood_summary', (req,res) => {
