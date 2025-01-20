@@ -199,7 +199,20 @@ app.post('/previous-word', (req,res) => {
 app.post('/next-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
      // Save mood in session
-    res.redirect('/mood_summary');     // Redirect to mood summary page
+    res.redirect('/feeling_force');     // Redirect to mood summary page
+});
+
+app.get('/feeling_force', (req,res) => {
+    res.render('feeling_force');
+});
+
+app.post('/previous-force', (req,res) => {
+    res.redirect('/choose_word');
+})
+
+app.post('/submit-force', (req, res) => {
+    req.session.force = req.body.clickCount;  
+    res.redirect('/mood_summary');          
 });
 
 app.get('/mood_summary', (req,res) => {
