@@ -199,7 +199,7 @@ app.post('/previous-word', (req,res) => {
 app.post('/next-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
      // Save mood in session
-    res.redirect('/feeling_force');     // Redirect to mood summary page
+    res.redirect('/feeling_force');     // Redirect to feeling force page
 });
 
 app.get('/feeling_force', (req,res) => {
