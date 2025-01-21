@@ -26,7 +26,7 @@ test('Test random colours', () => {
         const r = randomBetween(0, 255);
         const g = randomBetween(0, 255);
         const b = randomBetween(0, 255);
-        const rgb = `#${toHex(r)},${toHex(g)},${toHex(b)})`;
+        const rgb = `#${toHex(r)}${toHex(g)}${toHex(b)}`;
         const result = generaliseColour(rgb);
         expect(predefinedColors).toContain(result)
     }
