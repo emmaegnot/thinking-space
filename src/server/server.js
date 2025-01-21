@@ -91,9 +91,14 @@ function colourToDec(colour){
     return [red,green,blue]
 }
 
-function generaliseColour(colour){
-    console.log(colour)
+function generaliseColour(RGBAcolour){
+    console.log(RGBAcolour)
+    var colour = RGBAcolour.replace(/[^\d,.]/g, '').split(',');
+
+
+    console.log(colour);
     //  colour is in form "#rrggbb" - array of length 7
+    // now colour is in form rgba (r , g , b, a)
     // define RGB values for the colour set {red, orange, blue, green, yellow, pink, purple, black, white}
     // colours map {red:[r,g,b,dist], orange: [r,g,b, dist]
     const definedColours = new Map();
@@ -115,11 +120,11 @@ function generaliseColour(colour){
         blueLength = (colour[2] - value[2]) * (colour[2] - value[2])
         distance = Math.sqrt(redLength + greenLength + blueLength)
         if (distance < minDistance){
-            minDistance = distances
+            minDistance = distance
             closestColour = key
         }
     })
-    //console.log(closestColour)
+    console.log(closestColour)
     return closestColour
 }
 
