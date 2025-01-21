@@ -17,7 +17,7 @@
 
     <div class="container mouseM">      
       <form id="colourForm" method="post">
-        <input type="hidden" id="colourInput" name="colour" value="#f6b73c">
+        <input type="hidden" id="colourInput" name="colour" value="rgba(198, 245, 239, 1)">
         <h1 class="colouredText">Choose a colour!</h1>
         <div class="colour-container">
           <div align="center">
@@ -44,7 +44,7 @@
   const pickr = Pickr.create({
     el: '#color-picker',
     theme: 'classic',
-    default: '#f6b73c',
+    default: 'rgba(198, 245, 239, 1)',
 
     components: {
       preview: true,
@@ -65,8 +65,6 @@
   pickr.on('change', (color) => {
     const rgbaColor = color.toRGBA();
     document.getElementById('colourInput').value = rgbaColor;
-    //this shows as an array however the value is in rgba (w x y z) format??
-    console.log(rgbaColor)
     image.style.backgroundColor = rgbaColor.toString();
   });
   document.getElementById('backButton').addEventListener('click', function() {

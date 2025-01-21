@@ -93,10 +93,12 @@ function colourToDec(colour){
 
 function generaliseColour(RGBAcolour){
     console.log(RGBAcolour)
-    var colour = RGBAcolour.replace(/[^\d,.]/g, '').split(',');
-
-
-    console.log(colour);
+    var RGBAcolour = RGBAcolour.replace(/[^\d,.]/g, '').split(',');
+    const colour = [];
+    for (let i = 0; i < RGBAcolour.length; i++) {
+        colour.push(Number(RGBAcolour[i]));
+    }
+    console.log(colour)
     //  colour is in form "#rrggbb" - array of length 7
     // now colour is in form rgba (r , g , b, a)
     // define RGB values for the colour set {red, orange, blue, green, yellow, pink, purple, black, white}
