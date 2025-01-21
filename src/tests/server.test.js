@@ -12,6 +12,12 @@ test('Tests base colours', () => {
     expect(generaliseColour('#ffffff')).toBe("white")
 })
 
+test('Test non-base colours', () => {
+    expect(generaliseColour('#ff8080')).toBe("red") // Light red
+    expect(generaliseColour('#80cc00')).toBe("green") // Lime green
+    expect(generaliseColour('#000080')).toBe("blue") // Dark blue
+})
+
 afterAll(() => {
     server.close(); // Close the server after the tests are done
   });
