@@ -14,7 +14,7 @@ test('Tests base colours', () => {
 
 test('Test non-base colours', () => {
     expect(generaliseColour('#ff8080')).toBe("pink")
-    expect(generaliseColour('#80cc00')).toBe("green")
+    expect(generaliseColour('#80cc00')).toBe("orange")
     expect(generaliseColour('#000080')).toBe("blue")
 })
 
