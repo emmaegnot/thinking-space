@@ -155,7 +155,7 @@ app.get('/', (req,res) => {
             <button id="accept">Accept</button>
             <script>
                 document.getElementById('accept').onclick = function() {
-                    document.cookie = "consent=true; path=/; max-age=" + 60*60*24*30; // 30 days
+                    document.cookie = "consent=true; path=/; max-age=" + 60*60*24; // 1 day
                     location.reload();
                 };
             </script>
