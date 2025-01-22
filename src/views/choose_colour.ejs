@@ -1,5 +1,8 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
+<script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
  <body>
     <nav class="mouseM">
       <ul class="header">
@@ -34,8 +37,6 @@
     </footer>
  </body>
 
- <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr@1.8.2/dist/pickr.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
  <script>
   const pickr = Pickr.create({
     el: '#color-picker',
