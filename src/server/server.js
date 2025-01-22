@@ -1,7 +1,8 @@
 const express = require('express');
 const session = require('express-session'); //npm install express-session
 const cookieParser = require('cookie-parser');
-const path = require('path')
+const path = require('path');
+const { closeSync } = require('fs');
 
 
 const app = express();
@@ -90,10 +91,16 @@ function colourToDec(colour){
     return [red,green,blue]
 }
 
-function generaliseColour(colour){
+function generaliseColour(RGBAcolour){
+    console.log(RGBAcolour)
+    var RGBAcolour = RGBAcolour.replace(/[^\d,.]/g, '').split(',');
+    const colour = [];
+    for (let i = 0; i < RGBAcolour.length; i++) {
+        colour.push(Number(RGBAcolour[i]));
+    }
+    console.log(colour)
     //  colour is in form "#rrggbb" - array of length 7
-    // get decimal value of each rgb
-    decRGB = colourToDec(colour)
+    // now colour is in form rgba (r , g , b, a)
     // define RGB values for the colour set {red, orange, blue, green, yellow, pink, purple, black, white}
     // colours map {red:[r,g,b,dist], orange: [r,g,b, dist]
     const definedColours = new Map();
@@ -110,15 +117,16 @@ function generaliseColour(colour){
     closestColour = "none";
     // for each colour, find the euclidean distance between the input rgb colour and the predefined colour
     definedColours.forEach(function(value,key){
-        redLength = (decRGB[0] - value[0]) * (decRGB[0] - value[0])
-        greenLength = (decRGB[1] - value[1]) * (decRGB[1] - value[1])
-        blueLength = (decRGB[2] - value[2]) * (decRGB[2] - value[2])
+        redLength = (colour[0] - value[0]) * (colour[0] - value[0])
+        greenLength = (colour[1] - value[1]) * (colour[1] - value[1])
+        blueLength = (colour[2] - value[2]) * (colour[2] - value[2])
         distance = Math.sqrt(redLength + greenLength + blueLength)
         if (distance < minDistance){
             minDistance = distance
             closestColour = key
         }
     })
+    console.log(closestColour)
     return closestColour
 }
 
