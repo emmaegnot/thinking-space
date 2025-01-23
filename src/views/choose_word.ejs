@@ -1,114 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>The Thinking Space</title>
-  <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px;
-      background-color: #f0f0f0;
-      font-weight: bold;
-      font-size: 1.2em;
-      width: 100%;
-    }
-
-    .header li {
-      list-style: none;
-      display: inline;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 80vw;
-      max-width: 800px;
-      height: 70vh;
-      max-height: 600px;
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      margin: 20px auto;
-      flex-grow: 1;
-    }
-
-    .colouredText {
-      color: #4a90e2;
-      margin-bottom: 20px;
-    }
-
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
-    .word-item button {
-      background-color: rgb(125, 191, 248);
-      border: none;
-      padding: 10px 20px;
-      font-size: 1em;
-      color: #fff;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-
-    .word-item button:hover {
-      background-color: #90f9a0;
-    }
-
-    .button-div {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    .button-div button {
-      padding: 10px 20px;
-      font-size: 1em;
-      color: #fff;
-      background-color: #4a90e2;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
-
-    .button-div button:hover {
-      background-color: #35bd4e;
-    }
-
-    .word-item button.active {
-      background-color: #90f9b3; 
-      color: #fff;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    }
-
-    .footer {
-      text-align: center;
-      padding: 10px;
-      background-color: #f0f0f0;
-      width: 100%;
-    }
-  </style>
-</head>
+<%- include('./partials/head.ejs') %>
 <body>
   <nav class="mouseM">
     <ul class="header">
@@ -145,7 +37,7 @@
       </div>
 
       <div class="button-div" align="center">
-        <button type="previous" id="backButton">BACK</button>
+        <button type="button" id="backButton">BACK</button>
           <button type="submit" id="nextButton">NEXT</button>
       </div>
     </form>
@@ -177,4 +69,106 @@
     });
   </script>
 </body>
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+    font-weight: bold;
+    font-size: 1.2em;
+    width: 100%;
+  }
+
+  .header li {
+    list-style: none;
+    display: inline;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80vw;
+    max-width: 800px;
+    height: 70vh;
+    max-height: 600px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    flex-grow: 1;
+  }
+
+  .colouredText {
+    color: #4a90e2;
+    margin-bottom: 20px;
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .word-item button {
+    background-color: rgb(125, 191, 248);
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .word-item button:hover {
+    background-color: #90f9a0;
+  }
+
+  .button-div {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .button-div button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #4a90e2;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .button-div button:hover {
+    background-color: #35bd4e;
+  }
+
+  .word-item button.active {
+    background-color: #90f9b3; 
+    color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+    width: 100%;
+  }
+</style>
 </html>

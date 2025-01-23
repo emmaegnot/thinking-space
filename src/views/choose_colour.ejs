@@ -1,12 +1,8 @@
 <html lang="en">
- <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
-  <script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
- </head>
+<%- include('./partials/head.ejs') %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
+<script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
  <body>
     <nav class="mouseM">
       <ul class="header">
@@ -17,6 +13,7 @@
 
     <div class="container mouseM">      
       <form id="colourForm" method="post">
+        <input type="hidden" id="colourInput" name="colour" value="rgba(198, 245, 239, 1)">
         <h1 class="colouredText">Choose a colour!</h1>
         <body class=""colouredText">Colour in your mood shape</body>
         <div class="colour-container">
@@ -25,12 +22,12 @@
             <body class="colouredText"><- Click here to change!</body>
           </div>
           <div align="center">
-            <div id="color-picker"></div>
+            <div id="color-picker" style="width: 300px; margin: auto;"></div>
           </div>
         </div>
           <!-- Submit button -->
           <div align="center">
-            <button type="previous" id="backButton">BACK</button>
+            <button type="button" id="backButton">BACK</button>
             <button type="submit" id="nextButton">NEXT</button>
           </div>
         </form>
@@ -41,11 +38,12 @@
       <span class="motto mouseM">With emotional health in mind</span>
     </footer>
  </body>
+
  <script>
   const pickr = Pickr.create({
     el: '#color-picker',
     theme: 'classic',
-    default: '#f6b73c',
+    default: 'rgba(198, 245, 239, 1)',
 
     components: {
       preview: true,
@@ -63,10 +61,19 @@
 
   // Update the chosen shape's background color on color change
   const image = document.querySelector('.chosen-shape');
+  // pickr.on('change', (color) => {
+  //   const rgbaColor = color.toRGBA();
+  //   document.getElementById('colourInput').value = rgbaColor;
+  //   image.style.backgroundColor = rgbaColor.toString();
+  // });
   pickr.on('change', (color) => {
     const rgbaColor = color.toRGBA().toString();
-    image.style.backgroundColor = rgbaColor;
-  });
+    document.getElementById('colourInput').value = rgbaColor; // Update the hidden input
+    const image = document.querySelector('.chosen-shape');
+    if (image) {
+        image.style.backgroundColor = rgbaColor; // Update the background of the shape
+    }
+});
   document.getElementById('backButton').addEventListener('click', function() {
       const form = document.getElementById('colourForm');
       form.action = '/previous-colour';
@@ -78,5 +85,14 @@
       form.action = '/next-colour';
       form.submit();
   });
+
+  // this seems like a repeat of previous code
+//   pickr.on('change', (color) => {
+//     const rgbaColor = color.toRGBA();
+//     console.log(rgbaColor)
+//     image.style.backgroundColor = rgbaColor.toString();
+//     document.getElementById('colourInput').value = rgbaColor;
+// });
+
 </script>
 </html>

@@ -1,7 +1,8 @@
 const express = require('express');
 const session = require('express-session'); //npm install express-session
 const cookieParser = require('cookie-parser');
-const path = require('path')
+const path = require('path');
+const { closeSync } = require('fs');
 
 
 const app = express();
@@ -90,10 +91,16 @@ function colourToDec(colour){
     return [red,green,blue]
 }
 
-function generaliseColour(colour){
+function generaliseColour(RGBAcolour){
+    console.log(RGBAcolour)
+    var RGBAcolour = RGBAcolour.replace(/[^\d,.]/g, '').split(',');
+    const colour = [];
+    for (let i = 0; i < RGBAcolour.length; i++) {
+        colour.push(Number(RGBAcolour[i]));
+    }
+    console.log(colour)
     //  colour is in form "#rrggbb" - array of length 7
-    // get decimal value of each rgb
-    decRGB = colourToDec(colour)
+    // now colour is in form rgba (r , g , b, a)
     // define RGB values for the colour set {red, orange, blue, green, yellow, pink, purple, black, white}
     // colours map {red:[r,g,b,dist], orange: [r,g,b, dist]
     const definedColours = new Map();
@@ -110,15 +117,16 @@ function generaliseColour(colour){
     closestColour = "none";
     // for each colour, find the euclidean distance between the input rgb colour and the predefined colour
     definedColours.forEach(function(value,key){
-        redLength = (decRGB[0] - value[0]) * (decRGB[0] - value[0])
-        greenLength = (decRGB[1] - value[1]) * (decRGB[1] - value[1])
-        blueLength = (decRGB[2] - value[2]) * (decRGB[2] - value[2])
+        redLength = (colour[0] - value[0]) * (colour[0] - value[0])
+        greenLength = (colour[1] - value[1]) * (colour[1] - value[1])
+        blueLength = (colour[2] - value[2]) * (colour[2] - value[2])
         distance = Math.sqrt(redLength + greenLength + blueLength)
         if (distance < minDistance){
             minDistance = distance
             closestColour = key
         }
     })
+    console.log(closestColour)
     return closestColour
 }
 
@@ -147,21 +155,34 @@ app.get('/', (req,res) => {
             <button id="accept">Accept</button>
             <script>
                 document.getElementById('accept').onclick = function() {
-                    document.cookie = "consent=true; path=/; max-age=" + 60*60*24*30; // 30 days
+                    document.cookie = "consent=true; path=/; max-age=" + 60*60*24; // 1 day
                     location.reload();
                 };
             </script>
         `);
     } else {
-        res.render('index');
+        res.render('index', {title: "Home"});
     }
 
 });
 
 app.get('/choose_shape', (req,res) => {
-    res.render('choose_shape');
+    res.render('choose_shape', {title: "Choose A Shape"});
 });
 
+//PLACEHOLDER - Allows for testing of additional_words, must comment out lines 14-16
+// app.get('/', (req,res) => {
+//// Testing variables for now, server will do this in the future
+//     const colour = {
+//         r: 255,
+//         g: 0,
+//         b: 0,
+//     }
+//     // The words should be computed by server, then sent to a request like this (ideally)
+//     // I.e. in this case the original word picked was angry
+//     wordList = ['Irritated', 'Resentful', 'Miffed', 'Upset', 'Mad', 'Furious', 'Raging', 'Hot']
+//     res.render('additional_words', {filepath: "images/star.png", colour, wordList, title: "Additional words"});
+// });
 
 app.post('/previous-shape', (req,res) => {
     res.redirect('/');
@@ -174,7 +195,7 @@ app.post('/next-shape', (req,res) => {
     res.redirect('/choose_colour');
 })
 app.get('/choose_colour', (req,res) => {
-    res.render('choose_colour', {filepath: req.session.filePath});
+    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour"});
 });
 
 app.post('/previous-colour', (req,res) => {
@@ -189,7 +210,7 @@ app.post('/next-colour', (req, res) => {
 });
 
 app.get('/choose_word', (req,res) => {
-    res.render('choose_word');
+    res.render('choose_word', {title: "Choose A Word"});
 });
 
 app.post('/previous-word', (req,res) => {
@@ -229,7 +250,7 @@ app.get('/mood_summary', (req,res) => {
     mood = potentialMoods[randomIndex]
 
     req.session.mood = mood;
-    res.render('mood_summary', {mood: req.session.mood});
+    res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
 });
 
 app.listen(port, () => {
