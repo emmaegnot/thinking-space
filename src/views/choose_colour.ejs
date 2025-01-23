@@ -1,5 +1,8 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
+<script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
  <body>
     <nav class="mouseM">
       <ul class="header">
@@ -17,12 +20,12 @@
             <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape">
           </div>
           <div align="center">
-            <div id="color-picker"></div>
+            <div id="color-picker" style="width: 300px; margin: auto;"></div>
           </div>
         </div>
           <!-- Submit button -->
           <div align="center">
-            <button type="previous" id="backButton">BACK</button>
+            <button type="button" id="backButton">BACK</button>
             <button type="submit" id="nextButton">NEXT</button>
           </div>
         </form>
@@ -33,6 +36,7 @@
       <span class="motto mouseM">With emotional health in mind</span>
     </footer>
  </body>
+
  <script>
   const pickr = Pickr.create({
     el: '#color-picker',
@@ -55,11 +59,19 @@
 
   // Update the chosen shape's background color on color change
   const image = document.querySelector('.chosen-shape');
+  // pickr.on('change', (color) => {
+  //   const rgbaColor = color.toRGBA();
+  //   document.getElementById('colourInput').value = rgbaColor;
+  //   image.style.backgroundColor = rgbaColor.toString();
+  // });
   pickr.on('change', (color) => {
-    const rgbaColor = color.toRGBA();
-    document.getElementById('colourInput').value = rgbaColor;
-    image.style.backgroundColor = rgbaColor.toString();
-  });
+    const rgbaColor = color.toRGBA().toString();
+    document.getElementById('colourInput').value = rgbaColor; // Update the hidden input
+    const image = document.querySelector('.chosen-shape');
+    if (image) {
+        image.style.backgroundColor = rgbaColor; // Update the background of the shape
+    }
+});
   document.getElementById('backButton').addEventListener('click', function() {
       const form = document.getElementById('colourForm');
       form.action = '/previous-colour';
