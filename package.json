@@ -1,7 +1,6 @@
 {
   "name": "my-node-app",
   "version": "1.0.0",
-  "type": "module",
   "dependencies": {
     "@simonwep/pickr": "^1.9.1",
     "cookie-parser": "^1.4.7",
