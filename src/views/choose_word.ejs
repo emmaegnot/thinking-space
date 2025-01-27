@@ -38,7 +38,7 @@
 
       <div class="button-div" align="center">
         <button type="button" id="backButton">BACK</button>
-        <button type="submit" id="nextButton" disabled>NEXT</button>
+        <button type="submit" id="nextButton" disabled background-color: #fff>NEXT</button>
       </div>
     </form>
   </div>
@@ -171,5 +171,11 @@
     background-color: #f0f0f0;
     width: 100%;
   }
+
+  #nextButton:disabled {
+  background-color: #d3d3d3; /* Light grey */
+  cursor: not-allowed; /* Change cursor to indicate it's disabled */
+  color: #aaa; /* Light color for text */
+  } 
 </style>
 </html>
