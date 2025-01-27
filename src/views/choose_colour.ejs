@@ -59,11 +59,23 @@
   const nextButton = document.getElementById("nextButton");
   // Update the chosen shape's background color on color change
   const image = document.querySelector('.chosen-shape');
-  // pickr.on('change', (color) => {
-  //   const rgbaColor = color.toRGBA();
-  //   document.getElementById('colourInput').value = rgbaColor;
-  //   image.style.backgroundColor = rgbaColor.toString();
-  // });
+
+  window.onload = function() {
+    const savedColor = localStorage.getItem('selectedColor');
+    if (savedColor) {
+        
+        pickr.setColor(savedColor); 
+        
+        const image = document.querySelector('.chosen-shape');
+        if (image) {
+            image.style.backgroundColor = savedColor;
+            nextButton.disabled = false
+        }
+
+        document.getElementById('colourInput').value = savedColor;
+    }
+}
+ 
   pickr.on('change', (color) => {
     const rgbaColor = color.toRGBA().toString();
     nextButton.disabled = false
@@ -72,6 +84,7 @@
     if (image) {
         image.style.backgroundColor = rgbaColor; // Update the background of the shape
     }
+    localStorage.setItem('selectedColor', rgbaColor);
   });
   document.getElementById('backButton').addEventListener('click', function() {
       const form = document.getElementById('colourForm');
@@ -84,14 +97,6 @@
       form.action = '/next-colour';
       form.submit();
   });
-
-  // this seems like a repeat of previous code
-//   pickr.on('change', (color) => {
-//     const rgbaColor = color.toRGBA();
-//     console.log(rgbaColor)
-//     image.style.backgroundColor = rgbaColor.toString();
-//     document.getElementById('colourInput').value = rgbaColor;
-// });
 
 </script>
 </html>
