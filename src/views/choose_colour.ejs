@@ -15,15 +15,13 @@
       <form id="colourForm" method="post">
         <input type="hidden" id="colourInput" name="colour" value="rgba(198, 245, 239, 1)">
         <h1 class="colouredText">Choose a colour!</h1>
-        <body class=""colouredText">Colour in your mood shape</body>
+        <p class="bodyText">Colour in your mood shape</p>
         <div class="colour-container">
           <div align="center">
             <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape">
-            <body class="colouredText"><- Click here to change!</body>
+            <p class="colouredText"><- Click here to change!</p>
           </div>
-          <div align="center">
-            <div id="color-picker" style="width: 300px; margin: auto;"></div>
-          </div>
+            <div id="color-picker" align="center" style="width: 300px; margin: auto;"></div>
         </div>
           <!-- Submit button -->
           <div align="center">
