@@ -3,7 +3,7 @@ const session = require('express-session'); //npm install express-session
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const { closeSync } = require('fs');
-
+const serverVersion = Date.now();
 
 const app = express();
 app.use(express.urlencoded({extended:true}))
@@ -161,13 +161,13 @@ app.get('/', (req,res) => {
             </script>
         `);
     } else {
-        res.render('index', {title: "Home"});
+        res.render('index', {title: "Home", serverVersion });
     }
 
 });
 
 app.get('/choose_shape', (req,res) => {
-    res.render('choose_shape', {title: "Choose A Shape"});
+    res.render('choose_shape', {title: "Choose A Shape", serverVersion});
 });
 
 //PLACEHOLDER - Allows for testing of additional_words, must comment out lines 14-16
@@ -195,7 +195,7 @@ app.post('/next-shape', (req,res) => {
     res.redirect('/choose_colour');
 })
 app.get('/choose_colour', (req,res) => {
-    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour"});
+    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour", serverVersion});
 });
 
 app.post('/previous-colour', (req,res) => {
@@ -210,7 +210,7 @@ app.post('/next-colour', (req, res) => {
 });
 
 app.get('/choose_word', (req,res) => {
-    res.render('choose_word', {title: "Choose A Word"});
+    res.render('choose_word', {title: "Choose A Word", serverVersion });
 });
 
 app.post('/previous-word', (req,res) => {
@@ -224,7 +224,7 @@ app.post('/next-word', (req, res) => {
 });
 
 app.get('/feeling_force', (req,res) => {
-    res.render('feeling_force');
+    res.render('feeling_force', {title: "Feeling Force", serverVersion });
 });
 
 app.post('/previous-force', (req,res) => {
@@ -250,7 +250,7 @@ app.get('/mood_summary', (req,res) => {
     mood = potentialMoods[randomIndex]
 
     req.session.mood = mood;
-    res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
+    res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary", serverVersion});
 });
 
 app.listen(port, () => {
