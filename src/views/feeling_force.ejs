@@ -31,15 +31,18 @@
             
             <script> 
                 let rotationAngle = 283; // Initial rotation angle
-                let clickCount = 0;
+                let clickCount = 5;
                 
                 function decrease() {
-                    const n = -15; // Number of degrees to rotate on each click
+                    const n = -25; // Number of degrees to rotate on each click
                     if (rotationAngle + n >= 150) {
                     rotationAngle += n; // Increase the rotation by n degrees each time
-                    if (clickCount < -8) {
+                    if (clickCount > 0) {
                         clickCount--;
                     }
+
+                    document.getElementById("clickCount").innerHTML = clickCount;
+                
                     document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
                     sendDataToServer(clickCount);
                     }
@@ -48,32 +51,47 @@
 
             <script>
                  function increase() {
-                    const n = 15;
+                    const n = 25;
                     if (rotationAngle + n <= 410) {
                     rotationAngle += n;
-                    if (clickCount < 8) {
+                    if (clickCount < 10) {
                         clickCount++;
                     }
+
+                    document.getElementById("clickCount").innerHTML = clickCount;
+
                     document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
                     sendDataToServer(clickCount);
                     }
+                    
                 }
-                function sendDataToServer(count) {
+                function sendDataToServer(clickCount) {
                 }
                 </script>
+
+<p id="clickCount"></p>
+
+<!-- <script>document.getElementById("clickCount").innerHTML = clickCount;</script> -->
+<!-- <p id="clickCount"></p>
+<script> document.write(clickCount);</script> -->
+
+
         </div>
+
+        
 
 <!-- pass a force value -->
 
 <form action="submit-force" method="post">
-        <div class="button-div" style="text-align: center; margin-top: 20px;">
-            <button style="padding: 1px; margin: 2px; display: inline-block; text-align: center; "type="submit" >NEXT</button>
+    <div class="button-div" align="center">
+            <button type="submit" id = "nextButton">NEXT</button>
           </div>
+        
         </form>
 
-        <form action="previous-force" method="post">
-            <div class="button-div" style="text-align: center; margin-top: 20px;">
-                <button type="previous" id="backButton">BACK</button>
+        <form action="/previous-force" method="post">
+            <div class="button-div" align="center">
+                <button type="button-div" id="backButton">BACK</button>
                 </div>
         </form>
     </div>
