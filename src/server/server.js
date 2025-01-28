@@ -145,11 +145,7 @@ app.use(express.urlencoded({extended:true}))
 
 
 app.get('/', (req,res) => {
-    res.set({
-        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0',
-    });
+
 
     // Check if the consent cookie exists
     if (!req.cookies.consent) {
