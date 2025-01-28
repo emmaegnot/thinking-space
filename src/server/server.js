@@ -3,7 +3,6 @@ const session = require('express-session'); //npm install express-session
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const { closeSync } = require('fs');
-const serverVersion = Date.now();
 
 const app = express();
 app.use(express.urlencoded({extended:true}))
@@ -146,6 +145,12 @@ app.use(express.urlencoded({extended:true}))
 
 
 app.get('/', (req,res) => {
+    res.set({
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+    });
+
     // Check if the consent cookie exists
     if (!req.cookies.consent) {
         // Send HTML with a cookie consent banner
@@ -155,19 +160,20 @@ app.get('/', (req,res) => {
             <button id="accept">Accept</button>
             <script>
                 document.getElementById('accept').onclick = function() {
-                    document.cookie = "consent=true; path=/; max-age=" + 60*60*24; // 1 day
+                    document.cookie = "consent=true; path=/; max-age=" + 60*60*6; // 6 hours
                     location.reload();
                 };
             </script>
         `);
     } else {
-        res.render('index', {title: "Home", serverVersion });
+        
+        res.render('index', {title: "Home"});
     }
 
 });
 
 app.get('/choose_shape', (req,res) => {
-    res.render('choose_shape', {title: "Choose A Shape", serverVersion});
+    res.render('choose_shape', {title: "Choose A Shape"});
 });
 
 //PLACEHOLDER - Allows for testing of additional_words, must comment out lines 14-16
@@ -195,7 +201,7 @@ app.post('/next-shape', (req,res) => {
     res.redirect('/choose_colour');
 })
 app.get('/choose_colour', (req,res) => {
-    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour", serverVersion});
+    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour"});
 });
 
 app.post('/previous-colour', (req,res) => {
@@ -210,7 +216,7 @@ app.post('/next-colour', (req, res) => {
 });
 
 app.get('/choose_word', (req,res) => {
-    res.render('choose_word', {title: "Choose A Word", serverVersion });
+    res.render('choose_word', {title: "Choose A Word"});
 });
 
 app.post('/previous-word', (req,res) => {
@@ -224,7 +230,7 @@ app.post('/next-word', (req, res) => {
 });
 
 app.get('/feeling_force', (req,res) => {
-    res.render('feeling_force', {title: "Feeling Force", serverVersion });
+    res.render('feeling_force', {title: "Feeling Force"});
 });
 
 app.post('/previous-force', (req,res) => {
@@ -250,7 +256,7 @@ app.get('/mood_summary', (req,res) => {
     mood = potentialMoods[randomIndex]
 
     req.session.mood = mood;
-    res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary", serverVersion});
+    res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
 });
 
 app.listen(port, () => {
