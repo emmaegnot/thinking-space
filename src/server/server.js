@@ -32,7 +32,7 @@ const words = {
     Fearful: ['scared', 'confused'],
     Happy: ['happy', 'excited', 'dreamy'],
     Sad: ['sad', 'concerned'],
-    Surprise: ['concerned', 'exited', 'confused', 'happy'],
+    Surprised: ['concerned', 'exited', 'confused', 'happy'],
 
 }
 // Find shared associations among word, shape and colour
