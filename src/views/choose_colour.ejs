@@ -79,10 +79,8 @@
       const image = document.querySelector('.chosen-shape');
     
       window.onload = function() {
-        const savedColor = sessionStorage.getItem('selectedColor');
-        if (savedColor) {
-            
-            pickr.setColor(savedColor); 
+        const savedColor = sessionStorage.getItem('selectedColour');
+        if (savedColor) { 
             
             const image = document.querySelector('.chosen-shape');
             if (image) {
@@ -90,7 +88,7 @@
                 nextButton.disabled = false
             }
     
-            document.getElementById('colourInput').value = savedColor;
+            document.getElementById('colourForm').value = savedColor;
         }
       }
       // pickr.on('change', (color) => {
