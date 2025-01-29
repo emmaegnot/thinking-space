@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const { closeSync } = require('fs');
 
-
 const app = express();
 app.use(express.urlencoded({extended:true}))
 const port = 3000;
@@ -32,7 +31,7 @@ const words = {
     Fearful: ['scared', 'confused'],
     Happy: ['happy', 'excited', 'dreamy'],
     Sad: ['sad', 'concerned'],
-    Surprise: ['concerned', 'exited', 'confused', 'happy'],
+    Surprised: ['concerned', 'exited', 'confused', 'happy'],
 
 }
 // Find shared associations among word, shape and colour
@@ -146,6 +145,8 @@ app.use(express.urlencoded({extended:true}))
 
 
 app.get('/', (req,res) => {
+
+
     // Check if the consent cookie exists
     if (!req.cookies.consent) {
         // Send HTML with a cookie consent banner
@@ -155,12 +156,13 @@ app.get('/', (req,res) => {
             <button id="accept">Accept</button>
             <script>
                 document.getElementById('accept').onclick = function() {
-                    document.cookie = "consent=true; path=/; max-age=" + 60*60*24; // 1 day
+                    document.cookie = "consent=true; path=/; max-age=" + 60*60*6; // 6 hours
                     location.reload();
                 };
             </script>
         `);
     } else {
+        
         res.render('index', {title: "Home"});
     }
 
@@ -224,7 +226,7 @@ app.post('/next-word', (req, res) => {
 });
 
 app.get('/feeling_force', (req,res) => {
-    res.render('feeling_force');
+    res.render('feeling_force', {title: "Feeling Force"});
 });
 
 app.post('/previous-force', (req,res) => {
