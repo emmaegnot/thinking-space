@@ -19,8 +19,25 @@
           <div align="center">
             <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape">
           </div>
-          <div align="center">
-            <div id="color-picker" style="width: 300px; margin: auto;"></div>
+          <div class="colour" align="center">
+            <label>
+              <input type="button" name="colourValue" value="red" style="background-color:red; color: red" onclick="ChangeColour(this)">
+            </label>
+            <label>
+              <input type="button" name="colourValue" value="orange" style="background-color:orange; color: orange" onclick="ChangeColour(this)">
+            </label>
+            <label>
+              <input type="button" name="colourValue" value="green" style="background-color:green; color: green" onclick="ChangeColour(this)">
+            </label>
+            <label>
+              <input type="button" name="colourValue" value="yellow" style="background-color:yellow; color: yellow" onclick="ChangeColour(this)">
+            </label>
+            <label>
+              <input type="button" name="colourValue" value="blue" style="background-color:blue; color: blue" onclick="ChangeColour(this)">
+            </label>
+            <label>
+              <input type="button" name="colourValue" value="black" style="background-color:black; color: black" onclick="ChangeColour(this)">
+            </label>
           </div>
         </div>
           <!-- Submit button -->
@@ -36,24 +53,7 @@
       <span class="motto mouseM">With emotional health in mind</span>
     </footer>
     <script>
-      const pickr = Pickr.create({
-        el: '#color-picker',
-        theme: 'classic',
-        default: 'rgba(198, 245, 239, 1)',
-    
-        components: {
-          preview: true,
-          opacity: false,
-          hue: true,
-    
-          interaction: {
-            hex: true,
-            rgba: false,
-            input: false,
-            save: false
-          }
-        }
-      });
+      
       const nextButton = document.getElementById("nextButton");
       // Update the chosen shape's background color on color change
       const image = document.querySelector('.chosen-shape');
@@ -73,17 +73,14 @@
             document.getElementById('colourInput').value = savedColor;
         }
       }
-     
-      pickr.on('change', (color) => {
-        const rgbaColor = color.toRGBA().toString();
+      
+      function ChangeColour(chosenColour){
         nextButton.disabled = false
-        document.getElementById('colourInput').value = rgbaColor; // Update the hidden input
-        const image = document.querySelector('.chosen-shape');
-        if (image) {
-            image.style.backgroundColor = rgbaColor; // Update the background of the shape
-        }
-        sessionStorage.setItem('selectedColor', rgbaColor);
-      });
+        sessionStorage.setItem('selectedColour', chosenColour.value);
+        document.getElementById('colourInput').value = chosenColour.value;
+        image.style.backgroundColor = chosenColour.value;
+      }
+
       document.getElementById('backButton').addEventListener('click', function() {
           const form = document.getElementById('colourForm');
           form.action = '/previous-colour';

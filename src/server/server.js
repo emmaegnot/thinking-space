@@ -206,7 +206,7 @@ app.post('/previous-colour', (req,res) => {
 
 app.post('/next-colour', (req, res) => {
     req.session.colour = req.body.colour;
-    req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
+    //req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
     res.redirect('/choose_word'); 
     
 });
