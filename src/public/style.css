@@ -9,7 +9,6 @@ body{
     height: 100%;
     margin: 20px;
     background-image: url(images/background-removebg.png);
-    background-size: cover;
 }
 
 .header {
@@ -79,7 +78,8 @@ a:hover {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    position: absolute;
+    position: relative;
+    margin-top: auto;
     left: 0;
     right: 0;
     bottom: 0;
@@ -100,12 +100,21 @@ a:hover {
 
 .container {
     max-width: 50%;
-    margin: 8rem auto 16rem;
+    margin: 2rem auto 4rem;
     padding: 2rem;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
     border-radius: 20px;
     background: #ffffff;
     color: rgb(121, 166, 224);
+    min-height: 250px;
+}
+
+.moodSummary{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers everything vertically */
+    align-items: center; /* Centers everything horizontally */
+    text-align: center;
 }
 
 .index-container {
