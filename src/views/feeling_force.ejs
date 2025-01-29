@@ -14,18 +14,18 @@
     </ul>
    </nav>
 
-<div class="container mouseM" style="width: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <h2 class = "colouredText" style="padding: 10px; margin: 20px;">Feeling force</h2>
+<div class="container mouseM" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <h1 class = "colouredText" style="margin-bottom: 30px;">Feeling force</h1>
         <img id="arrow" src="images/arrow.png" width="130" height="120" style="transition: transform 0.5s ease; transform: rotate(283deg); position: absolute; z-index: 2;"> 
         <!-- left: 565px; top:245px;  -->
         <img src="images/meter.jpg" width="150" height="130" style="position: absolute; z-index: 1;">
 
-        <div style="display: flex; align-items: center;">
-            <div style="padding: 20px; margin: 70px;">
+        <div style="display: flex; align-items: center; margin-bottom: 50px;">
+            <div style="padding: 20px; margin-right: 70px;">
                 <button onclick="decrease()">-</button>
             </div>
 
-            <div style="padding: 20px; margin: 70px;">
+            <div style="padding: 20px; margin-left: 70px;">
                 <button onclick="increase()">+</button>
             </div>
             
@@ -66,16 +66,10 @@
 <!-- pass a force value -->
 
 <form action="submit-force" method="post">
-        <div class="button-div" style="text-align: center; margin-top: 20px;">
-            <button type="submit" id="nextButton" >NEXT</button>
+        <div class="button-div" align="center">
+            <button type="button" id="backButton">BACK</button>
+            <button type="submit" id="nextButton">NEXT</button>
           </div>
-        </form>
-
-        <form action="previous-force" method="post">
-            <div class="button-div" style="text-align: center; margin-top: 20px;">
-                <button type="previous" id="backButton">BACK</button>
-                </div>
-        </form>
     </div>
   
     <footer class="footer">
