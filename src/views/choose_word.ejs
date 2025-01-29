@@ -33,13 +33,13 @@
           <button type="button" name="emotion" value="Sad" onclick="highlightButton(this)">Sad</button>
         </div>
         <div class="word-item">
-          <button type="button" name="emotion" value="Surprise" onclick="highlightButton(this)">Surprise</button>
+          <button type="button" name="emotion" value="Surprised" onclick="highlightButton(this)">Surprised</button>
         </div>
       </div>
 
       <div class="button-div" align="center">
         <button type="button" id="backButton">BACK</button>
-          <button type="submit" id="nextButton">NEXT</button>
+        <button type="submit" id="nextButton" disabled background-color: #fff>NEXT</button>
       </div>
     </form>
   </div>
@@ -50,11 +50,27 @@
   </footer>
 
   <script>
+    const words = document.querySelectorAll('.button-container .word-item button');
+
+    window.onload = function() {
+      const savedEmotion = sessionStorage.getItem('emotion');
+        if (savedEmotion) {
+          const selectedWord = Array.from(words).find(
+            (word) => word.value === savedEmotion
+          );
+          if (selectedWord) {
+            highlightButton(selectedWord)
+          }
+        }
+    }
+
+    const nextButton = document.getElementById("nextButton");
     function highlightButton(button) {
       const buttons = document.querySelectorAll('.word-item button');
       buttons.forEach(btn => btn.classList.remove('active'));
       button.classList.add('active');
-
+      nextButton.disabled = false
+      sessionStorage.setItem('emotion', button.value);
       document.getElementById('selectedEmotion').value = button.value;
     }
     document.getElementById('backButton').addEventListener('click', function() {
@@ -171,5 +187,7 @@
     background-color: #f0f0f0;
     width: 100%;
   }
+
+  
 </style>
 </html>

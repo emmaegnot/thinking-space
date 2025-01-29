@@ -320,3 +320,34 @@ a:hover {
     margin-top: 20px;
     display: block;
 }
+
+/* Grey next when disabled */
+
+
+#nextButton {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #4a90e2;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#backButton {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #4a90e2;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#nextButton:disabled {
+    background-color: #d3d3d3; 
+    cursor: not-allowed;
+    color: #aaa;
+} 
