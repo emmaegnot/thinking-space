@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&display=swap');
 html {
     animation: fadein 2s;
     height: 100%;
@@ -230,6 +231,14 @@ a:hover {
 }
 
 .colouredText {
+    color: rgb(121, 166, 224);
+}
+
+.bodyText {
+    font-family: "Alumni Sans Pinstripe", serif;
+    font-weight: 600;
+    text-align: center;
+    font-style: normal;
     color: rgb(121, 166, 224);
 }
 
