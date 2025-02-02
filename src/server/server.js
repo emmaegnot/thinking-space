@@ -146,25 +146,25 @@ app.use(express.urlencoded({extended:true}))
 
 app.get('/', (req,res) => {
 
-
+    res.render('index', { title: "Home", showConsentPopup: !req.cookies.consent });
     // Check if the consent cookie exists
-    if (!req.cookies.consent) {
-        // Send HTML with a cookie consent banner
-        res.send(`
-            <h1>Welcome to Our Website</h1>
-            <p>We use cookies to enhance your experience. Do you accept?</p>
-            <button id="accept">Accept</button>
-            <script>
-                document.getElementById('accept').onclick = function() {
-                    document.cookie = "consent=true; path=/; max-age=" + 60*60*6; // 6 hours
-                    location.reload();
-                };
-            </script>
-        `);
-    } else {
+    // if (!req.cookies.consent) {
+    //     // Send HTML with a cookie consent banner
+    //     res.send(`
+    //         <h1>Welcome to Our Website</h1>
+    //         <p>We use cookies to enhance your experience. Do you accept?</p>
+    //         <button id="accept">Accept</button>
+    //         <script>
+    //             document.getElementById('accept').onclick = function() {
+    //                 document.cookie = "consent=true; path=/; max-age=" + 60*60*6; // 6 hours
+    //                 location.reload();
+    //             };
+    //         </script>
+    //     `);
+    // } else {
         
-        res.render('index', {title: "Home"});
-    }
+    //     res.render('index', {title: "Home"});
+    // }
 
 });
 
@@ -206,7 +206,7 @@ app.post('/previous-colour', (req,res) => {
 
 app.post('/next-colour', (req, res) => {
     req.session.colour = req.body.colour;
-    req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
+    //req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
     res.redirect('/choose_word'); 
     
 });
