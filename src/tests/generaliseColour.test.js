@@ -1,5 +1,6 @@
 // const {generaliseColour, server} = require('../server/server');
-const server = require('../server/server')
+const {server, app} = require('../server/server')
+
 // test('Tests base colours', () => {
 //     expect(generaliseColour('rgba(255,0,0,1)')).toBe("red");
 //     expect(generaliseColour('rgba(255,165,0,1)')).toBe("orange");
