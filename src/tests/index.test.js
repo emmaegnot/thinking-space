@@ -1,5 +1,5 @@
 const request = require("supertest");
-const { app } = require("../server");
+const {server, app} = require("../server/server");
 
 test("Checks page is rendered with the correct title", async () => {
     const res = await request(app).get("/");
