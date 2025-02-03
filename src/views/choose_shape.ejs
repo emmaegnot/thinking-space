@@ -10,6 +10,7 @@
     <div class="container mouseM">
       <form id="shapeForm" method="post">
         <h1 class="colouredText">Choose a shape!</h1>
+        <p class="bodyText">Which shape shows how you feel right now?</p>
         <div class="shape-container">
           <div class="shape-item">
             <label>
@@ -61,8 +62,8 @@
           </div>
         </div>
         <div class="button-div" align="center">
-          <button type="button" id="backButton">BACK</button>
-          <button type="submit" id="nextButton">NEXT</button>
+          <button type="button" id="backButton">HOME</button>
+          <button type="submit" id="nextButton" disabled>NEXT</button>
         </div>
       </form>
     </div>
@@ -71,6 +72,32 @@
       <span class="motto mouseM">With emotional health in mind</span>
     </footer>
     <script>
+      const nextButton = document.getElementById('nextButton');
+      const radioButtons = document.getElementsByName('shape');
+      
+
+
+      window.onload = function() {
+        const savedShape = sessionStorage.getItem('selectedShape');
+        if (savedShape) {
+          const selectedRadio = Array.from(radioButtons).find(
+            (radioButton) => radioButton.value === savedShape
+          );
+          if (selectedRadio) {
+            selectedRadio.checked = true;
+            nextButton.disabled = false;
+          }
+        }
+      }
+
+      // Add an event listener to each radio button
+      radioButtons.forEach((radioButton) => {
+        radioButton.addEventListener('change', () => {
+          sessionStorage.setItem('selectedShape', radioButton.value);
+          nextButton.disabled = false; // Enable the button when a radio button is selected
+        });
+      });
+
       document.getElementById('backButton').addEventListener('click', function() {
       const form = document.getElementById('shapeForm');
       form.action = '/previous-shape';

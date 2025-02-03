@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&display=swap');
 html {
     animation: fadein 2s;
     height: 100%;
@@ -225,7 +226,15 @@ a:hover {
     color: rgb(121, 166, 224);
 }
 
-.index-footer{
+.bodyText {
+    font-family: "Alumni Sans Pinstripe", serif;
+    font-weight: 600;
+    text-align: center;
+    font-style: normal;
+    color: rgb(121, 166, 224);
+}
+
+.index-footer {
     position: absolute;
     display: flex;
     justify-content: space-between;
@@ -348,6 +357,7 @@ a:hover {
     animation-iteration-count: infinite;
 }
 
+/* <<<<<<< feature/update-index-page */
 
 /* HTML: <div class="sparkle"></div> */
 .sparkle {
@@ -411,3 +421,42 @@ a:hover {
     100% {left:0px; top:0px;}
   }
   
+/*===========*/
+/* Grey next when disabled */
+
+#nextButton {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #4a90e2;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#backButton {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #4a90e2;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#nextButton:disabled {
+    background-color: #d3d3d3; 
+    cursor: not-allowed;
+    color: #aaa;
+} 
+
+input[name="colourValue"] {
+    width: 40px;
+    height: 40px;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+
