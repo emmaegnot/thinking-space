@@ -9,6 +9,11 @@
     "express-session": "^1.18.1"
   },
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
   }
 }

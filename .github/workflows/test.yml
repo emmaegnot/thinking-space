@@ -1,6 +1,4 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-name: Node.js CI
+name: Test CI
 
 on:
   push:
@@ -26,26 +24,26 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: './src/server/package-lock.json'
+        cache-dependency-path: './package-lock.json'
 
     # Install dependencies from the correct directory
     - name: Install dependencies
       run: npm ci
-      working-directory: ./src/server
+      working-directory: ./
 
     # Cache the node_modules directory after dependencies are installed
     - name: Cache node_modules
       uses: actions/cache@v3
       with:
-        path: ./src/server/node_modules
-        key: ${{ runner.os }}-node-modules-${{ hashFiles('./src/server/package-lock.json') }}
+        path: ./node_modules
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('./package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-modules-
 
     - name: Build the project
       run: npm run build --if-present
-      working-directory: ./src/server
+      working-directory: ./
 
-   # - name: Run tests
-   #   run: npm test
-   #   working-directory: ./src/server
+    - name: Run tests
+      run: npm test
+      working-directory: ./
