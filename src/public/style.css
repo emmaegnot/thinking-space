@@ -13,7 +13,7 @@ body{
     height: 100%;
     margin: 20px;
     background-image: url(images/background-removebg.png);
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
