@@ -21,6 +21,11 @@ test("Checks that NEXT button is initially disabled", async () => {
     expect(res.text).toContain('<button type="submit" id="nextButton" disabled>NEXT</button>');
 });
 
+test("Checks that the form submits to /next-shape when NEXT is clicked", async () => {
+    const res = await request(app).get("/choose_shape");
+    expect(res.text).toContain("form.action = '/next-shape';");
+});
+
 afterAll(() => {
     server.close(); // Close the server after the tests are done
   });
