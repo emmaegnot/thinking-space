@@ -21,9 +21,11 @@
                 <img id="arrow" src="images/arrow.png" width="130" height="120" style="transition: transform 0.5s ease; top:448px; transform: rotate(283deg); position: absolute; z-index: 2;">
                 <!-- left: 565px; top:245px;  -->
                 <img src="images/meter.jpg" width="150" height="130" style="position: absolute; z-index: 1;">
+                <br>
+                <br>
             </div>
             
-            <div class="meter-buttons" style="display: block; align-items: center;">
+            <div class="meter-buttons" style="display: grid; align-items: center;">
                 <div style="padding: 20px; margin: 70px;">
                     <br>
                     <button onclick="decrease()">-</button>
@@ -36,6 +38,7 @@
 
     <!-- pass a force value -->
 
+    <!--
         <form id = "force-form" action="submit-force" method="post">
 
             <input id="clickCount" type="hidden" >
@@ -51,7 +54,15 @@
                 <button type="button-div" id="backButton">BACK</button>
             </div>
         </form>
-    </div>
+    </div> -->
+
+    <form id="force-form" method="post">
+        <input id="clickCount" type="hidden" >
+        <div class="button-div" align="center">
+            <button type="button" id="backButton">BACK</button>
+            <button type="submit" id="nextButton">NEXT</button>
+        </div>
+    </form>
     
 
     <footer class="footer">
@@ -90,6 +101,19 @@
         document.getElementById("clickCount").innerHTML = clickCount;
         document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
     }
+
+    document.getElementById('backButton').addEventListener('click', function() {
+      const form = document.getElementById('force-form');
+      form.action = '/previous-force';
+      form.submit();
+    });
+
+    document.getElementById('nextButton').addEventListener('click', function() {
+      const form = document.getElementById('force-form');
+      form.action = '/submit-force';
+      form.submit();
+    });
+
     </script>
 
 </body>
