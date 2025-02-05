@@ -26,6 +26,16 @@ test.each(["parallelogram", "circle", "square", "star", "triangle", "spikeyball"
     }
 );
 
+test("Checks that NEXT button is initially disabled", async () => {
+    const res = await request(app).get("/choose_shape");
+    expect(res.text).toContain('<button type="submit" id="nextButton" disabled>NEXT</button>'); // Checks next button is initially disabled as no shape is selected
+});
+
+test("Checks that the form submits to /next-colour when NEXT is clicked", async () => {
+    const res = await request(app).get("/choose_colour");
+    expect(res.text).toContain("form.action = '/next-colour';"); // The response should contain code for submitting the form
+});
+
 afterAll(() => {
     server.close(); // Close the server after the tests are done
   });
