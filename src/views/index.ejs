@@ -20,11 +20,13 @@
   </div>
  </div>
  <div id="overlay"></div>
-    <div id="cookiePopup" class="index-container mouseM">
-        <h2>Cookie Consent</h2>
-        <p>We use cookies to enhance your experience. Do you accept?</p>
-        <button id="accept">Accept</button>
+ <% if (showConsentPopup) { %>
+  <div id="cookiePopup" class="index-container mouseM">
+    <h2>Cookie Consent</h2>
+    <p>We use cookies to enhance your experience. Do you accept?</p>
+    <button id="accept">Accept</button>
   </div>
+<% } %>
 <footer class="index-footer">
   <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" height="60px" width="120px">
   <span class="motto mouseM">With emotional health in mind</span>
