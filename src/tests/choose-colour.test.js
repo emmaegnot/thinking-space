@@ -12,14 +12,11 @@ test.each(["parallelogram", "circle", "square", "star", "triangle", "spikeyball"
     "Checks that only the selected shape appears as an image",
     async (selectedShape) => {
         const agent = request.agent(app); // Creates a persistent session
-        const postRes = await agent
+        await agent
             .post("/next-shape") // Send a post request
             .send({ shape: selectedShape }) // Send the selected shape as data
             .expect(302) // Indicates a redirect
-        console.log(postRes.headers['set-cookie']);
-        agent.jar.setCookies(postRes.headers['set-cookie']);
         const res = await agent.get("/choose_colour"); // Make a request to choose_colour
-        console.log(res.text);
         expect(res.statusCode).toBe(200);
         expect(res.text).toContain(`images/${selectedShape}.png`); // Checks the dislpayed image matches the selected shape
         const otherShapes = ["parallelogram", "circle", "square", "star", "triangle", "spikeyball", "cloud", "hexagon"].filter(shape => shape !== selectedShape);
