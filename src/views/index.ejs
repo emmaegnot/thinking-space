@@ -14,8 +14,7 @@
       <i class="fa-solid fa-person student"></i>
   </div>
   <div class="flex-container">
-        <button class="button" onclick="ShowMessage()">Teacher</button>
-        <div id="message" class="hidden">Coming soon...</div>
+        <button id="teacher" class="button" onclick="window.location.href='/teacher_login'">Teacher</button>
       <i class="fa-solid fa-person teacher"></i>
   </div>
  </div>
@@ -32,43 +31,6 @@
   <span class="motto mouseM">With emotional health in mind</span>
 </footer>
   <style>
-    #message {
-        background-color: #f8d7da; 
-        color: #721c24; 
-        padding: 20px 30px;
-        border-radius: 30px;
-        margin-top: 20px;
-        left: -97px;
-        top: 83px;
-        display: none; /* Initially hidden */
-        transition: opacity 0.3s ease-in-out;
-        position: absolute;
-        font-size: 20;
-        border: 1px solid black;
-    }
-    #message::before {
-        content: "";
-        position: absolute;
-        bottom: -1px; 
-        right: -1px; 
-        width: 0;
-        height: 0;
-        border-left: 28px solid transparent;
-        border-right: 28px solid black; 
-        border-top: 28px solid transparent;
-    }
-    #message::after {
-        content: "";
-        position: absolute;
-        bottom: 0px; 
-        right: 0px; 
-        width: 0;
-        height: 0;
-        border-left: 27px solid transparent;
-        border-right: 27px solid #f8d7da; 
-        border-top: 27px solid transparent;
-    }
-
     #cookiePopup {
         position: fixed;
         top: 50%;
