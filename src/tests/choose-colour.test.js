@@ -26,15 +26,13 @@ test.each(["parallelogram", "circle", "square", "star", "triangle", "spikeyball"
     }
 );
 
-test("Checks if the color selection buttons are present", async () => {
+test("Checks if the colour selection buttons are present", async () => {
     const res = await request(app).get("/choose_colour");
     // Checks that each colour is able to be selected as a button
-    expect(res.text).toContain('type="button" name="colourValue" value="red"'); 
-    expect(res.text).toContain('type="button" name="colourValue" value="orange"'); 
-    expect(res.text).toContain('type="button" name="colourValue" value="green"');
-    expect(res.text).toContain('type="button" name="colourValue" value="yellow"');
-    expect(res.text).toContain('type="button" name="colourValue" value="blue"');
-    expect(res.text).toContain('type="button" name="colourValue" value="black"');
+    const colours = ["red", "orange", "green", "yellow", "blue", "black"];
+    colours.forEach(colour => {
+        expect(res.text).toContain(`type="button" name="colourValue" value="${colour}"`); // For each shape, check the response contains an input field with its name
+    });
 });
 
 test("Checks that NEXT button is initially disabled", async () => {
