@@ -14,7 +14,7 @@ test.each(["parallelogram", "circle", "square", "star", "triangle", "spikeyball"
         const agent = request.agent(app); // Creates a persistent session
         await agent
             .post("/next-shape") // Send a post request
-            .send({ shape: selectedShape }) // Send the selected shape as data
+            .send('shape=' + selectedShape)
             .expect(302) // Indicates a redirect
         const res = await agent.get("/choose_colour"); // Make a request to choose_colour
         expect(res.statusCode).toBe(200);
