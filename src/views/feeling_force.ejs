@@ -67,8 +67,6 @@
                     }
                     
                 }
-                function sendDataToServer(clickCount) {
-                }
                 </script>
 
 <p id="clickCount"></p>
@@ -81,27 +79,33 @@
 
 <!-- pass a force value -->
 
+<script>
+    function sendDataToServer() {
+        // Get the current clickCount value
+        document.getElementById("clickCountInput").value = clickCount;
+        document.getElementById("form").submit();
+    }
+
+    document.getElementById("nextButton").addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent default form submission
+        sendDataToServer(); // Ensure clickCount is sent
+    });
+</script>
+
 <form id = "form" action="submit-force" method="post">
-
-    <input id="clickCount" type="hidden" >
-
+    <input id="clickCountInput" name="clickCount" type="hidden" value="5" >
     <div class="button-div" align="center">
             <button type="submit" id = "nextButton">NEXT</button>
-
-<!-- <form action="submit-force" method="post"> -->
-        <!-- <div class="button-div" style="text-align: center; margin-top: 20px;"> -->
-            <!-- <button style="padding: 1px; margin: 2px; display: inline-block; text-align: center; "type="submit" id="nextButton" >NEXT</button> -->
-
           </div>
-        
         </form>
 
-        <form action="/previous-force" method="post">
-            <div class="button-div" align="center">
-                <button type="button-div" id="backButton">BACK</button>
-                </div>
-        </form>
+<form action="/previous-force" method="post">
+    <div class="button-div" align="center">
+        <button type="button-div" id="backButton">BACK</button>
     </div>
+</form>
+
+</div>
   
     <footer class="footer">
         <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
