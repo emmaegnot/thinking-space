@@ -46,12 +46,10 @@
                     document.getElementById("clickCount").innerHTML = clickCount;
                 
                     document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
-                    sendDataToServer(clickCount);
+                    // sendDataToServer(clickCount);
                     }
                 }
-            </script>
-
-            <script>
+          
                  function increase() {
                     const n = 20;
                     if (rotationAngle + n <= 390) {
@@ -61,9 +59,8 @@
                     }
 
                     document.getElementById("clickCount").innerHTML = clickCount;
-
                     document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
-                    sendDataToServer(clickCount);
+                    // sendDataToServer(clickCount);
                     }
                     
                 }
@@ -81,21 +78,21 @@
 
 <script>
     function sendDataToServer() {
-        // Get the current clickCount value
         document.getElementById("clickCountInput").value = clickCount;
         document.getElementById("form").submit();
     }
 
     document.getElementById("nextButton").addEventListener("click", function(event) {
-        event.preventDefault(); // Prevent default form submission
-        sendDataToServer(); // Ensure clickCount is sent
+        event.preventDefault();
+        sendDataToServer(); 
     });
 </script>
 
 <form id = "form" action="submit-force" method="post">
     <input id="clickCountInput" name="clickCount" type="hidden" value="5" >
     <div class="button-div" align="center">
-            <button type="submit" id = "nextButton">NEXT</button>
+            <button onclick="sendDataToServer()" type="submit" id = "nextButton">NEXT</button>
+            
           </div>
         </form>
 
