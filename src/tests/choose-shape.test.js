@@ -8,6 +8,14 @@ test("Checks page is rendered with the correct title and icon", async () => {
     expect(res.text).toEqual(expect.stringContaining('<link rel="icon" href="/images/icon.png" sizes="64x64">'));
 });
 
+test("Checks that all shape options are present", async () => {
+    const res = await request(app).get("/choose_shape");
+    const shapes = ["parallelogram", "circle", "square", "star", "triangle", "spikeyball", "cloud", "hexagon"];
+    shapes.forEach(shape => {
+        expect(res.text).toContain(`value="${shape}"`);
+    });
+});
+
 afterAll(() => {
     server.close(); // Close the server after the tests are done
   });
