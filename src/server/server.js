@@ -247,7 +247,7 @@ app.get('/mood_summary', (req,res) => {
     console.log(shape)
     console.log(colour)
     console.log(word)
-    console.log("received clickCount:", force)
+    console.log("feeling force:", force + "/10")
     const potentialMoods = getSharedWords(shape, colour, word)
     //Gets associations between all of the choicees
     let mood;
