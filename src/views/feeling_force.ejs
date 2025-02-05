@@ -6,93 +6,91 @@
  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav class="mouseM">
-    <ul class="header">
-        <li><a>THE THINKING SPACE</a></li>
-        <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
-    </ul>
-   </nav>
+    <nav class="mouseM" style="display: block;">
+        <ul class="header">
+            <li><a>THE THINKING SPACE</a></li>
+            <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
+        </ul>
+    </nav>
 
-<div class="container mouseM">
-        <h2 class = "colouredText" style="padding: 10px; margin: 20px;">Feeling force</h2>
-        <p class="bodyText">How strong are your feelings right now? Press the plus and minus buttons!</p>
+    <div class="container mouseM">
+            <h2 class = "colouredText" style="padding: 10px; margin: 20px;">Feeling force</h2>
+            <p class="bodyText">How strong are your feelings right now? Press the plus and minus buttons!</p>
 
-        <div class="meter">
-            <img id="arrow" src="images/arrow.png" width="130" height="120" style="transition: transform 0.5s ease; top:448px; transform: rotate(283deg); z-index: 2;">
-            <!-- left: 565px; top:245px;  -->
-            <img src="images/meter.jpg" width="150" height="130" style="position: absolute; z-index: 1;">
-        </div>
-        
-        <div style="display: flex; align-items: center;">
-            <div style="padding: 20px; margin: 70px;">
-                <button onclick="decrease()">-</button>
-                <button onclick="increase()">+</button>
+            <div class="meter" style="display:block;">
+                <img id="arrow" src="images/arrow.png" width="130" height="120" style="transition: transform 0.5s ease; top:448px; transform: rotate(283deg); position: absolute; z-index: 2;">
+                <!-- left: 565px; top:245px;  -->
+                <img src="images/meter.jpg" width="150" height="130" style="position: absolute; z-index: 1;">
             </div>
             
-            <!-- displays current count to the user -->
-            <p id="clickCount"></p>
-        </div>
+            <div class="meter-buttons" style="display: block; align-items: center;">
+                <div style="padding: 20px; margin: 70px;">
+                    <br>
+                    <button onclick="decrease()">-</button>
+                    <button onclick="increase()">+</button>
+                </div>
+                
+                <!-- displays current count to the user -->
+                <p id="clickCount"></p>
+            </div>
 
-<!-- pass a force value -->
+    <!-- pass a force value -->
 
-<form id = "form" action="submit-force" method="post">
+        <form id = "force-form" action="submit-force" method="post">
 
-    <input id="clickCount" type="hidden" >
+            <input id="clickCount" type="hidden" >
 
-    <div class="button-div" align="center">
-            <button type="submit" id = "nextButton">NEXT</button>
-
-<!-- <form action="submit-force" method="post"> -->
-        <!-- <div class="button-div" style="text-align: center; margin-top: 20px;"> -->
-            <!-- <button style="padding: 1px; margin: 2px; display: inline-block; text-align: center; "type="submit" id="nextButton" >NEXT</button> -->
-
-          </div>
-        
+            <div class="button-div" align="center">
+                    <button type="submit" id = "nextButton">NEXT</button>
+            </div>
+            
         </form>
 
         <form action="/previous-force" method="post">
             <div class="button-div" align="center">
                 <button type="button-div" id="backButton">BACK</button>
-                </div>
+            </div>
         </form>
     </div>
-  
+    
+
     <footer class="footer">
         <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
         <span class="motto mouseM">With emotional health in mind</span>
-      </footer>
+    </footer>
 
 
-      <script> 
-        let rotationAngle = 283; // Initial rotation angle
-        let clickCount = 5;
-        
-        function decrease() {
-            const n = -20; // Number of degrees to rotate on each click
-            if (rotationAngle + n >= 170) {
-                rotationAngle += n; // Increase the rotation by n degrees each time
-            if (clickCount > 0) {
-                clickCount--;
-            }
-
-            document.getElementById("clickCount").innerHTML = clickCount;
-        
-            document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
-            }
+    <script> 
+    let rotationAngle = 283; // Initial rotation angle
+    let clickCount = 5;
+    
+    function decrease() {
+        const n = -20; // Number of degrees to rotate on each click
+        if (rotationAngle + n >= 170) {
+            rotationAngle += n; // Increase the rotation by n degrees each time
+        }
+        if (clickCount > 0) {
+            clickCount--;
         }
 
-         function increase() {
-            const n = 20;
-            if (rotationAngle + n <= 390) {
-            rotationAngle += n;
-            if (clickCount < 10) {
-                clickCount++;
-            }
-
-            document.getElementById("clickCount").innerHTML = clickCount;
-            document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
-            } 
+        document.getElementById("clickCount").innerHTML = clickCount;
+        document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
         }
-        </script>
+    
+
+    function increase() {
+        const n = 20;
+        if (rotationAngle + n <= 390) {
+        rotationAngle += n;
+        }
+        if (clickCount < 10) {
+            clickCount++;
+        }
+
+        document.getElementById("clickCount").innerHTML = clickCount;
+        document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
+    }
+    </script>
+
 </body>
 </html>
