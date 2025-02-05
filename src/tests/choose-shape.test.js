@@ -16,6 +16,11 @@ test("Checks that all shape options are present", async () => {
     });
 });
 
+test("Checks that NEXT button is initially disabled", async () => {
+    const res = await request(app).get("/choose_shape");
+    expect(res.text).toContain('<button type="submit" id="nextButton" disabled>NEXT</button>');
+});
+
 afterAll(() => {
     server.close(); // Close the server after the tests are done
   });
