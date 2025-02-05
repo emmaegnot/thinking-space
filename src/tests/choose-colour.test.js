@@ -17,6 +17,7 @@ test.each(["parallelogram", "circle", "square", "star", "triangle", "spikeyball"
             .send({ shape: selectedShape }) // Send the selected shape as data
             .expect(302) // Indicates a redirect
         const res = await agent.get("/choose_colour"); // Make a request to choose_colour
+        console.log(res.text);
         expect(res.statusCode).toBe(200);
         expect(res.text).toContain(`images/${selectedShape}.png`); // Checks the dislpayed image matches the selected shape
         const otherShapes = ["parallelogram", "circle", "square", "star", "triangle", "spikeyball", "cloud", "hexagon"].filter(shape => shape !== selectedShape);
