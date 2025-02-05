@@ -5,7 +5,7 @@ test("Checks page is rendered with the correct title and icon", async () => {
     const res = await request(app).get("/choose_shape");
     expect(res.statusCode).toBe(200);
     expect(res.text).toContain("<title>The Thinking Space | Choose A Shape</title>");
-    expect(res.text).toContain('<link rel="icon" href="/images/icon.png" sizes="64x64"></link>')
+    expect(res.text).toContain('<link rel=\"icon\" href=\"/images/icon.png\" sizes=\"64x64\>')
 });
 
 afterAll(() => {
