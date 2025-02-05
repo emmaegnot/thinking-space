@@ -17,6 +17,7 @@ test.each(["parallelogram", "circle", "square", "star", "triangle", "spikeyball"
             .send({ shape: selectedShape }) // Send the selected shape as data
             .expect(302) // Indicates a redirect
         console.log(postRes.headers['set-cookie']);
+        agent.jar.setCookies(postRes.headers['set-cookie']);
         const res = await agent.get("/choose_colour"); // Make a request to choose_colour
         console.log(res.text);
         expect(res.statusCode).toBe(200);
