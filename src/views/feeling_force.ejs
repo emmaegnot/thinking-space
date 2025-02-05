@@ -101,7 +101,7 @@
         document.getElementById("clickCount").innerHTML = clickCount;
         document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
     }
-
+    // functionality for next and back buttons
     document.getElementById('backButton').addEventListener('click', function() {
       const form = document.getElementById('force-form');
       form.action = '/previous-force';
