@@ -236,6 +236,7 @@ app.post('/previous-force', (req,res) => { //back
 app.post('/submit-force', (req, res) => { //next
     req.session.force = req.body.clickCount;  
     //clickCount = req.body.clickCount; // Update stored value
+
     res.redirect('/mood_summary');          
 });
 
@@ -243,11 +244,12 @@ app.get('/mood_summary', (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
     const word = req.session.word;
-    const force = req.session.force;
+
+    const force = req.session.force
     console.log(shape)
     console.log(colour)
     console.log(word)
-    console.log("feeling force:", force + "/10")
+    console.log(force)
     const potentialMoods = getSharedWords(shape, colour, word)
     //Gets associations between all of the choicees
     let mood;
