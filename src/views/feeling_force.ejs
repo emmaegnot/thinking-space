@@ -91,6 +91,7 @@
 
     document.getElementById('nextButton').addEventListener('click', function() {
       const form = document.getElementById('force-form');
+      sessionStorage.setItem('force', clickCount);
       console.log("Before submit:", form.action, clickCount);
       form.action = '/submit-force';
       form.submit();
