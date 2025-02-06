@@ -234,7 +234,8 @@ app.post('/previous-force', (req,res) => {
 })
 
 app.post('/submit-force', (req, res) => {
-    req.session.force = req.body.clickCount;  
+    req.session.force = req.body.clickCount; 
+    console.log(req.session.force)
     res.redirect('/mood_summary');          
 });
 

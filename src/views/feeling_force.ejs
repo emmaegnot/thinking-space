@@ -37,25 +37,6 @@
             </div>
 
     <!-- pass a force value -->
-
-    <!--
-        <form id = "force-form" action="submit-force" method="post">
-
-            <input id="clickCount" type="hidden" >
-
-            <div class="button-div" align="center">
-                    <button type="submit" id = "nextButton">NEXT</button>
-            </div>
-            
-        </form>
-
-        <form action="/previous-force" method="post">
-            <div class="button-div" align="center">
-                <button type="button-div" id="backButton">BACK</button>
-            </div>
-        </form>
-    </div> -->
-
     <form id="force-form" method="post">
         <input id="clickCount" type="hidden" >
         <div class="button-div" align="center">
@@ -110,6 +91,7 @@
 
     document.getElementById('nextButton').addEventListener('click', function() {
       const form = document.getElementById('force-form');
+      body.clickCount = clickCount;
       form.action = '/submit-force';
       form.submit();
     });
