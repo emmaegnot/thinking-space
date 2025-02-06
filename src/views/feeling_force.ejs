@@ -31,14 +31,11 @@
                 <button onclick="increase()">+</button>
             </div>
             
-
             <p id="clickCount"></p>
 
         </div>
 
     <!-- pass a force value -->
-
-
 
         <form id = "form" action="submit-force" method="post">
             <input id="clickCountInput" name="clickCount" type="hidden" value="5" >
@@ -84,9 +81,7 @@
             }
 
             document.getElementById("clickCount").innerHTML = clickCount;
-        
             document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
-            // sendDataToServer(clickCount);
         }
 
         function increase() {
