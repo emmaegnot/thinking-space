@@ -229,12 +229,14 @@ app.get('/feeling_force', (req,res) => {
     res.render('feeling_force', {title: "Feeling Force"});
 });
 
-app.post('/previous-force', (req,res) => {
+app.post('/previous-force', (req,res) => { //back
     res.redirect('/choose_word');
 })
 
-app.post('/submit-force', (req, res) => {
+app.post('/submit-force', (req, res) => { //next
     req.session.force = req.body.clickCount;  
+    //clickCount = req.body.clickCount; // Update stored value
+
     res.redirect('/mood_summary');          
 });
 
@@ -242,9 +244,12 @@ app.get('/mood_summary', (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
     const word = req.session.word;
+
+    const force = req.session.force
     console.log(shape)
     console.log(colour)
     console.log(word)
+    console.log(force +"/10")
     const potentialMoods = getSharedWords(shape, colour, word)
     //Gets associations between all of the choicees
     let mood;
