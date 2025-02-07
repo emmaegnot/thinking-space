@@ -50,6 +50,17 @@ test("Checks that clicking BACK submits to /previous-colour", async () => {
     expect(res.text).toContain("form.action = '/previous-colour';"); // The response should contain code for going back to the choose shape page
 });
 
+test("Checks that the selected shape and colour remains after navigating the site", async () => {
+    const agent = request.agent(app);
+    await agent.post("/next-shape").send('shape=circle').expect(302); // First select a shape
+    await agent.get("/choose_colour"); // Move to next page
+    await agent.post("/next-colour").send('colour=yellow').expect(302); // Select a colour
+    await agent.get("/choose_word"); // Move to next page
+    await agent.post("/previous-word").expect(302); // Move back to colour page
+    const res = await agent.get("/choose_colour"); // Get the response
+    expect(res.text).toContain('<img class="chosen-shape" src="images/circle.png" alt="coloured shape" style="background-color: yellow;">'); // The new response should still have the image and colour saved
+});
+
 afterAll(() => {
     server.close(); // Close the server after the tests are done
   });

@@ -198,7 +198,7 @@ app.post('/next-shape', (req,res) => {
     res.redirect('/choose_colour');
 })
 app.get('/choose_colour', (req,res) => {
-    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour"});
+    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour", selectedColour: req.session.colour});
 });
 
 app.post('/previous-colour', (req,res) => {
