@@ -45,6 +45,11 @@ test("Checks that the form submits to /next-colour when NEXT is clicked", async 
     expect(res.text).toContain("form.action = '/next-colour';"); // The response should contain code for submitting the form
 });
 
+test("Checks that clicking BACK submits to /previous-colour", async () => {
+    const res = await request(app).get("/choose_colour");
+    expect(res.text).toContain("form.action = '/previous-colour';"); // The response should contain code for going back to the choose shape page
+});
+
 afterAll(() => {
     server.close(); // Close the server after the tests are done
   });
