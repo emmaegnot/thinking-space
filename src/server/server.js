@@ -57,6 +57,15 @@ const word1Vectors = {
     surprised: [0, -4]
 }
 
+const colourVectors = {
+    green: [-3, 3],
+    yellow: [-1, 1],
+    iceBlue: [1, 1.5],
+    navy: [2.5, 3],
+    orange: [1, -1],
+    red: [4, -4]
+}
+
 // Find shared associations among word, shape and colour
 function getSharedWords(shape, colour, word) {
     // Fetch words associated with the shape, colour, and word
