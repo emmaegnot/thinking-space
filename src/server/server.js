@@ -34,6 +34,29 @@ const words = {
     Surprised: ['concerned', 'exited', 'confused', 'happy'],
 
 }
+
+// define vectors on unpleasant-calm graph, x is increasing pleasant to unpleasant, y is excited to calm
+// this information has come from cross-modal correspondence research
+const shapeVectors = {
+    star: [0.5, -2.5],
+    spikes: [-5, -5],
+    circle: [-5, 5],
+    cloud: [-1, 1.5],
+    triangle: [3, -3],
+    square: [-3, 3.5],
+    bouba: [1, 1],
+    diamond: [1, -1]
+}
+
+const word1Vectors = {
+    angry: [4.5, -5],
+    disgusted: [5, -2],
+    fearful: [5, -3.5],
+    happy: [-5, 5],
+    sad: [4, 3],
+    surprised: [0, -4]
+}
+
 // Find shared associations among word, shape and colour
 function getSharedWords(shape, colour, word) {
     // Fetch words associated with the shape, colour, and word
@@ -77,6 +100,10 @@ function getSharedWords(shape, colour, word) {
 
     // Return the most frequent shared words
     return mostFrequentWords;
+}
+
+function matchMood(shape, colour, word1, force){
+    
 }
 
 function colourToDec(colour){
