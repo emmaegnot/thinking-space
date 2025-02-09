@@ -83,6 +83,8 @@ const moodVectors = {
 
 function matchMood(shape, colour, word1, force){
     // get value of three vectors corresponding to shape, colour, word
+    shapeVector = shapeVectors[alert]
+    console.log(shapeVector)
     // find average of the three vectors
     // multiply by feeling force div 2
     // use the same code as generalise colour function to find the closest mood to the average vector
@@ -311,6 +313,7 @@ app.get('/mood_summary', (req,res) => {
     let mood;
     const randomIndex = Math.floor(Math.random() * potentialMoods.length)
     mood = potentialMoods[randomIndex]
+    mood = matchMood(shape, colour, word, force)
 
     req.session.mood = mood;
     res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
