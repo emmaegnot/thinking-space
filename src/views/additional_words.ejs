@@ -77,8 +77,8 @@
         </div>
 
         <div class="button-div" align="center">
-          <button type="button">BACK</button>
-          <button type="button">NEXT</button>
+          <button type="button" id="backButton">BACK</button>
+          <button type="button" id="nextButton">NEXT</button>
         </div>
       </form>
     </div>
@@ -88,6 +88,14 @@
     </footer>
 
     <script>
+      const colour = sessionStorage.getItem('selectedColour')
+      document.body.style.setProperty('--main-colour', colour);
+      if(colour === "black"){
+        document.body.style.setProperty('--add-colour', "grey");
+      }
+      const image = document.querySelector('.chosen-shape')
+      image.style.backgroundColor = colour
+
       function updateSelectedWords() {
         // Get all checked word items
         const selectedWords = Array.from(document.querySelectorAll('input[name="words"]:checked')).map(el => el.value);
@@ -112,8 +120,17 @@
       }
     </script>
     <style>
+      body {
+            --main-colour: black; 
+            --add-colour: black;
+        }
       .left-words, .right-words{
-        color: green;
+        color: var(--main-colour);
+        text-shadow: 
+          -1px -1px 0 var(--add-colour),  
+          1px -1px 0 var(--add-colour),
+          -1px  1px 0 var(--add-colour),
+          1px  1px 0 var(--add-colour);
       }
     </style>
  </body>
