@@ -221,8 +221,13 @@ app.post('/previous-word', (req,res) => {
 
 app.post('/next-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
-     // Save mood in session
-    res.redirect('/feeling_force');     // Redirect to feeling force page
+    var filePath = "images/"
+    req.session.filePath = filePath.concat(req.session.shape, ".png")
+    res.redirect('/additional_words');     
+});
+
+app.get('/additional_words', (req,res) => {
+    res.render('additional_words', {filepath: req.session.filePath, title: "More Words", wordList : ['Irritated', 'Resentful', 'Miffed', 'Upset', 'Mad', 'Furious', 'Raging', 'Hot']});
 });
 
 app.get('/feeling_force', (req,res) => {
