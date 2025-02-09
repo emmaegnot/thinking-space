@@ -58,12 +58,31 @@ const word1Vectors = {
 }
 
 const colourVectors = {
-    green: [-3, 3],
-    yellow: [-1, 1],
-    iceBlue: [1, 1.5],
-    navy: [2.5, 3],
-    orange: [1, -1],
-    red: [4, -4]
+    green: [-0.5, 0.5],
+    yellow: [3.5, 0.5],
+    cyan: [-4.5, 2.5],
+    navy: [-3.5, 2.5],
+    orange: [1, -3],
+    red: [-1.5, -4]
+}
+
+const moodVectors = {
+    alert: [-1, -5],
+    excited: [-4, -4],
+    happy: [-5, -0.5],
+    content: [-5, 1],
+    relaxed: [-4, 4],
+    angry: [5, -5],
+    calm: [-1, 5],
+    bored: [1, 5],
+    upset: [4.5, 3.5],
+    sad: [5, 1],
+    distressed: [4, -3],
+    tense: [0.5, -5],
+}
+
+function matchMood(shape, colour, word1, force){
+    
 }
 
 // Find shared associations among word, shape and colour
@@ -111,9 +130,6 @@ function getSharedWords(shape, colour, word) {
     return mostFrequentWords;
 }
 
-function matchMood(shape, colour, word1, force){
-    
-}
 
 function colourToDec(colour){
     hexIndicate = "0x"
