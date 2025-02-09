@@ -35,7 +35,7 @@ const words = {
 
 }
 
-// define vectors on unpleasant-calm graph, x is increasing pleasant to unpleasant, y is excited to calm
+// define vectors on unpleasant-calm graph, x ( positive is unpleasant, negative is pleasant), y (positive is calm, negative is excited)
 // this information has come from cross-modal correspondence research
 const shapeVectors = {
     star: [0.5, -2.5],
@@ -82,7 +82,11 @@ const moodVectors = {
 }
 
 function matchMood(shape, colour, word1, force){
-    
+    // get value of three vectors corresponding to shape, colour, word
+    // find average of the three vectors
+    // multiply by feeling force div 2
+    // use the same code as generalise colour function to find the closest mood to the average vector
+    // return that current mmood
 }
 
 // Find shared associations among word, shape and colour
