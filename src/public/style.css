@@ -268,8 +268,7 @@ a:hover {
     }
 }
 
-.chosen-shape{
-    border-radius: 10px;
+.chosen-shape {
     width: 100%;
     max-width: 180px;
     max-height: 160px;
