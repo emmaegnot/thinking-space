@@ -100,6 +100,9 @@
         // Get all checked word items
         const selectedWords = Array.from(document.querySelectorAll('input[name="words"]:checked')).map(el => el.value);
 
+        // Save the selected words as a comma-separated string in sessionStorage
+        sessionStorage.setItem('selectedWords', selectedWords.join(','));
+
         // Clear and update the left and right word containers
         const leftWordsContainer = document.querySelector('.left-words');
         const rightWordsContainer = document.querySelector('.right-words');
@@ -118,6 +121,19 @@
           }
         });
       }
+        
+      document.addEventListener('DOMContentLoaded', () => {
+        const selectedWordsString = sessionStorage.getItem('selectedWords') || '';
+        const selectedWords = selectedWordsString.split(',');
+        selectedWords.forEach(word => {
+          const checkbox = document.querySelector(`input[name="words"][value="${word}"]`);
+          if (checkbox) {
+            checkbox.checked = true;
+          }
+        });
+        updateSelectedWords();
+      });
+
       document.getElementById('backButton').addEventListener('click', function() {
           const form = document.getElementById('additionalForm');
           form.action = '/previous-additional';
