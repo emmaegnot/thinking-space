@@ -8,7 +8,7 @@
       </ul>
     </nav>
     <div class="container mouseM">
-      <form action="submit-additional-words" method="post">
+      <form id="additionalForm" method="post">
         <h1 class="colouredText">Choose some more words...</h1>
         <div class="word-container">
           <div class="selected-words left-words">
@@ -118,6 +118,17 @@
           }
         });
       }
+      document.getElementById('backButton').addEventListener('click', function() {
+          const form = document.getElementById('additionalForm');
+          form.action = '/previous-additional';
+          form.submit();
+      });
+      document.getElementById('nextButton').addEventListener('click', function() {
+          const form = document.getElementById('additionalForm');
+          form.action = '/next-additional';
+          form.submit();
+      });
+    
     </script>
     <style>
       body {
