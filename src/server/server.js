@@ -230,12 +230,20 @@ app.get('/additional_words', (req,res) => {
     res.render('additional_words', {filepath: req.session.filePath, title: "More Words", wordList : ['Irritated', 'Resentful', 'Miffed', 'Upset', 'Mad', 'Furious', 'Raging', 'Hot']});
 });
 
+app.post('/previous-additional', (req,res) => { //back
+    res.redirect('/choose_word');
+})
+
+app.post('/next-additional', (req, res) => {
+    res.redirect('/feeling_force');     
+});
+
 app.get('/feeling_force', (req,res) => {
     res.render('feeling_force', {title: "Feeling Force"});
 });
 
 app.post('/previous-force', (req,res) => { //back
-    res.redirect('/choose_word');
+    res.redirect('/additional_words');
 })
 
 app.post('/submit-force', (req, res) => { //next
