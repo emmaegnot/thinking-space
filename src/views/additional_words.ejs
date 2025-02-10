@@ -78,7 +78,7 @@
 
         <div class="button-div" align="center">
           <button type="button" id="backButton">BACK</button>
-          <button type="button" id="nextButton">NEXT</button>
+          <button type="button" id="nextButton" disabled>NEXT</button>
         </div>
       </form>
     </div>
@@ -95,6 +95,7 @@
       }
       const image = document.querySelector('.chosen-shape')
       image.style.backgroundColor = colour
+      const nextButton = document.getElementById("nextButton");
 
       function updateSelectedWords() {
         // Get all checked word items
@@ -130,6 +131,12 @@
             rightWordsContainer.appendChild(wordElement);
           }
         });
+
+        if (selectedWords.length === 0) {
+          nextButton.disabled = true;
+        } else {
+          nextButton.disabled = false;
+        }
       }
         
       document.addEventListener('DOMContentLoaded', () => {
