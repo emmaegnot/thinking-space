@@ -10,10 +10,10 @@ test("Checks page is rendered with the correct title and icon", async () => {
 
 test("Checks page is rendered with a mood", async () => {
     const agent = request.agent(app); // Creates a persistent session
-    await agent.post('/next-shape').send({ shape: 'circle' }); // Choose shape
-    await agent.post('/next-colour').send({ colour: 'blue' }); // Choose colour
-    await agent.post('/next-word').send({ selectedEmotion: 'Happy' }); // Choose word
-    await agent.post('/submit-force').send({ clickCount: 7 }); // Choose force
+    await agent.post('/next-shape'); // Choose shape
+    await agent.post('/next-colour'); // Choose colour
+    await agent.post('/next-word'); // Choose word
+    await agent.post('/submit-force'); // Choose force
     const res = await agent.get('/mood_summary'); // Get mood summary
     expect(res.status).toBe(200); // Status code 200 indicates a successful request and response
     expect(res.text).toContain("<h2 class=\"colouredText\">Are you feeling indecisive </h2>"); // Checks the server assigns a mood
@@ -21,10 +21,10 @@ test("Checks page is rendered with a mood", async () => {
 
 test("Checks that the selected mood persists across sessions", async () => {
     const agent = request.agent(app);
-    await agent.post('/next-shape').send({ shape: 'cloud' });
-    await agent.post('/next-colour').send({ colour: 'yellow' });
-    await agent.post('/next-word').send({ selectedEmotion: 'Happy' });
-    await agent.post('/submit-force').send({ clickCount: 5 });
+    await agent.post('/next-shape').send("shape=cloud");
+    await agent.post('/next-colour').send("colour=yellow");
+    await agent.post('/next-word').send("selectedEmotion=Happy");
+    await agent.post('/submit-force').send("clickCount=5");
     const res1 = await agent.get('/mood_summary');
     expect(res1.text).toContain("<h2 class=\"colouredText\">Are you feeling Happy </h2>");
     const res2 = await agent.get('/mood_summary'); // Revisit the page
