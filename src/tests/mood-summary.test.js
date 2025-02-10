@@ -19,6 +19,18 @@ test("Checks page is rendered with a mood", async () => {
     expect(res.text).toContain("<h2 class=\"colouredText\">Are you feeling indecisive </h2>"); // Checks the server assigns a mood
 });
 
+test("Checks that the selected mood persists across sessions", async () => {
+    const agent = request.agent(app);
+    await agent.post('/next-shape').send({ shape: 'cloud' });
+    await agent.post('/next-colour').send({ colour: 'yellow' });
+    await agent.post('/next-word').send({ selectedEmotion: 'Happy' });
+    await agent.post('/submit-force').send({ clickCount: 5 });
+    const res1 = await agent.get('/mood_summary');
+    expect(res1.text).toContain("<h2 class=\"colouredText\">Are you feeling Happy </h2>");
+    const res2 = await agent.get('/mood_summary'); // Revisit the page
+    expect(res2.text).toContain("<h2 class=\"colouredText\">Are you feeling Happy </h2>");
+});
+
 test("Checks footer contains the logo and motto", async () => {
     const res = await request(app).get("/mood_summary");
     expect(res.status).toBe(200);
