@@ -34,6 +34,16 @@ const words = {
     Surprised: ['concerned', 'exited', 'confused', 'happy'],
 
 }
+
+const additionalWords = {
+    Angry: ['Irritated', 'Resentful', 'Miffed', 'Upset', 'Mad', 'Furious', 'Raging', 'Hot'],
+    Disgusted: ['Awful', 'Disappointed', 'Repelled', 'Horrified', 'Hesitant', 'Judgmental', 'Embarrassed', 'Revolted'],
+    Fearful: ['Scared', 'Anxious', 'Insecure', 'Weak', 'Rejected', 'Threatened', 'Nervous', 'Helpless'],
+    Happy: ['Playful', 'Interested', 'Optimistic', 'Inspired', 'Proud', 'Thankful', 'Cheeky', 'Free'],
+    Sad: ['Lonely', 'Hurt', 'Guilty', 'Powerless', 'Abandoned', 'Ashamed', 'Disappointed', 'Embarrassed'],
+    Surprised: ['Confused', 'Amazed', 'Excited', 'Startled', 'Shoked', 'Eager', 'Energetic', 'Dissapointed'],
+
+}
 // Find shared associations among word, shape and colour
 function getSharedWords(shape, colour, word) {
     // Fetch words associated with the shape, colour, and word
@@ -227,7 +237,7 @@ app.post('/next-word', (req, res) => {
 });
 
 app.get('/additional_words', (req,res) => {
-    res.render('additional_words', {filepath: req.session.filePath, title: "More Words", wordList : ['Irritated', 'Resentful', 'Miffed', 'Upset', 'Mad', 'Furious', 'Raging', 'Hot']});
+    res.render('additional_words', {filepath: req.session.filePath, title: "More Words", wordList : additionalWords[req.session.word]});
 });
 
 app.post('/previous-additional', (req,res) => { //back

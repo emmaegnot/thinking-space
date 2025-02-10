@@ -28,49 +28,49 @@
         <div class="word-selection">
           <div class="word-item">
             <label>
-              <input type="checkbox" name="words" value="<%= wordList[0] %>" onchange="updateSelectedWords()">
+              <input type="checkbox" name="words" value="<%= wordList[0] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[0] %>
             </label>
           </div>
           <div class="word-item">
             <label>
-              <input type="checkbox" name="words" value="<%= wordList[1] %>" onchange="updateSelectedWords()">
+              <input type="checkbox" name="words" value="<%= wordList[1] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[1] %>
             </label>
           </div>
           <div class="word-item">
             <label>
-              <input type="checkbox" name="words" value="<%= wordList[2] %>" onchange="updateSelectedWords()">
+              <input type="checkbox" name="words" value="<%= wordList[2] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[2] %>
             </label>
           </div>
           <div class="word-item">
             <label>
-              <input type="checkbox" name="words" value="<%= wordList[3] %>" onchange="updateSelectedWords()">
+              <input type="checkbox" name="words" value="<%= wordList[3] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[3] %>
             </label>
           </div>
           <div class="word-item">
             <label>
-              <input type="checkbox" name="words" value="<%= wordList[4] %>" onchange="updateSelectedWords()">
+              <input type="checkbox" name="words" value="<%= wordList[4] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[4] %>
             </label>
           </div>
           <div class="word-item">
             <label>
-              <input type="checkbox" name="words" value="<%= wordList[5] %>" onchange="updateSelectedWords()">
+              <input type="checkbox" name="words" value="<%= wordList[5] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[5] %>
             </label>
           </div>
           <div class="word-item">
             <label>
-              <input type="checkbox" name="words" value="<%= wordList[6] %>" onchange="updateSelectedWords()">
+              <input type="checkbox" name="words" value="<%= wordList[6] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[6] %>
             </label>
           </div>
           <div class="word-item">
             <label>
-              <input type="checkbox" name="words" value="<%= wordList[7] %>" onchange="updateSelectedWords()">
+              <input type="checkbox" name="words" value="<%= wordList[7] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[7] %>
             </label>
           </div>
@@ -99,6 +99,16 @@
       function updateSelectedWords() {
         // Get all checked word items
         const selectedWords = Array.from(document.querySelectorAll('input[name="words"]:checked')).map(el => el.value);
+        const checkboxes = document.querySelectorAll('input[name="words"]');
+        
+        checkboxes.forEach(checkbox => {
+            const wordItem = checkbox.closest('.word-item');
+            if (checkbox.checked) {
+                wordItem.classList.add('selected'); // Add highlight
+            } else {
+                wordItem.classList.remove('selected'); // Remove highlight
+            }
+        });
 
         // Save the selected words as a comma-separated string in sessionStorage
         sessionStorage.setItem('selectedWords', selectedWords.join(','));
@@ -144,20 +154,52 @@
           form.action = '/next-additional';
           form.submit();
       });
+      
     
     </script>
     <style>
+      .word-selection {
+        display: flex;
+        flex-wrap: wrap; 
+        justify-content: center; 
+        gap: 15px;
+        max-width: 80%; 
+        margin: 20px auto; 
+      }
+      .word-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        border-radius: 100px;
+        padding: 10px 15px;
+        font-size: 1.3em;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+        cursor: pointer;
+      }
+
+      .word-item.selected {
+        background-color: lightgreen; /* Change to your preferred color */
+        
+      }
+
+      .word-item label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
       body {
-            --main-colour: black; 
-            --add-colour: black;
-        }
+        --main-colour: black; 
+        --add-colour: black;
+      }
       .left-words, .right-words{
+        width: 40%;
         color: var(--main-colour);
         text-shadow: 
-          -1px -1px 0 var(--add-colour),  
-          1px -1px 0 var(--add-colour),
-          -1px  1px 0 var(--add-colour),
-          1px  1px 0 var(--add-colour);
+        -1px -1px 0 var(--add-colour),  
+        1px -1px 0 var(--add-colour),
+        -1px  1px 0 var(--add-colour),
+        1px  1px 0 var(--add-colour);
       }
     </style>
  </body>
