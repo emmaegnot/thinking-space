@@ -93,6 +93,9 @@
       if(colour === "black"){
         document.body.style.setProperty('--add-colour', "grey");
       }
+      if (colour === "blue"){
+        document.body.style.setProperty('--main-colour', "cerulean");
+      }
       const image = document.querySelector('.chosen-shape')
       image.style.backgroundColor = colour
       const nextButton = document.getElementById("nextButton");

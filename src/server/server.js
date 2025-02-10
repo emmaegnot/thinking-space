@@ -245,16 +245,10 @@ app.post('/previous-additional', (req,res) => { //back
 })
 
 app.post('/next-additional', (req, res) => {
+    req.session.additional = req.body.words
     res.redirect('/feeling_force');     
 });
 
-app.post('/previous-additional', (req,res) => { //back
-    res.redirect('/choose_word');
-})
-
-app.post('/next-additional', (req, res) => {
-    res.redirect('/feeling_force');     
-});
 
 app.get('/feeling_force', (req,res) => {
     res.render('feeling_force', {title: "Feeling Force"});
