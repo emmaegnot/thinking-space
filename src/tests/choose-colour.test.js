@@ -61,6 +61,13 @@ test("Checks that the selected shape and colour remains after navigating the sit
     expect(res.text).toContain('<img class="chosen-shape" src="images/circle.png" alt="coloured shape" style="background-color: yellow;">'); // The new response should still have the image and colour saved
 });
 
+test("Checks footer contains the logo and motto", async () => {
+    const res = await request(app).get("/mood_summary");
+    expect(res.status).toBe(200);
+    expect(res.text).toContain('<img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd"');
+    expect(res.text).toContain('<span class="motto mouseM">With emotional health in mind</span>');
+});
+
 afterAll(() => {
     server.close(); // Close the server after the tests are done
   });
