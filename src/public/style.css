@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+Pinstripe:ital@0;1&display=swap');
 html {
     animation: fadein 2s;
     height: 100%;
@@ -16,18 +17,25 @@ body{
     /* border-radius: 25px; */
     font-size: 46px;
     color: rgb(121, 166, 224);
-    padding: 20;
+    padding: 15;
     list-style-type: none;
     margin: 0;
     overflow: hidden;
     /* background-color: rgb(255, 241, 195); */
     background-image: url(images/header.png);
-    width: 98%;
+    background-repeat: no-repeat;
+    width: 100%;
     height: 80px
   }
 
 .home{
     color: rgb(121, 166, 224);
+    background-image: url(images/header2.png);
+    height: 80px;
+    padding: 30;
+    list-style-type: none;
+    background-repeat: no-repeat;
+    position: left;
 }
 
 /* Prevents home icon from being purple once clicked*/
@@ -62,6 +70,7 @@ a:hover {
 .mouseM { 
     font-family: mouseM;
 }
+
 
 .buycat { 
     font-family: buycat;
@@ -226,7 +235,15 @@ a:hover {
     color: rgb(121, 166, 224);
 }
 
-.index-footer{
+.bodyText {
+    font-family: "Alumni Sans Pinstripe", serif;
+    font-weight: 600;
+    text-align: center;
+    font-style: normal;
+    color: rgb(121, 166, 224);
+}
+
+.index-footer {
     position: absolute;
     display: flex;
     justify-content: space-between;
@@ -349,6 +366,7 @@ a:hover {
     animation-iteration-count: infinite;
 }
 
+/* <<<<<<< feature/update-index-page */
 
 /* HTML: <div class="sparkle"></div> */
 .sparkle {
@@ -412,3 +430,54 @@ a:hover {
     100% {left:0px; top:0px;}
   }
   
+/*===========*/
+/* Grey next when disabled */
+
+#nextButton {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #4a90e2;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#backButton {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #4a90e2;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#nextButton:disabled {
+    background-color: #d3d3d3; 
+    cursor: not-allowed;
+    color: #aaa;
+} 
+
+input[name="colourValue"] {
+    width: 40px;
+    height: 40px;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+
+
+#show-passwd {
+    position: absolute;
+    top: 66%;
+    left: 101%;
+    right: 10px;                
+    transform: translateY(-50%); 
+    cursor: pointer;
+    width: 20px;                 
+    height: 20px;
+}
