@@ -34,7 +34,7 @@ test("Checks page is rendered with a mood for every shape, colour, and word comb
                 const res = await agent.get('/mood_summary');
                 expect(res.status).toBe(200);
                 // The mood should be in the possibleMoods array
-                const containsValidMood = possibleMoods.some(mood => res.text.includes(`Are you feeling ${mood}? </h2>`));
+                const containsValidMood = possibleMoods.some(mood => res.text.includes(`Are you feeling ${mood} </h2>`));
                 expect(containsValidMood).toBe(true); // Expect at least one match
             }
         }
