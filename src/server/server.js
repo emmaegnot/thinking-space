@@ -261,4 +261,4 @@ const server = app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-module.exports = {generaliseColour, server, app};
+module.exports = {generaliseColour, server, app, shapes, colours, words};
