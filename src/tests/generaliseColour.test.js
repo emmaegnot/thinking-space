@@ -31,6 +31,6 @@ test('Test random colours', () => {
     }
 });
 
-afterAll(async () => {
-    await server.close(); // Close the server after the tests are done
+afterAll(() => {
+    server.close(); // Close the server after the tests are done
   });

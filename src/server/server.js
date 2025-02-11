@@ -147,29 +147,15 @@ app.use(express.urlencoded({extended:true}))
 app.get('/', (req,res) => {
 
     res.render('index', { title: "Home", showConsentPopup: !req.cookies.consent });
-    // Check if the consent cookie exists
-    // if (!req.cookies.consent) {
-    //     // Send HTML with a cookie consent banner
-    //     res.send(`
-    //         <h1>Welcome to Our Website</h1>
-    //         <p>We use cookies to enhance your experience. Do you accept?</p>
-    //         <button id="accept">Accept</button>
-    //         <script>
-    //             document.getElementById('accept').onclick = function() {
-    //                 document.cookie = "consent=true; path=/; max-age=" + 60*60*6; // 6 hours
-    //                 location.reload();
-    //             };
-    //         </script>
-    //     `);
-    // } else {
-        
-    //     res.render('index', {title: "Home"});
-    // }
 
 });
 
 app.get('/choose_shape', (req,res) => {
     res.render('choose_shape', {title: "Choose A Shape"});
+});
+
+app.get('/teacher_login', (req, res) => {
+    res.render('teacher_login', {title: "Teacher Login"})
 });
 
 //PLACEHOLDER - Allows for testing of additional_words, must comment out lines 14-16
@@ -188,21 +174,22 @@ app.get('/choose_shape', (req,res) => {
 
 app.post('/previous-shape', (req,res) => {
     res.redirect('/');
-})
+});
+
 
 app.post('/next-shape', (req,res) => {
     req.session.shape = req.body.shape
     var filePath = "images/"
     req.session.filePath = filePath.concat(req.session.shape, ".png")
     res.redirect('/choose_colour');
-})
+});
 app.get('/choose_colour', (req,res) => {
     res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour"});
 });
 
 app.post('/previous-colour', (req,res) => {
     res.redirect('/choose_shape');
-})
+});
 
 app.post('/next-colour', (req, res) => {
     req.session.colour = req.body.colour;
@@ -217,7 +204,7 @@ app.get('/choose_word', (req,res) => {
 
 app.post('/previous-word', (req,res) => {
     res.redirect('/choose_colour');
-})
+});
 
 app.post('/next-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
@@ -229,12 +216,14 @@ app.get('/feeling_force', (req,res) => {
     res.render('feeling_force', {title: "Feeling Force"});
 });
 
-app.post('/previous-force', (req,res) => {
+app.post('/previous-force', (req,res) => { //back
     res.redirect('/choose_word');
-})
+});
 
-app.post('/submit-force', (req, res) => {
+app.post('/submit-force', (req, res) => { //next
     req.session.force = req.body.clickCount;  
+    //clickCount = req.body.clickCount; // Update stored value
+
     res.redirect('/mood_summary');          
 });
 
@@ -242,9 +231,12 @@ app.get('/mood_summary', (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
     const word = req.session.word;
+
+    const force = req.session.force
     console.log(shape)
     console.log(colour)
     console.log(word)
+    console.log(force +"/10")
     const potentialMoods = getSharedWords(shape, colour, word)
     //Gets associations between all of the choicees
     let mood;
@@ -259,4 +251,4 @@ const server = app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-module.exports = {generaliseColour, server};
+module.exports = {generaliseColour, server, app};
