@@ -84,8 +84,11 @@ const moodVectors = {
 function matchMood(shape, colour, word1, force){
     // get value of three vectors corresponding to shape, colour, word
     shapeVector = shapeVectors[shape];
-    colourVector = colourVectors[colour.toLowerCase];
-    word1dVector = moodVectors[word1];
+    colourVector = colourVectors[colour];
+    word1Vector = word1Vectors[word1];
+    console.log(shapeVector);
+    console.log(colourVector);
+    console.log(word1Vector)
     averageVector = [ (shapeVector[0] + colourVector[0] + word1Vector[0])/3, (shapeVector[1] + colourVector[1] + word1Vector[1])/3];
     console.log(averageVector);
     // find average of the three vectors
