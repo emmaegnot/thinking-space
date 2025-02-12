@@ -41,7 +41,7 @@ const additionalWords = {
     Fearful: ['Scared', 'Anxious', 'Insecure', 'Weak', 'Rejected', 'Threatened', 'Nervous', 'Helpless'],
     Happy: ['Playful', 'Interested', 'Optimistic', 'Inspired', 'Proud', 'Thankful', 'Cheeky', 'Free'],
     Sad: ['Lonely', 'Hurt', 'Guilty', 'Powerless', 'Abandoned', 'Ashamed', 'Disappointed', 'Embarrassed'],
-    Surprised: ['Confused', 'Amazed', 'Excited', 'Startled', 'Shoked', 'Eager', 'Energetic', 'Dissapointed'],
+    Surprised: ['Confused', 'Amazed', 'Excited', 'Startled', 'Shocked', 'Eager', 'Energetic', 'Dissapointed'],
 
 }
 // Find shared associations among word, shape and colour
