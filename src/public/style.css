@@ -18,20 +18,28 @@ body{
 }
 
 .header {
-    border-radius: 25px;
+    /* border-radius: 25px; */
     font-size: 46px;
     color: rgb(121, 166, 224);
-    padding: 0;
+    padding: 15;
     list-style-type: none;
     margin: 0;
     overflow: hidden;
-    background-color: rgb(255, 241, 195);
+    /* background-color: rgb(255, 241, 195); */
+    background-image: url(images/header.png);
+    background-repeat: no-repeat;
     width: 100%;
     height: 80px
   }
 
 .home{
     color: rgb(121, 166, 224);
+    background-image: url(images/header2.png);
+    height: 80px;
+    padding: 30;
+    list-style-type: none;
+    background-repeat: no-repeat;
+    position: left;
 }
 
 /* Prevents home icon from being purple once clicked*/
