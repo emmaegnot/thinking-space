@@ -1,0 +1,112 @@
+<html lang="en">
+<%- include('partials/head') %>
+  <nav class="mouseM">
+    <ul class="header">
+      <li><a>THE THINKING SPACE</a></li>
+      <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
+    </ul>
+  </nav>
+  <body>
+    <div class="index-container mouseM">
+      <h1 class="h1">Student Login</h1>
+      <form id="loginForm" method="POST">
+        <div class="flex-container">
+          <label for="name">Name:</label><br>
+          <input type="text" placeholder="Enter your Name" id="name" name="name" required><br>
+        </div>
+        <div class="pass-wrap">
+          <label for="teachername">Teacher's Name:</label><br>
+          <input type="text" placeholder="Enter Teacher's Name" id="teachername" name="teachername" required><br>
+        </div>
+        <div align="center" class="button-container">
+          <button id="backButton" class="buttonBelow" type="button">
+            HOME
+          </button>
+          <button id="submit" class="buttonBelow" type="submit"><span>
+            LOGIN
+          </span></button>
+        </div>
+      </form>
+    </div>
+
+    <style>
+      .flex-container,
+      .pass-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 5px 5px;
+        position: relative;
+      }
+
+      label {
+        font-size: x-large;
+        font-weight: bold;    
+      }
+
+      input[type="text"] {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+        max-width: 250px;
+        height: 40px;
+        text-align: center;             
+      }
+
+      input[type="text"]:focus {
+        border-color: #4a90e2;
+        outline: none;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 10px;
+      }
+
+      .buttonBelow {
+        padding: 10px 20px;
+        width: 120px;
+        font-size: 1em;
+        color: #fff;
+        background-color: #4a90e2;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      #submit {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 120px;
+      }
+
+      #submit:hover span {
+        opacity: 0;
+      }
+      #submit:hover:before {
+        content: "Upcoming!";
+        text-align: center;
+        width: 100%;
+        position: absolute;
+      }
+    </style>
+
+    <script>
+      document.getElementById('backButton').addEventListener('click', function() {
+        window.location.href = '/';
+      });
+    </script>
+
+  <footer class="index-footer">
+    <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" height="60px" width="120px">
+    <span class="motto mouseM">With emotional health in mind</span>
+  </footer>
+
+</body>
+</html>
