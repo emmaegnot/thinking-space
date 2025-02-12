@@ -3,6 +3,8 @@ const session = require('express-session'); //npm install express-session
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const { closeSync } = require('fs');
+const mongoose = require('mongoose');
+const { MongoClient } = require('mongodb');
 
 const app = express();
 app.use(express.urlencoded({extended:true}))
@@ -129,6 +131,40 @@ function generaliseColour(RGBAcolour){
     return closestColour
 }
 
+// MongoDB connection URL
+// !!! DO NOT INCLUDE THIS WHEN WE MOVE TO AWS !!!
+// Currently it is fine as it is a locally hosted database
+const uri = "mongodb://127.0.0.1:27017/firstDatabase"; // Local MongoDB
+// In order for this to work, mongodb needs to be installed and running on your local machine
+// The commands I used were:
+// >> mongosh
+// >> use firstDatabase
+// >> db.users.insertOne({ name: "Ethan", age: 20 })
+
+// Connect to MongoDB
+async function connectDB() {
+    try {
+        const client = new MongoClient(uri);
+        await client.connect();
+        console.log("Connected to MongoDB!");
+
+        // Set database globally
+        app.locals.db = client.db("firstDatabase");
+    } catch (error) {
+        console.error("MongoDB connection failed:", error);
+    }
+}
+connectDB();
+
+// Example for getting users - localhost:3000/users should result in the user page
+app.get('/users', async (req, res) => {
+    try {
+        const users = await app.locals.db.collection('users').find().toArray();
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ error: "Failed to fetch users" });
+    }
+});
 
 
 app.set('view engine','ejs');
