@@ -10,7 +10,22 @@
 
     <div class="container mouseM">  
     <h1 class="colouredText">Mood Matcher</h1>
-    <h2 class="colouredText">Are you feeling <%= mood %> </h2>
+    <h2 class="colouredText">Are you feeling <%= mood %> ? </h2>
+
+    <form id = "form" action="submit-mood" method="post">
+      <input id="moodSummary" name="mood" type="hidden" >
+      <div class="button-div" align="center">
+              <button onclick="sendDataToServer()" type="submit" id = "nextButton">Yes</button>
+      </div>
+  </form>
+
+  <form action="/previous-mood" method="post">
+      <div class="button-div" align="center">
+          <button type="button-div" id="backButton">No</button>
+      </div>
+  </form>
+
+
     </div>
 
     <!-- Footer with logo and motto aligned to left and right -->
