@@ -26,49 +26,49 @@
 
         <!-- Word Selection Items -->
         <div class="word-selection">
-          <div class="word-item">
+          <div class="addword-item">
             <label>
               <input type="checkbox" name="words" value="<%= wordList[0] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[0] %>
             </label>
           </div>
-          <div class="word-item">
+          <div class="addword-item">
             <label>
               <input type="checkbox" name="words" value="<%= wordList[1] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[1] %>
             </label>
           </div>
-          <div class="word-item">
+          <div class="addword-item">
             <label>
               <input type="checkbox" name="words" value="<%= wordList[2] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[2] %>
             </label>
           </div>
-          <div class="word-item">
+          <div class="addword-item">
             <label>
               <input type="checkbox" name="words" value="<%= wordList[3] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[3] %>
             </label>
           </div>
-          <div class="word-item">
+          <div class="addword-item">
             <label>
               <input type="checkbox" name="words" value="<%= wordList[4] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[4] %>
             </label>
           </div>
-          <div class="word-item">
+          <div class="addword-item">
             <label>
               <input type="checkbox" name="words" value="<%= wordList[5] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[5] %>
             </label>
           </div>
-          <div class="word-item">
+          <div class="addword-item">
             <label>
               <input type="checkbox" name="words" value="<%= wordList[6] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[6] %>
             </label>
           </div>
-          <div class="word-item">
+          <div class="addword-item">
             <label>
               <input type="checkbox" name="words" value="<%= wordList[7] %>" onchange="updateSelectedWords()" hidden>
               <%= wordList[7] %>
@@ -106,7 +106,7 @@
         const checkboxes = document.querySelectorAll('input[name="words"]');
         
         checkboxes.forEach(checkbox => {
-            const wordItem = checkbox.closest('.word-item');
+            const wordItem = checkbox.closest('.addword-item');
             if (checkbox.checked) {
                 wordItem.classList.add('selected'); // Add highlight
             } else {
