@@ -40,7 +40,7 @@ const words = {
 // this information has come from cross-modal correspondence research
 const shapeVectors = {
     star: [0.5, -2.5],
-    spikes: [-5, -5],
+    spikeyball: [-5, -5],
     circle: [-5, 5],
     cloud: [-1, 1.5],
     triangle: [3, -3],
@@ -89,13 +89,28 @@ function matchMood(shape, colour, word1, force){
     word1Vector = word1Vectors[word1];
     console.log(shapeVector);
     console.log(colourVector);
-    console.log(word1Vector)
-    averageVector = [ (shapeVector[0] + colourVector[0] + word1Vector[0])/3, (shapeVector[1] + colourVector[1] + word1Vector[1])/3];
-    console.log(averageVector);
+    console.log(word1Vector);
     // find average of the three vectors
+    averageVector = [ (shapeVector[0] + colourVector[0] + word1Vector[0])/3, (shapeVector[1] + colourVector[1] + word1Vector[1])/3];
     // multiply by feeling force div 2
+    averageVector[0] = averageVector[0] * (1 + (force/10))
+    averageVector[1] = averageVector[1] * (0.5 + (force/10))
+    console.log(averageVector);
     // use the same code as generalise colour function to find the closest mood to the average vector
-    // return that current mmood
+    minDistance = 10000;
+    let closestMood = null;
+    for (const mood in moodVectors){
+        unpleasantLength = (averageVector[0] - mood[0]) * (averageVector[0] - mood[0]);
+        excitedLength = (averageVector[1] - mood[1]) * (averageVector[1] - mood[1]);
+        distance = Math.sqrt(unpleasantLength + excitedLength)
+        if (distance < minDistance){
+            minDistance = distance
+            closestMood = key
+        }
+    }
+    // return that current mood
+    console.log(closestMood);
+    return closestMood;
 }
 
 // Find shared associations among word, shape and colour
@@ -295,7 +310,7 @@ app.post('/submit-force', (req, res) => { //next
 app.get('/mood_summary', (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
-    const word = req.session.word;
+    let word = req.session.word.toLowerCase();
 
     const force = req.session.force
     console.log(shape)
