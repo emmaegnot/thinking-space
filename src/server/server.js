@@ -154,6 +154,10 @@ app.get('/choose_shape', (req,res) => {
     res.render('choose_shape', {title: "Choose A Shape"});
 });
 
+app.get('/student_login', (req, res) => {
+    res.render('student_login', {title: "Student Login"})
+});
+
 app.get('/teacher_login', (req, res) => {
     res.render('teacher_login', {title: "Teacher Login"})
 });
