@@ -1,5 +1,5 @@
 <html lang="en">
-<%- include('partials/head') %>
+  <%- include('partials/head') %>
   <nav class="mouseM">
     <ul class="header">
       <li><a>THE THINKING SPACE</a></li>
@@ -9,7 +9,7 @@
   <body>
     <div class="index-container mouseM">
       <h1 class="h1">Student Login</h1>
-      <form id="loginForm" method="POST">
+      <form id="loginForm" method="GET" action="/choose_shape">
         <div class="flex-container">
           <label for="name">Name:</label><br>
           <input type="text" placeholder="Enter your Name" id="name" name="name" required><br>
@@ -22,9 +22,9 @@
           <button id="backButton" class="buttonBelow" type="button">
             HOME
           </button>
-          <button id="submit" class="buttonBelow" type="submit"><span>
+          <button id="student_login" class="buttonBelow" type="submit">
             LOGIN
-          </span></button>
+          </button>
         </div>
       </form>
     </div>
@@ -86,15 +86,6 @@
         width: 120px;
       }
 
-      #submit:hover span {
-        opacity: 0;
-      }
-      #submit:hover:before {
-        content: "Upcoming!";
-        text-align: center;
-        width: 100%;
-        position: absolute;
-      }
     </style>
 
     <script>
@@ -108,5 +99,5 @@
     <span class="motto mouseM">With emotional health in mind</span>
   </footer>
 
-</body>
+  </body>
 </html>
