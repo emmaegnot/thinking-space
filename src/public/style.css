@@ -281,33 +281,62 @@ a:hover {
     text-align: center;
     margin-bottom: 20px;
 }
+
+/* THIS IS ADDITIONAL WORDS SECTION */
 .word-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
+.word-selection {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 15px;
+    max-width: 80%; 
+    margin: 20px auto; 
+}
 
+.word-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 100px;
+    padding: 10px 15px;
+    font-size: 1.3em;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+.word-item.selected {
+    background-color: lightgreen;
+    
+}
+.word-item label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 .selected-words {
     width: 20%;
     text-align: center;
 }
 
-.left-words, .right-words {
+.left-words, .right-words{
     font-size: 1.8em;
     font-weight: bold;
+    width: 40%;
+    color: var(--main-colour);
+    text-shadow: 
+    -1px -1px 0 var(--add-colour),  
+    1px -1px 0 var(--add-colour),
+    -1px  1px 0 var(--add-colour),
+    1px  1px 0 var(--add-colour);
 }
 
-.word-selection {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
 
-.word-item{
-    font-size: 1.5em;
-}
+/* END */
 
 .palette{
     color:rgb(133, 87, 66);
