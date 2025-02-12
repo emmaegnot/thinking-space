@@ -15,6 +15,20 @@ test("Checks nav contains title and home link", async () => {
     expect(res.text).toContain('<li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>');
 });
 
+test("Checks that an increase and decrease button both exist on the page", async () => {
+    const res = await request(app).get("/feeling_force");
+    expect(res.status).toBe(200);
+    expect(res.text).toContain('<button onclick="decrease()">-</button>');
+    expect(res.text).toContain('<button onclick="increase()">+</button>');
+});
+
+test("Checks that meter and arrow image both appear, and are the intended height", async () => {
+    const res = await request(app).get("/feeling_force");
+    expect(res.status).toBe(200);
+    expect(res.text).toContain('<img id="meter" src="images/meter.jpg" width="150" height="130">'); // Meter Image
+    expect(res.text).toContain('<img id="arrow" src="images/arrow.png" width="20" height="40">'); // Arrow Image
+});
+
 test("Checks footer contains the logo and motto", async () => {
     const res = await request(app).get("/feeling_force");
     expect(res.status).toBe(200);
