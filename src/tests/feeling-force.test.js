@@ -29,6 +29,22 @@ test("Checks that meter and arrow image both appear, and are the intended height
     expect(res.text).toContain('<img id="arrow" src="images/arrow.png" width="20" height="40">'); // Arrow Image
 });
 
+test("Checks form contains hidden input field for clickCount", async () => {
+    const res = await request(app).get("/feeling_force");
+    expect(res.status).toBe(200);
+    expect(res.text).toContain('<input id="clickCountInput" name="clickCount" type="hidden" value="5" >');
+});
+
+test("Checks that the form submits to /next-force when NEXT is clicked", async () => {
+    const res = await request(app).get("/feeling_force");
+    expect(res.text).toContain('form id = \"form\" action=\"submit-force\" method=\"post\"'); // The response should contain code for submitting the form
+});
+
+test("Checks that clicking BACK submits to /previous-force", async () => {
+    const res = await request(app).get("/feeling_force");
+    expect(res.text).toContain('form action=\"/previous-force\" method=\"post\"'); // The response should contain code for going back to the choose shape page
+});
+
 test("Checks footer contains the logo and motto", async () => {
     const res = await request(app).get("/feeling_force");
     expect(res.status).toBe(200);
