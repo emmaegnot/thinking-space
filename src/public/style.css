@@ -322,6 +322,9 @@ a:hover {
     padding: 10px 15px;
     font-size: 1.3em;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    
+}
+.addword-item label:hover{
     cursor: pointer;
 }
 .addword-item.selected {
