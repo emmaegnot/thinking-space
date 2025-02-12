@@ -322,6 +322,9 @@ a:hover {
     width: 20%;
     text-align: center;
 }
+.selected-word{
+    padding: 3px;
+}
 
 .left-words, .right-words{
     font-size: 1.8em;
