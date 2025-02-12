@@ -83,8 +83,11 @@ const moodVectors = {
 
 function matchMood(shape, colour, word1, force){
     // get value of three vectors corresponding to shape, colour, word
-    shapeVector = shapeVectors[alert]
-    console.log(shapeVector)
+    shapeVector = shapeVectors[shape];
+    colourVector = colourVectors[colour.toLowerCase];
+    word1dVector = moodVectors[word1];
+    averageVector = [ (shapeVector[0] + colourVector[0] + word1Vector[0])/3, (shapeVector[1] + colourVector[1] + word1Vector[1])/3];
+    console.log(averageVector);
     // find average of the three vectors
     // multiply by feeling force div 2
     // use the same code as generalise colour function to find the closest mood to the average vector
