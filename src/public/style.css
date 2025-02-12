@@ -263,7 +263,7 @@ a:hover {
 }
 
 /* For smaller screens */
-@media (max-width: 750px) {
+@media (max-width: 865px) {
     .container {
         max-width: 90%;
         margin-bottom: 8rem;
