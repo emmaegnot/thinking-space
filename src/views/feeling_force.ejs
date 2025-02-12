@@ -14,25 +14,25 @@
     </nav>
 
     <div class="container mouseM" style="width: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <h2 class = "colouredText" style="padding: 10px; margin: 20px;">Feeling force</h2>
+        <h2 class = "colouredText">Feeling force</h2>
 
         <p class="bodyText">How strong are your feelings right now? Press the plus and minus buttons!</p>
-        <img id="arrow" src="images/arrow.png" width="130" height="120" style="transition: transform 0.5s ease; top:480px; transform: rotate(283deg); position: absolute; z-index: 2;">
-
-        <!-- left: 565px; top:245px;  -->
-        <img src="images/meter.jpg" width="150" height="130" style="position: absolute; z-index: 1;">
-
-        <!-- <div class="meter-container">
+        
+        <div class="meter-container">
             <img id="meter" src="images/meter.jpg" width="150" height="130">
             <img id="arrow" src="images/arrow.png" width="20" height="40">
-        </div> -->
+        </div>
 
-        <div style="display: flex; align-items: center;">
-            <div style="padding: 20px; margin: 70px;">
+        <!-- <img id="arrow" src="images/arrow.png" width="130" height="120" style="transition: transform 0.5s ease; top:480px; transform: rotate(283deg); position: absolute; z-index: 2;"> -->
+        <!-- <img src="images/meter.jpg" width="150" height="130" style="position: absolute; z-index: 1;"> -->
+        
+
+        <div style="display: flex; align-items: center; margin-top: -40px;">
+            <div style="padding: 20px; margin-right: 70px;">
                 <button onclick="decrease()">-</button>
             </div>
 
-            <div style="padding: 20px; margin: 70px;">
+            <div style="padding: 20px; margin-left: 70px;">
                 <button onclick="increase()">+</button>
             </div>
             
@@ -73,12 +73,12 @@
             sendDataToServer(); 
         });
 
-        let rotationAngle = 283; // Initial rotation angle
+        let rotationAngle = 0; // Initial rotation angle
         let clickCount = 5;
         
         function decrease() {
-            const n = -20; // Number of degrees to rotate on each click
-            if (rotationAngle + n >= 170) {
+            const n = -18; // Number of degrees to rotate on each click
+            if (rotationAngle + n >= -100) {
             rotationAngle += n; // Increase the rotation by n degrees each time
             }
             if (clickCount > 0) {
@@ -86,12 +86,12 @@
             }
 
             document.getElementById("clickCount").innerHTML = clickCount;
-            document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
+            document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
         }
 
         function increase() {
-            const n = 20;
-            if (rotationAngle + n <= 390) {
+            const n = 18;
+            if (rotationAngle + n <= 100) {
             rotationAngle += n;
             }
             if (clickCount < 10) {
@@ -99,7 +99,7 @@
             }
 
             document.getElementById("clickCount").innerHTML = clickCount;
-            document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
+            document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
         }
     </script>
 
