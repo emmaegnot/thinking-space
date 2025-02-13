@@ -35,6 +35,16 @@ const words = {
     Surprised: ['concerned', 'exited', 'confused', 'happy'],
 
 }
+
+const additionalWords = {
+    Angry: ['Irritated', 'Resentful', 'Miffed', 'Upset', 'Mad', 'Furious', 'Raging', 'Hot'],
+    Disgusted: ['Awful', 'Disappointed', 'Repelled', 'Horrified', 'Hesitant', 'Judgmental', 'Embarrassed', 'Revolted'],
+    Fearful: ['Scared', 'Anxious', 'Insecure', 'Weak', 'Rejected', 'Threatened', 'Nervous', 'Helpless'],
+    Happy: ['Playful', 'Interested', 'Optimistic', 'Inspired', 'Proud', 'Thankful', 'Cheeky', 'Free'],
+    Sad: ['Lonely', 'Hurt', 'Guilty', 'Powerless', 'Abandoned', 'Ashamed', 'Disappointed', 'Embarrassed'],
+    Surprised: ['Confused', 'Amazed', 'Excited', 'Startled', 'Shocked', 'Eager', 'Energetic', 'Dissapointed'],
+
+}
 // Find shared associations among word, shape and colour
 function getSharedWords(shape, colour, word) {
     // Fetch words associated with the shape, colour, and word
@@ -209,17 +219,32 @@ app.post('/previous-word', (req,res) => {
 
 app.post('/next-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
-     // Save mood in session
-    res.redirect('/feeling_force');     // Redirect to feeling force page
+    var filePath = "images/"
+    req.session.filePath = filePath.concat(req.session.shape, ".png")
+    res.redirect('/additional_words');     
 });
+
+app.get('/additional_words', (req,res) => {
+    res.render('additional_words', {filepath: req.session.filePath, title: "More Words", wordList : additionalWords[req.session.word]});
+});
+
+app.post('/previous-additional', (req,res) => { //back
+    res.redirect('/choose_word');
+})
+
+app.post('/next-additional', (req, res) => {
+    req.session.additional = req.body.words
+    res.redirect('/feeling_force');     
+});
+
 
 app.get('/feeling_force', (req,res) => {
     res.render('feeling_force', {title: "Feeling Force"});
 });
 
 app.post('/previous-force', (req,res) => { //back
-    res.redirect('/choose_word');
-});
+    res.redirect('/additional_words');
+})
 
 app.post('/submit-force', (req, res) => { //next
     req.session.force = req.body.clickCount;  
