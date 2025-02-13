@@ -100,12 +100,15 @@ function matchMood(shape, colour, word1, force){
     minDistance = 10000;
     let closestMood = null;
     for (const mood in moodVectors){
-        unpleasantLength = (averageVector[0] - mood[0]) * (averageVector[0] - mood[0]);
-        excitedLength = (averageVector[1] - mood[1]) * (averageVector[1] - mood[1]);
+        console.log(mood)
+        unpleasantLength = (averageVector[0] - moodVectors[mood][0]) * (averageVector[0] - moodVectors[mood][0]);
+        excitedLength = (averageVector[1] - moodVectors[mood][1]) * (averageVector[1] - moodVectors[mood][1]);
+        console.log(unpleasantLength)
+        console.log(excitedLength)
         distance = Math.sqrt(unpleasantLength + excitedLength)
         if (distance < minDistance){
             minDistance = distance
-            closestMood = key
+            closestMood = mood
         }
     }
     // return that current mood
