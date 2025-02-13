@@ -18,20 +18,30 @@ body{
 }
 
 .header {
-    border-radius: 25px;
+    /* border-radius: 25px; */
     font-size: 46px;
     color: rgb(121, 166, 224);
-    padding: 0;
+    padding: 15;
     list-style-type: none;
     margin: 0;
     overflow: hidden;
-    background-color: rgb(255, 241, 195);
+    /* background-color: rgb(255, 241, 195); */
+    background-image: url(images/header.png);
+    background-repeat: no-repeat;
     width: 100%;
-    height: 80px
+    height: 110px
   }
 
 .home{
     color: rgb(121, 166, 224);
+    background-image: url(images/header2.png);
+    height: 80px;
+    width: 120px;
+    padding: 15;
+    margin: 0;
+    list-style-type: none;
+    background-repeat: no-repeat;
+    position: left;
 }
 
 /* Prevents home icon from being purple once clicked*/
@@ -583,12 +593,13 @@ input[name="colourValue"] {
 #meter {
     position: relative;
     z-index: 1;
+    top:40px
 }
 
 #arrow {
     position: absolute;
     z-index: 2;
-    top: 50%;
+    top: 105px;
     left: 50%;
     transform: translate(-50%, -50%);
     transition: transform 0.5s ease;
