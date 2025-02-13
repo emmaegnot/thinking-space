@@ -37,8 +37,8 @@ body{
     background-image: url(images/header2.png);
     height: 80px;
     width: 120px;
-    padding: 20;
-    margin: 30;
+    padding: 15;
+    margin: 0;
     list-style-type: none;
     background-repeat: no-repeat;
     position: left;
