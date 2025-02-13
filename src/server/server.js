@@ -95,16 +95,12 @@ function matchMood(shape, colour, word1, force){
     // multiply by feeling force div 2
     averageVector[0] = averageVector[0] * (1 + (force/10))
     averageVector[1] = averageVector[1] * (0.5 + (force/10))
-    console.log(averageVector);
     // use the same code as generalise colour function to find the closest mood to the average vector
     minDistance = 10000;
     let closestMood = null;
     for (const mood in moodVectors){
-        console.log(mood)
         unpleasantLength = (averageVector[0] - moodVectors[mood][0]) * (averageVector[0] - moodVectors[mood][0]);
         excitedLength = (averageVector[1] - moodVectors[mood][1]) * (averageVector[1] - moodVectors[mood][1]);
-        console.log(unpleasantLength)
-        console.log(excitedLength)
         distance = Math.sqrt(unpleasantLength + excitedLength)
         if (distance < minDistance){
             minDistance = distance
