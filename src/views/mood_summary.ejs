@@ -12,6 +12,7 @@
     <h1 class="colouredText">Mood Matcher</h1>
     <h2 class="colouredText">Are you feeling <%= mood %> ? </h2>
 
+  <!-- yes button -->
     <form id = "form" action="submit-mood" method="post">
       <input id="moodSummary" name="mood" type="hidden" >
       <div class="button-div" align="center">
@@ -19,6 +20,7 @@
       </div>
   </form>
 
+  <!-- no button -->
   <form action="/previous-mood" method="post">
       <div class="button-div" align="center">
           <button type="button-div" id="backButton">No</button>
