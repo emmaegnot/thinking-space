@@ -36,7 +36,7 @@ test.each(["parallelogram", "circle", "square", "star", "triangle", "spikeyball"
 test("Checks if the colour selection buttons are present", async () => {
     const res = await request(app).get("/choose_colour");
     // Checks that each colour is able to be selected as a button
-    const colours = ["red", "orange", "green", "yellow", "blue", "black"];
+    const colours = ["red", "orange", "green", "yellow", "cyan", "navy"];
     colours.forEach(colour => {
         expect(res.text).toContain(`type="button" name="colourValue" value="${colour}"`); // For each shape, check the response contains an input field with its name
     });
