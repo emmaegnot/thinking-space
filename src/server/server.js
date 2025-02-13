@@ -22,7 +22,8 @@ const colours = {
     orange: ['comfortable'],
     green: ['calm'],
     yellow: ['happy'],
-    blue: ['dreamy'],
+    cyan: ['dreamy'],
+    navy: ['dreamy'],
     black: ['scared', 'isolated']
 }
 const words = {
