@@ -8,6 +8,9 @@ html {
 body{
     /* position: relative; */
     /* min-height: 100vh; */
+    position: relative;
+    min-height: 100vh;
+    margin: 0;
     background-color: rgb(226, 226, 226);
     height: 100%;
     margin: 20px;
@@ -35,7 +38,9 @@ body{
     color: rgb(121, 166, 224);
     background-image: url(images/header2.png);
     height: 80px;
-    padding: 30;
+    width: 120px;
+    padding: 15;
+    margin: 0;
     list-style-type: none;
     background-repeat: no-repeat;
     position: left;
