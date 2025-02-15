@@ -6,14 +6,16 @@ html {
 }
 
 body{
-    /* position: relative; */
-    /* min-height: 100vh; */
+    position: relative;
+    min-height: 100vh;
+    margin: 0;
     background-color: rgb(226, 226, 226);
     height: 100%;
     margin: 20px;
     background-image: url(images/background-removebg.png);
     background-repeat: no-repeat;
     background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .header {
@@ -28,14 +30,16 @@ body{
     background-image: url(images/header.png);
     background-repeat: no-repeat;
     width: 100%;
-    height: 80px
+    height: 110px
   }
 
 .home{
     color: rgb(121, 166, 224);
     background-image: url(images/header2.png);
     height: 80px;
-    padding: 30;
+    width: 120px;
+    padding: 15;
+    margin: 0;
     list-style-type: none;
     background-repeat: no-repeat;
     position: left;
@@ -84,6 +88,7 @@ a:hover {
     justify-content: space-between;
     align-items: flex-end;
     position: absolute;
+    margin-top: auto;
     left: 0;
     right: 0;
     bottom: 0;
@@ -105,11 +110,20 @@ a:hover {
 .container {
     max-width: 50%;
     margin: 8rem auto 16rem;
-    padding: 2rem;
+    padding: 1.2rem;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
     border-radius: 20px;
     background: #ffffff;
     color: rgb(121, 166, 224);
+    min-height: 250px;
+}
+
+.moodSummary{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers everything vertically */
+    align-items: center; /* Centers everything horizontally */
+    text-align: center;
 }
 
 .index-container {
@@ -244,6 +258,7 @@ a:hover {
     text-align: center;
     font-style: normal;
     color: rgb(121, 166, 224);
+    margin: 5px auto;
 }
 
 .index-footer {
@@ -259,7 +274,7 @@ a:hover {
 }
 
 /* For smaller screens */
-@media (max-width: 750px) {
+@media (max-width: 865px) {
     .container {
         max-width: 90%;
         margin-bottom: 8rem;
@@ -273,18 +288,18 @@ a:hover {
     }
 }
 
-@media (max-height: 550px){
-    .footer{
-        position: relative
+@media (max-height: 590px) {
+    .footer {
+        position: relative;
+    }
+    .container{
+        margin: 2rem auto 2rem;
     }
 }
-
-.chosen-shape{
-    border-radius: 10px;
+.chosen-shape {
     width: 100%;
     max-width: 180px;
     max-height: 160px;
-    margin: 30px 0px;
 }
 
 .colourPicker{
@@ -292,43 +307,138 @@ a:hover {
     text-align: center;
     margin-bottom: 20px;
 }
+
+/* THIS IS ADDITIONAL WORDS SECTION */
 .word-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
+.word-selection {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 15px;
+    max-width: 80%; 
+    margin: 20px auto; 
+}
+
+.addword-item label{
+    display: block;;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 100px;
+    padding: 10px 15px;
+    font-size: 1.3em;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    transition: box-shadow 0.3s ease-in-out;
+    cursor: pointer
+    
+}
+.addword-item hover{
+    box-shadow: 4px 4px 15px rgba(0,0,0,0.3);
+}
+.addword-item.selected label{
+    background-color: lightgreen;
+    
+}
+.addword-item label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
 .selected-words {
     width: 20%;
     text-align: center;
 }
+.selected-word{
+    padding: 3px;
+}
 
-.left-words, .right-words {
+.left-words, .right-words{
     font-size: 1.8em;
     font-weight: bold;
+    width: 40%;
+    color: var(--main-colour);
+    text-shadow: 
+    -1px -1px 0 var(--add-colour),  
+    1px -1px 0 var(--add-colour),
+    -1px  1px 0 var(--add-colour),
+    1px  1px 0 var(--add-colour);
 }
 
-.word-selection {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
 
-.word-item{
-    font-size: 1.5em;
-}
+/* END OF ADDITIONAL WORDS STYLING*/
 
 .palette{
     color:rgb(133, 87, 66);
     margin: -15px 0px 20px 0px;
     font-size: 40px;
 }
-
-.palette:hover{
-    color: rgb(177, 117, 90);
+.word-item{
+    font-size: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
+
+.button-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 2 columns */
+    grid-template-rows: repeat(2, 1fr); /* 3 rows */
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .word-item button {
+    background-color: rgb(125, 191, 248);
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Ensures buttons take up full width of the container */
+    max-width: 200px; /* Optional: max width to prevent too wide buttons */
+  }
+
+  .word-item button:hover {
+    background-color: #90f9a0;
+  }
+
+  .button-div {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .button-div button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #4a90e2;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .button-div button:hover {
+    background-color: #35bd4e;
+  }
+
+  .word-item button.active {
+    background-color: #90f9b3; 
+    color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+
 
 /* Background shapes ------------------------------------------------------------------------------------------------------- */
 
@@ -601,7 +711,30 @@ input[name="colourValue"] {
     margin-bottom: 20px;
 }
 
+.meter-container {
+    position: relative;
+    width: 150px;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+#meter {
+    position: relative;
+    z-index: 1;
+    top:40px
+}
+
+#arrow {
+    position: absolute;
+    z-index: 2;
+    top: 105px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.5s ease;
+    transform-origin: 50% 100%;
+}
 
 #show-passwd {
     position: absolute;
