@@ -156,9 +156,7 @@ app.use(express.urlencoded({extended:true}))
 
 
 app.get('/', (req,res) => {
-
     res.render('index', { title: "Home", showConsentPopup: !req.cookies.consent });
-
 });
 
 app.get('/choose_shape', (req,res) => {
@@ -167,6 +165,14 @@ app.get('/choose_shape', (req,res) => {
 
 app.get('/teacher_login', (req, res) => {
     res.render('teacher_login', {title: "Teacher Login"})
+});
+
+app.post('/teacher_login', (req,res) => {
+    res.redirect('/student_info');
+});
+
+app.get('/student_info', (req, res) => {
+    res.render('student_info', {title: "Student Login"})
 });
 
 //PLACEHOLDER - Allows for testing of additional_words, must comment out lines 14-16
