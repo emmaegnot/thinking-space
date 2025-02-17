@@ -130,7 +130,7 @@ const wordAddVectors = {
     energetic: [-1.5, -4]
 }
 
-function matchMood(shape, colour, word1, force){
+function matchMood(shape, colour, word1, words, force){
     // get value of three vectors corresponding to shape, colour, word
     shapeVector = shapeVectors[shape];
     colourVector = colourVectors[colour];
@@ -138,8 +138,15 @@ function matchMood(shape, colour, word1, force){
     console.log(shapeVector);
     console.log(colourVector);
     console.log(word1Vector);
+    addWordsVector =[0,0]
+    for (let i = 0; i < words.length; i++) {
+        addWordsVector[0] = addWordsVector[0] + wordAddVectors[words[i]][0];
+        addWordsVector[1] = addWordsVector[1] + wordAddVectors[words[i]][1];
+      }
+    addWordsVector = [addWordsVector[0]/words.length, addWordsVector[1]/words.length]
+    console.log("additional words: " + addWordsVector)
     // find average of the three vectors
-    averageVector = [ (shapeVector[0] + colourVector[0] + word1Vector[0])/3, (shapeVector[1] + colourVector[1] + word1Vector[1])/3];
+    averageVector = [ (shapeVector[0] + colourVector[0] + word1Vector[0] + addWordsVector[0])/3, (shapeVector[1] + colourVector[1] + word1Vector[1]+ addWordsVector[1])/3];
     // multiply by feeling force div 2
     averageVector[0] = averageVector[0] * (1 + (force/10))
     averageVector[1] = averageVector[1] * (0.5 + (force/10))
@@ -398,7 +405,7 @@ app.get('/mood_summary', (req,res) => {
     let mood;
     const randomIndex = Math.floor(Math.random() * potentialMoods.length)
     mood = potentialMoods[randomIndex]
-    mood = matchMood(shape, colour, word, force)
+    mood = matchMood(shape, colour, word, words, force)
 
     req.session.mood = mood;
     res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
