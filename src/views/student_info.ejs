@@ -75,35 +75,6 @@
             </tr>
           </table>
 
-
-<script>
-    let nextButton = document.getElementById('nextButton');
-    let what = document.getElementsById('whatHappened');
-    
-    window.onload = function() {
-        if (selectedText.trim === "") {
-          nextButton.disabled = true;
-        } else {
-            nextButton.disabled = false;
-        }
-      }
-    </script>
-
-<script>
-    function sendDataToServer() {
-        document.getElementById("whatHappened");
-        document.getElementById("form").submit();
-    }
-
-    document.getElementById("nextButton").addEventListener("click", function(event) {
-        event.preventDefault();
-        sendDataToServer(); 
-    });
-</script>
-
-</div>
-
-</div>
 </div>
   
     <footer class="footer">
