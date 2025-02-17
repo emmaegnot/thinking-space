@@ -481,18 +481,43 @@ a:hover {
 /* <<<<<<< feature/update-index-page */
 
 /* HTML: <div class="sparkle"></div> */
+
+.square {
+    width: 100px;
+    height: 100px;
+    border-radius: 20;
+    animation: float7;
+    position: relative;
+    animation-duration: 75s;
+    animation-iteration-count: infinite;
+    background: red;
+  }
+
 .sparkle {
     height: 300px;
     width: 250px;
     background: #EDC951;
+    animation: float7;
+    position: relative;
+    animation-duration: 75s;
+    animation-iteration-count: infinite;
     mask: radial-gradient(#0000 71%, #000 72%) 10000% 10000%/99.5% 99.5%;
+  
+    /* if you will use a different unit than px consider round()
+     height: round(__,1px);
+     width: round(__,1px);
+    */
   }
 
   /* HTML: <div class="star"></div> */
 .star {
-    width: 300px;  
+    width: 100px;  
     aspect-ratio: 1;
-    background: #F8CA00;
+    animation: float3;
+    position: relative;
+    animation-duration: 75s;
+    animation-iteration-count: infinite;
+    background: #ffe785;
     clip-path: polygon(50% 0,
       calc(50%*(1 + sin(.4turn))) calc(50%*(1 - cos(.4turn))),
       calc(50%*(1 - sin(.2turn))) calc(50%*(1 - cos(.2turn))),
@@ -502,25 +527,53 @@ a:hover {
   }
 
   .wavy-circle {
-    --s: 300px; 
+    --s: 150px; 
     width: var(--s); 
     aspect-ratio: 1;
+    animation: float6;
+    position: relative;
+    animation-duration: 97s;
+    animation-iteration-count: infinite;
     --g:/calc(var(--s)*0.283) calc(var(--s)*0.283) radial-gradient(50% 50%,#000 99%,#0000 101%) no-repeat;
     mask: calc(50% + var(--s)*0.321) calc(50% + var(--s)*0) var(--g),calc(50% + var(--s)*0.099) calc(50% + var(--s)*0.305) var(--g),calc(50% + var(--s)*-0.26) calc(50% + var(--s)*0.189) var(--g),calc(50% + var(--s)*-0.26) calc(50% + var(--s)*-0.189) var(--g),calc(50% + var(--s)*0.099) calc(50% + var(--s)*-0.305) var(--g),radial-gradient(calc(var(--s)*0.378),#000 99%,#0000 101%) subtract,calc(50% + var(--s)*0.381) calc(50% + var(--s)*0.277) var(--g),calc(50% + var(--s)*-0.146) calc(50% + var(--s)*0.448) var(--g),calc(50% + var(--s)*-0.471) calc(50% + var(--s)*0) var(--g),calc(50% + var(--s)*-0.146) calc(50% + var(--s)*-0.448) var(--g),calc(50% + var(--s)*0.381) calc(50% + var(--s)*-0.277) var(--g);
   }
 
   .flower {
-    width: 200px; /* adjust to control the size */
+    width: 140px; /* adjust to control the size */
     aspect-ratio: 1;
+    animation: float4;
+    position: relative;
+    animation-duration: 120s;
+    background: #ff9e9e;
+    animation-iteration-count: infinite;
     --g:/30.26% 30.26% radial-gradient(#000 calc(71% - 1px),#0000 71%) no-repeat;
     mask: 92.922% 75.645% var(--g),56.712% 99.547% var(--g),15.447% 86.14% var(--g),0.201% 45.518% var(--g),22.455% 8.271% var(--g),65.451% 2.447% var(--g),96.812% 32.431% var(--g),radial-gradient(100% 100%,#000 31.417%,#0000 calc(31.417% + 1px));
   }
 
   .starburst {
-    width: 200px; /* adjust to control the size */
+    width: 150px; /* adjust to control the size */
     aspect-ratio: 1;
+    animation: float5;
+    position: relative;
+    animation-duration: 97s;
+    background: #c8ff9e;
+    animation-iteration-count: infinite;
     clip-path: polygon(94.85% 72.1%,66.03% 70.47%,60.69% 98.84%,43.99% 75.3%,18.48% 88.81%,26.47% 61.07%,0% 49.55%,26.68% 38.51%,19.18% 10.63%,44.44% 24.6%,61.56% 1.36%,66.39% 29.82%,95.24% 28.71%,76% 50.23%);
   }
+
+ .circle {
+    width: 100px;
+    height: 100px;
+    animation: float8;
+    position: relative;
+    animation-duration: 75s;
+    animation-iteration-count: infinite;
+    background: red;
+    border-radius: 50%
+  }
+
+/* top: +down
+left: +right */
 
   @keyframes colour {
     0%   {background-color:red; left:0px; top:0px;}
@@ -541,8 +594,136 @@ a:hover {
     50%  {left:-1500px; top:0px;}
     100% {left:0px; top:0px;}
   }
+
+  @keyframes float3 {
+    0%   {left:0px; top:-100px;}
+    25%  {left:1500px; top:-500px;}
+    50% {left:800px; top:200px;}
+    100%   {left:0px; top:-100px;}
+  }
+
+  @keyframes float4 {
+    0%   {background-color:rgb(255, 141, 141); left:1500px; top:-700px;}
+    5%  {background-color:rgb(202, 145, 255);}
+    10%  {background-color:rgb(135, 177, 255);}
+    15%  {background-color:rgb(125, 201, 255);}
+    20%  {background-color:rgb(173, 255, 135);}
+    25%  {background-color:rgb(255, 255, 123); left:1700px; top:-200px;}
+    30%  {background-color:rgb(255, 185, 115);}
+    35%  {background-color:rgb(255, 141, 141);}
+    40%  {background-color:rgb(202, 145, 255);}
+    45%  {background-color:rgb(135, 177, 255);}
+    50% {background-color:rgb(125, 201, 255); left:1000px; top:100px;}
+    55%  {background-color:rgb(173, 255, 135);}
+    60%  {background-color:rgb(255, 255, 123);}
+    65%  {background-color:rgb(255, 185, 115);}
+    70%  {background-color:rgb(202, 145, 255);}
+    75% {background-color:rgb(135, 177, 255); left:-200px; top:-100px;}
+    80%  {background-color:rgb(125, 201, 255);}
+    85%  {background-color:rgb(173, 255, 135);}
+    90%  {background-color:rgb(255, 255, 123);}
+    95%  {background-color:rgb(255, 185, 115);}
+    100%   {background-color:rgb(255, 141, 141); left:1500px; top:-700px;}
+  }
+
+  @keyframes float5 {
+    0%   {background-color:rgb(125, 201, 255); left:100px; top:-200px;}
+    5% {background-color:rgb(173, 255, 135);}
+    10% {background-color:rgb(255, 255, 123);}
+    15% {background-color:rgb(255, 185, 115);}
+    20% {background-color:rgb(255, 141, 141);}
+    25%  {background-color:rgb(202, 145, 255); left:700px; top:-100px;}
+    30% {background-color:rgb(135, 177, 255);}
+    35% {background-color:rgb(125, 201, 255);}
+    40% {background-color:rgb(173, 255, 135);}
+    45% {background-color:rgb(255, 255, 123);}
+    50% {background-color:rgb(255, 185, 115); left:1640px; top:-300px;}
+    55% {background-color:rgb(255, 141, 141);}
+    60% {background-color:rgb(202, 145, 255);}
+    65% {background-color:rgb(135, 177, 255);}
+    70% {background-color:rgb(125, 201, 255);}
+    75% {background-color:rgb(135, 177, 255); left:600px; top:-800px;}
+    80% {background-color:rgb(173, 255, 135);}
+    85% {background-color:rgb(255, 255, 123);}
+    90% {background-color:rgb(255, 185, 115);}
+    95% {background-color:rgb(255, 141, 141);}
+    100%   {background-color:rgb(202, 145, 255); left:100px; top:0px;}
+  }
+
+  @keyframes float6 {
+    0% {background-color:rgb(255, 255, 123); left:700px; top:-300px;}
+    5% {background-color:rgb(255, 185, 115);}
+    10% {background-color:rgb(255, 141, 141);}
+    15%  {background-color:rgb(202, 145, 255);}
+    20% {background-color:rgb(135, 177, 255);}
+    25% {background-color:rgb(125, 201, 255); left:-200px; top:300px;}
+    30% {background-color:rgb(173, 255, 135);}
+    35% {background-color:rgb(255, 255, 123);}
+    40% {background-color:rgb(255, 185, 115);}
+    45% {background-color:rgb(255, 141, 141);}
+    50% {background-color:rgb(202, 145, 255); left:1500px; top:-300px;}
+    55% {background-color:rgb(135, 177, 255);}
+    60% {background-color:rgb(125, 201, 255);}
+    65% {background-color:rgb(173, 255, 135);}
+    70% {background-color:rgb(255, 255, 123);}
+    75% {background-color:rgb(255, 185, 115); left:100px; top:500px;}
+    80% {background-color:rgb(255, 141, 141);}
+    85% {background-color:rgb(202, 145, 255);}
+    90%   {background-color:rgb(135, 177, 255);}
+    95% {background-color:rgb(125, 201, 255);}
+    100% {background-color:rgb(173, 255, 135); left:700px; top:-300px;}
+}
+  
+@keyframes float7 {
+    0% {background-color:rgb(173, 255, 135); left:200px; top:-600px;}
+    5% {background-color:rgb(255, 255, 123);}
+    10% {background-color:rgb(255, 185, 115);}
+    15% {background-color:rgb(255, 141, 141);}
+    20% {background-color:rgb(202, 145, 255); left:1300px; top:-200px;}
+    25% {background-color:rgb(135, 177, 255);}
+    30% {background-color:rgb(125, 201, 255);}
+    35% {background-color:rgb(173, 255, 135);}
+    40% {background-color:rgb(255, 255, 123);}
+    45% {background-color:rgb(255, 185, 115);}
+    50% {background-color:rgb(255, 141, 141);left:1400px; top:-500px;}
+    55% {background-color:rgb(202, 145, 255);}
+    60% {background-color:rgb(135, 177, 255);}
+    65% {background-color:rgb(125, 201, 255);}
+    70% {background-color:rgb(173, 255, 135);left:300px; top:-600px;}
+    75% {background-color:rgb(255, 255, 123);}
+    80% {background-color:rgb(255, 185, 115);}
+    85% {background-color:rgb(255, 141, 141); left:400px; top:-200px;}
+    90% {background-color:rgb(202, 145, 255);}
+    95% {background-color:rgb(135, 177, 255);}
+    100% {background-color:rgb(125, 201, 255); left:100px; top:-700px;}
+}
+
+@keyframes float8 {
+    0% {background-color:rgb(255, 185, 115); left:1000px; top:-600px;}
+    5% {background-color:rgb(255, 255, 123);}
+    10% {background-color:rgb(173, 255, 135);}
+    15% {background-color:rgb(125, 201, 255); left:1200px; top:-400px;}
+    20% {background-color:rgb(135, 177, 255);}
+    25% {background-color:rgb(202, 145, 255);}
+    30% {background-color:rgb(255, 141, 141);left:1500px; top:-700px;}
+    35% {background-color:rgb(255, 185, 115);}
+    40% {background-color:rgb(255, 255, 123);}
+    45% {background-color:rgb(173, 255, 135);left:800px; top:-900px;}
+    50% {background-color:rgb(125, 201, 255);}
+    55% {background-color:rgb(135, 177, 255);}
+    60%   {background-color:rgb(202, 145, 255);}
+    65% {background-color:rgb(255, 141, 141);left:200px; top:-700px;}
+    70% {background-color:rgb(255, 185, 115);}
+    75% {background-color:rgb(255, 255, 123);}
+    80% {background-color:rgb(173, 255, 135);left:500px; top:-300px;}
+    85% {background-color:rgb(125, 201, 255); }
+    90% {background-color:rgb(135, 177, 255);}
+    95% {background-color:rgb(202, 145, 255);}
+    100% {background-color:rgb(255, 141, 141); left:1000px; top:-600px;}
+}
   
 /*===========*/
+
 /* Grey next when disabled */
 
 #nextButton {
