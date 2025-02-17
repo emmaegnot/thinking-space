@@ -82,6 +82,54 @@ const moodVectors = {
     tense: [0.5, -5],
 }
 
+const wordAddVectors = {
+    irritated: [3, -2],
+    resentful: [3.5, -1],
+    miffed: [1, -1],
+    upset: [4.5, 3.5],
+    mad: [4, -5],
+    furious: [4.5, -5],
+    raging: [3.5, -5],
+    hot: [-4, 1],
+    awful: [5, 0],
+    disappointed: [2, 3],
+    repelled: [2, 0.5],
+    horrified: [4, -3],
+    hesitant: [0, 0],
+    judgemental: [1, 1],
+    embarrassed: [2, -3],
+    revolted: [3, -1],
+    scared: [3.5, -2.5],
+    anxious: [4, -1],
+    insecure: [4, 0],
+    weak: [3, 4],
+    rejected: [3, 0],
+    threatened: [2, -2.5],
+    nervous: [1.5, -4],
+    helpless: [3, 4],
+    playful: [-4, -4],
+    interested: [-2, 2],
+    optimistic: [-4, 5],
+    inspired: [-3, 5],
+    proud: [-5, 4],
+    thankful: [-5, 4.5],
+    cheeky: [-3, -1],
+    free: [-3.5, -1],
+    lonely: [4, 2.5],
+    hurt: [4.5, 1],
+    guilty: [3, 0.5],
+    powerless: [2, 1],
+    abandoned: [3, 1],
+    ashamed: [3.5, 1],
+    confused: [0, 0],
+    amazed: [-3.5, -1.5],
+    excited: [0, -5],
+    startled: [1, -3],
+    shocked: [0, -3],
+    eager: [-1.5, 3],
+    energetic: [-1.5, -4]
+}
+
 function matchMood(shape, colour, word1, force){
     // get value of three vectors corresponding to shape, colour, word
     shapeVector = shapeVectors[shape];
@@ -118,7 +166,7 @@ const additionalWords = {
     Fearful: ['Scared', 'Anxious', 'Insecure', 'Weak', 'Rejected', 'Threatened', 'Nervous', 'Helpless'],
     Happy: ['Playful', 'Interested', 'Optimistic', 'Inspired', 'Proud', 'Thankful', 'Cheeky', 'Free'],
     Sad: ['Lonely', 'Hurt', 'Guilty', 'Powerless', 'Abandoned', 'Ashamed', 'Disappointed', 'Embarrassed'],
-    Surprised: ['Confused', 'Amazed', 'Excited', 'Startled', 'Shocked', 'Eager', 'Energetic', 'Dissapointed'],
+    Surprised: ['Confused', 'Amazed', 'Excited', 'Startled', 'Shocked', 'Eager', 'Energetic', 'Disappointed'],
 
 }
 // Find shared associations among word, shape and colour
@@ -334,12 +382,17 @@ app.get('/mood_summary', (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
     let word = req.session.word.toLowerCase();
+    let words = req.session.additional;
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i].toLowerCase();
+      }
 
     const force = req.session.force
     console.log(shape)
     console.log(colour)
     console.log(word)
     console.log(force +"/10")
+    console.log(words)
     const potentialMoods = getSharedWords(shape, colour, word)
     //Gets associations between all of the choicees
     let mood;
