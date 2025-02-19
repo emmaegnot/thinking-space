@@ -135,16 +135,12 @@ function matchMood(shape, colour, word1, words, force){
     shapeVector = shapeVectors[shape];
     colourVector = colourVectors[colour];
     word1Vector = word1Vectors[word1];
-    console.log(shapeVector);
-    console.log(colourVector);
-    console.log(word1Vector);
     addWordsVector =[0,0]
     for (let i = 0; i < words.length; i++) {
         addWordsVector[0] = addWordsVector[0] + wordAddVectors[words[i]][0];
         addWordsVector[1] = addWordsVector[1] + wordAddVectors[words[i]][1];
       }
     addWordsVector = [addWordsVector[0]/words.length, addWordsVector[1]/words.length]
-    console.log("additional words: " + addWordsVector)
     // find average of the three vectors
     averageVector = [ (shapeVector[0] + colourVector[0] + word1Vector[0] + addWordsVector[0])/3, (shapeVector[1] + colourVector[1] + word1Vector[1]+ addWordsVector[1])/3];
     // multiply by feeling force div 2
@@ -390,6 +386,9 @@ app.get('/mood_summary', (req,res) => {
     const colour = req.session.colour;
     let word = req.session.word.toLowerCase();
     let words = req.session.additional;
+    if (typeof words == "string"){
+        words = [words]
+    }
     for (let i = 0; i < words.length; i++) {
         words[i] = words[i].toLowerCase();
       }
