@@ -6,7 +6,7 @@
    <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
   </ul>
  </nav>
- <body>
+ <body onLoad="remember()">
 <div class="index-container mouseM">
 <h1 class="h1">Login</h1>
 <form id="loginForm" method="POST">
@@ -19,11 +19,14 @@
         <input type="password" placeholder="Enter your Password" id="password" name="password" required><br>
         <img src="images/eye_open.svg" alt="Show Password" id="show-passwd" />
   </div>
+  <div class="pass-wrap">
+      <input name="remember-me" type="checkbox" id="remember-me">Remember Me</div>
   <div align="center" class="button-container">
+    
     <button id="backButton" class="buttonBelow" type="button">
       HOME
     </button>
-    <button id="submit" class="buttonBelow" type="button"><span>
+    <button id="submit" class="buttonBelow" type="button" onClick="login()"><span>
       LOGIN
     </span></button>
     
@@ -110,6 +113,31 @@
   document.getElementById('backButton').addEventListener('click', function() {
     window.location.href = '/';
   });
+  
+  function remember()
+  {
+  
+  	document.getElementById("name").value = localStorage.getItem("username");
+	document.getElementById("password").value = localStorage.getItem("password");
+  }
+  
+  function login()
+  {
+  	// Handle "Remember Me", storing username and password in local storage
+	if(document.getElementById("remember-me").checked)
+	{
+		const username = document.getElementById("name").value;
+		const password = document.getElementById("password").value;
+		localStorage.setItem("username", username);
+		localStorage.setItem("password", password);
+	}
+	else // If "Remember Me" is deselected, clear the local storage
+	{
+		localStorage.setItem("username", "");
+		localStorage.setItem("password", "");
+	}
+  }
+  
  </script>
 
 <footer class="index-footer">
