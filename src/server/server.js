@@ -6,6 +6,8 @@ const { closeSync } = require('fs');
 const mongoose = require('mongoose');
 const { MongoClient } = require('mongodb');
 
+require('dotenv').config();
+
 const app = express();
 app.use(express.urlencoded({extended:true}))
 const port = 3000;
@@ -145,27 +147,28 @@ const uri = "mongodb://127.0.0.1:27017/firstDatabase"; // Local MongoDB
 // Connect to MongoDB
 async function connectDB() {
     try {
-        const client = new MongoClient(uri);
-        await client.connect();
-        console.log("Connected to MongoDB!");
-
-        // Set database globally
-        app.locals.db = client.db("firstDatabase");
-    } catch (error) {
-        console.error("MongoDB connection failed:", error);
+        const uri = process.env.MONGO_URI;
+        if (!uri) {
+            throw new Error("MONGO_URI is not defined in .env file");
+        }
+        await mongoose.connect(uri);
+        console.log("Connected to MongoDB Atlas");
+    } catch (err) {
+        console.error("MongoDB connection error:", err);
+        process.exit(1)
     }
 }
 connectDB();
 
 // Example for getting users - localhost:3000/users should result in the user page
-app.get('/users', async (req, res) => {
-    try {
-        const users = await app.locals.db.collection('users').find().toArray();
-        res.json(users);
-    } catch (error) {
-        res.status(500).json({ error: "Failed to fetch users" });
-    }
-});
+// app.get('/users', async (req, res) => {
+//     try {
+//         const users = await app.locals.db.collection('users').find().toArray();
+//         res.json(users);
+//     } catch (error) {
+//         res.status(500).json({ error: "Failed to fetch users" });
+//     }
+// });
 
 
 app.set('view engine','ejs');
@@ -288,4 +291,4 @@ const server = app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-module.exports = {generaliseColour, server, app};
+module.exports = {generaliseColour, server, app, connectDB};
