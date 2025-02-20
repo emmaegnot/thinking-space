@@ -189,13 +189,14 @@ app.post('/previous-shape', (req,res) => {
 
 
 app.post('/next-shape', (req,res) => {
+    console.log(req.body.shape)
     req.session.shape = req.body.shape
     var filePath = "images/"
     req.session.filePath = filePath.concat(req.session.shape, ".png")
     res.redirect('/choose_colour');
 });
 app.get('/choose_colour', (req,res) => {
-    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour"});
+    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour", selectedColour: req.session.colour});
 });
 
 app.post('/previous-colour', (req,res) => {
