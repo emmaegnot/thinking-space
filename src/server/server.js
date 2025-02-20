@@ -186,6 +186,7 @@ app.post('/previous-shape', (req,res) => {
 
 
 app.post('/next-shape', (req,res) => {
+    console.log(req.body.shape)
     req.session.shape = req.body.shape
     var filePath = "images/"
     req.session.filePath = filePath.concat(req.session.shape, ".png")
