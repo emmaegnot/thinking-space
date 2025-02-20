@@ -1,5 +1,12 @@
 <html lang="en">
 <%- include('partials/head') %>
+ <head>
+  <meta charset="UTF-8">
+  <!-- Allows use of icons from fontawesome -->
+  <script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+ </head>
  <nav class="mouseM">
   <ul class="header">
    <li><a>THE THINKING SPACE</a></li>
@@ -7,6 +14,23 @@
   </ul>
  </nav>
  <body>
+
+  <!-- background: -->
+  <style> 
+    body {background-image: url(images/sky.png);
+    }
+   </style>
+  <div class="cloud1"></div>
+  <div class="wavy-circle" style="float: center;"></div> </div>
+  <div class="cloud2" style="float: right;"></div>
+  <div class="cloud3"></div>
+  <div class="star" style="float: center;"></div> </div>
+  <div class="flower" style="float: center;"></div> </div>
+  <div class="starburst" style="float: center;"></div> </div>
+  <div class="square" style="float: center;"></div> </div>
+  <div class="circle" style="float: center;"></div> </div>
+<!-- ------------------------------- -->
+
 <div class="index-container mouseM">
 <h1 class="h1">I am a...</h1>
   <div class="flex-container">
@@ -14,59 +38,23 @@
       <i class="fa-solid fa-person student"></i>
   </div>
   <div class="flex-container">
-        <button class="button" onclick="ShowMessage()">Teacher</button>
-        <div id="message" class="hidden">Coming soon...</div>
+        <button id="teacher" class="button" onclick="window.location.href='/teacher_login'">Teacher</button>
       <i class="fa-solid fa-person teacher"></i>
   </div>
  </div>
  <div id="overlay"></div>
-    <div id="cookiePopup" class="index-container mouseM">
-        <h2>Cookie Consent</h2>
-        <p>We use cookies to enhance your experience. Do you accept?</p>
-        <button id="accept">Accept</button>
+ <% if (showConsentPopup) { %>
+  <div id="cookiePopup" class="index-container mouseM">
+    <h2>Cookie Consent</h2>
+    <p>We use cookies to enhance your experience. Do you accept?</p>
+    <button id="accept">Accept</button>
   </div>
+<% } %>
 <footer class="index-footer">
   <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" height="60px" width="120px">
   <span class="motto mouseM">With emotional health in mind</span>
 </footer>
   <style>
-    #message {
-        background-color: #f8d7da; 
-        color: #721c24; 
-        padding: 20px 30px;
-        border-radius: 30px;
-        margin-top: 20px;
-        left: -97px;
-        top: 83px;
-        display: none; /* Initially hidden */
-        transition: opacity 0.3s ease-in-out;
-        position: absolute;
-        font-size: 20;
-        border: 1px solid black;
-    }
-    #message::before {
-        content: "";
-        position: absolute;
-        bottom: -1px; 
-        right: -1px; 
-        width: 0;
-        height: 0;
-        border-left: 28px solid transparent;
-        border-right: 28px solid black; 
-        border-top: 28px solid transparent;
-    }
-    #message::after {
-        content: "";
-        position: absolute;
-        bottom: 0px; 
-        right: 0px; 
-        width: 0;
-        height: 0;
-        border-left: 27px solid transparent;
-        border-right: 27px solid #f8d7da; 
-        border-top: 27px solid transparent;
-    }
-
     #cookiePopup {
         position: fixed;
         top: 50%;

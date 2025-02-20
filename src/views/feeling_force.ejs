@@ -1,88 +1,107 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+ <meta charset="UTF-8">
+ <script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav class="mouseM">
-    <ul class="header">
-        <li><a>THE THINKING SPACE</a></li>
-        <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
-    </ul>
-   </nav>
+    <nav class="mouseM">
+        <ul class="header">
+            <li><a>THE THINKING SPACE</a></li>
+            <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
+        </ul>
+    </nav>
 
-<div class="container mouseM" style="width: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <h2 class = "colouredText" style="padding: 10px; margin: 20px;">Feeling force</h2>
+    <div class="container mouseM" style="width: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <h2 class = "colouredText">Feeling force</h2>
+
         <p class="bodyText">How strong are your feelings right now? Press the plus and minus buttons!</p>
-        <img id="arrow" src="images/arrow.png" width="130" height="120" style="transition: transform 0.5s ease; transform: rotate(283deg); position: absolute; z-index: 2;"> 
-        <!-- left: 565px; top:245px;  -->
-        <img src="images/meter.jpg" width="150" height="130" style="position: absolute; z-index: 1;">
+        
+        <div class="meter-container">
+            <img id="meter" src="images/meter.jpg" width="150" height="130">
+            <img id="arrow" src="images/arrow.png" width="20" height="40">
+        </div>
 
-        <div style="display: flex; align-items: center;">
-            <div style="padding: 20px; margin: 70px;">
+        <!-- <img id="arrow" src="images/arrow.png" width="130" height="120" style="transition: transform 0.5s ease; top:480px; transform: rotate(283deg); position: absolute; z-index: 2;"> -->
+        <!-- <img src="images/meter.jpg" width="150" height="130" style="position: absolute; z-index: 1;"> -->
+        
+
+        <div style="display: flex; align-items: center; margin-top: -40px;">
+            <div style="padding: 20px; margin-right: 70px;">
                 <button onclick="decrease()">-</button>
             </div>
 
-            <div style="padding: 20px; margin: 70px;">
+            <div style="padding: 20px; margin-left: 70px;">
                 <button onclick="increase()">+</button>
             </div>
             
-            <script> 
-                let rotationAngle = 283; // Initial rotation angle
-                let clickCount = 0;
-                
-                function decrease() {
-                    const n = -15; // Number of degrees to rotate on each click
-                    if (rotationAngle + n >= 150) {
-                    rotationAngle += n; // Increase the rotation by n degrees each time
-                    if (clickCount < -8) {
-                        clickCount--;
-                    }
-                    document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
-                    sendDataToServer(clickCount);
-                    }
-                }
-            </script>
+            <p id="clickCount"></p>
 
-            <script>
-                 function increase() {
-                    const n = 15;
-                    if (rotationAngle + n <= 410) {
-                    rotationAngle += n;
-                    if (clickCount < 8) {
-                        clickCount++;
-                    }
-                    document.getElementById('arrow').style.transform = `rotate(${rotationAngle}deg)`;
-                    sendDataToServer(clickCount);
-                    }
-                }
-                function sendDataToServer(count) {
-                }
-                </script>
         </div>
 
-<!-- pass a force value -->
+    <!-- pass a force value -->
 
-<form action="submit-force" method="post">
-        <div class="button-div" style="text-align: center; margin-top: 20px;">
-            <button style="padding: 1px; margin: 2px; display: inline-block; text-align: center; "type="submit" id="nextButton" >NEXT</button>
-          </div>
+        <form id = "form" action="submit-force" method="post">
+            <input id="clickCountInput" name="clickCount" type="hidden" value="5" >
+            <div class="button-div" align="center">
+                    <button onclick="sendDataToServer()" type="submit" id = "nextButton">NEXT</button>
+            </div>
         </form>
 
-        <form action="previous-force" method="post">
-            <div class="button-div" style="text-align: center; margin-top: 20px;">
-                <button type="previous" id="backButton">BACK</button>
-                </div>
+        <form action="/previous-force" method="post">
+            <div class="button-div" align="center">
+                <button type="button-div" id="backButton">BACK</button>
+            </div>
         </form>
+
     </div>
-  
+    
     <footer class="footer">
         <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
         <span class="motto mouseM">With emotional health in mind</span>
-      </footer>
+    </footer>
+
+    <script>
+        function sendDataToServer() {
+            document.getElementById("clickCountInput").value = clickCount;
+            document.getElementById("form").submit();
+        }
+    
+        document.getElementById("nextButton").addEventListener("click", function(event) {
+            event.preventDefault();
+            sendDataToServer(); 
+        });
+
+        let rotationAngle = 0; // Initial rotation angle
+        let clickCount = 5;
+        
+        function decrease() {
+            const n = -18; // Number of degrees to rotate on each click
+            if (rotationAngle + n >= -100) {
+            rotationAngle += n; // Increase the rotation by n degrees each time
+            }
+            if (clickCount > 0) {
+                clickCount--;
+            }
+
+            document.getElementById("clickCount").innerHTML = clickCount;
+            document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
+        }
+
+        function increase() {
+            const n = 18;
+            if (rotationAngle + n <= 100) {
+            rotationAngle += n;
+            }
+            if (clickCount < 10) {
+                clickCount++;
+            }
+
+            document.getElementById("clickCount").innerHTML = clickCount;
+            document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
+        }
+    </script>
 
 </body>
 </html>
