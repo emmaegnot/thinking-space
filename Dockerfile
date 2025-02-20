@@ -14,10 +14,10 @@ RUN npm install
 COPY src/ /app/
 
 # Copy the start and stop scripts
-COPY start.bat /app/
-COPY stop.bat /app/
-COPY stop.sh /app/
-COPY start.sh /app/
+COPY docker/start.bat /app/
+COPY docker/stop.bat /app/
+COPY docker/stop.sh /app/
+COPY docker/start.sh /app/
 
 # Make the stop script executable
 RUN chmod +x start.sh stop.sh
