@@ -268,8 +268,11 @@ app.get('/mood_summary', (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
     const word = req.session.word;
-
     const force = req.session.force
+    console.log(shape)
+    console.log(colour)
+    console.log(word)
+    console.log(force+"/10")
     const potentialMoods = getSharedWords(shape, colour, word)
     //Gets associations between all of the choicees
     let mood;
@@ -278,6 +281,28 @@ app.get('/mood_summary', (req,res) => {
     //console.log("MOOD: ", mood);
     req.session.mood = mood;
     res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
+});
+
+app.post('/submit-mood', (req, res) => { //next
+    res.redirect('/what_happened');          
+});
+
+app.post('/previous-mood', (req,res) => { //back
+    res.redirect('/mood_summary');
+})
+
+app.get('/what_happened', (req,res) => {
+    res.render('what_happened', {title: "What Happened"});
+});
+
+app.post('/previous-happen', (req,res) => { //back
+    res.redirect('/mood_summary');
+})
+
+app.post('/submit-text', (req, res) => { //next     
+    req.session.what = req.body.what;  
+    const what = req.session.what
+    console.log(what)
 });
 
 const server = app.listen(port, () => {
