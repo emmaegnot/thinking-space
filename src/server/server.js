@@ -278,7 +278,6 @@ app.get('/mood_summary', (req,res) => {
     let mood;
     const randomIndex = Math.floor(Math.random() * potentialMoods.length)
     mood = potentialMoods[randomIndex]
-    //console.log("MOOD: ", mood);
     req.session.mood = mood;
     res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
 });

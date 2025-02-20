@@ -16,7 +16,7 @@ test("Checks page is rendered with a mood", async () => {
     await agent.post('/submit-force'); // Choose force
     const res = await agent.get('/mood_summary'); // Get mood summary
     expect(res.status).toBe(200); // Status code 200 indicates a successful request and response
-    expect(res.text).toContain("<h2>Are you feeling indecisive?</h2>"); // Checks the server assigns a mood
+    expect(res.text).toContain("<h2 class=\"colouredText\">Are you feeling indecisive ? </h2>"); // Checks the server assigns a mood
 });
 
 test("Checks page is rendered with a mood for every shape, colour, and word combination", async () => {
@@ -34,7 +34,7 @@ test("Checks page is rendered with a mood for every shape, colour, and word comb
                 const res = await agent.get('/mood_summary');
                 expect(res.status).toBe(200);
                 // The mood should be in the possibleMoods array
-                const containsValidMood = possibleMoods.some(mood => res.text.includes(`Are you feeling ${mood}?</h2>`));
+                const containsValidMood = possibleMoods.some(mood => res.text.includes(`Are you feeling ${mood} ? </h2>`));
                 expect(containsValidMood).toBe(true); // Expect at least one match
             }
         }
@@ -51,9 +51,9 @@ test("Checks that the selected mood persists across sessions", async () => {
     await agent.post('/next-word').send("selectedEmotion=Happy");
     await agent.post('/submit-force').send("clickCount=5");
     const res1 = await agent.get('/mood_summary');
-    expect(res1.text).toContain("<h2>Are you feeling happy?</h2>");
+    expect(res1.text).toContain("<h2 class=\"colouredText\">Are you feeling happy ? </h2>");
     const res2 = await agent.get('/mood_summary'); // Revisit the page
-    expect(res2.text).toContain("<h2>Are you feeling happy?</h2>"); // The mood should persist, even though the user makes another get request to the page
+    expect(res2.text).toContain("<h2 class=\"colouredText\">Are you feeling happy ? </h2>"); // The mood should persist, even though the user makes another get request to the page
 });
 
 test("Checks footer contains the logo and motto", async () => {
