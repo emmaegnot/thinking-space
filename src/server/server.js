@@ -5,6 +5,8 @@ const path = require('path');
 const { closeSync } = require('fs');
 const mongoose = require('mongoose');
 const { MongoClient } = require('mongodb');
+const Teacher = require("../models/Teacher");
+const Student = require("../models/Student");
 
 require('dotenv').config();
 
@@ -158,15 +160,19 @@ async function connectDB() {
 }
 connectDB();
 
-// Example for getting users - localhost:3000/users should result in the user page
-// app.get('/users', async (req, res) => {
-//     try {
-//         const users = await app.locals.db.collection('users').find().toArray();
-//         res.json(users);
-//     } catch (error) {
-//         res.status(500).json({ error: "Failed to fetch users" });
-//     }
-// });
+// Example for getting users - localhost:3000/db-test should result in showing all teachers and all students in the database
+app.get('/db-test', async (req, res) => {
+    try {
+        // Fetch teachers but exclude passwords for security
+        const teachers = await Teacher.find({}, "-password");
+        // Fetch all students
+        const students = await Student.find();
+        // Return JSON response
+        res.json({ teachers, students });
+    } catch (error) {
+        res.status(500).json({ error: "Failed to fetch data" });
+    }
+});
 
 
 app.set('view engine','ejs');
