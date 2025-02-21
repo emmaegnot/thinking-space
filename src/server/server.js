@@ -41,6 +41,16 @@ const words = {
     Surprised: ['concerned', 'exited', 'confused', 'happy'],
 
 }
+
+const additionalWords = {
+    Angry: ['Irritated', 'Resentful', 'Miffed', 'Upset', 'Mad', 'Furious', 'Raging', 'Hot'],
+    Disgusted: ['Awful', 'Disappointed', 'Repelled', 'Horrified', 'Hesitant', 'Judgmental', 'Embarrassed', 'Revolted'],
+    Fearful: ['Scared', 'Anxious', 'Insecure', 'Weak', 'Rejected', 'Threatened', 'Nervous', 'Helpless'],
+    Happy: ['Playful', 'Interested', 'Optimistic', 'Inspired', 'Proud', 'Thankful', 'Cheeky', 'Free'],
+    Sad: ['Lonely', 'Hurt', 'Guilty', 'Powerless', 'Abandoned', 'Ashamed', 'Disappointed', 'Embarrassed'],
+    Surprised: ['Confused', 'Amazed', 'Excited', 'Startled', 'Shocked', 'Eager', 'Energetic', 'Dissapointed'],
+
+}
 // Find shared associations among word, shape and colour
 function getSharedWords(shape, colour, word) {
     // Fetch words associated with the shape, colour, and word
@@ -222,13 +232,14 @@ app.post('/previous-shape', (req,res) => {
 
 
 app.post('/next-shape', (req,res) => {
+    console.log(req.body.shape)
     req.session.shape = req.body.shape
     var filePath = "images/"
     req.session.filePath = filePath.concat(req.session.shape, ".png")
     res.redirect('/choose_colour');
 });
 app.get('/choose_colour', (req,res) => {
-    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour"});
+    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour", selectedColour: req.session.colour});
 });
 
 app.post('/previous-colour', (req,res) => {
@@ -252,17 +263,32 @@ app.post('/previous-word', (req,res) => {
 
 app.post('/next-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
-     // Save mood in session
-    res.redirect('/feeling_force');     // Redirect to feeling force page
+    var filePath = "images/"
+    req.session.filePath = filePath.concat(req.session.shape, ".png")
+    res.redirect('/additional_words');     
 });
+
+app.get('/additional_words', (req,res) => {
+    res.render('additional_words', {filepath: req.session.filePath, title: "More Words", wordList : additionalWords[req.session.word]});
+});
+
+app.post('/previous-additional', (req,res) => { //back
+    res.redirect('/choose_word');
+})
+
+app.post('/next-additional', (req, res) => {
+    req.session.additional = req.body.words
+    res.redirect('/feeling_force');     
+});
+
 
 app.get('/feeling_force', (req,res) => {
     res.render('feeling_force', {title: "Feeling Force"});
 });
 
 app.post('/previous-force', (req,res) => { //back
-    res.redirect('/choose_word');
-});
+    res.redirect('/additional_words');
+})
 
 app.post('/submit-force', (req, res) => { //next
     req.session.force = req.body.clickCount;  
@@ -275,12 +301,11 @@ app.get('/mood_summary', (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
     const word = req.session.word;
-
     const force = req.session.force
     console.log(shape)
     console.log(colour)
     console.log(word)
-    console.log(force +"/10")
+    console.log(force+"/10")
     const potentialMoods = getSharedWords(shape, colour, word)
     //Gets associations between all of the choicees
     let mood;
@@ -289,6 +314,28 @@ app.get('/mood_summary', (req,res) => {
 
     req.session.mood = mood;
     res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
+});
+
+app.post('/submit-mood', (req, res) => { //next
+    res.redirect('/what_happened');          
+});
+
+app.post('/previous-mood', (req,res) => { //back
+    res.redirect('/mood_summary');
+})
+
+app.get('/what_happened', (req,res) => {
+    res.render('what_happened', {title: "What Happened"});
+});
+
+app.post('/previous-happen', (req,res) => { //back
+    res.redirect('/mood_summary');
+})
+
+app.post('/submit-text', (req, res) => { //next     
+    req.session.what = req.body.what;  
+    const what = req.session.what
+    console.log(what)
 });
 
 const server = app.listen(port, () => {
