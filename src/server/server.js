@@ -153,31 +153,23 @@ app.use(express.urlencoded({extended:true}))
 
 
 app.get('/', (req,res) => {
-
     res.render('index', { title: "Home", showConsentPopup: !req.cookies.consent });
-    // Check if the consent cookie exists
-    // if (!req.cookies.consent) {
-    //     // Send HTML with a cookie consent banner
-    //     res.send(`
-    //         <h1>Welcome to Our Website</h1>
-    //         <p>We use cookies to enhance your experience. Do you accept?</p>
-    //         <button id="accept">Accept</button>
-    //         <script>
-    //             document.getElementById('accept').onclick = function() {
-    //                 document.cookie = "consent=true; path=/; max-age=" + 60*60*6; // 6 hours
-    //                 location.reload();
-    //             };
-    //         </script>
-    //     `);
-    // } else {
-        
-    //     res.render('index', {title: "Home"});
-    // }
-
 });
 
 app.get('/choose_shape', (req,res) => {
     res.render('choose_shape', {title: "Choose A Shape"});
+});
+
+app.get('/teacher_login', (req, res) => {
+    res.render('teacher_login', {title: "Teacher Login"})
+});
+
+app.post('/teacher_login', (req,res) => {
+    res.redirect('/student_info');
+});
+
+app.get('/student_info', (req, res) => {
+    res.render('student_info', {title: "Student Login"})
 });
 
 //PLACEHOLDER - Allows for testing of additional_words, must comment out lines 14-16
