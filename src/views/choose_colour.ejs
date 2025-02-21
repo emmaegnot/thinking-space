@@ -1,12 +1,8 @@
 <html lang="en">
- <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
-  <script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
- </head>
+<%- include('./partials/head.ejs') %>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
+<script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
  <body>
     <nav class="mouseM">
       <ul class="header">
@@ -17,19 +13,40 @@
 
     <div class="container mouseM">      
       <form id="colourForm" method="post">
+        <input type="hidden" id="colourInput" name="colour" value="none">
         <h1 class="colouredText">Choose a colour!</h1>
+        <p class="bodyText">Colour in your mood shape</p>
         <div class="colour-container">
           <div align="center">
-            <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape">
+            <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape" style="background-color: <%= selectedColour %>;">
+            <p class="bodyText">Click here to change!</p>
+            <br>
           </div>
-          <div align="center">
-            <div id="color-picker"></div>
+          <div class="colour" align="center">
+            <label>
+              <input type="button" name="colourValue" value="red" style="background-color: #ed3020; color: #ed3020" onclick="ChangeColour(this)">
+            </label>
+            <label>
+              <input type="button" name="colourValue" value="orange" style="background-color:#f06e2b; color: #f06e2b" onclick="ChangeColour(this)">
+            </label>
+            <label>
+              <input type="button" name="colourValue" value="green" style="background-color:#348039; color: #348039" onclick="ChangeColour(this)">
+            </label>
+            <label>
+              <input type="button" name="colourValue" value="yellow" style="background-color:#ffff55; color: #ffff55" onclick="ChangeColour(this)">
+            </label>
+            <label>
+              <input type="button" name="colourValue" value="cyan" style="background-color:#6ffcfe; color: #6ffcfe" onclick="ChangeColour(this)">
+            </label>
+            <label>
+              <input type="button" name="colourValue" value="navy" style="background-color:#3a5ac2; color: #3a5ac2" onclick="ChangeColour(this)">
+            </label>
           </div>
         </div>
           <!-- Submit button -->
           <div align="center">
-            <button type="previous" id="backButton">BACK</button>
-            <button type="submit" id="nextButton">NEXT</button>
+            <button type="button" id="backButton">BACK</button>
+            <button type="submit" id="nextButton" disabled>NEXT</button>
           </div>
         </form>
     </div>
@@ -38,43 +55,65 @@
       <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
       <span class="motto mouseM">With emotional health in mind</span>
     </footer>
- </body>
- <script>
-  const pickr = Pickr.create({
-    el: '#color-picker',
-    theme: 'classic',
-    default: '#f6b73c',
+    <script>
 
-    components: {
-      preview: true,
-      opacity: false,
-      hue: true,
-
-      interaction: {
-        hex: true,
-        rgba: false,
-        input: false,
-        save: false
+      // const pickr = Pickr.create({
+      //    el: '#color-picker',
+      //    theme: 'classic',
+      //    default: 'rgba(198, 245, 239, 1)',
+     
+      //    components: {
+      //      preview: true,
+      //      opacity: false,
+      //      hue: true,
+     
+      //      interaction: {
+      //        hex: true,
+      //        rgba: false,
+      //        input: false,
+      //        save: false
+      //      }
+      //    }
+      //  });
+    
+      
+      const nextButton = document.getElementById("nextButton");
+      // Update the chosen shape's background color on color change
+      const image = document.querySelector('.chosen-shape');
+    
+      window.onload = function() {
       }
-    }
-  });
+      // pickr.on('change', (color) => {
+      //    const rgbaColor = color.toRGBA().toString();
+      //    nextButton.disabled = false
+      //    document.getElementById('colourInput').value = rgbaColor; // Update the hidden input
+      //    const image = document.querySelector('.chosen-shape');
+      //    if (image) {
+      //        image.style.backgroundColor = rgbaColor; // Update the background of the shape
+      //    }
+      //    sessionStorage.setItem('selectedColor', rgbaColor);
+      //  });
+      function ChangeColour(chosenColour){
+        nextButton.disabled = false
+        sessionStorage.setItem('selectedColour', chosenColour.value);
+        document.getElementById('colourInput').value = chosenColour.value;
+        image.style.backgroundColor = chosenColour.value;
+      }
 
-  // Update the chosen shape's background color on color change
-  const image = document.querySelector('.chosen-shape');
-  pickr.on('change', (color) => {
-    const rgbaColor = color.toRGBA().toString();
-    image.style.backgroundColor = rgbaColor;
-  });
-  document.getElementById('backButton').addEventListener('click', function() {
-      const form = document.getElementById('colourForm');
-      form.action = '/previous-colour';
-      form.submit();
-  });
+      document.getElementById('backButton').addEventListener('click', function() {
+          const form = document.getElementById('colourForm');
+          form.action = '/previous-colour';
+          form.submit();
+      });
+    
+      document.getElementById('nextButton').addEventListener('click', function() {
+          const form = document.getElementById('colourForm');
+          form.action = '/next-colour';
+          form.submit();
+      });
+    
+     </script>
+ </body>
 
-  document.getElementById('nextButton').addEventListener('click', function() {
-      const form = document.getElementById('colourForm');
-      form.action = '/next-colour';
-      form.submit();
-  });
-</script>
+ 
 </html>

@@ -1,4 +1,5 @@
 <html lang="en">
+<%- include('partials/head') %>
  <head>
   <meta charset="UTF-8">
   <!-- Allows use of icons from fontawesome -->
@@ -13,6 +14,23 @@
   </ul>
  </nav>
  <body>
+
+  <!-- background: -->
+  <style> 
+    body {background-image: url(images/sky.png);
+    }
+   </style>
+  <div class="cloud1"></div>
+  <div class="wavy-circle" style="float: center;"></div> </div>
+  <div class="cloud2" style="float: right;"></div>
+  <div class="cloud3"></div>
+  <div class="star" style="float: center;"></div> </div>
+  <div class="flower" style="float: center;"></div> </div>
+  <div class="starburst" style="float: center;"></div> </div>
+  <div class="square" style="float: center;"></div> </div>
+  <div class="circle" style="float: center;"></div> </div>
+<!-- ------------------------------- -->
+
 <div class="index-container mouseM">
 <h1 class="h1">I am a...</h1>
   <div class="flex-container">
@@ -20,13 +38,94 @@
       <i class="fa-solid fa-person student"></i>
   </div>
   <div class="flex-container">
-        <button class="button">Teacher</button>
+        <button id="teacher" class="button" onclick="window.location.href='/teacher_login'">Teacher</button>
       <i class="fa-solid fa-person teacher"></i>
   </div>
  </div>
- <footer class="index-footer">
+ <div id="overlay"></div>
+ <% if (showConsentPopup) { %>
+  <div id="cookiePopup" class="index-container mouseM">
+    <h2>Cookie Consent</h2>
+    <p>We use cookies to enhance your experience. Do you accept?</p>
+    <button id="accept">Accept</button>
+  </div>
+<% } %>
+<footer class="index-footer">
   <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" height="60px" width="120px">
   <span class="motto mouseM">With emotional health in mind</span>
 </footer>
- </body>
+  <style>
+    #cookiePopup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        display: none; 
+        text-align: center;
+     }
+
+        
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none; 
+    }
+        
+        
+    #accept {
+        background: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #accept:hover {
+        background: #218838;
+    }
+  </style>
+  <script>
+    const showPopup = <%= showConsentPopup %>;
+    window.onload = function () {
+      sessionStorage.clear();
+      console.log("Session storage cleared on page load.");
+      if (showPopup) {
+        document.getElementById("cookiePopup").style.display = "block";
+        document.getElementById("overlay").style.display = "block";
+      }
+
+    // Handle the accept button
+      document.getElementById("accept").onclick = function() {
+          document.cookie = "consent=true; path=/; max-age=" + 60 * 60 * 6; // 6 hours
+          document.getElementById("cookiePopup").style.display = "none";
+          document.getElementById("overlay").style.display = "none";
+      }; 
+    };
+
+    function ShowMessage(){
+      var msg = document.getElementById("message")
+      msg.style.display = "block";
+      msg.style.opacity = "1";
+      setTimeout(() => {
+          msg.style.opacity = "0";
+          setTimeout(() => msg.style.display = "none", 300);
+      }, 3000);}
+
+
+    
+    
+    
+  
+  </script>
+</body>
 </html>
