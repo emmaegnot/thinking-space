@@ -8,12 +8,25 @@
       </ul>
     </nav>
 
-    <div class="container mouseM colouredText">  
-    <h1>Mood Matcher</h1>
-    <div class="moodSummary">
-      <h2>Are you feeling <%= mood %>?</h2>
-    </div>
-    </div>
+    <div class="container mouseM">  
+    <h1 class="colouredText">Mood Matcher</h1>
+    <h2 class="colouredText">Are you feeling <%= mood %> ? </h2>
+
+  <!-- yes button -->
+    <form id = "form" action="submit-mood" method="post">
+      <input id="moodSummary" name="mood" type="hidden" >
+      <div class="button-div" align="center">
+              <button onclick="sendDataToServer()" type="submit" id = "nextButton">Yes</button>
+      </div>
+  </form>
+
+  <!-- no button -->
+  <form action="/previous-mood" method="post">
+      <div class="button-div" align="center">
+          <button type="button-div" id="backButton">No</button>
+      </div>
+  </form>
+</div>
 
     <!-- Footer with logo and motto aligned to left and right -->
     <footer class="footer">
