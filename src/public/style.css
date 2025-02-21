@@ -73,6 +73,11 @@ a:hover {
     src: url(fonts/Buycat.ttf);
 }
 
+@font-face {
+    font-family: milkynice;
+    src: url(fonts/MilkyNice.ttf);
+}
+
 .mouseM { 
     font-family: mouseM;
 }
@@ -80,6 +85,10 @@ a:hover {
 
 .buycat { 
     font-family: buycat;
+}
+
+.milkynice { 
+    font-family: milkynice;
 }
 
 .footer {
@@ -723,13 +732,67 @@ left: +right */
     100% {background-color:rgb(255, 141, 141); left:1000px; top:-600px;}
 }
   
-/*===========*/
+
+/*========================================================*/
+
+/* table */
+table {
+    border-radius: 10px; 
+  }
+
+#students {
+    font-family: milkynice;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px; 
+  }
+  
+  #students td, #students th {
+    border: 1px solid #ffffff;
+    padding: 8px;
+  }
+  
+  #students td {
+    color: #1d5441;
+}
+
+  #students tr:nth-child(even){background-color: #ecf7f4;}
+  
+  #students tr:hover {background-color: #d5efe0;}
+  
+  #students th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4acfa3;
+    color: rgb(255, 255, 255);
+  }
+
+  /* Round the top-left and top-right corners of the first row */
+#students tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+#students tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+}
+
+/* Round the bottom-left and bottom-right corners of the last row */
+#students tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+#students tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+/* print ("hello world) */
+/* ============================================= */
 
 /* Grey next when disabled */
 
 #nextButton {
     padding: 10px 20px;
     font-size: 1em;
+    font-family: milkynice;
     color: #fff;
     background-color: #4a90e2;
     border: none;
@@ -741,6 +804,7 @@ left: +right */
 #backButton {
     padding: 10px 20px;
     font-size: 1em;
+    font-family: milkynice;
     color: #fff;
     background-color: #4a90e2;
     border: none;
