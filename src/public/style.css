@@ -73,6 +73,11 @@ a:hover {
     src: url(fonts/Buycat.ttf);
 }
 
+@font-face {
+    font-family: milkynice;
+    src: url(fonts/MilkyNice.ttf);
+}
+
 .mouseM { 
     font-family: mouseM;
 }
@@ -80,6 +85,10 @@ a:hover {
 
 .buycat { 
     font-family: buycat;
+}
+
+.milkynice { 
+    font-family: milkynice;
 }
 
 .footer {
@@ -106,6 +115,62 @@ a:hover {
     text-align: right;
 }
 
+.maincontainer {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: flex-start; /* Centers vertically */
+    width: 100%;
+    background-color: transparent;
+    margin: auto;
+    /* flex-wrap: wrap; */
+}
+
+.container1 {
+    /* max-width: 50%;
+    margin: 8rem auto 16rem; */
+    margin:30px;
+    padding: 1.2rem;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    background: #ffffff;
+    color: rgb(121, 166, 224);
+    min-height: 250px;
+    width:900px;
+
+}
+
+.container2 {
+    /* max-width: 50%;
+    margin: 8rem auto 16rem; */
+    margin:30px;
+    padding: 1.2rem;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    background: #ffffff;
+    color: rgb(121, 166, 224);
+    min-height: 457px;
+    width:600px;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: top; /* Center horizontally */
+    text-align: top; /* Center text */
+    justify-content: flex-start; /* Keep content at the top */
+    height: 100%; /* Ensures full height */
+
+
+}
+
+.container1, .container2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#clear {
+    clear: both;
+}
+
+/* replace with container 1 and 2 */
 .container {
     max-width: 50%;
     margin: 8rem auto 16rem;
@@ -116,6 +181,7 @@ a:hover {
     color: rgb(121, 166, 224);
     min-height: 250px;
 }
+/* ====================================== */
 
 .moodSummary{
     display: flex;
@@ -193,11 +259,31 @@ a:hover {
     margin-bottom: 10px;
 }
 
+.container1 h1 {
+    text-align: center;
+    width:100%;
+    display:block;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.container2 h1 {
+    text-align: center;
+    padding:-100px;
+    width:100%;
+    display:block;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+/* maybe replace */
 .container h1 {
     text-align: center;
     margin: 0;
     margin-bottom: 10px;
 }
+
+
 
 .button-div{
     margin-top: 10px;
@@ -722,13 +808,66 @@ left: +right */
     100% {background-color:rgb(255, 141, 141); left:1000px; top:-600px;}
 }
   
-/*===========*/
+/*========================================================*/
+
+/* table */
+table {
+    border-radius: 10px; 
+  }
+
+#students {
+    font-family: milkynice;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px; 
+  }
+  
+  #students td, #students th {
+    border: 1px solid #ffffff;
+    padding: 8px;
+  }
+  
+  #students td {
+    color: #1d5441;
+}
+
+  #students tr:nth-child(even){background-color: #ecf7f4;}
+  
+  #students tr:hover {background-color: #d5efe0;}
+  
+  #students th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4acfa3;
+    color: rgb(255, 255, 255);
+  }
+
+  /* Round the top-left and top-right corners of the first row */
+#students tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+#students tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+}
+
+/* Round the bottom-left and bottom-right corners of the last row */
+#students tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+#students tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+/* print ("hello world) */
+  /* ============================================= */
 
 /* Grey next when disabled */
 
 #nextButton {
     padding: 10px 20px;
     font-size: 1em;
+    font-family: milkynice;
     color: #fff;
     background-color: #4a90e2;
     border: none;
@@ -740,6 +879,7 @@ left: +right */
 #backButton {
     padding: 10px 20px;
     font-size: 1em;
+    font-family: milkynice;
     color: #fff;
     background-color: #4a90e2;
     border: none;
