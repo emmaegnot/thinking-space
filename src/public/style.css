@@ -148,7 +148,7 @@ a:hover {
     border-radius: 20px;
     background: #ffffff;
     color: rgb(121, 166, 224);
-    min-height: 457px;
+    min-height: 460px;
     width:600px;
     display: flex;
     flex-direction: column; /* Stack items vertically */
