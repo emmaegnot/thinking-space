@@ -17,49 +17,49 @@
           <div class="shape-item">
             <label>
               <input type="radio" name="shape" value="diamond">
-              <img src="images/character/shapes/diamond.png" />
+              <img src="images/character/shapes/diamond/diamond.png" />
             </label>
           </div>
           <div class="shape-item">
             <label>
               <input type="radio" name="shape" value="circle">
-              <img src="images/character/shapes/circle.png" />
+              <img src="images/character/shapes/circle/circle.png" />
             </label>
           </div>
           <div class="shape-item">
             <label>
               <input type="radio" name="shape" value="square">
-              <img src="images/character/shapes/square.png" />
+              <img src="images/character/shapes/square/square.png" />
             </label>
           </div>
           <div class="shape-item">
             <label>
               <input type="radio" name="shape" value="star">
-              <img src="images/character/shapes/star.png" />
+              <img src="images/character/shapes/star/star.png" />
             </label>
           </div>
           <div class="shape-item">
             <label>
               <input type="radio" name="shape" value="triangle">
-              <img src="images/character/shapes/triangle.png" />
+              <img src="images/character/shapes/triangle/triangle.png" />
             </label>
           </div>
           <div class="shape-item">
             <label>
               <input type="radio" name="shape" value="spiky">
-              <img src="images/character/shapes/spiky.png" />
+              <img src="images/character/shapes/spiky/spiky.png" />
             </label>
           </div>
           <div class="shape-item">
             <label>
               <input type="radio" name="shape" value="puffy">
-              <img src="images/character/shapes/puffy.png" />
+              <img src="images/character/shapes/puffy/puffy.png" />
             </label>
           </div>
           <div class="shape-item">
             <label>
               <input type="radio" name="shape" value="hexagon">
-              <img src="images/character/shapes/hexagon.png" />
+              <img src="images/character/shapes/hexagon/hexagon.png" />
             </label>
           </div>
         </div>
@@ -85,7 +85,7 @@
       function updateImage() {
         const selectedShape = document.querySelector('input[name="shape"]:checked');
         if (selectedShape) {
-          selectedShapeImage.src = `images/character/shapes/${selectedShape.value}.png`;
+          selectedShapeImage.src = `images/character/shapes/${selectedShape.value}/${selectedShape.value}.png`;
           selectedShapeImage.style.display = "block"; // Show the image
         }
       }
