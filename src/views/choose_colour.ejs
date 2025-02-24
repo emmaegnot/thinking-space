@@ -13,33 +13,33 @@
 
     <div class="container mouseM">      
       <form id="colourForm" method="post">
-        <input type="hidden" id="colourInput" name="colour" value="rgba(198, 245, 239, 1)">
+        <input type="hidden" id="colourInput" name="colour" value="none">
         <h1 class="colouredText">Choose a colour!</h1>
         <p class="bodyText">Colour in your mood shape</p>
         <div class="colour-container">
           <div align="center">
-            <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape">
+            <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape" style="background-color: <%= selectedColour %>;">
             <p class="bodyText">Click here to change!</p>
             <br>
           </div>
           <div class="colour" align="center">
             <label>
-              <input type="button" name="colourValue" value="red" style="background-color:red; color: red" onclick="ChangeColour(this)">
+              <input type="button" name="colourValue" value="red" style="background-color: #ed3020; color: #ed3020" onclick="ChangeColour(this)">
             </label>
             <label>
-              <input type="button" name="colourValue" value="orange" style="background-color:orange; color: orange" onclick="ChangeColour(this)">
+              <input type="button" name="colourValue" value="orange" style="background-color:#f06e2b; color: #f06e2b" onclick="ChangeColour(this)">
             </label>
             <label>
-              <input type="button" name="colourValue" value="green" style="background-color:green; color: green" onclick="ChangeColour(this)">
+              <input type="button" name="colourValue" value="green" style="background-color:#348039; color: #348039" onclick="ChangeColour(this)">
             </label>
             <label>
-              <input type="button" name="colourValue" value="yellow" style="background-color:yellow; color: yellow" onclick="ChangeColour(this)">
+              <input type="button" name="colourValue" value="yellow" style="background-color:#ffff55; color: #ffff55" onclick="ChangeColour(this)">
             </label>
             <label>
-              <input type="button" name="colourValue" value="blue" style="background-color:blue; color: blue" onclick="ChangeColour(this)">
+              <input type="button" name="colourValue" value="cyan" style="background-color:#6ffcfe; color: #6ffcfe" onclick="ChangeColour(this)">
             </label>
             <label>
-              <input type="button" name="colourValue" value="black" style="background-color:black; color: black" onclick="ChangeColour(this)">
+              <input type="button" name="colourValue" value="navy" style="background-color:#3a5ac2; color: #3a5ac2" onclick="ChangeColour(this)">
             </label>
           </div>
         </div>
@@ -82,17 +82,6 @@
       const image = document.querySelector('.chosen-shape');
     
       window.onload = function() {
-        const savedColor = sessionStorage.getItem('selectedColour');
-        if (savedColor) { 
-            
-            const image = document.querySelector('.chosen-shape');
-            if (image) {
-                image.style.backgroundColor = savedColor;
-                nextButton.disabled = false
-            }
-    
-            document.getElementById('colourForm').value = savedColor;
-        }
       }
       // pickr.on('change', (color) => {
       //    const rgbaColor = color.toRGBA().toString();
