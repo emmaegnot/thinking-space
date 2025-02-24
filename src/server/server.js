@@ -181,12 +181,12 @@ const mongoose = require('mongoose');
 
 const userMoodSchema = new mongoose.Schema({
     studentName: String,
-    shape: String,
-    color: String,
-    word: String,
-    additionalWords: [String], 
-    mood: String,
-    timestamp: { type: Date, default: Date.now }
+    ushape: String,
+    ucolor: String,
+    uword: String,
+    uadditionalWords: [String], 
+    umood: String,
+    utimestamp: { type: Date, default: Date.now }
 });
 
 const UserMood = mongoose.model('UserMood', userMoodSchema);
@@ -314,11 +314,12 @@ app.post('/submit-force', (req, res) => { //next
 
 const UserMood = require('./models/UserMood');
 
-app.get('/mood_summary', (req,res) => {
+app.get('/mood_summary', async (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
     const word = req.session.word;
-    const force = req.session.force
+    const force = req.session.force;
+    const additionalWords = req.session.additional;
     console.log(shape)
     console.log(colour)
     console.log(word)
@@ -328,8 +329,24 @@ app.get('/mood_summary', (req,res) => {
     let mood;
     const randomIndex = Math.floor(Math.random() * potentialMoods.length)
     mood = potentialMoods[randomIndex]
-
     req.session.mood = mood;
+
+    try {
+        await UserMood.create({
+            studentName: req.sessionID, // change to name when implemented
+            ushape: shape,
+            ucolor: colour,
+            uword: word,
+            uadditionalWords: additionalWords, 
+            umood: req.session.mood,
+        });
+
+        console.log("Mood data saved!");
+    } catch (error) {
+        console.error("Error saving mood data:", error);
+    }
+
+    
     res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
 });
 
