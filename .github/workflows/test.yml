@@ -44,6 +44,9 @@ jobs:
       run: npm run build --if-present
       working-directory: ./
 
+    # Set the environment variable for MongoDB URI from GitHub Secrets
     - name: Run tests
+      env:
+        MONGO_URI: ${{ secrets.MONGO_URI }}  # Access the MongoDB URI secret here
       run: npm test
       working-directory: ./
