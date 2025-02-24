@@ -6,6 +6,7 @@ const { closeSync } = require('fs');
 const mongoose = require('mongoose');
 const { MongoClient } = require('mongodb');
 
+
 const app = express();
 app.use(express.urlencoded({extended:true}))
 const port = 3000;
@@ -153,8 +154,14 @@ const uri = "mongodb://127.0.0.1:27017/firstDatabase"; // Local MongoDB
 // >> db.users.insertOne({ name: "Ethan", age: 20 })
 
 // Connect to MongoDB
+//require('dotenv').config();
 async function connectDB() {
     try {
+
+        if (!uri) {
+            throw new Error("MongoDB connection URI is undefined.");
+        }
+
         const client = new MongoClient(uri);
         await client.connect();
         console.log("Connected to MongoDB!");
@@ -177,7 +184,6 @@ app.get('/users', async (req, res) => {
     }
 });
 
-const mongoose = require('mongoose');
 
 const userMoodSchema = new mongoose.Schema({
     studentName: String,
@@ -312,7 +318,6 @@ app.post('/submit-force', (req, res) => { //next
     res.redirect('/mood_summary');          
 });
 
-const UserMood = require('./models/UserMood');
 
 app.get('/mood_summary', async (req,res) => {
     const shape = req.session.shape;
@@ -338,7 +343,7 @@ app.get('/mood_summary', async (req,res) => {
             ucolor: colour,
             uword: word,
             uadditionalWords: additionalWords, 
-            umood: req.session.mood,
+            umood: req.session.mood, 
         });
 
         console.log("Mood data saved!");
