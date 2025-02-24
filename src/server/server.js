@@ -166,6 +166,22 @@ app.get('/users', async (req, res) => {
     }
 });
 
+const mongoose = require('mongoose');
+
+const userMoodSchema = new mongoose.Schema({
+    studentName: String,
+    shape: String,
+    color: String,
+    word: String,
+    additionalWords: [String], 
+    mood: String,
+    timestamp: { type: Date, default: Date.now }
+});
+
+const UserMood = mongoose.model('UserMood', userMoodSchema);
+
+module.exports = UserMood;
+
 
 app.set('view engine','ejs');
 app.set('views', path.join(__dirname, '../views'))
