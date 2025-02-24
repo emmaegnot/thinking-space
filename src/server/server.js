@@ -12,7 +12,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(express.urlencoded({extended:true}))
-const port = 0;
+const port = 3000;
 const shapes = {
     cloud: ['friendly', 'comfortable', 'happy', 'dreamy'],
     circle: ['calm', 'friendly', 'connected'],
@@ -192,6 +192,7 @@ const userMoodSchema = new mongoose.Schema({
     ucolor: String,
     uword: String,
     uadditionalWords: [String], 
+    uforce: Number, 
     umood: String,
     utimestamp: { type: Date, default: Date.now }
 });
@@ -344,6 +345,7 @@ app.get('/mood_summary', async (req,res) => {
             ucolor: colour,
             uword: word,
             uadditionalWords: additionalWords, 
+            uforce: force,
             umood: req.session.mood, 
         });
 
