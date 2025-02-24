@@ -1,0 +1,83 @@
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="mouseM">
+    <ul class="header">
+        <li><a>THE THINKING SPACE</a></li>
+        <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
+    </ul>
+   </nav>
+
+<div class="container mouseM" style="width: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <h2 class = "colouredText" style="padding: 10px; margin: 20px;">What happened?</h2>
+        <p class="bodyText">Share with us why you feel this way in the box</p>
+
+        <form id = "form" action="submit-text" method="post">
+            <textarea  style="width: 300px; height: 150px; resize:none;" type="text"  align="left" rows="3" id="whatHappened" name="what"></textarea>
+            <div class="button-div" align="center">
+                <button onclick="sendDataToServer()" type="submit" id = "nextButton">NEXT</button>
+        </div>
+    </form>
+    <form action="/previous-happen" method="post">
+        <div class="button-div" align="center">
+            <button type="button-div" id="backButton">BACK</button>
+        </div>
+    </form>
+
+<!-- pass info -->
+
+<script>
+    let nextButton = document.getElementById('nextButton');
+    let what = document.getElementsById('whatHappened');
+    
+    window.onload = function() {
+        if (selectedText.trim === "") {
+          nextButton.disabled = true;
+        } else {
+            nextButton.disabled = false;
+        }
+      }
+    </script>
+
+<script>
+    function sendDataToServer() {
+        document.getElementById("whatHappened");
+        document.getElementById("form").submit();
+    }
+
+    document.getElementById("nextButton").addEventListener("click", function(event) {
+        event.preventDefault();
+        sendDataToServer(); 
+    });
+</script>
+
+
+
+    <!-- <form id = "form" action="submit-text" method="post">
+        <input id="textInput" name="text" type="hidden" >
+    <div class="button-div" align="center">
+        <form action="/previous-text" method="post">
+        <button type="button" id="backButton">BACK</button>
+    </form>
+        <button onclick="sendDataToServer()" type="submit" id="nextButton" disabled>NEXT</button>
+      </div>
+    </form> -->
+
+
+</div>
+
+</div>
+</div>
+  
+    <footer class="footer">
+        <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
+        <span class="motto mouseM">With emotional health in mind</span>
+      </footer>
+
+</body>
+</html>

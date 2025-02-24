@@ -11,11 +11,11 @@
 <h1 class="h1">Login</h1>
 <form id="loginForm" method="POST">
   <div class="flex-container">
-        <label for="name">Name:</label><br>
+        <label style="font-family: milkynice;" for="name">Name:</label><br>
         <input type="text" placeholder="Enter your Name" id="name" name="name" required><br>
   </div>
   <div class="pass-wrap">
-        <label for="fname">Password:</label><br>
+        <label style="font-family: milkynice;" for="fname">Password:</label><br>
         <input type="password" placeholder="Enter your Password" id="password" name="password" required><br>
         <img src="images/eye_open.svg" alt="Show Password" id="show-passwd" />
   </div>
@@ -23,10 +23,15 @@
     <button id="backButton" class="buttonBelow" type="button">
       HOME
     </button>
-    <button id="submit" class="buttonBelow" type="button"><span>
+
+    <!-- <button id="submit" class="buttonBelow" type="button"><span>
       LOGIN
-    </span></button>
-    
+    </span></button> -->
+
+    <form id = "form" action="submit-login" method="post">
+    <button id="nextButton" class="buttonBelow" type="submit"><span>
+      LOGIN
+    </span></button></form>
   </div>
 </form>
 </div>

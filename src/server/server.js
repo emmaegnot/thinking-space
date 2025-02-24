@@ -156,9 +156,7 @@ app.use(express.urlencoded({extended:true}))
 
 
 app.get('/', (req,res) => {
-
     res.render('index', { title: "Home", showConsentPopup: !req.cookies.consent });
-
 });
 
 app.get('/choose_shape', (req,res) => {
@@ -167,6 +165,14 @@ app.get('/choose_shape', (req,res) => {
 
 app.get('/teacher_login', (req, res) => {
     res.render('teacher_login', {title: "Teacher Login"})
+});
+
+app.post('/teacher_login', (req,res) => {
+    res.redirect('/student_info');
+});
+
+app.get('/student_info', (req, res) => {
+    res.render('student_info', {title: "Student Login"})
 });
 
 //PLACEHOLDER - Allows for testing of additional_words, must comment out lines 14-16
@@ -189,13 +195,14 @@ app.post('/previous-shape', (req,res) => {
 
 
 app.post('/next-shape', (req,res) => {
+    console.log(req.body.shape)
     req.session.shape = req.body.shape
     var filePath = "images/"
     req.session.filePath = filePath.concat(req.session.shape, ".png")
     res.redirect('/choose_colour');
 });
 app.get('/choose_colour', (req,res) => {
-    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour"});
+    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour", selectedColour: req.session.colour});
 });
 
 app.post('/previous-colour', (req,res) => {
@@ -257,12 +264,11 @@ app.get('/mood_summary', (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
     const word = req.session.word;
-
     const force = req.session.force
     console.log(shape)
     console.log(colour)
     console.log(word)
-    console.log(force +"/10")
+    console.log(force+"/10")
     const potentialMoods = getSharedWords(shape, colour, word)
     //Gets associations between all of the choicees
     let mood;
@@ -271,6 +277,28 @@ app.get('/mood_summary', (req,res) => {
 
     req.session.mood = mood;
     res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
+});
+
+app.post('/submit-mood', (req, res) => { //next
+    res.redirect('/what_happened');          
+});
+
+app.post('/previous-mood', (req,res) => { //back
+    res.redirect('/mood_summary');
+})
+
+app.get('/what_happened', (req,res) => {
+    res.render('what_happened', {title: "What Happened"});
+});
+
+app.post('/previous-happen', (req,res) => { //back
+    res.redirect('/mood_summary');
+})
+
+app.post('/submit-text', (req, res) => { //next     
+    req.session.what = req.body.what;  
+    const what = req.session.what
+    console.log(what)
 });
 
 const server = app.listen(port, () => {
