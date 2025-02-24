@@ -12,7 +12,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(express.urlencoded({extended:true}))
-const port = 0;
+const port = 3000;
 const shapes = {
     cloud: ['friendly', 'comfortable', 'happy', 'dreamy'],
     circle: ['calm', 'friendly', 'connected'],
