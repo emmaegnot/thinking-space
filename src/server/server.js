@@ -12,7 +12,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(express.urlencoded({extended:true}))
-const port = 3000;
+const port = 0;
 const shapes = {
     cloud: ['friendly', 'comfortable', 'happy', 'dreamy'],
     circle: ['calm', 'friendly', 'connected'],
@@ -165,7 +165,11 @@ async function connectDB() {
         process.exit(1)
     }
 }
-connectDB();
+if (process.env.MONGO_URI != null){
+    connectDB();
+} else {
+    console.log("Skipping database connection")
+}
 
 // Example for getting users - localhost:3000/db-test should result in showing all teachers and all students in the database
 app.get('/db-test', async (req, res) => {
