@@ -279,6 +279,8 @@ app.post('/submit-force', (req, res) => { //next
     res.redirect('/mood_summary');          
 });
 
+const UserMood = require('./models/UserMood');
+
 app.get('/mood_summary', (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
