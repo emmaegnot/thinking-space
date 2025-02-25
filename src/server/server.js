@@ -397,6 +397,10 @@ app.get('/mood_summary', (req,res) => {
             for (let i = 0; i < words.length; i++) {
                 words[i] = words[i].toLowerCase();
             }
+        } else if (words != undefined){
+            for (let i = 0; i < words.length; i++) {
+                words[i] = words[i].toLowerCase();
+            }
         } else {
             words = []
         }
