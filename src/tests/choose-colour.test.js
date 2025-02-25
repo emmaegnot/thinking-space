@@ -62,7 +62,7 @@ test("Checks that the selected shape and colour remains after navigating the sit
 });
 
 test("Checks footer contains the logo and motto", async () => {
-    const res = await request(app).get("/mood_summary");
+    const res = await request(app).get("/choose_colour");
     expect(res.status).toBe(200);
     expect(res.text).toContain('<img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd"');
     expect(res.text).toContain('<span class="motto mouseM">With emotional health in mind</span>');
