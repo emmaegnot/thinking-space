@@ -24,7 +24,6 @@ const colours = {
     yellow: ['happy'],
     cyan: ['dreamy'],
     navy: ['dreamy'],
-    black: ['scared', 'isolated']
 }
 const words = {
     Angry: ['angry', 'concerned', 'confused', 'irritated'],
