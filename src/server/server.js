@@ -143,7 +143,7 @@ function matchMood(shape, colour, word1, words, force){
     addWordsVector = [addWordsVector[0]/words.length, addWordsVector[1]/words.length]
     // find average of the three vectors
     averageVector = [ (shapeVector[0] + colourVector[0] + word1Vector[0] + addWordsVector[0])/3, (shapeVector[1] + colourVector[1] + word1Vector[1]+ addWordsVector[1])/3];
-    // multiply by feeling force div 2
+    // multiply by feeling force div 10
     averageVector[0] = averageVector[0] * (0.5 + (force/10))
     averageVector[1] = averageVector[1] * (0.5 + (force/10))
     // use the same code as generalise colour function to find the closest mood to the average vector
