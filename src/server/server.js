@@ -202,9 +202,9 @@ app.post('/next-colour', (req, res) => {
     
 });
 
-app.post('/student_login', (req, res) => {
+app.post('/choose_shape', (req, res) => {
     res.redirect('/choose_shape');
-  });
+});
 
 
 app.get('/choose_word', (req,res) => {
