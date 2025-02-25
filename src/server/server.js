@@ -102,13 +102,11 @@ function colourToDec(colour){
 }
 
 function generaliseColour(RGBAcolour){
-    console.log(RGBAcolour)
     var RGBAcolour = RGBAcolour.replace(/[^\d,.]/g, '').split(',');
     const colour = [];
     for (let i = 0; i < RGBAcolour.length; i++) {
         colour.push(Number(RGBAcolour[i]));
     }
-    console.log(colour)
     //  colour is in form "#rrggbb" - array of length 7
     // now colour is in form rgba (r , g , b, a)
     // define RGB values for the colour set {red, orange, blue, green, yellow, pink, purple, black, white}
@@ -136,7 +134,6 @@ function generaliseColour(RGBAcolour){
             closestColour = key
         }
     })
-    console.log(closestColour)
     return closestColour
 }
 
@@ -274,7 +271,6 @@ app.get('/mood_summary', (req,res) => {
     let mood;
     const randomIndex = Math.floor(Math.random() * potentialMoods.length)
     mood = potentialMoods[randomIndex]
-
     req.session.mood = mood;
     res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
 });
@@ -305,4 +301,4 @@ const server = app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-module.exports = {generaliseColour, server, app};
+module.exports = {generaliseColour, server, app, shapes, colours, words};
