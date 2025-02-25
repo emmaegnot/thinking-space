@@ -29,7 +29,7 @@ test.each(["parallelogram", "circle", "square", "star", "triangle", "spikeyball"
 test("Checks if the colour selection buttons are present", async () => {
     const res = await request(app).get("/choose_colour");
     // Checks that each colour is able to be selected as a button
-    const colours = ["red", "orange", "green", "yellow", "blue", "black"];
+    const colours = ["red", "orange", "green", "yellow", "cyan", "navy"];
     colours.forEach(colour => {
         expect(res.text).toContain(`type="button" name="colourValue" value="${colour}"`); // For each shape, check the response contains an input field with its name
     });
@@ -59,6 +59,13 @@ test("Checks that the selected shape and colour remains after navigating the sit
     await agent.post("/previous-word").expect(302); // Move back to colour page
     const res = await agent.get("/choose_colour"); // Get the response
     expect(res.text).toContain('<img class="chosen-shape" src="images/circle.png" alt="coloured shape" style="background-color: yellow;">'); // The new response should still have the image and colour saved
+});
+
+test("Checks footer contains the logo and motto", async () => {
+    const res = await request(app).get("/mood_summary");
+    expect(res.status).toBe(200);
+    expect(res.text).toContain('<img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd"');
+    expect(res.text).toContain('<span class="motto mouseM">With emotional health in mind</span>');
 });
 
 afterAll(() => {

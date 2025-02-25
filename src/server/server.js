@@ -230,13 +230,11 @@ function colourToDec(colour){
 }
 
 function generaliseColour(RGBAcolour){
-    console.log(RGBAcolour)
     var RGBAcolour = RGBAcolour.replace(/[^\d,.]/g, '').split(',');
     const colour = [];
     for (let i = 0; i < RGBAcolour.length; i++) {
         colour.push(Number(RGBAcolour[i]));
     }
-    console.log(colour)
     //  colour is in form "#rrggbb" - array of length 7
     // now colour is in form rgba (r , g , b, a)
     // define RGB values for the colour set {red, orange, blue, green, yellow, pink, purple, black, white}
@@ -264,7 +262,6 @@ function generaliseColour(RGBAcolour){
             closestColour = key
         }
     })
-    console.log(closestColour)
     return closestColour
 }
 
@@ -284,9 +281,7 @@ app.use(express.urlencoded({extended:true}))
 
 
 app.get('/', (req,res) => {
-
     res.render('index', { title: "Home", showConsentPopup: !req.cookies.consent });
-
 });
 
 app.get('/choose_shape', (req,res) => {
@@ -295,6 +290,14 @@ app.get('/choose_shape', (req,res) => {
 
 app.get('/teacher_login', (req, res) => {
     res.render('teacher_login', {title: "Teacher Login"})
+});
+
+app.post('/teacher_login', (req,res) => {
+    res.redirect('/student_info');
+});
+
+app.get('/student_info', (req, res) => {
+    res.render('student_info', {title: "Student Login"})
 });
 
 //PLACEHOLDER - Allows for testing of additional_words, must comment out lines 14-16
@@ -438,4 +441,4 @@ const server = app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-module.exports = {generaliseColour, server, app};
+module.exports = {generaliseColour, server, app, shapes, colours, words};
