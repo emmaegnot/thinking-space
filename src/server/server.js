@@ -387,28 +387,31 @@ app.post('/submit-force', (req, res) => { //next
 app.get('/mood_summary', (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
-    let word = req.session.word.toLowerCase();
-    let words = req.session.additional;
-    if (typeof words == "string"){
-        words = [words]
+    // let word = req.session.word.toLowerCase();
+    let mood = "indecisive";
+    if(req.session.word != undefined){
+        word = req.session.word.toLowerCase();
+        let words = req.session.additional;
+        if (typeof words == "string"){
+            words = [words]
+            for (let i = 0; i < words.length; i++) {
+                words[i] = words[i].toLowerCase();
+            }
+        } else {
+            words = []
+        }
+        const force = req.session.force
+        console.log(shape)
+        console.log(colour)
+        console.log(word)
+        console.log(force +"/10")
+        console.log(words)
+        const potentialMoods = getSharedWords(shape, colour, word)
+        //Gets associations between all of the choicees
+        const randomIndex = Math.floor(Math.random() * potentialMoods.length)
+        mood = potentialMoods[randomIndex]
+        mood = matchMood(shape, colour, word, words, force)
     }
-    for (let i = 0; i < words.length; i++) {
-        words[i] = words[i].toLowerCase();
-      }
-
-    const force = req.session.force
-    console.log(shape)
-    console.log(colour)
-    console.log(word)
-
-    console.log(force +"/10")
-    console.log(words)
-    const potentialMoods = getSharedWords(shape, colour, word)
-    //Gets associations between all of the choicees
-    let mood;
-    const randomIndex = Math.floor(Math.random() * potentialMoods.length)
-    mood = potentialMoods[randomIndex]
-    mood = matchMood(shape, colour, word, words, force)
 
     req.session.mood = mood;
     res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
