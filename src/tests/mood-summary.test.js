@@ -1,5 +1,5 @@
 const request = require("supertest");
-const {server, app, shapes, colours, words} = require("../server/server");
+const {server, app, shapes, colours, words, additionalWords} = require("../server/server");
 
 test("Checks page is rendered with the correct title and icon", async () => {
     const res = await request(app).get("/mood_summary");
@@ -21,28 +21,28 @@ test("Checks page is rendered with a mood", async () => {
 });
 
 // matchMood currently breaks with some combinations - when this is fixed we can include this test
-// test("Checks page is rendered with a mood for every shape, colour, and word combination", async () => {
-//     const possibleMoods = ["alert", "excited", "happy", "content", "relaxed", "angry", "calm", "bored", "upset", "sad", "distressed", "tense"]; // Define all possible moods that our server can match to
-//     const agent = request.agent(app);
-//     for (const shape of Object.keys(shapes)) { // For each shape
-//         for (const colour of Object.keys(colours)) { // For each colour
-//             for (const word of Object.keys(words)) { // For each word
-//                 // Nested for loops mean every combination of shape, colour and word is tested
-//                 // Send the server all the data
-//                 await agent.post('/next-shape').send("shape=" + shape);
-//                 await agent.post('/next-colour').send("colour=" + colour );
-//                 await agent.post('/next-word').send("selectedEmotion=" + word );
-//                 await agent.post('/next-additional').send("words=playful");
-//                 await agent.post('/submit-force').send("clickCount=5");
-//                 const res = await agent.get('/mood_summary');
-//                 expect(res.status).toBe(200);
-//                 // The mood should be in the possibleMoods array
-//                 const containsValidMood = possibleMoods.some(mood => res.text.includes(`Are you feeling ${mood} ? </h2>`));
-//                 expect(containsValidMood).toBe(true); // Expect at least one match
-//             }
-//         }
-//     }
-// });
+test("Checks page is rendered with a mood for every shape, colour, and word combination", async () => {
+    const possibleMoods = ["alert", "excited", "happy", "content", "relaxed", "angry", "calm", "bored", "upset", "sad", "distressed", "tense"]; // Define all possible moods that our server can match to
+    const agent = request.agent(app);
+    for (const shape of Object.keys(shapes)) { // For each shape
+        for (const colour of Object.keys(colours)) { // For each colour
+            for (const word of Object.keys(words)) { // For each word
+                // Nested for loops mean every combination of shape, colour and word is tested
+                // Send the server all the data
+                await agent.post('/next-shape').send("shape=" + shape);
+                await agent.post('/next-colour').send("colour=" + colour );
+                await agent.post('/next-word').send("selectedEmotion=" + word );
+                await agent.post('/next-additional').send("words=" + additionalWords[word][0]);
+                await agent.post('/submit-force').send("clickCount=5");
+                const res = await agent.get('/mood_summary');
+                expect(res.status).toBe(200);
+                // The mood should be in the possibleMoods array
+                const containsValidMood = possibleMoods.some(mood => res.text.includes(`Are you feeling ${mood} ? </h2>`));
+                expect(containsValidMood).toBe(true); // Expect at least one match
+            }
+        }
+    }
+});
 
 test("Checks that the selected mood persists across sessions", async () => {
     const agent = request.agent(app);

@@ -11,8 +11,8 @@ const shapes = {
     cloud: ['friendly', 'comfortable', 'happy', 'dreamy'],
     circle: ['calm', 'friendly', 'connected'],
     square: ['stable', 'calm', 'confused'],
-    parallelogram: ['unstable'],
-    hexagon: ['connected'],
+    //parallelogram: ['unstable'],
+    // hexagon: ['connected'],
     star: ['excited', 'dreamy'],
     triangle: ['angry', 'concerned', 'scared'],
     spikeyball: ['irritated', 'scared', 'isolated']
@@ -158,7 +158,7 @@ function matchMood(shape, colour, word1, words, force){
         }
     }
     // return that current mood
-    console.log(closestMood);
+    console.log("MOOD: ",closestMood);
     return closestMood;
 }
 
@@ -446,4 +446,4 @@ const server = app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-module.exports = {generaliseColour, server, app, shapes, colours, words};
+module.exports = {generaliseColour, server, app, shapes, colours, words, additionalWords};
