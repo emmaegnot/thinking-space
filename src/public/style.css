@@ -854,11 +854,9 @@ input[name="colourValue"] {
 
 #show-passwd {
     position: absolute;
-    top: 66%;
-    left: 101%;
-    right: 10px;                
-    transform: translateY(-50%); 
+    float: right;   
     cursor: pointer;
+    margin: 5px 0px 0px 5px;
     width: 20px;                 
     height: 20px;
 }
