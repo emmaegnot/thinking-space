@@ -20,7 +20,7 @@
         <form id = "form" action="submit-text" method="post">
             <textarea  style="width: 300px; height: 150px; resize:none;" type="text"  align="left" rows="3" id="whatHappened" name="what"></textarea>
             <div class="button-div" align="center">
-                <button onclick="sendDataToServer()" type="submit" id = "nextButton">NEXT</button>
+                <button onClick="sendDataToServer()" type="submit" id = "nextButton">NEXT</button>
         </div>
     </form>
     <form action="/previous-happen" method="post">
@@ -33,7 +33,7 @@
 
 <script>
     let nextButton = document.getElementById('nextButton');
-    let what = document.getElementsById('whatHappened');
+    let what = document.getElementById('whatHappened');
     
     window.onload = function() {
         if (selectedText.trim === "") {
@@ -47,6 +47,30 @@
 <script>
     function sendDataToServer() {
         document.getElementById("whatHappened");
+		// Sanitize text data on page
+		// This is a very basic implementation
+		var whatHappened = document.getElementById("whatHappened").value;
+		var whatHappenedSanitized = "";
+		for(var i = 0; i < whatHappened.length; i++)
+		{
+			// Scan for any suspicious characters in the text area
+			switch(whatHappened.charAt(i))
+			{
+			case '{':
+			case '}':
+			case '[':
+			case ']':
+			case '$':
+			case '&':
+			case '*':
+			case ':':
+			case '\\':
+				break;
+			default:
+				whatHappenedSanitized = whatHappenedSanitized.concat(whatHappened.slice(i, i + 1));
+			}
+		}
+		document.getElementById("whatHappened").value = whatHappenedSanitized;
         document.getElementById("form").submit();
     }
 
