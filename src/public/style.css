@@ -3,6 +3,15 @@ html {
     animation: fadein 2s;
     height: 100%;
     margin: 0;
+    max-height: 1080px;
+}
+
+.index-html {
+    animation: fadein 2s;
+    height: 100%;
+    margin: 0;
+    max-height: 1080px;
+    overflow: hidden;
 }
 
 body{
@@ -277,7 +286,7 @@ a:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 1rem 5px;
+    padding: 2rem 5px;
     color: rgb(121, 166, 224);
 }
 
