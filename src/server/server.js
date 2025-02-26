@@ -186,22 +186,6 @@ app.get('/db-test', async (req, res) => {
 });
 
 
-const userMoodSchema = new mongoose.Schema({
-    studentName: String,
-    ushape: String,
-    ucolor: String,
-    uword: String,
-    uadditionalWords: [String], 
-    uforce: Number, 
-    umood: String,
-    utimestamp: { type: Date, default: Date.now }
-});
-
-const UserMood = mongoose.model('UserMood', userMoodSchema);
-
-module.exports = UserMood;
-
-
 app.set('view engine','ejs');
 app.set('views', path.join(__dirname, '../views'))
 
@@ -321,6 +305,8 @@ app.post('/submit-force', (req, res) => { //next
 });
 
 
+const StudentMood = require('../models/Student')
+
 app.get('/mood_summary', async (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
@@ -339,8 +325,10 @@ app.get('/mood_summary', async (req,res) => {
     req.session.mood = mood;
 
     try {
-        await UserMood.create({
-            studentName: req.sessionID, // change to name when implemented
+        await StudentMood.create({
+            name: req.sessionID, // change to name when implemented
+            year: 7,
+            classCode: "123",
             ushape: shape,
             ucolor: colour,
             uword: word,
