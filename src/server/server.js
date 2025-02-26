@@ -42,13 +42,140 @@ const words = {
 
 }
 
+// define vectors on unpleasant-calm graph, x ( positive is unpleasant, negative is pleasant), y (positive is calm, negative is excited)
+// this information has come from cross-modal correspondence research
+const shapeVectors = {
+    star: [0.5, -2.5],
+    spikeyball: [-5, -5],
+    circle: [-5, 5],
+    cloud: [-1, 1.5],
+    triangle: [3, -3],
+    square: [-3, 3.5],
+    bouba: [1, 1],
+    diamond: [1, -1]
+}
+
+const word1Vectors = {
+    angry: [4.5, -5],
+    disgusted: [5, -2],
+    fearful: [5, -3.5],
+    happy: [-5, 5],
+    sad: [4, 3],
+    surprised: [0, -4]
+}
+
+const colourVectors = {
+    green: [-0.5, 0.5],
+    yellow: [3.5, 0.5],
+    cyan: [-4.5, 2.5],
+    navy: [-3.5, 2.5],
+    orange: [1, -3],
+    red: [-1.5, -4]
+}
+
+const moodVectors = {
+    alert: [-1, -5],
+    excited: [-4, -4],
+    happy: [-5, -0.5],
+    content: [-5, 1],
+    relaxed: [-4, 4],
+    angry: [5, -5],
+    calm: [-1, 5],
+    bored: [1, 5],
+    upset: [4.5, 3.5],
+    sad: [5, 1],
+    distressed: [4, -3],
+    tense: [0.5, -5],
+}
+
+const wordAddVectors = {
+    irritated: [3, -2],
+    resentful: [3.5, -1],
+    miffed: [1, -1],
+    upset: [4.5, 3.5],
+    mad: [4, -5],
+    furious: [4.5, -5],
+    raging: [3.5, -5],
+    hot: [-4, 1],
+    awful: [5, 0],
+    disappointed: [2, 3],
+    repelled: [2, 0.5],
+    horrified: [4, -3],
+    hesitant: [0, 0],
+    judgemental: [1, 1],
+    embarrassed: [2, -3],
+    revolted: [3, -1],
+    scared: [3.5, -2.5],
+    anxious: [4, -1],
+    insecure: [4, 0],
+    weak: [3, 4],
+    rejected: [3, 0],
+    threatened: [2, -2.5],
+    nervous: [1.5, -4],
+    helpless: [3, 4],
+    playful: [-4, -4],
+    interested: [-2, 2],
+    optimistic: [-4, 5],
+    inspired: [-3, 5],
+    proud: [-5, 4],
+    thankful: [-5, 4.5],
+    cheeky: [-3, -1],
+    free: [-3.5, -1],
+    lonely: [4, 2.5],
+    hurt: [4.5, 1],
+    guilty: [3, 0.5],
+    powerless: [2, 1],
+    abandoned: [3, 1],
+    ashamed: [3.5, 1],
+    confused: [0, 0],
+    amazed: [-3.5, -1.5],
+    excited: [0, -5],
+    startled: [1, -3],
+    shocked: [0, -3],
+    eager: [-1.5, 3],
+    energetic: [-1.5, -4]
+}
+
+function matchMood(shape, colour, word1, words, force){
+    // get value of three vectors corresponding to shape, colour, word
+    shapeVector = shapeVectors[shape];
+    colourVector = colourVectors[colour];
+    word1Vector = word1Vectors[word1];
+    addWordsVector =[0,0]
+    for (let i = 0; i < words.length; i++) {
+        addWordsVector[0] = addWordsVector[0] + wordAddVectors[words[i]][0];
+        addWordsVector[1] = addWordsVector[1] + wordAddVectors[words[i]][1];
+      }
+    addWordsVector = [addWordsVector[0]/words.length, addWordsVector[1]/words.length]
+    // find average of the three vectors
+    averageVector = [ (shapeVector[0] + colourVector[0] + word1Vector[0] + addWordsVector[0])/3, (shapeVector[1] + colourVector[1] + word1Vector[1]+ addWordsVector[1])/3];
+    // multiply by feeling force div 10
+    averageVector[0] = averageVector[0] * (0.5 + (force/10))
+    averageVector[1] = averageVector[1] * (0.5 + (force/10))
+    // use the same code as generalise colour function to find the closest mood to the average vector
+    minDistance = 10000;
+    let closestMood = null;
+    for (const mood in moodVectors){
+        unpleasantLength = (averageVector[0] - moodVectors[mood][0]) * (averageVector[0] - moodVectors[mood][0]);
+        excitedLength = (averageVector[1] - moodVectors[mood][1]) * (averageVector[1] - moodVectors[mood][1]);
+        distance = Math.sqrt(unpleasantLength + excitedLength)
+        if (distance < minDistance){
+            minDistance = distance
+            closestMood = mood
+        }
+    }
+    // return that current mood
+    console.log(closestMood);
+    return closestMood;
+}
+
 const additionalWords = {
     Angry: ['Irritated', 'Resentful', 'Miffed', 'Upset', 'Mad', 'Furious', 'Raging', 'Hot'],
     Disgusted: ['Awful', 'Disappointed', 'Repelled', 'Horrified', 'Hesitant', 'Judgmental', 'Embarrassed', 'Revolted'],
     Fearful: ['Scared', 'Anxious', 'Insecure', 'Weak', 'Rejected', 'Threatened', 'Nervous', 'Helpless'],
     Happy: ['Playful', 'Interested', 'Optimistic', 'Inspired', 'Proud', 'Thankful', 'Cheeky', 'Free'],
     Sad: ['Lonely', 'Hurt', 'Guilty', 'Powerless', 'Abandoned', 'Ashamed', 'Disappointed', 'Embarrassed'],
-    Surprised: ['Confused', 'Amazed', 'Excited', 'Startled', 'Shocked', 'Eager', 'Energetic', 'Dissapointed'],
+    Surprised: ['Confused', 'Amazed', 'Excited', 'Startled', 'Shocked', 'Eager', 'Energetic', 'Disappointed'],
 
 }
 // Find shared associations among word, shape and colour
@@ -95,6 +222,7 @@ function getSharedWords(shape, colour, word) {
     // Return the most frequent shared words
     return mostFrequentWords;
 }
+
 
 function colourToDec(colour){
     hexIndicate = "0x"
@@ -310,18 +438,29 @@ const StudentMood = require('../models/Student')
 app.get('/mood_summary', async (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
-    const word = req.session.word;
-    const force = req.session.force;
-    const additionalWords = req.session.additional;
+    let word = req.session.word.toLowerCase();
+    let words = req.session.additional;
+    if (typeof words == "string"){
+        words = [words]
+    }
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i].toLowerCase();
+      }
+
+    const force = req.session.force
     console.log(shape)
     console.log(colour)
     console.log(word)
-    console.log(force+"/10")
+
+    console.log(force +"/10")
+    console.log(words)
     const potentialMoods = getSharedWords(shape, colour, word)
     //Gets associations between all of the choicees
     let mood;
     const randomIndex = Math.floor(Math.random() * potentialMoods.length)
     mood = potentialMoods[randomIndex]
+    mood = matchMood(shape, colour, word, words, force)
+
     req.session.mood = mood;
 
     try {
