@@ -1,22 +1,37 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
- <body>
-    <nav class="mouseM">
-      <ul class="header">
-        <li><a>THE THINKING SPACE</a></li>
-        <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
-      </ul>
-    </nav>
+    <body>
+        <nav class="mouseM">
+        <ul class="header">
+            <li><a>THE THINKING SPACE</a></li>
+            <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
+        </ul>
+        </nav>
 
-    <div class="container mouseM">  
-    <h1 class="colouredText">Feeling Families</h1>
+        <div class="container mouseM">  
+        <h1 class="colouredText">Feeling Families</h1>
 
 
-    <!-- Footer with logo and motto aligned to left and right -->
-    <footer class="footer">
-      <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
-      <span class="motto mouseM">With emotional health in mind</span>
-    </footer>
- </body>
+        <!-- Footer with logo and motto aligned to left and right -->
+        <footer class="footer">
+        <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
+        <span class="motto mouseM">With emotional health in mind</span>
+        </footer>
+
+        <script>
+            document.getElementById('backButton').addEventListener('click', function() {
+                const form = document.getElementById('shapeForm');
+                form.action = '/previous-shape';
+                form.submit();
+            });
+
+            document.getElementById('nextButton').addEventListener('click', function() {
+                const form = document.getElementById('shapeForm');
+                form.action = '/next-shape';
+                form.submit();
+            });
+        </script>
+    </body>
+
 
 </html>
