@@ -28,11 +28,11 @@ test("Checks page is rendered with a mood", async () => {
 
 test("Checks page is rendered with a mood for every shape, colour, and word combination", async () => {
     const possibleMoods = ['friendly', 'comfortable', 'happy', 'dreamy', 'calm', 'connected', 'stable', 'confused', 'unstable', 'excited', 'angry', 'concerned', 'scared', 'irritated', 'isolated', 'sad', 'indecisive'] // Define all possible moods that our server can match to
+    const agent = request.agent(app);
     for (const shape of Object.keys(shapes)) { // For each shape
         for (const colour of Object.keys(colours)) { // For each colour
             for (const word of Object.keys(words)) { // For each word
                 // Nested for loops mean every combination of shape, colour and word is tested
-                const agent = request.agent(app);
                 // Send the server all the data
                 await agent.post('/next-shape').send("shape=" + shape);
                 await agent.post('/next-colour').send("colour=" + colour );
