@@ -11,8 +11,8 @@ const shapes = {
     cloud: ['friendly', 'comfortable', 'happy', 'dreamy'],
     circle: ['calm', 'friendly', 'connected'],
     square: ['stable', 'calm', 'confused'],
-    parallelogram: ['unstable'],
-    hexagon: ['connected'],
+    //parallelogram: ['unstable'],
+    // hexagon: ['connected'],
     star: ['excited', 'dreamy'],
     triangle: ['angry', 'concerned', 'scared'],
     spikeyball: ['irritated', 'scared', 'isolated']
@@ -24,7 +24,6 @@ const colours = {
     yellow: ['happy'],
     cyan: ['dreamy'],
     navy: ['dreamy'],
-    black: ['scared', 'isolated']
 }
 const words = {
     Angry: ['angry', 'concerned', 'confused', 'irritated'],
@@ -32,7 +31,7 @@ const words = {
     Fearful: ['scared', 'confused'],
     Happy: ['happy', 'excited', 'dreamy'],
     Sad: ['sad', 'concerned'],
-    Surprised: ['concerned', 'exited', 'confused', 'happy'],
+    Surprised: ['concerned', 'excited', 'confused', 'happy'],
 
 }
 
@@ -159,7 +158,7 @@ function matchMood(shape, colour, word1, words, force){
         }
     }
     // return that current mood
-    console.log(closestMood);
+    console.log("MOOD: ",closestMood);
     return closestMood;
 }
 
@@ -320,8 +319,7 @@ app.get('/student_info', (req, res) => {
 
 app.post('/previous-shape', (req,res) => {
     res.redirect('/');
-});
-
+})
 
 app.post('/next-shape', (req,res) => {
     console.log(req.body.shape)
@@ -329,14 +327,14 @@ app.post('/next-shape', (req,res) => {
     var filePath = "images/"
     req.session.filePath = filePath.concat(req.session.shape, ".png")
     res.redirect('/choose_colour');
-});
+})
 app.get('/choose_colour', (req,res) => {
     res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour", selectedColour: req.session.colour});
 });
 
 app.post('/previous-colour', (req,res) => {
     res.redirect('/choose_shape');
-});
+})
 
 app.post('/next-colour', (req, res) => {
     req.session.colour = req.body.colour;
@@ -359,7 +357,7 @@ app.get('/choose_word', (req,res) => {
 
 app.post('/previous-word', (req,res) => {
     res.redirect('/choose_colour');
-});
+})
 
 app.post('/next-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
@@ -400,28 +398,35 @@ app.post('/submit-force', (req, res) => { //next
 app.get('/mood_summary', (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
-    let word = req.session.word.toLowerCase();
-    let words = req.session.additional;
-    if (typeof words == "string"){
-        words = [words]
+    // let word = req.session.word.toLowerCase();
+    let mood = "indecisive";
+    if(req.session.word != undefined){
+        word = req.session.word.toLowerCase();
+        let words = req.session.additional;
+        if (typeof words == "string"){
+            words = [words]
+            for (let i = 0; i < words.length; i++) {
+                words[i] = words[i].toLowerCase();
+            }
+        } else if (words != undefined){
+            for (let i = 0; i < words.length; i++) {
+                words[i] = words[i].toLowerCase();
+            }
+        } else {
+            words = []
+        }
+        const force = req.session.force
+        console.log(shape)
+        console.log(colour)
+        console.log(word)
+        console.log(force +"/10")
+        console.log(words)
+        const potentialMoods = getSharedWords(shape, colour, word)
+        //Gets associations between all of the choicees
+        const randomIndex = Math.floor(Math.random() * potentialMoods.length)
+        mood = potentialMoods[randomIndex]
+        mood = matchMood(shape, colour, word, words, force)
     }
-    for (let i = 0; i < words.length; i++) {
-        words[i] = words[i].toLowerCase();
-      }
-
-    const force = req.session.force
-    console.log(shape)
-    console.log(colour)
-    console.log(word)
-
-    console.log(force +"/10")
-    console.log(words)
-    const potentialMoods = getSharedWords(shape, colour, word)
-    //Gets associations between all of the choicees
-    let mood;
-    const randomIndex = Math.floor(Math.random() * potentialMoods.length)
-    mood = potentialMoods[randomIndex]
-    mood = matchMood(shape, colour, word, words, force)
 
     req.session.mood = mood;
     res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
@@ -453,4 +458,4 @@ const server = app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-module.exports = {generaliseColour, server, app, shapes, colours, words};
+module.exports = {generaliseColour, server, app, shapes, colours, words, additionalWords};
