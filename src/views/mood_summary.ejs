@@ -1,10 +1,5 @@
 <html lang="en">
- <head>
-  <meta charset="UTF-8">
-  <script src="https://kit.fontawesome.com/7286f6060f.js" crossorigin="anonymous"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
- </head>
+<%- include('./partials/head.ejs') %>
  <body>
     <nav class="mouseM">
       <ul class="header">
@@ -15,8 +10,23 @@
 
     <div class="container mouseM">  
     <h1 class="colouredText">Mood Matcher</h1>
-    <h2 class="colouredText">Are you feeling <%= mood %> </h2>
-    </div>
+    <h2 class="colouredText">Are you feeling <%= mood %> ? </h2>
+
+  <!-- yes button -->
+    <form id = "form" action="submit-mood" method="post">
+      <input id="moodSummary" name="mood" type="hidden" >
+      <div class="button-div" align="center">
+              <button onclick="sendDataToServer()" type="submit" id = "nextButton">Yes</button>
+      </div>
+  </form>
+
+  <!-- no button -->
+  <form action="/previous-mood" method="post">
+      <div class="button-div" align="center">
+          <button type="button-div" id="backButton">No</button>
+      </div>
+  </form>
+</div>
 
     <!-- Footer with logo and motto aligned to left and right -->
     <footer class="footer">

@@ -66,6 +66,9 @@ This website aims to tackle behavioural problems in children by providing them w
 ![project_arc_diagram drawio](https://github.com/user-attachments/assets/d15279f2-7546-464c-a4fb-e8187c439b09)
 
 ## User instructions
-
+To run the website locally using Docker, open this link: https://hub.docker.com/repository/docker/emmaegnot/thinking-space look at the command starting with ```docker pull```, copy that and paste it into the terminal in docker.
+Press the play button in the Images section of Docker, and when the pop up appears, in optional settings, set the host port to 3000.
+Once the container is running, enter the url http://localhost:3000/ and the website will appear.
 
 ## Developer instructions
+To host and view the website locally, navigate to the server folder in src, then in the terminal, run ```node server.js ```. On your browser, enter the url http://localhost:3000/ and the website will appear.

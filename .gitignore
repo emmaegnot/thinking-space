@@ -1,1 +1,5 @@
 .idea/
+node_modules/
+.DS_Store
+src/.DS_Store
+src/public/.DS_Store
