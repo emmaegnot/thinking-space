@@ -5,7 +5,7 @@ FROM node:18
 WORKDIR /app
 
 # Copy package.json and package-lock.json for dependency installation
-COPY src/server/package*.json ./
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
@@ -14,10 +14,10 @@ RUN npm install
 COPY src/ /app/
 
 # Copy the start and stop scripts
-COPY start.bat /app/
-COPY stop.bat /app/
-COPY stop.sh /app/
-COPY start.sh /app/
+COPY docker/start.bat /app/
+COPY docker/stop.bat /app/
+COPY docker/stop.sh /app/
+COPY docker/start.sh /app/
 
 # Make the stop script executable
 RUN chmod +x start.sh stop.sh
