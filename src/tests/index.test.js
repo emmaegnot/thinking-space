@@ -30,7 +30,7 @@ test("should NOT show the cookie consent popup when the consent cookie is set", 
   });
 
 test("Checks footer contains the logo and motto", async () => {
-    const res = await request(app).get("/mood_summary");
+    const res = await request(app).get("/");
     expect(res.status).toBe(200);
     expect(res.text).toContain('<img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd"');
     expect(res.text).toContain('<span class="motto mouseM">With emotional health in mind</span>');
