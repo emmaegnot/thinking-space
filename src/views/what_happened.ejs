@@ -65,6 +65,8 @@
 			case '*':
 			case ':':
 			case '\\':
+			case '<':
+			case '>':
 				break;
 			default:
 				whatHappenedSanitized = whatHappenedSanitized.concat(whatHappened.slice(i, i + 1));
