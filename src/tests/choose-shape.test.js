@@ -34,7 +34,7 @@ test("Checks that the form submits to /next-shape when NEXT is clicked", async (
 });
 
 test("Checks footer contains the logo and motto", async () => {
-    const res = await request(app).get("/mood_summary");
+    const res = await request(app).get("/choose_shape");
     expect(res.status).toBe(200);
     expect(res.text).toContain('<img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd"');
     expect(res.text).toContain('<span class="motto mouseM">With emotional health in mind</span>');
