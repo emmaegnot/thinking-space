@@ -132,6 +132,62 @@ a:hover {
     text-align: right;
 }
 
+.maincontainer {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: flex-start; /* Centers vertically */
+    width: 100%;
+    background-color: transparent;
+    margin: auto;
+    /* flex-wrap: wrap; */
+}
+
+.container1 {
+    /* max-width: 50%;
+    margin: 8rem auto 16rem; */
+    margin:30px;
+    padding: 1.2rem;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    background: #ffffff;
+    color: rgb(121, 166, 224);
+    min-height: 250px;
+    width:900px;
+
+}
+
+.container2 {
+    /* max-width: 50%;
+    margin: 8rem auto 16rem; */
+    margin:30px;
+    padding: 1.2rem;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    background: #ffffff;
+    color: rgb(121, 166, 224);
+    min-height: 460px;
+    width:600px;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: top; /* Center horizontally */
+    text-align: top; /* Center text */
+    justify-content: flex-start; /* Keep content at the top */
+    height: 100%; /* Ensures full height */
+
+
+}
+
+.container1, .container2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#clear {
+    clear: both;
+}
+
+/* replace with container 1 and 2 */
 .container {
     max-width: 50%;
     margin: 8rem auto 16rem;
@@ -142,6 +198,7 @@ a:hover {
     color: rgb(121, 166, 224);
     min-height: 250px;
 }
+/* ====================================== */
 
 .moodSummary{
     display: flex;
@@ -219,11 +276,31 @@ a:hover {
     margin-bottom: 10px;
 }
 
+.container1 h1 {
+    text-align: center;
+    width:100%;
+    display:block;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.container2 h1 {
+    text-align: center;
+    padding:-100px;
+    width:100%;
+    display:block;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+/* maybe replace */
 .container h1 {
     text-align: center;
     margin: 0;
     margin-bottom: 10px;
 }
+
+
 
 .button-div{
     margin-top: 10px;
@@ -750,6 +827,7 @@ left: +right */
 }
   
 
+
 /*========================================================*/
 
 /* table */
@@ -802,6 +880,7 @@ table {
 }
 
 /* print ("hello world) */
+
 /* ============================================= */
 
 /* Grey next when disabled */
