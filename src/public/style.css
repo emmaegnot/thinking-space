@@ -224,6 +224,7 @@ a:hover {
 }
 
 .index-container .button {
+    font-family: milkynice;
     text-align: center;
     background-color: rgba(0, 0, 0, 0);
     color: rgb(121, 166, 224);
@@ -879,7 +880,6 @@ table {
 /* print ("hello world) */
 
   /* ============================================= */
-=======
 
 /* Grey next when disabled */
 
