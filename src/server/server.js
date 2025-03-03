@@ -449,7 +449,9 @@ app.get('/mood_summary', async (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
     const force = req.session.force;
+    const wordDB = req.session.word;
     const addWords = req.session.additional;
+   
     // let word = req.session.word.toLowerCase();
     let mood = "indecisive";
 
@@ -489,7 +491,7 @@ app.get('/mood_summary', async (req,res) => {
             classCode: "123",
             ushape: shape,
             ucolor: colour,
-            uword: word,
+            uword: wordDB,
             uadditionalWords: addWords, 
             uforce: force,
             umood: req.session.mood, 
