@@ -448,7 +448,8 @@ const StudentMood = require('../models/Student')
 app.get('/mood_summary', async (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
-    const force = req.session.force
+    const force = req.session.force;
+    const addWords = req.session.additional;
     // let word = req.session.word.toLowerCase();
     let mood = "indecisive";
 
@@ -490,7 +491,7 @@ app.get('/mood_summary', async (req,res) => {
             ushape: shape,
             ucolor: colour,
             uword: word,
-            uadditionalWords: additionalWords, 
+            uadditionalWords: addWords, 
             uforce: force,
             umood: req.session.mood, 
         });
