@@ -486,7 +486,6 @@ app.get('/mood_summary', async (req,res) => {
     try {
         await StudentMood.create({
             name: req.sessionID, // change to name when implemented
-            year: 7,
             classCode: "123",
             ushape: shape,
             ucolor: colour,
