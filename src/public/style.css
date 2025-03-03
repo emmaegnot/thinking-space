@@ -400,6 +400,9 @@ a:hover {
     .cw-container{
         margin: 8rem auto 16rem;
     }
+    .cw-footer{
+        position: absolute;
+    }
 }
 
 @media (max-height: 590px) {
