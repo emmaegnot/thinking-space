@@ -390,7 +390,7 @@ a:hover {
     }
 }
 
-@media (max-height: 590px) {
+@media (max-height: 1000px) {
     .footer {
         position: relative;
     }
