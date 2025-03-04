@@ -9,9 +9,28 @@
         </nav>
 
         <div class="container mouseM">  
-        <h1 class="colouredText">Feeling Families</h1>
-
-
+            <div id="canvas" onload="startGame()">
+                <h1 class="colouredText">Feeling Families</h1>
+                <script>
+                    var canvasWidth = 600;
+                    var canvasHeight = 400;
+        
+                    function startGame() {
+                        gameCanvas.start();
+                    }
+        
+                    var gameCanvas = {
+                        canvas: document.createElement("canvas"),
+                        start: function(){
+                            this.canvas.width = canvasWidth
+                            this.canvas.height = canvasHeight
+                            this.context = this.canvas.getContext("2d");
+                            document.canvas.insertBefore(this.canvas, document.canvas.childNodes[0])
+                        }
+                    }
+                </script>
+            </div>
+        </div>
 
         <!-- Footer with logo and motto aligned to left and right -->
         <footer class="footer">
@@ -19,6 +38,7 @@
         <span class="motto mouseM">With emotional health in mind</span>
         </footer>
 
+        
 
     </body>
 
