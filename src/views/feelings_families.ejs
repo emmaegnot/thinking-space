@@ -1,6 +1,6 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
-    <body onload="startGame()>
+    <body>
         <nav class="mouseM">
         <ul class="header">
             <li><a>THE THINKING SPACE</a></li>
@@ -10,28 +10,11 @@
 
         <div class="container mouseM">  
             <h1 class="colouredText">Feeling Families</h1>
-            <div id="canvasDiv">
-                
-                <script>
-                    var canvasWidth = 600;
-                    var canvasHeight = 400;
-        
-                    function startGame() {
-                        gameCanvas.start();
-                    }
-        
-                    var gameCanvas = {
-                        canvas: document.createElement("canvas"),
-                        start: function(){
-                            this.canvas.width = canvasWidth
-                            this.canvas.height = canvasHeight
-                            this.context = this.canvas.getContext("2d");
-                            document.getElementById("canvasDiv").insertBefore(this.canvas, document.getElementById("canvasDiv").childNodes[0])
-                        }
-                    }
-                </script>
-            </div>
+            <!--need to make sure this is inside the container, currently too big -->
+            <canvas id="gameCanvas" width="600" height="400"></canvas>
 
+            
+            
         </div>
 
         <!-- Footer with logo and motto aligned to left and right -->
@@ -40,7 +23,17 @@
         <span class="motto mouseM">With emotional health in mind</span>
         </footer>
 
+        <script>
+            var canvas = document.getElementById("gameCanvas");
+            var ctx = canvas.getContext("2d");
+
+            function startGame() {
+            ctx.fillStyle = "pink";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
         
+        window.onload = startGame;
+        </script>
 
     </body>
 
