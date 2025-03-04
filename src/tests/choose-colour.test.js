@@ -25,10 +25,10 @@ test.each(["parallelogram", "circle", "square", "star", "triangle", "spiky", "pu
             .expect(302) // Indicates a redirect
         const res = await agent.get("/choose_colour"); // Make a request to choose_colour
         expect(res.statusCode).toBe(200);
-        expect(res.text).toContain(`images/${selectedShape}.png`); // Checks the dislpayed image matches the selected shape
+        expect(res.text).toContain(`images/character/shapes/${selectedShape}/${selectedShape}.png`); // Checks the dislpayed image matches the selected shape
         const otherShapes = ["parallelogram", "circle", "square", "star", "triangle", "spiky", "puffy", "hexagon"].filter(shape => shape !== selectedShape);
         otherShapes.forEach(shape => {
-            expect(res.text).not.toContain(`images/${shape}.png`); // Checks no other shapes are present
+            expect(res.text).not.toContain(`images/character/shapes/${shape}/${shape}.png`); // Checks no other shapes are present
         });
     }
 );
@@ -65,7 +65,7 @@ test("Checks that the selected shape and colour remains after navigating the sit
     await agent.get("/choose_word"); // Move to next page
     await agent.post("/previous-word").expect(302); // Move back to colour page
     const res = await agent.get("/choose_colour"); // Get the response
-    expect(res.text).toContain('<img class="chosen-shape" src="images/circle.png" alt="coloured shape" style="background-color: yellow;">'); // The new response should still have the image and colour saved
+    expect(res.text).toContain('<img src=\"images/character/shapes/circle/circle.png\" alt=\"coloured shape\">'); // The new response should still have the image and colour saved
 });
 
 test("Checks footer contains the logo and motto", async () => {
