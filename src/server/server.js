@@ -301,6 +301,10 @@ app.post('/submit-text', (req, res) => { //next
     console.log(what)
 });
 
+app.get('/weighing_things_up', (req,res) => {
+    res.render('weighing_things_up', {title: "Weighing Things Up"});
+});
+
 const server = app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
