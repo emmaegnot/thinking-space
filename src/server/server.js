@@ -299,6 +299,7 @@ app.post('/submit-text', (req, res) => { //next
     req.session.what = req.body.what;  
     const what = req.session.what
     console.log(what)
+    res.redirect('/weighing_things_up');
 });
 
 app.get('/weighing_things_up', (req,res) => {
