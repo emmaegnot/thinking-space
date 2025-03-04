@@ -1,6 +1,6 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
-    <body>
+    <body onload="startGame()>
         <nav class="mouseM">
         <ul class="header">
             <li><a>THE THINKING SPACE</a></li>
@@ -9,8 +9,9 @@
         </nav>
 
         <div class="container mouseM">  
-            <div id="canvas" onload="startGame()">
-                <h1 class="colouredText">Feeling Families</h1>
+            <h1 class="colouredText">Feeling Families</h1>
+            <div id="canvasDiv">
+                
                 <script>
                     var canvasWidth = 600;
                     var canvasHeight = 400;
@@ -25,11 +26,12 @@
                             this.canvas.width = canvasWidth
                             this.canvas.height = canvasHeight
                             this.context = this.canvas.getContext("2d");
-                            document.canvas.insertBefore(this.canvas, document.canvas.childNodes[0])
+                            document.getElementById("canvasDiv").insertBefore(this.canvas, document.getElementById("canvasDiv").childNodes[0])
                         }
                     }
                 </script>
             </div>
+
         </div>
 
         <!-- Footer with logo and motto aligned to left and right -->
