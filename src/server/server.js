@@ -12,6 +12,7 @@ const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 const app = express();
+app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 const port = 3000;
 const shapes = {
@@ -353,7 +354,7 @@ app.post('/teacher_login', async (req,res) => {
         const user = await Teacher.findOne({ username });
 
         if (!user) {
-        return res.status(401).send('Invalid credentials');
+            return res.status(401).json({ error: 'Invalid credentials' });
         }
 
         if (!user.password.startsWith("$2b$")) { 
@@ -364,16 +365,16 @@ app.post('/teacher_login', async (req,res) => {
        
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-        return res.status(401).send('Invalid credentials');
+            return res.status(401).json({ error: 'Invalid credentials' });
         }
 
         // Save user session
-        req.session.user = { name: user.name };
-        res.redirect('/student_info'); 
+        req.session.user = { name: user.username };
+        res.json({ redirect: '/student_info' });
 
     } catch (error) {
         console.error(error);
-        res.status(500).send('Server error');
+        res.status(500).json({ error: 'Server error' });
     }
 });
 
