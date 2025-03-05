@@ -369,7 +369,6 @@ app.post('/previous-shape', (req,res) => {
 })
 
 app.post('/next-shape', (req,res) => {
-    console.log(req.body.shape)
     req.session.shape = req.body.shape
     var filePath = "images/"
     req.session.filePath = filePath.concat(req.session.shape, ".png")
@@ -395,6 +394,10 @@ app.post('/choose_shape', (req, res) => {
 });
 
 app.post('/student_login', (req, res) => {
+    req.session.name = req.body.name;
+    req.session.studentCode = req.body.classcode
+    console.log(req.session.name);
+    console.log(req.session.studentCode)
     res.redirect('/choose_shape');
 });
 
@@ -487,8 +490,8 @@ app.get('/mood_summary', async (req,res) => {
 
     try {
         await StudentMood.create({
-            name: req.sessionID, // change to name when implemented
-            classCode: "123",
+            name: req.session.name, // change to name when implemented
+            classCode: req.session.studentCode,
             ushape: shape,
             ucolor: colour,
             uword: wordDB,
