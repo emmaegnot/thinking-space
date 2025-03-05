@@ -10,6 +10,7 @@
 
         <div class="container mouseM" id="gameCanvas">  
             <h1 class="colouredText">Feeling Families</h1>
+            <img class="logo" id="basketImage" src="images/basket.jpg" alt="basket image" width="1" height="1">
             <!--need to centre this button-->
             <button onclick="startGame()" class="button" id="startButton">Start Game!</button>
             
@@ -26,11 +27,14 @@
 
         <script>
             var word1;
+            let leftPressed = false;
+            let rightPressed = false;
+
             function startGame() {
                 gameArea.start();
-                word1 = new component("angry")
+                // create components for words
+                word1 = new component("angry", 10, 80)
             }
-
             var gameArea = {
                 // create canvas, remove start game button and place canvas in container
                 canvas : document.createElement("canvas"),
@@ -42,26 +46,45 @@
                     document.getElementById("startButton").remove()
                     document.getElementById('gameCanvas').appendChild(this.canvas);
                     //runs updateGameArea every 20ms
-                    this.interval = setInterval(updateGameArea, 20);},
-                    clear : function() {
-                        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                    }
+                    this.interval = setInterval(updateGameArea, 20);
+                    // runs key left/right handler when the left/right arrows are pressed
+                    document.addEventListener("keyleft", keyLeftHandler, false);
+                    document.addEventListener("keyright", keyRightHandler, false);
+                },
+                clear : function() {
+                    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                }
                 }
             
-                // create component for each word to be clicked on
-                function component(word) {
+                // create component for each word
+                function component(word, x, y) {
                     this.word = word
-                    this.x = 10
-                    this.y = 80
+                    this.x = x
+                    this.y = y
                     this.update = function(){
                         ctx = gameArea.context;
                         ctx.fillText(this.word, this.x, this.y);
                         }   
                 }
 
+                //create a basket that the words will fall into
+                // this needs to move left and right with the mouse
+                function drawBasket() {
+                    // need to make this a png
+                    const image = document.getElementById("basketImage")
+                    gameArea.context.drawImage(image, 20, 150,100, 100)
+                }
+
+                // update until all words have fallen
+                // at the end of the game, see what words are in the basket, see if you go up a level
+
                 function updateGameArea() {
                     gameArea.clear();
+                    if(word1.y <= 260){
+                        word1.y += 1;
+                    }
                     word1.update();
+                    drawBasket();
                 }
 
         </script>
