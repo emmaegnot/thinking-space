@@ -34,7 +34,9 @@
             function startGame() {
                 gameArea.start();
                 // create components for words
-                word1 = new component("angry", 10, 80);
+                //do a for loop for this, make an array of all the words, random starting x values
+                // may need an attribute for whether they are in the family or not
+                word1 = new wordComponent("angry", 10, 80);
                 basket = new basket();
             }
             var gameArea = {
@@ -59,7 +61,7 @@
                 }
             
                 // create component for each word
-                function component(word, x, y) {
+                function wordComponent(word, x, y) {
                     this.word = word
                     this.x = x
                     this.y = y
@@ -73,13 +75,18 @@
                 // this needs to move left and right with the mouse
                 function basket() {
                     this.x = 20
+                    // array of wordComponents which have hit the basket
+                    // when wordComponent hits the basket, it gets added to this array
+                    // when basket gets moved, these words move too
+                    this.words = []
+
                     // need to make this a png
                     const image = document.getElementById("basketImage")
                     this.update = function(){
                         gameArea.context.drawImage(image, this.x, 150,100, 100)
                     }
                 }
-
+                // handles when keys are continuosly pressed or not
                 function keyDownHandler(e) {
                     if (e.key === "Right" || e.key === "ArrowRight") {
                         rightPressed = true;
@@ -87,8 +94,7 @@
                         leftPressed = true;
                     }
                 }
-
-                    function keyUpHandler(e) {
+                function keyUpHandler(e) {
                     if (e.key === "Right" || e.key === "ArrowRight") {
                         rightPressed = false;
                     } else if (e.key === "Left" || e.key === "ArrowLeft") {
@@ -97,6 +103,7 @@
                 }
 
                 // update until all words have fallen
+                // if word falls in basket, it stays, otherwise it falls out of the canvas
                 // at the end of the game, see what words are in the basket, see if you go up a level
 
                 function updateGameArea() {
@@ -105,11 +112,11 @@
                         word1.y += 1;
                     }
                     word1.update();
-                    // move the basket with arrows
+                    // move the basket with arrows, only up to boundaries of the canvas
                     if (rightPressed) {
-                        basket.x = Math.min(basket.x + 7, gameArea.canvas.width - 100);
+                        basket.x = Math.min(basket.x + 5, gameArea.canvas.width - 100);
                     } else if (leftPressed) {
-                        basket.x = Math.max(basket.x - 7, 0);
+                        basket.x = Math.max(basket.x - 5, 0);
                     }
                     basket.update();
                 }
@@ -117,6 +124,5 @@
         </script>
 
     </body>
-
 
 </html>
