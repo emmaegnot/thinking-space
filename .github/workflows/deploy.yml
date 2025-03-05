@@ -36,8 +36,8 @@ jobs:
           --document-name "AWS-RunShellScript" \
           --parameters 'commands=[
             "cd /path/to/your/app && git pull origin dev",
-            "docker build -t your-image-name .",
-            "docker run -d --name your-container-name your-image-name",
+            "docker build -t my-node-app .",
+            "docker run -d -p 3000:3000 my-node-app",
             "npm install",
             "pm2 restart app"
           ]' \
