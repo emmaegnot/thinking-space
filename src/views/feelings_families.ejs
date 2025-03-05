@@ -13,6 +13,7 @@
             <img class="logo" id="basketImage" src="images/basket.jpg" alt="basket image" width="1" height="1">
             <!--need to centre this button-->
             <button onclick="startGame()" class="button" id="startButton">Start Game!</button>
+            <!--add game instructions here-->
             
 
             
@@ -27,13 +28,14 @@
 
         <script>
             var word1;
-            let leftPressed = false;
             let rightPressed = false;
+            let leftPressed = false;
 
             function startGame() {
                 gameArea.start();
                 // create components for words
-                word1 = new component("angry", 10, 80)
+                word1 = new component("angry", 10, 80);
+                basket = new basket();
             }
             var gameArea = {
                 // create canvas, remove start game button and place canvas in container
@@ -47,9 +49,9 @@
                     document.getElementById('gameCanvas').appendChild(this.canvas);
                     //runs updateGameArea every 20ms
                     this.interval = setInterval(updateGameArea, 20);
-                    // runs key left/right handler when the left/right arrows are pressed
-                    document.addEventListener("keyleft", keyLeftHandler, false);
-                    document.addEventListener("keyright", keyRightHandler, false);
+                    // runs key up/down handler when the left/right arrows are pressed
+                    document.addEventListener("keydown", keyDownHandler, false);
+                    document.addEventListener("keyup", keyUpHandler, false);
                 },
                 clear : function() {
                     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -69,10 +71,29 @@
 
                 //create a basket that the words will fall into
                 // this needs to move left and right with the mouse
-                function drawBasket() {
+                function basket() {
+                    this.x = 20
                     // need to make this a png
                     const image = document.getElementById("basketImage")
-                    gameArea.context.drawImage(image, 20, 150,100, 100)
+                    this.update = function(){
+                        gameArea.context.drawImage(image, this.x, 150,100, 100)
+                    }
+                }
+
+                function keyDownHandler(e) {
+                    if (e.key === "Right" || e.key === "ArrowRight") {
+                        rightPressed = true;
+                    } else if (e.key === "Left" || e.key === "ArrowLeft") {
+                        leftPressed = true;
+                    }
+                }
+
+                    function keyUpHandler(e) {
+                    if (e.key === "Right" || e.key === "ArrowRight") {
+                        rightPressed = false;
+                    } else if (e.key === "Left" || e.key === "ArrowLeft") {
+                        leftPressed = false;
+                    }
                 }
 
                 // update until all words have fallen
@@ -84,7 +105,13 @@
                         word1.y += 1;
                     }
                     word1.update();
-                    drawBasket();
+                    // move the basket with arrows
+                    if (rightPressed) {
+                        basket.x = Math.min(basket.x + 7, gameArea.canvas.width - 100);
+                    } else if (leftPressed) {
+                        basket.x = Math.max(basket.x - 7, 0);
+                    }
+                    basket.update();
                 }
 
         </script>
