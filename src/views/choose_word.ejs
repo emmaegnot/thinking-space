@@ -48,7 +48,7 @@
   <div align="center">
   <div class="colour-container">
   <h1 class="colouredText">Your character</h1>
-  <img src="" alt="selected emotion">
+  <img src="<%= filepath %>" id="selectedShapeImage" alt="selected emotion">
   <!-- <img id="selectedShapeImage" src="" alt="Selected Shape"></img> -->
   <!-- <img id="selectedColourImage" src="" alt="Selected Colour" style="max-width: 100%; height: auto;"></img> -->
 </div>
@@ -67,8 +67,15 @@
     const words = document.querySelectorAll('.button-container .word-item button');
 
     window.onload = function() {
+    //   const selectedShapeImage = sessionStorage.getItem('selectedShapeImage');
+      
+    //   if (selectedShapeImage) {
+    //     document.getElementById('selectedShapeImage').src = selectedShapeImage;
+    // }
+    
       const savedEmotion = sessionStorage.getItem('emotion');
         if (savedEmotion) {
+          const image = document.querySelector(".container2 img");
           const selectedWord = Array.from(words).find(
             (word) => word.value === savedEmotion
           );
