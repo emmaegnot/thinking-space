@@ -1,0 +1,144 @@
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+    <body>
+        <nav class="mouseM">
+        <ul class="header">
+            <li><a>THE THINKING SPACE</a></li>
+            <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
+        </ul>
+        </nav>
+
+        <div class="container mouseM" id="gameCanvas">  
+            <h1 class="colouredText">Feeling Families</h1>
+            <!--change basket to a house-->
+            <img class="logo" id="basketImage" src="images/basket.jpg" alt="basket image" width="10" height="10">
+            <p id="instructions">The aim of the game is to put feelings into families!
+                <br>First, choose the head of the family. This is a key emotion.
+                <br>Words will start coming down and you need to catch them in the house if that word is related to the head of the family.
+                <br>Move your house left and right using the arrows to catch the falling words and avoid the unrelated words.
+                <br>You'll get points for every feeling word you bring home!
+            </p>
+            <!--need to centre this button-->
+            <button onclick="startGame('angry')" class="button" id="angryButton">Angry</button>
+            
+        </div>
+
+        <!-- Footer with logo and motto aligned to left and right -->
+        <footer class="footer">
+        <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
+        <span class="motto mouseM">With emotional health in mind</span>
+        </footer>
+
+        <script>
+            var word1;
+            //additional words 1 - angry
+            var level1angry = ['aggressive', 'bitter', 'critical', 'distant', 'frustrated', 'hateful', 'humiliated', 'hurt', 'insecure', 'irritated', 'let down', 'mad']
+            var fillerWords = ['happy', 'bright', 'bored', 'silly']
+            var fallingWords = [];
+            let rightPressed = false;
+            let leftPressed = false;
+
+            function startGame(keyword) {
+                gameArea.start();
+                // create components for words, they have a random x beginning position 
+                basket = new newBasket();
+                level1angry.forEach(word => {
+                    var position = Math.floor(Math.random() * (450 - 5)) + 5;
+                    fallingWords.push(new wordComponent(word, keyword, position, 80))
+                });
+                fillerWords.forEach(word =>{
+                    var position = Math.floor(Math.random() * (450 - 5)) + 5;
+                    fallingWords.push(new wordComponent(word, 'false', position, 200))
+                })
+                
+            }
+            var gameArea = {
+                // create canvas, remove start game button and place canvas in container
+                canvas : document.createElement("canvas"),
+                start : function() {
+                    this.canvas.width = 480;
+                    this.canvas.height = 270;
+                    this.context = this.canvas.getContext("2d");
+                    this.context.font = "20px Comic Sans";
+                    document.getElementById("angryButton").remove()
+                    document.getElementById("instructions").remove()
+                    document.getElementById('gameCanvas').appendChild(this.canvas);
+                    //runs updateGameArea every 20ms
+                    this.interval = setInterval(updateGameArea, 20);
+                    // runs key up/down handler when the left/right arrows are pressed
+                    document.addEventListener("keydown", keyDownHandler, false);
+                    document.addEventListener("keyup", keyUpHandler, false);
+                },
+                clear : function() {
+                    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                }
+                }
+            
+                // create component for each word
+                function wordComponent(word, family, x, y) {
+                    this.word = word
+                    this.family = family
+                    this.x = x
+                    this.y = y
+                    this.update = function(){
+                        ctx = gameArea.context;
+                        ctx.fillText(this.word, this.x, this.y);
+                        }   
+                }
+
+                //create a basket that the words will fall into
+                // this needs to move left and right with the mouse
+                function newBasket() {
+                    this.x = 20
+                    // array of wordComponents which have hit the basket
+                    // when wordComponent hits the basket, it gets added to this array
+                    // when basket gets moved, these words move too
+                    this.words = []
+
+                    // need to make this a png
+                    const image = document.getElementById("basketImage")
+                    this.update = function(){
+                        gameArea.context.drawImage(image, this.x, 150,100, 100)
+                    }
+                }
+                // handles when keys are continuosly pressed or not
+                function keyDownHandler(e) {
+                    if (e.key === "Right" || e.key === "ArrowRight") {
+                        rightPressed = true;
+                    } else if (e.key === "Left" || e.key === "ArrowLeft") {
+                        leftPressed = true;
+                    }
+                }
+                function keyUpHandler(e) {
+                    if (e.key === "Right" || e.key === "ArrowRight") {
+                        rightPressed = false;
+                    } else if (e.key === "Left" || e.key === "ArrowLeft") {
+                        leftPressed = false;
+                    }
+                }
+
+                // update until all words have fallen
+                // if word hits the top of the basket, it moves with the basket, otherwise it falls out of the canvas
+                // if it goes below a certain y, lose a point 
+                // at the end of the game, see what words are in the basket, see if you go up a level
+
+                function updateGameArea() {
+                    gameArea.clear();
+                    if(fallingWords[3].y <= 260){
+                        fallingWords[3].y += 1;
+                    }
+                    fallingWords[3].update();
+                    // move the basket with arrows, only up to boundaries of the canvas
+                    if (rightPressed) {
+                        basket.x = Math.min(basket.x + 5, gameArea.canvas.width - 100);
+                    } else if (leftPressed) {
+                        basket.x = Math.max(basket.x - 5, 0);
+                    }
+                    basket.update();
+                }
+
+        </script>
+
+    </body>
+
+</html>
