@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const { MongoClient } = require('mongodb');
 const Teacher = require("../models/Teacher");
 const Student = require("../models/Student");
+const bcrypt = require('bcrypt');
 
 require('dotenv').config();
 
@@ -342,8 +343,38 @@ app.get('/teacher_login', (req, res) => {
     res.render('teacher_login', {title: "Teacher Login"})
 });
 
-app.post('/teacher_login', (req,res) => {
-    res.redirect('/student_info');
+app.post('/teacher_login', async (req,res) => {
+    const username = req.body.name;
+    const password = req.body.password;
+    console.log(username);
+    console.log(password);
+
+    try {
+        const user = await Teacher.findOne({ username });
+
+        if (!user) {
+        return res.status(401).send('Invalid credentials');
+        }
+
+        if (!user.password.startsWith("$2b$")) { 
+            console.warn("Unhashed password detected! Hashing it now.");
+            user.password = await bcrypt.hash(user.password, 10);
+            await user.save(); 
+        }
+       
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+        return res.status(401).send('Invalid credentials');
+        }
+
+        // Save user session
+        req.session.user = { name: user.name };
+        res.redirect('/student_info'); 
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
 });
 
 app.get('/student_info', (req, res) => {
