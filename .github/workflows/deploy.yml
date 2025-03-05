@@ -4,8 +4,12 @@ on:
   push:
     branches:
       - dev
-      - feature/deploy.yml # Testing
+      - deploy.yml # Testing
     workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   deploy:
@@ -30,5 +34,11 @@ jobs:
         aws ssm send-command \
           --instance-ids ${{ secrets.AWS_INSTANCE_ID }} \
           --document-name "AWS-RunShellScript" \
-          --parameters 'commands=["cd /path/to/your/app && git pull origin dev && npm install && pm2 restart app"]' \
+          --parameters 'commands=[
+            "cd /path/to/your/app && git pull origin dev",
+            "docker build -t your-image-name .",
+            "docker run -d --name your-container-name your-image-name",
+            "npm install",
+            "pm2 restart app"
+          ]' \
           --comment "Deploy app update"
