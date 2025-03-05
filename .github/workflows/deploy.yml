@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - dev
+      - feature/deploy.yml # Testing
     workflow_dispatch:
 
 jobs:
