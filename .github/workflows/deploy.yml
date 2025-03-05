@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - dev
-      - deploy.yml # Testing
+      - feature/deploy.yml # Testing
     workflow_dispatch:
 
 permissions:
