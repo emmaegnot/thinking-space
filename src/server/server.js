@@ -329,23 +329,31 @@ app.use(express.urlencoded({extended:true}))
 
 const requireStep = (requiredStep) => (req, res, next) => {
     if (!req.session.progress || req.session.progress < requiredStep) {
-      return res.redirect("/");
+        req.session.destroy;
+        return res.redirect("/");
     }
     next();
 };
 
 
 app.get('/', (req,res) => {
-    req.session.progress = 1;
+    req.session.destroy(() => {
+        console.log("req.session is deleted :)");
+      });
+    
     res.render('index', { title: "Home", showConsentPopup: !req.cookies.consent });
 });
 
-app.get('/choose_shape', requireStep(2),(req,res) => {
-    res.render('choose_shape', {title: "Choose A Shape"});
+
+app.get('/student_login', (req, res) => {
+    res.render('student_login', {title: "Student Login"})
 });
 
-app.get('/student_login', requireStep(1), (req, res) => {
-    res.render('student_login', {title: "Student Login"})
+app.post('/student_login', (req, res) => {
+    req.session.name = req.body.name;
+    req.session.studentCode = req.body.classcode 
+    req.session.progress = 1;
+    res.redirect('/choose_shape');
 });
 
 app.get('/teacher_login', (req, res) => {
@@ -386,89 +394,84 @@ app.post('/teacher_login', async (req,res) => {
     }
 });
 
+app.get('/choose_shape', requireStep(1),(req,res) => {
+    res.render('choose_shape', {title: "Choose A Shape"});
+});
 
 app.post('/previous-shape', (req,res) => {
-    req.session.progress = 1;
     res.redirect('/');
 })
 
 app.post('/next-shape', (req,res) => {
     req.session.shape = req.body.shape;
-    req.session.progress = 3;
+    req.session.progress = 2;
     var filePath = "images/"
     req.session.filePath = filePath.concat(req.session.shape, ".png");
     res.redirect('/choose_colour');
 })
-app.get('/choose_colour', requireStep(3), (req,res) => {
+app.get('/choose_colour', requireStep(2), (req,res) => {
     res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour", selectedColour: req.session.colour});
 });
 
 app.post('/previous-colour', (req,res) => {
-    req.session.progress = 3;
+    req.session.progress = 2;
     res.redirect('/choose_shape');
 })
 
 app.post('/next-colour', (req, res) => {
     req.session.colour = req.body.colour;
-    req.session.progress = 4
+    req.session.progress = 3;
     //req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
     res.redirect('/choose_word'); 
     
 });
 
 
-app.post('/student_login', (req, res) => {
-    req.session.name = req.body.name;
-    req.session.studentCode = req.body.classcode 
-    req.session.progress = 2;
-    res.redirect('/choose_shape');
-});
-
-app.get('/choose_word', requireStep(4), (req,res) => {
+app.get('/choose_word', requireStep(3), (req,res) => {
     res.render('choose_word', {title: "Choose A Word"});
 });
 
 app.post('/previous-word', (req,res) => {
-    req.session.progress = 4;
+    req.session.progress = 3;
     res.redirect('/choose_colour');
 })
 
 app.post('/next-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
-    req.session.progress = 5;
+    req.session.progress = 4;
     var filePath = "images/";
     req.session.filePath = filePath.concat(req.session.shape, ".png");
     res.redirect('/additional_words');     
 });
 
-app.get('/additional_words', requireStep(5),(req,res) => {
+app.get('/additional_words', requireStep(4),(req,res) => {
     res.render('additional_words', {filepath: req.session.filePath, title: "More Words", wordList : additionalWords[req.session.word]});
 });
 
 app.post('/previous-additional', (req,res) => { //back
-    req.session.progress = 5;
+    req.session.progress = 4;
     res.redirect('/choose_word');
 })
 
 app.post('/next-additional', (req, res) => {
     req.session.additional = req.body.words;
-    req.session.progress = 6;
+    req.session.progress = 5;
     res.redirect('/feeling_force');     
 });
 
 
-app.get('/feeling_force', requireStep(6), (req,res) => {
+app.get('/feeling_force', requireStep(5), (req,res) => {
     res.render('feeling_force', {title: "Feeling Force"});
 });
 
 app.post('/previous-force', (req,res) => { //back
-    req.session.progress = 6
+    req.session.progress = 5
     res.redirect('/additional_words');
 })
 
 app.post('/submit-force', (req, res) => { //next
     req.session.force = req.body.clickCount;
-    req.session.progress = 7;  
+    req.session.progress = 6;  
     //clickCount = req.body.clickCount; // Update stored value
 
     res.redirect('/mood_summary');          
@@ -477,7 +480,7 @@ app.post('/submit-force', (req, res) => { //next
 
 const StudentMood = require('../models/Student')
 
-app.get('/mood_summary', requireStep(7),async (req,res) => {
+app.get('/mood_summary', requireStep(6),async (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
     const force = req.session.force;
@@ -538,29 +541,31 @@ app.get('/mood_summary', requireStep(7),async (req,res) => {
     res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
 });
 
-app.post('/submit-mood', (req, res) => { //next
-    req.session.progress = 8;
-    res.redirect('/what_happened');          
-});
-
 app.post('/previous-mood', (req,res) => { //back
-    req.session.progress = 7;
+    req.session.progress = 6;
     res.redirect('/mood_summary');
 })
 
-app.get('/what_happened', requireStep(8), (req,res) => {
+app.post('/submit-mood', (req, res) => { //next
+    req.session.progress = 7;
+    res.redirect('/what_happened');          
+});
+
+
+app.get('/what_happened', requireStep(7), (req,res) => {
     res.render('what_happened', {title: "What Happened"});
 });
 
 app.post('/previous-happen', (req,res) => { //back
-    req.session.progress = 9;
+    req.session.progress = 7;
     res.redirect('/mood_summary');
 })
 
 app.post('/submit-text', (req, res) => { //next     
     req.session.what = req.body.what;  
-    const what = req.session.what
-    console.log(what)
+    const what = req.session.what;
+    req.session.progress = 8;
+    console.log(what);
 });
 
 const server = app.listen(port, () => {
