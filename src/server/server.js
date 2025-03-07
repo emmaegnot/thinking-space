@@ -327,16 +327,24 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname,'../public')));
 app.use(express.urlencoded({extended:true}))
 
+const requireStep = (requiredStep) => (req, res, next) => {
+    if (!req.session.progress || req.session.progress < requiredStep) {
+      return res.redirect("/");
+    }
+    next();
+};
+
 
 app.get('/', (req,res) => {
+    req.session.progress = 1;
     res.render('index', { title: "Home", showConsentPopup: !req.cookies.consent });
 });
 
-app.get('/choose_shape', (req,res) => {
+app.get('/choose_shape', requireStep(2),(req,res) => {
     res.render('choose_shape', {title: "Choose A Shape"});
 });
 
-app.get('/student_login', (req, res) => {
+app.get('/student_login', requireStep(1), (req, res) => {
     res.render('student_login', {title: "Student Login"})
 });
 
@@ -378,100 +386,89 @@ app.post('/teacher_login', async (req,res) => {
     }
 });
 
-app.get('/student_info', (req, res) => {
-    res.render('student_info', {title: "Student Login"})
-});
-
-//PLACEHOLDER - Allows for testing of additional_words, must comment out lines 14-16
-// app.get('/', (req,res) => {
-//// Testing variables for now, server will do this in the future
-//     const colour = {
-//         r: 255,
-//         g: 0,
-//         b: 0,
-//     }
-//     // The words should be computed by server, then sent to a request like this (ideally)
-//     // I.e. in this case the original word picked was angry
-//     wordList = ['Irritated', 'Resentful', 'Miffed', 'Upset', 'Mad', 'Furious', 'Raging', 'Hot']
-//     res.render('additional_words', {filepath: "images/star.png", colour, wordList, title: "Additional words"});
-// });
 
 app.post('/previous-shape', (req,res) => {
+    req.session.progress = 1;
     res.redirect('/');
 })
 
 app.post('/next-shape', (req,res) => {
-    req.session.shape = req.body.shape
+    req.session.shape = req.body.shape;
+    req.session.progress = 3;
     var filePath = "images/"
-    req.session.filePath = filePath.concat(req.session.shape, ".png")
+    req.session.filePath = filePath.concat(req.session.shape, ".png");
     res.redirect('/choose_colour');
 })
-app.get('/choose_colour', (req,res) => {
+app.get('/choose_colour', requireStep(3), (req,res) => {
     res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour", selectedColour: req.session.colour});
 });
 
 app.post('/previous-colour', (req,res) => {
+    req.session.progress = 3;
     res.redirect('/choose_shape');
 })
 
 app.post('/next-colour', (req, res) => {
     req.session.colour = req.body.colour;
+    req.session.progress = 4
     //req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
     res.redirect('/choose_word'); 
     
 });
 
-app.post('/choose_shape', (req, res) => {
-    res.redirect('/choose_shape');
-});
 
 app.post('/student_login', (req, res) => {
     req.session.name = req.body.name;
-    req.session.studentCode = req.body.classcode
-    console.log(req.session.name);
-    console.log(req.session.studentCode)
+    req.session.studentCode = req.body.classcode 
+    req.session.progress = 2;
     res.redirect('/choose_shape');
 });
 
-app.get('/choose_word', (req,res) => {
+app.get('/choose_word', requireStep(4), (req,res) => {
     res.render('choose_word', {title: "Choose A Word"});
 });
 
 app.post('/previous-word', (req,res) => {
+    req.session.progress = 4;
     res.redirect('/choose_colour');
 })
 
 app.post('/next-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
-    var filePath = "images/"
-    req.session.filePath = filePath.concat(req.session.shape, ".png")
+    req.session.progress = 5;
+    var filePath = "images/";
+    req.session.filePath = filePath.concat(req.session.shape, ".png");
     res.redirect('/additional_words');     
 });
 
-app.get('/additional_words', (req,res) => {
+app.get('/additional_words', requireStep(5),(req,res) => {
     res.render('additional_words', {filepath: req.session.filePath, title: "More Words", wordList : additionalWords[req.session.word]});
 });
 
 app.post('/previous-additional', (req,res) => { //back
+    req.session.progress = 5;
     res.redirect('/choose_word');
 })
 
 app.post('/next-additional', (req, res) => {
-    req.session.additional = req.body.words
+    req.session.additional = req.body.words;
+    req.session.progress = 6;
     res.redirect('/feeling_force');     
 });
 
 
-app.get('/feeling_force', (req,res) => {
+app.get('/feeling_force', requireStep(6), (req,res) => {
     res.render('feeling_force', {title: "Feeling Force"});
 });
 
 app.post('/previous-force', (req,res) => { //back
+    req.session.progress = 6
     res.redirect('/additional_words');
 })
 
 app.post('/submit-force', (req, res) => { //next
-    req.session.force = req.body.clickCount;  
+    req.session.force = req.body.clickCount;
+    req.session.progress = 7;  
     //clickCount = req.body.clickCount; // Update stored value
 
     res.redirect('/mood_summary');          
@@ -480,7 +477,7 @@ app.post('/submit-force', (req, res) => { //next
 
 const StudentMood = require('../models/Student')
 
-app.get('/mood_summary', async (req,res) => {
+app.get('/mood_summary', requireStep(7),async (req,res) => {
     const shape = req.session.shape;
     const colour = req.session.colour;
     const force = req.session.force;
@@ -542,18 +539,21 @@ app.get('/mood_summary', async (req,res) => {
 });
 
 app.post('/submit-mood', (req, res) => { //next
+    req.session.progress = 8;
     res.redirect('/what_happened');          
 });
 
 app.post('/previous-mood', (req,res) => { //back
+    req.session.progress = 7;
     res.redirect('/mood_summary');
 })
 
-app.get('/what_happened', (req,res) => {
+app.get('/what_happened', requireStep(8), (req,res) => {
     res.render('what_happened', {title: "What Happened"});
 });
 
 app.post('/previous-happen', (req,res) => { //back
+    req.session.progress = 9;
     res.redirect('/mood_summary');
 })
 
