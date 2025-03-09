@@ -329,7 +329,7 @@ app.use(express.urlencoded({extended:true}))
 
 const requireStep = (requiredStep) => (req, res, next) => {
     if (!req.session.progress || req.session.progress < requiredStep) {
-        req.session.destroy;
+        req.session.destroy();
         return res.redirect("/");
     }
     next();
