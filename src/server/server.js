@@ -9,6 +9,8 @@ const Teacher = require("../models/Teacher");
 const Student = require("../models/Student");
 const bcrypt = require('bcrypt');
 
+var db = true;
+
 require('dotenv').config();
 
 const app = express();
@@ -297,20 +299,23 @@ async function connectDB() {
 if (process.env.MONGO_URI != null){
     connectDB();
 } else {
-    console.log("Skipping database connection")
+    console.log("Skipping database connection");
+    db = false;
 }
 
 // Example for getting users - localhost:3000/db-test should result in showing all teachers and all students in the database
 app.get('/db-test', async (req, res) => {
-    try {
-        // Fetch teachers but exclude passwords for security
-        const teachers = await Teacher.find({}, "-password");
-        // Fetch all students
-        const students = await Student.find();
-        // Return JSON response
-        res.json({ teachers, students });
-    } catch (error) {
-        res.status(500).json({ error: "Failed to fetch data" });
+    if (db){
+        try {
+            // Fetch teachers but exclude passwords for security
+            const teachers = await Teacher.find({}, "-password");
+            // Fetch all students
+            const students = await Student.find();
+            // Return JSON response
+            res.json({ teachers, students });
+        } catch (error) {
+            res.status(500).json({ error: "Failed to fetch data" });
+        }
     }
 });
 
@@ -372,33 +377,36 @@ app.post('/teacher_login', async (req,res) => {
     const password = req.body.password;
     console.log(username);
     console.log(password);
+    if(db){
+        try {
+            const user = await Teacher.findOne({ username });
 
-    try {
-        const user = await Teacher.findOne({ username });
+            if (!user) {
+                return res.status(401).json({ error: 'Invalid credentials' });
+            }
 
-        if (!user) {
-            return res.status(401).json({ error: 'Invalid credentials' });
+            if (!user.password.startsWith("$2b$")) { 
+                console.warn("Unhashed password detected! Hashing it now.");
+                user.password = await bcrypt.hash(user.password, 10);
+                await user.save(); 
+            }
+        
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return res.status(401).json({ error: 'Invalid credentials' });
+            }
+
+            // Save user session
+            req.session.user = { name: user.username };
+            req.session.logged = 1;
+            res.json({ redirect: '/student_info' });
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Server error' });
         }
-
-        if (!user.password.startsWith("$2b$")) { 
-            console.warn("Unhashed password detected! Hashing it now.");
-            user.password = await bcrypt.hash(user.password, 10);
-            await user.save(); 
-        }
-       
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(401).json({ error: 'Invalid credentials' });
-        }
-
-        // Save user session
-        req.session.user = { name: user.username };
-        req.session.logged = 1;
-        res.json({ redirect: '/student_info' });
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Server error' });
+    } else {
+        return res.status(401).json({ error: 'The server has not connected to the database' });
     }
 });
 
@@ -532,23 +540,23 @@ app.get('/mood_summary', requireStep(6),async (req,res) => {
 
     req.session.mood = mood;
 
-    try {
-        await StudentMood.create({
-            name: req.session.name, // change to name when implemented
-            classCode: req.session.studentCode,
-            ushape: shape,
-            ucolor: colour,
-            uword: wordDB,
-            uadditionalWords: addWords, 
-            uforce: force,
-            umood: req.session.mood, 
-        });
-
-        console.log("Mood data saved!");
-    } catch (error) {
-        console.error("Error saving mood data:", error);
+    if(db){
+        try {
+            await StudentMood.create({
+                name: req.session.name, // change to name when implemented
+                classCode: req.session.studentCode,
+                ushape: shape,
+                ucolor: colour,
+                uword: wordDB,
+                uadditionalWords: addWords, 
+                uforce: force,
+                umood: req.session.mood, 
+            });
+            console.log("Mood data saved!");
+        } catch (error) {
+            console.error("Error saving mood data:", error);
+        }
     }
-
     
     res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
 });

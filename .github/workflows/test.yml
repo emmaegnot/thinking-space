@@ -46,6 +46,7 @@ jobs:
 
     # Set the environment variable for MongoDB URI from GitHub Secrets
     - name: Run tests
+      skipDatabase: true
       # env:
       #   MONGO_URI: ${{ secrets.MONGO_URI }}  # Access the MongoDB URI secret here
       # Current tests don't need to access the database - this can be edited later
