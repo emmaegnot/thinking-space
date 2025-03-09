@@ -336,7 +336,7 @@ const requireStep = (requiredStep) => (req, res, next) => {
 };
 
 const requireLogin = (requiredLogin) => (req, res, next) => {
-    if (!req.session.logged || !(req.session.logged === requiredLogin)){
+    if (!req.session.logged || (req.session.logged !== requiredLogin) || (req.session.userRole !== "teacher")){
         return res.redirect("/");
     }
     next();
@@ -346,14 +346,16 @@ const requireLogin = (requiredLogin) => (req, res, next) => {
 app.get('/', (req,res) => {
     req.session.destroy(() => {
         console.log("req.session is deleted :)");
-      });
+    });
     
     res.render('index', { title: "Home", showConsentPopup: !req.cookies.consent });
 });
 
 
 app.get('/student_login', (req, res) => {
+    req.session.userRole = 'student';
     res.render('student_login', {title: "Student Login"})
+
 });
 
 app.post('/student_login', (req, res) => {
@@ -364,7 +366,9 @@ app.post('/student_login', (req, res) => {
 });
 
 app.get('/teacher_login', (req, res) => {
-    res.render('teacher_login', {title: "Teacher Login"})
+    res.render('teacher_login', {title: "Teacher Login"});
+    req.session.logged = 0;
+    req.session.userRole = 'teacher';
 });
 
 app.post('/teacher_login', async (req,res) => {
@@ -407,6 +411,7 @@ app.get('/student_info', requireLogin(1), (req, res) => {
 });
 
 app.get('/choose_shape', requireStep(1),(req,res) => {
+    req.session.userRole = 'student';
     res.render('choose_shape', {title: "Choose A Shape"});
 });
 
@@ -422,6 +427,7 @@ app.post('/next-shape', (req,res) => {
     res.redirect('/choose_colour');
 })
 app.get('/choose_colour', requireStep(2), (req,res) => {
+    req.session.userRole = 'student';
     res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour", selectedColour: req.session.colour});
 });
 
@@ -440,6 +446,7 @@ app.post('/next-colour', (req, res) => {
 
 
 app.get('/choose_word', requireStep(3), (req,res) => {
+    req.session.userRole = 'student';
     res.render('choose_word', {title: "Choose A Word"});
 });
 
@@ -457,6 +464,7 @@ app.post('/next-word', (req, res) => {
 });
 
 app.get('/additional_words', requireStep(4),(req,res) => {
+    req.session.userRole = 'student';
     res.render('additional_words', {filepath: req.session.filePath, title: "More Words", wordList : additionalWords[req.session.word]});
 });
 
@@ -473,6 +481,7 @@ app.post('/next-additional', (req, res) => {
 
 
 app.get('/feeling_force', requireStep(5), (req,res) => {
+    req.session.userRole = 'student';
     res.render('feeling_force', {title: "Feeling Force"});
 });
 
@@ -493,6 +502,7 @@ app.post('/submit-force', (req, res) => { //next
 const StudentMood = require('../models/Student')
 
 app.get('/mood_summary', requireStep(6),async (req,res) => {
+    req.session.userRole = 'student';
     const shape = req.session.shape;
     const colour = req.session.colour;
     const force = req.session.force;
@@ -565,6 +575,7 @@ app.post('/submit-mood', (req, res) => { //next
 
 
 app.get('/what_happened', requireStep(7), (req,res) => {
+    req.session.userRole = 'student';
     res.render('what_happened', {title: "What Happened"});
 });
 
