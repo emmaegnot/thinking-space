@@ -335,6 +335,13 @@ const requireStep = (requiredStep) => (req, res, next) => {
     next();
 };
 
+const requireLogin = (requiredLogin) => (req, res, next) => {
+    if (!req.session.logged || !(req.session.logged === requiredLogin)){
+        return res.redirect("/");
+    }
+    next();
+};
+
 
 app.get('/', (req,res) => {
     req.session.destroy(() => {
@@ -386,12 +393,17 @@ app.post('/teacher_login', async (req,res) => {
 
         // Save user session
         req.session.user = { name: user.username };
+        req.session.logged = 1;
         res.json({ redirect: '/student_info' });
 
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Server error' });
     }
+});
+
+app.get('/student_info', requireLogin(1), (req, res) => {
+    res.render('student_info', {title: "Student Info"})
 });
 
 app.get('/choose_shape', requireStep(1),(req,res) => {
