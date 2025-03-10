@@ -42,6 +42,6 @@ jobs:
             "docker build -t my-node-app .",
             "docker stop my-node-app || true",
             "docker rm my-node-app || true",
-            "docker run -d -p 3000:3000 --name my-node-app -e MONGO_URI=${{ secrets.MONGO_URI }} my-node-app"
+            "docker run -d -p 3000:3000 --name my-node-app -e MONGO_URI=\"${{ secrets.MONGO_URI }}\" my-node-app"
           ]' \
           --comment "Deploy app update"
