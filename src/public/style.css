@@ -323,6 +323,29 @@ a:hover {
     justify-items: center;
   }
 
+/* Ensure the container for the images is relatively positioned */
+.colour-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Style for the base image */
+  /* #selectedShapeImage {
+    width: 100%;
+    height: auto;
+  } */
+  
+  /* Style for the emotion overlay image */
+  #emotionImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: none; /* Initially hidden */
+  }
+
 .shape-item {
     text-align: center;
   }
@@ -884,7 +907,14 @@ table {
 /* ============================================= */
 
 /* Grey next when disabled */
-
+.expression {
+    display: none;
+    top: 330px;
+    left: 1120px;
+    width:200px;
+    position: absolute;
+    z-index: 2;
+}
 #nextButton {
     padding: 10px 20px;
     font-size: 1em;
