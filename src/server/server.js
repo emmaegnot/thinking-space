@@ -371,9 +371,10 @@ app.post('/student_login', (req, res) => {
 });
 
 app.get('/teacher_login', (req, res) => {
-    res.render('teacher_login', {title: "Teacher Login"});
     req.session.logged = 0;
     req.session.userRole = 'teacher';
+    res.render('teacher_login', {title: "Teacher Login"});
+    
 });
 
 app.post('/teacher_login', async (req,res) => {
