@@ -16,64 +16,28 @@
 <div class="container mouseM" style="width: 90%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
         <h2 class = "colouredText" style="padding: 10px; margin: 20px;">Students</h2>
         <!-- <p class="bodyText">____</p> -->
-
-        <table id="students">
-            <tr>
-              <th>Name</th>
-              <th>Year</th>
-              <th>Mood result</th>
-            </tr>
-            <tr>
-              <td>Student 1</td>
-              <td>4</td>
-              <td>Irritated</td>
-            </tr>
-            <tr>
-              <td>Student 2</td>
-              <td>5</td>
-              <td>Disgusted</td>
-            </tr>
-            <tr>
-              <td>Student 3</td>
-              <td>5</td>
-              <td>Embarrassed</td>
-            </tr>
-            <tr>
-              <td>Student 4</td>
-              <td>6</td>
-              <td>Upset</td>
-            </tr>
-            <tr>
-              <td>Student 5</td>
-              <td>6</td>
-              <td>Disappointed</td>
-            </tr>
-            <tr>
-              <td>Student 6</td>
-              <td>4</td>
-              <td>Happy</td>
-            </tr>
-            <tr>
-              <td>Student 7</td>
-              <td>6</td>
-              <td>Anxious</td>
-            </tr>
-            <tr>
-              <td>Student 8</td>
-              <td>5</td>
-              <td>Scared</td>
-            </tr>
-            <tr>
-              <td>Student 9</td>
-              <td>4</td>
-              <td>Angry</td>
-            </tr>
-            <tr>
-              <td>Student 10</td>
-              <td>4</td>
-              <td>Upset</td>
-            </tr>
+        <div class="table-container">
+          <table id="students">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Mood result</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <% students.forEach(student => { %>
+                  <tr class="clickable-row">
+                      <td><%= student.name %></td>
+                      <td><%= student.mood %></td>
+                  </tr>
+                  <% }) %>
+              </tbody>
           </table>
+      </div>
+
+      <!-- Scroll Buttons -->
+      <button id="scrollUp"><i class="fa-solid fa-chevron-up"></i></button>
+      <button id="scrollDown"><i class="fa-solid fa-chevron-down"></i></button>
 
 </div>
   

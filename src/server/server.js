@@ -337,6 +337,10 @@ const requireStep = (requiredStep) => (req, res, next) => {
 
 const requireLogin = (requiredLogin) => (req, res, next) => {
     if (!req.session.logged || (req.session.logged !== requiredLogin) || (req.session.userRole !== "teacher")){
+        console.log(req.session.logged, requiredLogin);
+        console.log(req.session.logged !== requiredLogin);
+        console.log(req.session.userRole !== "teacher");
+        console.log("Not logged in as Teacher!");
         return res.redirect("/");
     }
     next();
@@ -397,6 +401,7 @@ app.post('/teacher_login', async (req,res) => {
 
         // Save user session
         req.session.user = { name: user.username };
+        req.session.userRole = "teacher";
         req.session.logged = 1;
         res.json({ redirect: '/student_info' });
 
@@ -406,8 +411,14 @@ app.post('/teacher_login', async (req,res) => {
     }
 });
 
-app.get('/student_info', requireLogin(1), (req, res) => {
-    res.render('student_info', {title: "Student Info"})
+app.get('/student_info', requireLogin(1), async (req, res) => {
+    console.log("at student info");
+    try {
+        const students = await Student.find(); // Fetch students from DB
+        res.render('student_info', { students }); // Pass students to EJS
+    } catch (error) {
+        res.status(500).send("Error fetching students");
+    }
 });
 
 app.get('/choose_shape', requireStep(1),(req,res) => {
