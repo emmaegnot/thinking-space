@@ -8,7 +8,6 @@
     </ul>
   </nav>
 
-
   <div class="maincontainer">
   <div class="container1 mouseM" style="height:460px">
     <form id="wordForm" method="post">
@@ -69,7 +68,7 @@
 
   </div>
 
-  <footer class="footer cw-footer">
+  <footer class="footer">
     <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
     <span class="motto mouseM">With emotional health in mind</span>
   </footer>
@@ -78,12 +77,12 @@
     const words = document.querySelectorAll('.button-container .word-item button');
     
     const emotionImages = {
-    "Angry": "images/characters/expressions/angry.png",
-    "Disgusted": "images/characters/expressions/disgusted.png",
-    "Fearful": "images/characters/expressions/fearful.png",
-    "Happy": "images/characters/expressions/happy.png",
-    "Sad": "images/characters/expressions/sad.png",
-    "Surprised": "images/characters/expressions/surprised.png"
+    "Angry": "/images/character/expressions/angry.png",
+    "Disgusted": "/images/character/expressions/embarassed.png",
+    "Fearful": "/images/character/expressions/scared.png",
+    "Happy": "/images/character/expressions/happy.png",
+    "Sad": "/images/character/expressions/embarassed.png",
+    "Surprised": "/images/character/expressions/shocked.png"
 };
 
     
@@ -121,27 +120,6 @@
     //             .style.display = "block";
     // }
 
-
-    window.onload = function() {
-    //   const selectedShapeImage = sessionStorage.getItem('selectedShapeImage');
-      
-    //   if (selectedShapeImage) {
-    //     document.getElementById('selectedShapeImage').src = selectedShapeImage;
-    // }
-    
-      const savedEmotion = sessionStorage.getItem('emotion');
-        if (savedEmotion) {
-          const image = document.querySelector(".container2 img");
-          const selectedWord = Array.from(words).find(
-            (word) => word.value === savedEmotion
-          );
-          if (selectedWord) {
-            highlightButton(selectedWord)
-          }
-        }
-    }
-
-    const nextButton = document.getElementById("nextButton");
     function highlightButton(button) {
       const buttons = document.querySelectorAll('.word-item button');
       buttons.forEach(btn => btn.classList.remove('active'));
@@ -165,6 +143,28 @@
         imageElement.style.display = "none"; // Hide if no image found
     }
     }
+
+    window.onload = function() {
+    //   const selectedShapeImage = sessionStorage.getItem('selectedShapeImage');
+      
+    //   if (selectedShapeImage) {
+    //     document.getElementById('selectedShapeImage').src = selectedShapeImage;
+    // }
+    
+      const savedEmotion = sessionStorage.getItem('emotion');
+        if (savedEmotion) {
+          const image = document.querySelector(".container2 img");
+          const selectedWord = Array.from(words).find(
+            (word) => word.value === savedEmotion
+          );
+          if (selectedWord) {
+            highlightButton(selectedWord)
+          }
+        }
+    }
+
+    const nextButton = document.getElementById("nextButton");
+    
     document.getElementById('backButton').addEventListener('click', function() {
       const form = document.getElementById('wordForm');
       form.action = '/previous-word';
