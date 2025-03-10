@@ -22,13 +22,15 @@
                   <tr>
                       <th>Name</th>
                       <th>Mood result</th>
+                      <th>When</th>
                   </tr>
               </thead>
               <tbody>
                   <% students.forEach(student => { %>
                   <tr class="clickable-row">
                       <td><%= student.name %></td>
-                      <td><%= student.mood %></td>
+                      <td><%= student.umood %></td>
+                      <td><%= student.utimestamp %></td>
                   </tr>
                   <% }) %>
               </tbody>
@@ -47,4 +49,107 @@
       </footer>
 
 </body>
+<script>
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const tableContainer = document.querySelector(".table-container");
+    const scrollUp = document.getElementById("scrollUp");
+    const scrollDown = document.getElementById("scrollDown");
+    
+    function updateScrollButtons() {
+        scrollUp.style.display = tableContainer.scrollTop > 0 ? "block" : "none";
+        scrollDown.style.display = (tableContainer.scrollHeight - tableContainer.clientHeight) > tableContainer.scrollTop ? "block" : "none";
+    }
+
+    scrollUp.addEventListener("click", () => {
+        tableContainer.scrollBy({ top: -100, behavior: "smooth" });
+    });
+
+    scrollDown.addEventListener("click", () => {
+        tableContainer.scrollBy({ top: 100, behavior: "smooth" });
+    });
+
+    tableContainer.addEventListener("scroll", updateScrollButtons);
+    updateScrollButtons();
+
+    // Make table rows clickable
+    document.querySelectorAll(".clickable-row").forEach(row => {
+        row.addEventListener("click", function () {
+            alert(`You clicked on ${this.cells[0].innerText}`);
+        });
+    });
+  });
+</script>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+}
+
+.table-container {
+    width: 90%;
+    border: 3px solid #ddd;
+    border-radius: 15px;
+    max-height: 300px; /* Set max height for scrolling */
+    overflow: hidden;
+    position: relative;
+}
+
+#students {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#students th, #students td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.clickable-row {
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.clickable-row:hover {
+    background-color: #f5f5f5;
+}
+
+button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 15px;
+    border: none;
+    background: #333;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: #555;
+}
+
+#scrollUp, #scrollDown {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background: #007bff;
+    border: none;
+    color: white;
+    font-size: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+}
+
+#scrollUp { top: -50px; }
+#scrollDown { bottom: -50px; }
+
+#scrollUp:hover, #scrollDown:hover {
+    background: #0056b3;
+}
+
+</style>
 </html>
