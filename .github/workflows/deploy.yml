@@ -35,10 +35,11 @@ jobs:
           --instance-ids ${{ secrets.AWS_INSTANCE_ID }} \
           --document-name "AWS-RunShellScript" \
           --parameters 'commands=[
-            "cd 2024-ThinkingSpace/ && git pull origin dev",
+            "cd ~/2024-ThinkingSpace/",
+            "git pull origin dev",
             "docker build -t my-node-app .",
-            "docker run -d -p 3000:3000 my-node-app",
-            "npm install",
-            "pm2 restart app"
+            "docker stop my-node-app || true",
+            "docker rm my-node-app || true",
+            "docker run -d -p 3000:3000 --name my-node-app -e MONGO_URI=${{ secrets.MONGO_URI }} my-node-app"
           ]' \
           --comment "Deploy app update"
