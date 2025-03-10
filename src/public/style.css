@@ -323,19 +323,13 @@ a:hover {
     justify-items: center;
   }
 
-/* Ensure the container for the images is relatively positioned */
+
 .colour-container {
     position: relative;
     display: inline-block;
   }
   
-  /* Style for the base image */
-  /* #selectedShapeImage {
-    width: 100%;
-    height: auto;
-  } */
-  
-  /* Style for the emotion overlay image */
+
   #emotionImage {
     position: absolute;
     top: 0;
@@ -343,7 +337,7 @@ a:hover {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    display: none; /* Initially hidden */
+    display: none; 
   }
 
 .shape-item {
@@ -410,15 +404,6 @@ a:hover {
     }
     .motto {
         font-size: 1.2em;
-    }
-}
-
-@media (max-height: 850px){
-    .si-footer{
-        position: relative;
-    }
-    .si-container{
-        margin: 2rem auto 2rem;
     }
 }
 
