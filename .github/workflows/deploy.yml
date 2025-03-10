@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - dev
-      - feature/aws-database-access # Testing
     workflow_dispatch:
 
 permissions:
@@ -37,7 +36,7 @@ jobs:
           --parameters 'commands=[
             "cd ~/2024-ThinkingSpace/",
             "git fetch origin",
-            "git checkout feature/aws-database-access",
+            "git checkout dev",
             "git pull",
             "docker build -t my-node-app .",
             "docker stop my-node-app || true",
