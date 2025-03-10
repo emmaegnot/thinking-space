@@ -402,6 +402,7 @@ app.post('/teacher_login', async (req,res) => {
 
             // Save user session
             req.session.user = { name: user.username };
+            req.session.userRole = 'teacher';
             req.session.logged = 1;
             res.json({ redirect: '/student_info' });
 
