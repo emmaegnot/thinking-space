@@ -526,7 +526,7 @@ app.post('/submit-text', (req, res) => { //next
 });
 
 app.get('/weighing_things_up', (req,res) => {
-    res.render('weighing_things_up', {title: "Weighing Things Up"});
+    res.render('weighing_things_up', {mood: req.session.mood, title: "Weighing Things Up"});
 });
 
 const server = app.listen(port, () => {
