@@ -443,6 +443,7 @@ app.get('/student_info', requireLogin(1), async (req, res) => {
             ...student.toObject(), 
             utimestamp: timeConvert(student.utimestamp)
         }));
+        formattedStudents.sort((a, b) => new Date(b.utimestamp) - new Date(a.utimestamp));
         res.render('student_info', { students: formattedStudents }); // Pass students to EJS
     } catch (error) {
         res.status(500).send("Error fetching students");
