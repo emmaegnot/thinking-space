@@ -18,22 +18,22 @@
       
       <div class="button-container">
         <div class="word-item">
-          <button type="button" name="emotion" value="Angry" onclick="highlightButton(this)">Angry</button>
+          <button type="button" name="emotion" value="Angry" onclick="highlightButton(this), showimage1()">Angry</button>
         </div>
         <div class="word-item">
-          <button type="button" name="emotion" value="Disgusted" onclick="highlightButton(this)">Disgusted</button>
+          <button type="button" name="emotion" value="Disgusted" onclick="highlightButton(this), showimage2()">Disgusted</button>
         </div>
         <div class="word-item">
-          <button type="button" name="emotion" value="Fearful" onclick="highlightButton(this)">Fearful</button>
+          <button type="button" name="emotion" value="Fearful" onclick="highlightButton(this), showimage3()">Fearful</button>
         </div>
         <div class="word-item">
-          <button type="button" name="emotion" value="Happy" onclick="highlightButton(this)">Happy</button>
+          <button type="button" name="emotion" value="Happy" onclick="highlightButton(this), showimage4()">Happy</button>
         </div>
         <div class="word-item">
-          <button type="button" name="emotion" value="Sad" onclick="highlightButton(this)">Sad</button>
+          <button type="button" name="emotion" value="Sad" onclick="highlightButton(this), showimage5()">Sad</button>
         </div>
         <div class="word-item">
-          <button type="button" name="emotion" value="Surprised" onclick="highlightButton(this)">Surprised</button>
+          <button type="button" name="emotion" value="Surprised" onclick="highlightButton(this), showimage6()">Surprised</button>
         </div>
       </div>
 
@@ -48,9 +48,19 @@
   <div align="center">
   <div class="colour-container">
   <h1 class="colouredText">Your character</h1>
+  <div style="position: relative;display: inline-block;">
   <img src="<%= filepath %>" id="selectedShapeImage" alt="selected emotion">
+  <img id="emotionImage" src="" alt="Emotion Overlay" style="position: absolute; top: 0; left: 0;width: 100%; height: 100%; object-fit: contain; display: none;">
+    <!-- <img class="expression" id="happy" src="images/character/expressions/happy.png"  />
+  <img class="expression" id="angry" src="images/character/expressions/angry.png"  />
+  <img class="expression" id="scared" src="images/character/expressions/scared.png"  />
+  <img class="expression" id="sad" src="images/character/expressions/embarassed.png"  />
+  <img class="expression" id="shocked" src="images/character/expressions/shocked.png"  />
+  <img class="expression" id="happy" src="images/character/expressions/happy.png" /> -->
+  
   <!-- <img id="selectedShapeImage" src="" alt="Selected Shape"></img> -->
   <!-- <img id="selectedColourImage" src="" alt="Selected Colour" style="max-width: 100%; height: auto;"></img> -->
+</div>
 </div>
 <div class="clear"></div>
 </div>
@@ -65,6 +75,51 @@
 
   <script>
     const words = document.querySelectorAll('.button-container .word-item button');
+    
+    const emotionImages = {
+    "Angry": "images/characters/expressions/angry.png",
+    "Disgusted": "images/characters/expressions/disgusted.png",
+    "Fearful": "images/characters/expressions/fearful.png",
+    "Happy": "images/characters/expressions/happy.png",
+    "Sad": "images/characters/expressions/sad.png",
+    "Surprised": "images/characters/expressions/surprised.png"
+};
+
+    
+
+// function showimage1() {
+    //   // let expression = document.createElement("img")
+    //   // expression.src = `images/character/expressions/${selectedEmotion}.png`;
+    //   // expression.style.display = "block";
+    //   document.getElementById('angry')
+    //             .style.display = "block";
+    // }
+
+    // function showimage2() {
+    //   document.getElementById('disgusted')
+    //             .style.display = "block";
+    // }
+
+    // function showimage3() {
+    //   document.getElementById('scared')
+    //             .style.display = "block";
+    // }
+
+    // function showimage4() {
+    //   document.getElementById('happy')
+    //             .style.display = "block";
+    // }
+
+    // function showimage5() {
+    //   document.getElementById('sad')
+    //             .style.display = "block";
+    // }
+
+    // function showimage6() {
+    //   document.getElementById('shocked')
+    //             .style.display = "block";
+    // }
+
 
     window.onload = function() {
     //   const selectedShapeImage = sessionStorage.getItem('selectedShapeImage');
@@ -93,6 +148,21 @@
       nextButton.disabled = false
       sessionStorage.setItem('emotion', button.value);
       document.getElementById('selectedEmotion').value = button.value;
+
+    //   const imageElement = document.getElementById("emotionImage");
+    // imageElement.src = emotionImages[button.value];
+    // imageElement.style.display = "block";
+
+    const imageElement = document.getElementById("emotionImage");
+    const newSrc = emotionImages[button.value];
+
+    // #hello anni :)
+    if (newSrc) {
+        imageElement.src = newSrc;
+        imageElement.style.display = "block";
+    } else {
+        imageElement.style.display = "none"; // Hide if no image found
+    }
     }
     document.getElementById('backButton').addEventListener('click', function() {
       const form = document.getElementById('wordForm');
