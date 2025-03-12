@@ -405,6 +405,16 @@ a:hover {
     max-height: 160px;
 }
 
+.houseContainer {
+    position: relative;
+}
+
+.houseText {
+    position: absolute;
+    top: 12px;
+    left: 30px;
+}
+
 .colourPicker{
     display: none;
     text-align: center;
