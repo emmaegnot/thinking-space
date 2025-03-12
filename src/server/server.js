@@ -304,20 +304,20 @@ if (process.env.MONGO_URI != null){
 }
 
 // Example for getting users - localhost:3000/db-test should result in showing all teachers and all students in the database
-app.get('/db-test', async (req, res) => {
-    if (db){
-        try {
-            // Fetch teachers but exclude passwords for security
-            const teachers = await Teacher.find({}, "-password");
-            // Fetch all students
-            const students = await Student.find();
-            // Return JSON response
-            res.json({ teachers, students });
-        } catch (error) {
-            res.status(500).json({ error: "Failed to fetch data" });
-        }
-    }
-});
+// app.get('/db-test', async (req, res) => {
+//     if (db){
+//         try {
+//             // Fetch teachers but exclude passwords for security
+//             const teachers = await Teacher.find({}, "-password");
+//             // Fetch all students
+//             const students = await Student.find();
+//             // Return JSON response
+//             res.json({ teachers, students });
+//         } catch (error) {
+//             res.status(500).json({ error: "Failed to fetch data" });
+//         }
+//     }
+// });
 
 
 app.set('view engine','ejs');
