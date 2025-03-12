@@ -17,7 +17,7 @@ test("Checks nav contains title and home link", async () => {
 
 test("Checks that all shape options are present", async () => {
     const res = await request(app).get("/choose_shape");
-    const shapes = ["diamond", "circle", "square", "star", "triangle", "spiky", "puffy", "hexagon"];
+    const shapes = ["diamond", "circle", "square", "star", "triangle", "spiky", "puffy", "bouba"];
     shapes.forEach(shape => {
         expect(res.text).toContain(`value="${shape}"`); // For each shape, check the response contains an input field with its name
     });
