@@ -26,13 +26,21 @@
                   </tr>
               </thead>
               <tbody>
-                  <% students.forEach(student => { %>
-                  <tr class="clickable-row">
-                      <td><%= student.name %></td>
-                      <td><%= student.umood %></td>
-                      <td><%= student.utimestamp %></td>
+                <% if (students.length === 0) { %>
+                  <tr>
+                      <td colspan="3" style="text-align: center; padding: 20px; font-style: italic; color: gray;">
+                          No information yet
+                      </td>
                   </tr>
+                <% } else { %>
+                  <% students.forEach(student => { %>
+                      <tr class="clickable-row">
+                          <td><%= student.name %></td>
+                          <td><%= student.umood %></td>
+                          <td><%= student.utimestamp %></td>
+                      </tr>
                   <% }) %>
+                <% } %>
               </tbody>
           </table>
       </div>
