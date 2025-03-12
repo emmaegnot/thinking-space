@@ -391,6 +391,15 @@ a:hover {
     }
 }
 
+@media (max-height: 850px){
+    .si-footer{
+        position: relative;
+    }
+    .si-container{
+        margin: 2rem auto 2rem;
+    }
+}
+
 @media (max-height: 590px) {
     .footer {
         position: relative;
