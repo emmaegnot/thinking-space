@@ -29,9 +29,10 @@
                 <p class="bodyText" id="score">Score: 0</p>
                 <div class="houseContainer">
                     <img class="logo" id="houseImage" src="images/house.png" alt="house image" style="width: 300px; height: auto;">
+                     <!--this is where the words from the game will be added-->
+                    <div class="houseText" id="correct"></div>
+                    <div class="houseText" id="incorrect"></div>
                 </div>
-                <div class="word-container" id="correct"></div> <!--this is where the words from the game will be added-->
-                <div class="houseText" id="incorrect"></div>
             </div>
 
         </div>
@@ -152,6 +153,12 @@
                                 gameArea.score -= 1;
                                 document.getElementById("score").innerHTML = scoreText.concat(String(gameArea.score));
                             } else {
+                                //x position in the house is a random number between 20 and 215
+                                x = Math.floor(20 + Math.random() * 195)
+                                //x position in the house is a random number between 20 and 215
+                                y = Math.floor(140 + Math.random() * 110)
+                                document.body.style.setProperty('--x-pos', x);
+                                document.body.style.setProperty('--y-pos', y);
                                 document.getElementById("correct").appendChild(houseWord);
                                 gameArea.score += 3;
                                 document.getElementById("score").innerHTML = scoreText.concat(String(gameArea.score));

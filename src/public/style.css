@@ -409,16 +409,19 @@ a:hover {
     position: relative;
 }
 
-.container2 .houseText {
-    position: relative;
+.houseText {
+    position: absolute;
 }
 
 #correct{
     color: rgb(37, 126, 38);
+    top: 220px;
+    left: 215px;
 }
 
 #incorrect{
     color: rgb(235, 53, 53);
+    bottom: 10px;
 }
 
 .colourPicker{
