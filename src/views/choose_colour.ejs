@@ -78,8 +78,6 @@
       const nextButton = document.getElementById("nextButton");
       // Update the chosen shape's background color on color change
       const image = document.querySelector('.chosen-shape');
-    
-      
  
       function ChangeColour(chosenColour){
         nextButton.disabled = false
@@ -106,6 +104,7 @@
 
     function updateImage(chosenColour) {
       const selectedShape = sessionStorage.getItem('selectedShape');
+
       const images = document.querySelectorAll(".container2 img");
     const selectedShapeImage = images[images.length - 1];
       const selectedColour = chosenColour.value;
