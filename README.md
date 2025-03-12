@@ -46,9 +46,16 @@ This website aims to tackle behavioural problems in children by providing them w
 - Parent: As a parent, I want my child to be getting a good education, and to not feel overly negative emotions. The app should help with both of these issues, allowing my child to focus in class, and providing them with a way to understand and deal with any feelings they may have. This may even help with the burdens of parenting in general, and could have a positive effect on home life too.
 
 ## Project structure
-- Backend
-- Frontend
-
+Code relating to the project itself can be found in the src folder at root level. Anything outside of this folder are files for Github, Docker, Node.js or generic project work like this README and some research. In src, the code can generally be organised into four sections: database, frontend, backend and CI.
+### Database
+Within the models folder, we have two pieces of Javascript code, Student.js and Teacher.js. These define the Student and Teacher data structures (reffered to as schemas) that our database uses. It is similar to a class in OOP, where we define the attributes here, and create them later in the server code.
+### Backend
+Within the server folder, our main backend file, server.js can be found. This is the file we run to get the website up and running. It is decently long, but essentially it describes how our server should react to a multitude of different requests.
+### Frontend
+The code relating to the frontend can be found in a few different folders within src. First there is the public folder. In the server, we allow users of the website to be able to access anything in this folder. It includes images, font files and our stylesheet file, style.css, which are all needed to enhance the look of the webpages.
+There is also the views folder, which contains all of our different .ejs (essentially HTML) pages. These can be fully-defined pages, or partial ones that are then loaded into the other .ejs files.
+### Continuous Integration
+Within the tests folder, you can find all of the CI tests that Github will automatically run for us each time we push to a branch. They essentially make requests to the server, and compare the actual response with the expected response. There is a different file for each page we test.
 
 ## Architecture diagram
 
