@@ -224,6 +224,7 @@ a:hover {
 }
 
 .index-container .button {
+    font-family: milkynice;
     text-align: center;
     background-color: rgba(0, 0, 0, 0);
     color: rgb(121, 166, 224);
@@ -407,9 +408,8 @@ a:hover {
         margin: 2rem auto 2rem;
     }
 }
-
 .chosen-shape {
-    width: 100%;
+    /* width: 100%; */
     max-width: 180px;
     max-height: 160px;
 }
@@ -835,8 +835,6 @@ left: +right */
     100% {background-color:rgb(255, 141, 141); left:1000px; top:-600px;}
 }
   
-
-
 /*========================================================*/
 
 /* table */
@@ -890,7 +888,7 @@ table {
 
 /* print ("hello world) */
 
-/* ============================================= */
+  /* ============================================= */
 
 /* Grey next when disabled */
 
