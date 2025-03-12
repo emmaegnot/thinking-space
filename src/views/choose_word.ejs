@@ -134,14 +134,16 @@
 
     const imageElement = document.getElementById("emotionImage");
     const newSrc = emotionImages[button.value];
+    imageElement.src = newSrc;
+    imageElement.style.display = "block";
 
  
-    if (newSrc) {
-        imageElement.src = newSrc;
-        imageElement.style.display = "block";
-    } else {
-        imageElement.style.display = "none"; 
-    }
+    // if (newSrc) {
+    //     imageElement.src = newSrc;
+    //     imageElement.style.display = "block";
+    // } else {
+    //     imageElement.style.display = "none"; 
+    // }
     }
 
     window.onload = function() {
