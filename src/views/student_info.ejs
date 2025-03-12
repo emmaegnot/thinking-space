@@ -45,9 +45,9 @@
           </table>
       </div>
 
-      <!-- Scroll Buttons -->
+      <!-- Scroll Buttons
       <button id="scrollUp"><i class="fa-solid fa-chevron-up"></i></button>
-      <button id="scrollDown"><i class="fa-solid fa-chevron-down"></i></button>
+      <button id="scrollDown"><i class="fa-solid fa-chevron-down"></i></button> -->
 
 </div>
   
@@ -61,24 +61,24 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     const tableContainer = document.querySelector(".table-container");
-    const scrollUp = document.getElementById("scrollUp");
-    const scrollDown = document.getElementById("scrollDown");
+    // const scrollUp = document.getElementById("scrollUp");
+    // const scrollDown = document.getElementById("scrollDown");
     
-    function updateScrollButtons() {
-        scrollUp.style.display = tableContainer.scrollTop > 0 ? "block" : "none";
-        scrollDown.style.display = (tableContainer.scrollHeight - tableContainer.clientHeight) > tableContainer.scrollTop ? "block" : "none";
-    }
+    // function updateScrollButtons() {
+    //     scrollUp.style.display = tableContainer.scrollTop > 0 ? "block" : "none";
+    //     scrollDown.style.display = (tableContainer.scrollHeight - tableContainer.clientHeight) > tableContainer.scrollTop ? "block" : "none";
+    // }
 
-    scrollUp.addEventListener("click", () => {
-        tableContainer.scrollBy({ top: -100, behavior: "smooth" });
-    });
+    // scrollUp.addEventListener("click", () => {
+    //     tableContainer.scrollBy({ top: -100, behavior: "smooth" });
+    // });
 
-    scrollDown.addEventListener("click", () => {
-        tableContainer.scrollBy({ top: 100, behavior: "smooth" });
-    });
+    // scrollDown.addEventListener("click", () => {
+    //     tableContainer.scrollBy({ top: 100, behavior: "smooth" });
+    // });
 
-    tableContainer.addEventListener("scroll", updateScrollButtons);
-    updateScrollButtons();
+    // tableContainer.addEventListener("scroll", updateScrollButtons);
+    // updateScrollButtons();
 
     // Make table rows clickable
     document.querySelectorAll(".clickable-row").forEach(row => {
@@ -98,13 +98,21 @@
     border: 3px solid #ddd;
     border-radius: 15px;
     max-height: 300px; /* Set max height for scrolling */
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
 }
 
 #students {
     width: 100%;
     border-collapse: collapse;
+}
+
+#students thead {
+    position: sticky;
+    top: 0;
+    background: white; /* Ensure header has a background */
+    z-index: 10;
 }
 
 #students th, #students td {
@@ -136,7 +144,7 @@ button {
 button:hover {
     background: #555;
 }
-
+/* 
 #scrollUp, #scrollDown {
     position: absolute;
     left: 50%;
@@ -157,7 +165,7 @@ button:hover {
 
 #scrollUp:hover, #scrollDown:hover {
     background: #0056b3;
-}
+} */
 
 </style>
 </html>
