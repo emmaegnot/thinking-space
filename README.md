@@ -63,7 +63,7 @@ This website aims to tackle behavioural problems in children by providing them w
 
 ## Architecture diagram
 
-![project_arc_diagram drawio](https://github.com/user-attachments/assets/d15279f2-7546-464c-a4fb-e8187c439b09)
+![arc-diagram drawio](https://github.com/user-attachments/assets/649f387c-295e-458c-8f54-b2d369a39919)
 
 ## User instructions
 To run the website locally using Docker, open this link: https://hub.docker.com/repository/docker/emmaegnot/thinking-space look at the command starting with ```docker pull```, copy that and paste it into the terminal in docker.
