@@ -73,7 +73,7 @@ test("Checks that the selected mood persists across sessions", async () => {
     // There is no better fit, so it is guaranteed to match as happy
     // So we send this data and check that it matches correctly
     await agent.post('/student_login');
-    await agent.post('/next-shape').send("shape=cloud");
+    await agent.post('/next-shape').send("shape=puffy");
     await agent.post('/next-colour').send("colour=yellow");
     await agent.post('/next-word').send("selectedEmotion=Happy");
     await agent.post('/next-additional').send("words=playful");
