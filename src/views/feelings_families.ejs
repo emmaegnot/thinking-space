@@ -29,9 +29,8 @@
                 <div class="houseContainer">
                     <img class="logo" id="houseImage" src="images/house.png" alt="house image" style="width: 300px; height: auto;">
                 </div>
-                <div class="houseText" id="houseText">
-
-                </div>
+                <div class="houseText" id="correct"></div> <!--this is where the words from the game will be added-->
+                <div class="houseText" id="incorrect"></div>
             </div>
 
         </div>
@@ -48,11 +47,13 @@
             //additional words 1 - angry
             var level1angry = ['aggressive', 'bitter', 'critical', 'distant', 'frustrated', 'hateful', 'humiliated', 'hurt', 'insecure', 'irritated', 'mad']
             var fillerWords = ['happy', 'bright', 'bored', 'silly', 'strong', 'tense', 'confused']
+            var wordsToFall = [];
             var fallingWords = [];
             const image = document.getElementById("houseImage")
             //document.getElementById("houseImage").remove()
             let rightPressed = false;
             let leftPressed = false;
+            let ticker = -1;
 
             function startGame(keyword) {
                 gameArea.start();
@@ -60,14 +61,14 @@
                 house = new newHouse();
                 level1angry.forEach(word => {
                     var position = Math.floor(Math.random() * (450 - 5)) + 5;
-                    fallingWords.push(new wordComponent(word, keyword, position, 80))
+                    wordsToFall.push(new wordComponent(word, keyword, position, 80))
                 });
                 fillerWords.forEach(word =>{
                     var position = Math.floor(Math.random() * (450 - 5)) + 5;
-                    fallingWords.push(new wordComponent(word, 'false', position, 200))
+                    wordsToFall.push(new wordComponent(word, 'false', position, 80))
                 })
-                const temp = fallingWords.sort((a, b) => 0.5 - Math.random());
-                fallingWords = temp;
+                const temp = wordsToFall.sort((a, b) => 0.5 - Math.random());
+                wordsToFall = temp;
                 
             }
             var gameArea = {
@@ -78,13 +79,13 @@
                     this.canvas.width = 480;
                     this.canvas.height = 270;
                     this.context = this.canvas.getContext("2d");
-                    this.canvas.style.backgroundColor = "lightblue";
+                    this.canvas.style.backgroundColor = "rgb(121, 166, 224)";
                     this.context.font = "20px Comic Sans";
                     document.getElementById("angryButton").remove()
                     document.getElementById("instructions").remove()
                     document.getElementById('gameCanvas').appendChild(this.canvas);
                     //runs updateGameArea every 20ms
-                    this.interval = setInterval(updateGameArea, 20);
+                    this.interval = setInterval(updateFunctions, 20);
                     this.score = 0
                     // runs key up/down handler when the left/right arrows are pressed
                     document.addEventListener("keydown", keyDownHandler, false);
@@ -144,15 +145,22 @@
                     if (word.y == 200) {
                         // what happens if it hits the house
                         if (house.x < word.x && word.x < house.x + 50){ //if the word is within the house
-                            // add captured word to the house of words
-                            const houseWord = document.createTextNode("hello")
-                            console.log(typeof(houseWord))
-                            document.getElementById("houseText").appendChild(houseWord);
-                            gameArea.score += 1;
+                            // create a text node and add it to house of words
+                            // depending on whether it's in the family or not, it should change colour
+                            const houseWord = document.createTextNode(word.word)
+                            if (word.family =="false"){
+                                document.getElementById("incorrect").appendChild(houseWord);
+                                gameArea.score -= 1;
+                            } else {
+                                document.getElementById("correct").appendChild(houseWord);
+                                gameArea.score += 1;
+                            }
                             word.y = 400; //remove word from game display
                         // what happens if the user misses
                         } else {
-                            gameArea.score -= 1
+                            if (word.family != "false"){ //misses and is in the family - lose a point
+                                gameArea.score -= 1
+                            }
                             word.y += 1
                             word.update();
                         }
@@ -170,7 +178,19 @@
                 // otherwise word continues to fall, save word, lose point
                 // at the end of the game, see what words are in the house, see if you go up a level
 
+                function updateFunctions() {
+                    updateGameArea()
+                    addFallingWord()
+                }
+
+                function addFallingWord() {
+                    if(ticker % 100 == 0){
+                        fallingWords.push(wordsToFall.pop());
+                    }
+                }
+
                 function updateGameArea() {
+                    ticker += 1;
                     gameArea.clear();
                     fallingWords.forEach(word =>{
                         wordsFallOrHit(word, house, gameArea)
