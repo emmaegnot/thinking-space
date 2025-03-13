@@ -1,23 +1,22 @@
 # 2024-ThinkingSpace
-[Overview](#overview) <br>
-[Technology Stack](#technology-stack)<br>
-[Stakeholders](#stakeholders)<br>
-[User Stories](#user-stories)<br>
-[Architecture Diagram](#architecture-diagram)<br>
-[User Instructions](#user-instructions)<br>
-[Developer Intstructions](#developer-instructions)<br>
-[Team Members](#team-members)<br>
+[Overview](#overview)  
+[Technology Stack](#technology-stack)  
+[Stakeholders](#stakeholders)  
+[User Stories](#user-stories)  
+[Project Structure](#project-structure)  
+[Architecture Diagram](#architecture-diagram)  
+[User Instructions](#user-instructions)  
+[Developer Instructions](#developer-instructions)  
+[Team Members](#team-members)  
 
 ## [Gantt Chart](https://uob-my.sharepoint.com/:x:/r/personal/xq23942_bristol_ac_uk/Documents/simple-gantt-chart_ms.xlsx?d=w8333c54edce74b24b194947af8785172&csf=1&web=1&e=Zb0YiD)
 
 ## [Kanban](https://github.com/orgs/spe-uob/projects/235)
 
 ## Overview
-
 This website aims to tackle behavioural problems in children by providing them with a way to communicate and express themselves through a selection of visual elements. In the standard teaching environment, the student-to-teacher ratio does not allow for behaviour management on a personal level, so we hope that this project will provide children with a safe environment to regulate their mood and feelings.
 
 ## Technology Stack
-
 - **Languages:** JavaScript, HTML, CSS, EJS to allow for dynamic pages
 - **Back End:** Node.js, using express.js as the framework
 - **Database:** MongoDB, using mongoose as an asynchronous javascript object modeling tool
