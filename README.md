@@ -61,11 +61,18 @@ Within the tests folder, you can find all of the CI tests that Github will autom
 ![arc-diagram drawio](https://github.com/user-attachments/assets/649f387c-295e-458c-8f54-b2d369a39919)
 
 ## User instructions
+### Accessing the website
 To access the website on the internet, naviagte to 13.53.72.180:3000, and this should connect you to the website, running on an AWS EC2 instance
 
 Alternatively, to run the website locally using Docker, open this link: https://hub.docker.com/repository/docker/emmaegnot/thinking-space look at the command starting with ```docker pull```, copy that and paste it into the terminal in docker.
 Press the play button in the Images section of Docker, and when the pop up appears, in optional settings, set the host port to 3000.
 Once the container is running, enter the url http://localhost:3000/ and the website will appear.
+
+### Navigating the website
+#### For Students
+From the home page, press the 'Student' button. After this you will be taken to a login page, where you will need to enter your name and your teacher's name. Press the login button and you will be taken to the main part of the website. Here, you will create a character based on your emotions. Follow the instructions, and we will try to match you with an appropriate mood! Once you reach this point (the page labelled 'Mood Matcher'), you can continue by entering some additional information about your mood and situation. The experience will end by you getting the opportunity to play our game, Feeling Families. Hopefully after this, you will feel like you are able to understand and control your emotions!
+#### For Teachers
+From the home page, select the 'Teacher button'. After this, you will be taken to a login page, where you will need to enter your name and password. There is no functionality for creating an account - this is managed by Raymer Enterprises, so if you cannot remember part of your login (or need to create an account) you need to get into contact with them. Once you have successfully logged in, you will be taken to the student info page. Here you will see a summary of any students in your class that have used our website. This includes name, matched mood, and the time they did this. Note that, if there are lots of students in the table, you will be able to scroll down. The table is sorted from newest to oldest, so the most relevant entries will appear at the top.
 
 ## Developer instructions
 To host and view the website locally, navigate to the server folder in src, then in the terminal, run ```node server.js ```. On your browser, enter the url http://localhost:3000/ and the website will appear.
