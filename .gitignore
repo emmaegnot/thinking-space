@@ -4,3 +4,4 @@ node_modules/
 src/.DS_Store
 src/public/.DS_Store
 .env
+src/server/.env

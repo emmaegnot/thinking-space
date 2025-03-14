@@ -30,8 +30,8 @@
                 <div class="houseContainer">
                     <img class="logo" id="houseImage" src="images/house.png" alt="house image" style="width: 300px; height: auto;">
                      <!--this is where the words from the game will be added-->
-                    <div class="houseText" id="correct"></div>
-                    <div class="houseText" id="incorrect"></div>
+                    <div class="houseText" id="correct"><ul id ="correctList" style="list-style-type: none;"></ul></div>
+                    <div class="houseText" id="incorrect"><ul id ="incorrectList" style="list-style-type: none;"></ul></div>
                 </div>
             </div>
 
@@ -78,8 +78,10 @@
                 canvas : document.createElement("canvas"),
                 start : function() {
                     this.interval = 0;
+                    this.canvas.id = "blueGameCanvas";
                     this.canvas.width = 480;
                     this.canvas.height = 270;
+                    this.gameOver = false;
                     this.context = this.canvas.getContext("2d");
                     this.canvas.style.backgroundColor = "rgb(121, 166, 224)";
                     this.context.font = "20px Comic Sans";
@@ -146,10 +148,12 @@
                         if (house.x < word.x && word.x < house.x + 50){ //if the word is within the house
                             // create a text node and add it to house of words
                             // depending on whether it's in the family or not, it should change colour
-                            const houseWord = document.createTextNode(word.word)
-                            houseWord.className = 'selected-word';
+                            let li = document.createElement('li');
+                            li.innerText = word.word;
+                            //const houseWord = document.createTextNode(word.word)
+                            li.className = 'selected-word';
                             if (word.family =="false"){
-                                document.getElementById("incorrect").appendChild(houseWord);
+                                document.getElementById("incorrectList").appendChild(li);
                                 gameArea.score -= 1;
                                 document.getElementById("score").innerHTML = scoreText.concat(String(gameArea.score));
                             } else {
@@ -157,9 +161,7 @@
                                 x = Math.floor(20 + Math.random() * 195)
                                 //x position in the house is a random number between 20 and 215
                                 y = Math.floor(140 + Math.random() * 110)
-                                document.body.style.setProperty('--x-pos', x);
-                                document.body.style.setProperty('--y-pos', y);
-                                document.getElementById("correct").appendChild(houseWord);
+                                document.getElementById("correctList").appendChild(li);
                                 gameArea.score += 3;
                                 document.getElementById("score").innerHTML = scoreText.concat(String(gameArea.score));
                             }
@@ -194,16 +196,14 @@
                     if(ticker % 100 == 0){
                         fallingWords.push(wordsToFall.pop());
                     }
-                    if (fallingWords.length ==0){
-                        // TODO fix this - it doesn't show up
-                        alert("GAME OVER \n Your score is ".concat(String(gameArea.score)));
-                        clearInterval(interval);
-                    }
+                    
                 }
 
                 function updateGameArea() {
                     ticker += 1;
                     gameArea.clear();
+                    // when all the words have fallen, elgently end the game
+                    
                     fallingWords.forEach(word =>{
                         wordsFallOrHit(word, house, gameArea)
                     })
@@ -217,6 +217,13 @@
                         house.x = Math.max(house.x - 5, 0);
                     }
                     house.update();
+                    if (wordsToFall.length ==0 && !gameArea.gameOver){
+                        gameArea.gameOver = true;
+                        gameArea.clear();
+                        alert("GAME OVER \n Your score is ".concat(String(gameArea.score)));
+                        document.getElementById("blueGameCanvas").remove()
+                        clearInterval(interval);
+                    }
                 }
 
         </script>
