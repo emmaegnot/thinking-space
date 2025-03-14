@@ -394,12 +394,14 @@ app.get('/teacher_login', (req, res) => {
     
 });
 
+const MAX_ATTEMPTS = 4;  // Maximum failed attempts
+const LOCK_TIME = 60 * 2000; // 2-minute lockout
+
 app.post('/teacher_login', async (req,res) => {
     req.session.teacherName = req.body.name;
-    username = req.body.name;
+    const username = req.body.name;
     const password = req.body.password;
-    console.log(req.session.teacherName);
-    console.log(password);
+
     if(db){
         try {
             const user = await Teacher.findOne({ username });
@@ -407,6 +409,12 @@ app.post('/teacher_login', async (req,res) => {
             if (!user) {
                 return res.status(401).json({ error: 'Invalid credentials' });
             }
+
+            if (user.lockUntil && user.lockUntil > Date.now()) {
+                const timeLeft = Math.ceil((user.lockUntil - Date.now()) / 1000);
+                return res.status(403).json({ error: `Too many failed attempts. Try again in ${timeLeft} seconds.` });
+            }
+    
 
             if (!user.password.startsWith("$2b$")) { 
                 console.warn("Unhashed password detected! Hashing it now.");
@@ -416,9 +424,21 @@ app.post('/teacher_login', async (req,res) => {
         
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
-                return res.status(401).json({ error: 'Invalid credentials' });
+                user.failedAttempts += 1;
+
+                if (user.failedAttempts >= MAX_ATTEMPTS) {
+                    user.lockUntil = new Date(Date.now() + LOCK_TIME);
+                    await user.save();
+                    return res.status(403).json({ error: `Too many failed attempts. Locked for 2 minutes.` });
+                } else {
+                    await user.save();
+                    return res.status(401).json({ error: `Invalid credentials. ${MAX_ATTEMPTS - user.failedAttempts} attempts left.` });
+                }
             }
 
+            user.failedAttempts = 0;
+            user.lockUntil = null;
+            await user.save();
             // Save user session
             req.session.user = { name: user.username };
             req.session.userRole = 'teacher';
