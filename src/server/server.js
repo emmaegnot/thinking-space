@@ -454,6 +454,14 @@ app.post('/teacher_login', async (req,res) => {
     }
 });
 
+
+function convertToValidDateFormat(dateString) {
+    const [date, time] = dateString.split(', ');
+    const [day, month, year] = date.split('/');
+    return `${year}-${month}-${day}T${time}`;  // Convert to ISO format (yyyy-MM-ddTHH:mm:ss)
+}
+
+
 app.get('/student_info', requireLogin(1), async (req, res) => {
     console.log("at student info");
     try {
@@ -463,7 +471,11 @@ app.get('/student_info', requireLogin(1), async (req, res) => {
             ...student.toObject(), 
             utimestamp: timeConvert(student.utimestamp)
         }));
-        formattedStudents.sort((a, b) => new Date(b.utimestamp) - new Date(a.utimestamp));
+        formattedStudents.sort((a, b) => {
+            const dateA = new Date(convertToValidDateFormat(a.utimestamp));
+            const dateB = new Date(convertToValidDateFormat(b.utimestamp));
+            return dateB - dateA;  // Sort in descending order (most recent first)
+        });
         res.render('student_info', { students: formattedStudents }); // Pass students to EJS
     } catch (error) {
         res.status(500).send("Error fetching students");
