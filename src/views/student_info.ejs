@@ -34,7 +34,7 @@
                   </tr>
                 <% } else { %>
                   <% students.forEach(student => { %>
-                      <tr class="clickable-row">
+                      <tr class="clickable-row" data-id="<%= student._id %>">
                           <td><%= student.name %></td>
                           <td><%= student.umood %></td>
                           <td><%= student.utimestamp %></td>
@@ -44,52 +44,81 @@
               </tbody>
           </table>
       </div>
+      
 
       <!-- Scroll Buttons
       <button id="scrollUp"><i class="fa-solid fa-chevron-up"></i></button>
       <button id="scrollDown"><i class="fa-solid fa-chevron-down"></i></button> -->
 
 </div>
-  
-    <footer class="footer si-footer">
-        <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
-        <span class="motto mouseM">With emotional health in mind</span>
-      </footer>
+<div id="overlay"></div>
+ 
+  <div id="specificStudent" class="index-container mouseM">
+    <h2 id="specificName"></h2>
+    <p id="specificHappened"></p>
+    <p id="specificForce"></p>
+    <p></p>
+    <button id="close">Close</button>
+  </div>
+
+<footer class="footer si-footer">
+    <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
+    <span class="motto mouseM">With emotional health in mind</span>
+</footer>
 
 </body>
 <script>
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const tableContainer = document.querySelector(".table-container");
-    // const scrollUp = document.getElementById("scrollUp");
-    // const scrollDown = document.getElementById("scrollDown");
-    
-    // function updateScrollButtons() {
-    //     scrollUp.style.display = tableContainer.scrollTop > 0 ? "block" : "none";
-    //     scrollDown.style.display = (tableContainer.scrollHeight - tableContainer.clientHeight) > tableContainer.scrollTop ? "block" : "none";
-    // }
+    document.addEventListener("DOMContentLoaded", function () {
+        const studentsHere = <%- JSON.stringify(students) %>;
+        console.log(studentsHere);
+        const tableContainer = document.querySelector(".table-container");
+        // const scrollUp = document.getElementById("scrollUp");
+        // const scrollDown = document.getElementById("scrollDown");
+        
+        // function updateScrollButtons() {
+        //     scrollUp.style.display = tableContainer.scrollTop > 0 ? "block" : "none";
+        //     scrollDown.style.display = (tableContainer.scrollHeight - tableContainer.clientHeight) > tableContainer.scrollTop ? "block" : "none";
+        // }
 
-    // scrollUp.addEventListener("click", () => {
-    //     tableContainer.scrollBy({ top: -100, behavior: "smooth" });
-    // });
+        // scrollUp.addEventListener("click", () => {
+        //     tableContainer.scrollBy({ top: -100, behavior: "smooth" });
+        // });
 
-    // scrollDown.addEventListener("click", () => {
-    //     tableContainer.scrollBy({ top: 100, behavior: "smooth" });
-    // });
+        // scrollDown.addEventListener("click", () => {
+        //     tableContainer.scrollBy({ top: 100, behavior: "smooth" });
+        // });
 
-    // tableContainer.addEventListener("scroll", updateScrollButtons);
-    // updateScrollButtons();
+        // tableContainer.addEventListener("scroll", updateScrollButtons);
+        // updateScrollButtons();
+        // Make table rows clickable
+        document.querySelectorAll(".clickable-row").forEach(row => {
+            row.addEventListener("click", function () {
+                const studentID = this.getAttribute("data-id");
+                const student = studentsHere.find(s =>  s._id === studentID);
+                if (student) {
+                    
+                    document.getElementById("specificName").innerText = student.name;
 
-    // Make table rows clickable
-    document.querySelectorAll(".clickable-row").forEach(row => {
-        row.addEventListener("click", function () {
-            alert(`You clicked on ${this.cells[0].innerText}`);
-        });
+                    
+                    document.getElementById("specificStudent").style.display = "block";
+                    document.getElementById("overlay").style.display = "block";
+                }
+            });
+            });
+        document.getElementById("close").onclick = function() {
+            document.getElementById("specificStudent").style.display = "none";
+            document.getElementById("overlay").style.display = "none";
+        }; 
+            
     });
-  });
+    
 </script>
 <style>
-  body {
+#specificStudent, #overlay {
+    display: none; /* Hide by default */
+}
+body {
     font-family: Arial, sans-serif;
 }
 
