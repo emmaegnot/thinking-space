@@ -376,7 +376,11 @@ app.post('/next-shape', (req,res) => {
     res.redirect('/choose_colour');
 })
 app.get('/choose_colour', (req,res) => {
-    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour", selectedColour: req.session.colour});
+    res.render('choose_colour', {
+        filepath: req.session.filePath,
+        title: "Choose A Colour", 
+        selectedColour: req.session.colour
+    });
 });
 
 app.post('/previous-colour', (req,res) => {
@@ -384,7 +388,11 @@ app.post('/previous-colour', (req,res) => {
 })
 
 app.post('/next-colour', (req, res) => {
+    console.log(req.body.colour)
     req.session.colour = req.body.colour;
+    // req.session.filePath2 = `images/character/shapes/${req.session.shape}/${req.session.shape}${req.session.colour}.png`;
+    var filePath = "images/character/shapes/"
+    req.session.filePath = filePath.concat(req.session.shape, "/", req.session.shape, req.session.colour, ".png")
     //req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
     res.redirect('/choose_word'); 
     
@@ -399,7 +407,11 @@ app.post('/student_login', (req, res) => {
 });
 
 app.get('/choose_word', (req,res) => {
-    res.render('choose_word', {title: "Choose A Word"});
+    res.render('choose_word', {
+        filepath: req.session.filePath,
+        selectedColour: req.session.colour,
+        title: "Choose A Word"
+    });
 });
 
 app.post('/previous-word', (req,res) => {
@@ -408,8 +420,8 @@ app.post('/previous-word', (req,res) => {
 
 app.post('/next-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
-    var filePath = "images/"
-    req.session.filePath = filePath.concat(req.session.shape, ".png")
+    var filePath = "images/character/shapes/"
+    req.session.filePath = filePath.concat(req.session.shape, "/", req.session.shape, req.session.colour, ".png")
     res.redirect('/additional_words');     
 });
 
