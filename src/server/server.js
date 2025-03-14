@@ -466,7 +466,7 @@ app.post('/next-colour', (req, res) => {
 
 
 
-app.get('/choose_word', requireStep(3),, (req,res) => {
+app.get('/choose_word', requireStep(3), (req,res) => {
     req.session.userRole = 'student';
     res.render('choose_word', {
         filepath: req.session.filePath,
