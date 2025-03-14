@@ -529,7 +529,7 @@ app.get('/weighing_things_up', (req,res) => {
     res.render('weighing_things_up', {mood: req.session.mood, title: "Weighing Things Up"});
 });
 
-app.post('/previous-happen', (req,res) => { // Go back to "what happened" page from "weighing things up"
+app.post('/back-to-what-happened', (req,res) => { // Go back to "what happened" page from "weighing things up"
     res.redirect('/what_happened', {title: "What Happened"});
 })
 
