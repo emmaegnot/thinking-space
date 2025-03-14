@@ -20,6 +20,7 @@
         
         <div class="colour-container" style="height:350px">
           <div align="center">
+            <!-- <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape"> -->
             <p class="bodyText">Click here to change!</p>
             <br>
           </div>
@@ -77,23 +78,6 @@
       const nextButton = document.getElementById("nextButton");
       // Update the chosen shape's background color on color change
       const image = document.querySelector('.chosen-shape');
-    
-      window.onload = function() {
-        const savedColor = sessionStorage.getItem('selectedColour');
-        if (savedColor) { 
-            const image = document.querySelector('.chosen-shape');
-            if (image) {
-                // image.style.backgroundColor = savedColor;
-                nextButton.disabled = false
-            }
-    
-            document.getElementById('colourForm').value = savedColor;
-        }
-
-          // Retrieve the selected shape from sessionStorage
-          const selectedShapeImage = sessionStorage.getItem('selectedShapeImage');
-          // const selectedShapeImage = sessionStorage.getItem('selectedShapeImage');
-      }
  
       function ChangeColour(chosenColour){
         nextButton.disabled = false
@@ -120,11 +104,15 @@
 
     function updateImage(chosenColour) {
       const selectedShape = sessionStorage.getItem('selectedShape');
-      const selectedShapeImage = document.querySelector(".container2 img");
-    const selectedColour = chosenColour.value;
+
+      const images = document.querySelectorAll(".container2 img");
+    const selectedShapeImage = images[images.length - 1];
+      const selectedColour = chosenColour.value;
+      if(selectedColour){
     selectedShapeImage.src = `images/character/shapes/${selectedShape}/${selectedShape}${selectedColour}.png`;
     // Show the image
     selectedShapeImage.style.display = "block";
+  }
   }
 
   // Add event listener to each button
@@ -133,6 +121,26 @@
       updateImage(this);
     });
   });
+
+  window.onload = function() {
+        sessionStorage.setItem('selectedShapeImage',"<%= filepath %>");
+        const images = document.querySelectorAll(".container2 img");
+        const selectedShapeImage = images[images.length - 1];
+        const savedColor = sessionStorage.getItem('selectedColour');
+        if (savedColor) { 
+            const image = document.querySelector(".container2 img");
+            const selectedShapeImage = images[images.length - 1];
+            if (image) {
+                // image.style.backgroundColor = savedColor;
+                nextButton.disabled = false
+            }
+    
+            document.getElementById('colourForm').value = savedColor;
+        }
+
+          // Retrieve the selected shape from sessionStorage
+          // const selectedShapeImage = sessionStorage.getItem('selectedShapeImage');
+      }
 
      </script>
  </body>

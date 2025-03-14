@@ -437,9 +437,14 @@ app.post('/next-shape', (req,res) => {
     req.session.filePath = filePath.concat(req.session.shape, "/", req.session.shape, ".png")
     res.redirect('/choose_colour');
 })
+
 app.get('/choose_colour', requireStep(2), (req,res) => {
     req.session.userRole = 'student';
-    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour", selectedColour: req.session.colour});
+    res.render('choose_colour', {
+        filepath: req.session.filePath,
+        title: "Choose A Colour", 
+        selectedColour: req.session.colour
+    });
 });
 
 app.post('/previous-colour', (req,res) => {
@@ -448,17 +453,26 @@ app.post('/previous-colour', (req,res) => {
 })
 
 app.post('/next-colour', (req, res) => {
+    console.log(req.body.colour)
     req.session.colour = req.body.colour;
     req.session.progress = 3;
+    // req.session.filePath2 = `images/character/shapes/${req.session.shape}/${req.session.shape}${req.session.colour}.png`;
+    var filePath = "images/character/shapes/";
+    req.session.filePath = filePath.concat(req.session.shape, "/", req.session.shape, req.session.colour, ".png");
     //req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
     res.redirect('/choose_word'); 
     
 });
 
 
-app.get('/choose_word', requireStep(3), (req,res) => {
+
+app.get('/choose_word', requireStep(3),, (req,res) => {
     req.session.userRole = 'student';
-    res.render('choose_word', {title: "Choose A Word"});
+    res.render('choose_word', {
+        filepath: req.session.filePath,
+        selectedColour: req.session.colour,
+        title: "Choose A Word"
+    });
 });
 
 app.post('/previous-word', (req,res) => {
@@ -469,8 +483,8 @@ app.post('/previous-word', (req,res) => {
 app.post('/next-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
     req.session.progress = 4;
-    var filePath = "images/";
-    req.session.filePath = filePath.concat(req.session.shape, ".png");
+    var filePath = "images/character/shapes/"
+    req.session.filePath = filePath.concat(req.session.shape, "/", req.session.shape, req.session.colour, ".png")
     res.redirect('/additional_words');     
 });
 
