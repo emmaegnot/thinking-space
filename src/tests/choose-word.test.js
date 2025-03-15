@@ -35,7 +35,7 @@ test("Checks if the word selection buttons are present", async () => {
     // Checks that each emotion is able to be selected as a button
     const emotions = ["Angry", "Disgusted", "Fearful", "Happy", "Sad", "Surprised"];
     emotions.forEach(emotion => {
-        expect(res.text).toContain(`<button type="button" name="emotion" value="${emotion}" onclick="highlightButton(this)">`); // For each emotion, check the response contains an input field with its name
+        expect(res.text).toContain(`<button type=\"button\" name=\"emotion\" value="${emotion}" onclick=\"highlightButton(this), showimage`); // For each emotion, check the response contains an input field with its name
     });
 });
 

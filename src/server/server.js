@@ -14,14 +14,14 @@ const app = express();
 app.use(express.urlencoded({extended:true}))
 const port = 3000;
 const shapes = {
-    cloud: ['friendly', 'comfortable', 'happy', 'dreamy'],
+    puffy: ['friendly', 'comfortable', 'happy', 'dreamy'],
     circle: ['calm', 'friendly', 'connected'],
     square: ['stable', 'calm', 'confused'],
     //parallelogram: ['unstable'],
     // hexagon: ['connected'],
     star: ['excited', 'dreamy'],
     triangle: ['angry', 'concerned', 'scared'],
-    spikeyball: ['irritated', 'scared', 'isolated']
+    spiky: ['irritated', 'scared', 'isolated']
 };
 const colours = {
     red: ['angry', 'scared'],
@@ -29,7 +29,7 @@ const colours = {
     green: ['calm'],
     yellow: ['happy'],
     cyan: ['dreamy'],
-    navy: ['dreamy'],
+    blue: ['dreamy'],
 }
 const words = {
     Angry: ['angry', 'concerned', 'confused', 'irritated'],
@@ -45,12 +45,12 @@ const words = {
 // this information has come from cross-modal correspondence research
 const shapeVectors = {
     star: [0.5, -2.5],
-    spikeyball: [-5, -5],
+    spiky: [-5, -5],
     circle: [-5, 5],
-    cloud: [-1, 1.5],
+    puffy: [-1, 1.5],
     triangle: [3, -3],
     square: [-3, 3.5],
-    bouba: [1, 1],
+    hexagon: [1, 1],
     diamond: [1, -1]
 }
 
@@ -67,7 +67,7 @@ const colourVectors = {
     green: [-0.5, 0.5],
     yellow: [3.5, 0.5],
     cyan: [-4.5, 2.5],
-    navy: [-3.5, 2.5],
+    blue: [-3.5, 2.5],
     orange: [1, -3],
     red: [-1.5, -4]
 }
@@ -371,12 +371,16 @@ app.post('/previous-shape', (req,res) => {
 app.post('/next-shape', (req,res) => {
     console.log(req.body.shape)
     req.session.shape = req.body.shape
-    var filePath = "images/"
-    req.session.filePath = filePath.concat(req.session.shape, ".png")
+    var filePath = "images/character/shapes/"
+    req.session.filePath = filePath.concat(req.session.shape, "/", req.session.shape, ".png")
     res.redirect('/choose_colour');
 })
 app.get('/choose_colour', (req,res) => {
-    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour", selectedColour: req.session.colour});
+    res.render('choose_colour', {
+        filepath: req.session.filePath,
+        title: "Choose A Colour", 
+        selectedColour: req.session.colour
+    });
 });
 
 app.post('/previous-colour', (req,res) => {
@@ -384,7 +388,11 @@ app.post('/previous-colour', (req,res) => {
 })
 
 app.post('/next-colour', (req, res) => {
+    console.log(req.body.colour)
     req.session.colour = req.body.colour;
+    // req.session.filePath2 = `images/character/shapes/${req.session.shape}/${req.session.shape}${req.session.colour}.png`;
+    var filePath = "images/character/shapes/"
+    req.session.filePath = filePath.concat(req.session.shape, "/", req.session.shape, req.session.colour, ".png")
     //req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
     res.redirect('/choose_word'); 
     
@@ -399,7 +407,11 @@ app.post('/student_login', (req, res) => {
 });
 
 app.get('/choose_word', (req,res) => {
-    res.render('choose_word', {title: "Choose A Word"});
+    res.render('choose_word', {
+        filepath: req.session.filePath,
+        selectedColour: req.session.colour,
+        title: "Choose A Word"
+    });
 });
 
 app.post('/previous-word', (req,res) => {
@@ -408,8 +420,8 @@ app.post('/previous-word', (req,res) => {
 
 app.post('/next-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
-    var filePath = "images/"
-    req.session.filePath = filePath.concat(req.session.shape, ".png")
+    var filePath = "images/character/shapes/"
+    req.session.filePath = filePath.concat(req.session.shape, "/", req.session.shape, req.session.colour, ".png")
     res.redirect('/additional_words');     
 });
 
