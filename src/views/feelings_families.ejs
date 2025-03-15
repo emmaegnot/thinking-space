@@ -185,6 +185,7 @@
                 // update until all words have fallen
                 // at the end of the game, see what words are in the house, see if you go up a level
 
+                //this allows there to be a fast and slow function, words fall at a slower speed than the game is updated
                 function updateFunctions() {
                     updateGameArea()
                     addFallingWord()
@@ -200,8 +201,6 @@
                 function updateGameArea() {
                     ticker += 1;
                     gameArea.clear();
-                    // when all the words have fallen, elgently end the game
-                    
                     fallingWords.forEach(word =>{
                         wordsFallOrHit(word, house, gameArea)
                     })
@@ -215,6 +214,7 @@
                         house.x = Math.max(house.x - 5, 0);
                     }
                     house.update();
+                    // when all the words have fallen, trigger game over
                     if (wordsToFall.length ==0 && !gameArea.gameOver){
                         gameArea.gameOver = true;
                         gameArea.clear();
