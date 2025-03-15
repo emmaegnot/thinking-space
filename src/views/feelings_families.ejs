@@ -10,9 +10,7 @@
         <div class="maincontainer">
             <div class="container1 mouseM" id="gameCanvas">  
                 <h1 class="colouredText">Feeling Families</h1>
-                <div class="houseContainer">
-                    
-                </div>
+                <div class="bodyText" id="instructionsDiv"></div>
                 <p id="instructions" class="bodyText">The aim of the game is to put feelings into families!
                     <br>First, choose the head of the family. This is a key emotion.
                     <br>Words will start coming down and you need to catch them in the house if that word is related to the head of the family.
@@ -222,7 +220,14 @@
                         gameArea.clear();
                         alert("GAME OVER \n Your score is ".concat(String(gameArea.score)));
                         document.getElementById("blueGameCanvas").remove()
-                        clearInterval(interval);
+                        let finishText = document.createTextNode("Well done for making your feelings family! \n The words in green are correct but the words in red aren't. Why do you think the red words aren't in the family?");
+                        let reengageText = document.createTextNode("\n It's time to return to learning now, remember you can always speak to someone about how you're feeling");
+                        let br = document.createElement("br");
+                        document.getElementById("instructionsDiv").appendChild(finishText);
+                        document.getElementById("instructionsDiv").appendChild(br);
+                        document.getElementById("instructionsDiv").appendChild(br);
+                        document.getElementById("instructionsDiv").appendChild(reengageText);
+                        clearInterval(gameArea.interval);
                     }
                 }
 
