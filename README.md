@@ -20,7 +20,7 @@ This website aims to tackle behavioural problems in children by providing them w
 - **Languages:** JavaScript, HTML, CSS, EJS to allow for dynamic pages
 - **Back End:** Node.js, using express.js as the framework
 - **Database:** MongoDB, using mongoose as an asynchronous javascript object modeling tool
-- **Targeted Platform:** Browser
+- **Targeted Platform:** Browser, designed for desktops/laptops
 
 ## Stakeholders
 - Raymer Enterprise Ltd
