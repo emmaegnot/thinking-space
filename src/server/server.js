@@ -623,7 +623,7 @@ app.get('/weighing_things_up', (req,res) => {
 });
 
 app.post('/back-to-what-happened', (req,res) => { // Go back to "what happened" page from "weighing things up"
-    res.redirect('/what_happened', {title: "What Happened"});
+    res.redirect('/what_happened');
 })
 
 const server = app.listen(port, () => {
