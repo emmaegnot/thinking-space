@@ -11,18 +11,20 @@
       </ul>
     </nav>
 
-    <div class="container mouseM">      
+    <div class="maincontainer">
+    <div class="container1 mouseM">      
       <form id="colourForm" method="post">
-        <input type="hidden" id="colourInput" name="colour" value="none">
+        <input type="hidden" id="colourInput" name="colour" value="rgba(198, 245, 239, 1)">
         <h1 class="colouredText">Choose a colour!</h1>
         <p class="bodyText">Colour in your mood shape</p>
-        <div class="colour-container">
+        
+        <div class="colour-container" style="height:350px">
           <div align="center">
-            <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape" style="background-color: <%= selectedColour %>;">
+            <!-- <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape"> -->
             <p class="bodyText">Click here to change!</p>
             <br>
           </div>
-          <div class="colour" align="center">
+          <div class="colour" align="center" style="position:relative; top:70px;">
             <label>
               <input type="button" name="colourValue" value="red" style="background-color: #ed3020; color: #ed3020" onclick="ChangeColour(this)">
             </label>
@@ -39,7 +41,7 @@
               <input type="button" name="colourValue" value="cyan" style="background-color:#6ffcfe; color: #6ffcfe" onclick="ChangeColour(this)">
             </label>
             <label>
-              <input type="button" name="colourValue" value="navy" style="background-color:#3a5ac2; color: #3a5ac2" onclick="ChangeColour(this)">
+              <input type="button" name="colourValue" value="blue" style="background-color:#3a5ac2; color: #3a5ac2" onclick="ChangeColour(this)">
             </label>
           </div>
         </div>
@@ -50,54 +52,38 @@
           </div>
         </form>
     </div>
-    <!-- Footer with logo and motto aligned to left and right -->
-    <footer class="footer">
-      <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
-      <span class="motto mouseM">With emotional health in mind</span>
-    </footer>
-    <script>
 
-      // const pickr = Pickr.create({
-      //    el: '#color-picker',
-      //    theme: 'classic',
-      //    default: 'rgba(198, 245, 239, 1)',
-     
-      //    components: {
-      //      preview: true,
-      //      opacity: false,
-      //      hue: true,
-     
-      //      interaction: {
-      //        hex: true,
-      //        rgba: false,
-      //        input: false,
-      //        save: false
-      //      }
-      //    }
-      //  });
-    
-      
+    <div class="container2 mouseM" class="colour-container">
+      <div align="center">
+      <div class="colour-container">
+      <h1 class="colouredText">Your character</h1>
+      <img src="<%= filepath %>" alt="coloured shape">
+      <!-- <img id="selectedShapeImage" src="" alt="Selected Shape"></img> -->
+      <!-- <img id="selectedColourImage" src="" alt="Selected Colour" style="max-width: 100%; height: auto;"></img> -->
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+</div>
+
+<footer class="footer">
+  <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
+  <span class="motto mouseM">With emotional health in mind</span>
+</footer>
+
+
+
+
+      <script>
       const nextButton = document.getElementById("nextButton");
       // Update the chosen shape's background color on color change
       const image = document.querySelector('.chosen-shape');
-    
-      window.onload = function() {
-      }
-      // pickr.on('change', (color) => {
-      //    const rgbaColor = color.toRGBA().toString();
-      //    nextButton.disabled = false
-      //    document.getElementById('colourInput').value = rgbaColor; // Update the hidden input
-      //    const image = document.querySelector('.chosen-shape');
-      //    if (image) {
-      //        image.style.backgroundColor = rgbaColor; // Update the background of the shape
-      //    }
-      //    sessionStorage.setItem('selectedColor', rgbaColor);
-      //  });
+ 
       function ChangeColour(chosenColour){
         nextButton.disabled = false
         sessionStorage.setItem('selectedColour', chosenColour.value);
         document.getElementById('colourInput').value = chosenColour.value;
-        image.style.backgroundColor = chosenColour.value;
+        // image.style.backgroundColor = chosenColour.value;
       }
 
       document.getElementById('backButton').addEventListener('click', function() {
@@ -111,7 +97,51 @@
           form.action = '/next-colour';
           form.submit();
       });
+
+        // Get all color buttons
+        const colorButtons = document.querySelectorAll('input[name="colourValue"]');
+        const selectedColourImage = document.getElementById("selectedColourImage");
+
+    function updateImage(chosenColour) {
+      const selectedShape = sessionStorage.getItem('selectedShape');
+
+      const images = document.querySelectorAll(".container2 img");
+    const selectedShapeImage = images[images.length - 1];
+      const selectedColour = chosenColour.value;
+      if(selectedColour){
+    selectedShapeImage.src = `images/character/shapes/${selectedShape}/${selectedShape}${selectedColour}.png`;
+    // Show the image
+    selectedShapeImage.style.display = "block";
+  }
+  }
+
+  // Add event listener to each button
+  colorButtons.forEach(button => {
+    button.addEventListener("click", function () {
+      updateImage(this);
+    });
+  });
+
+  window.onload = function() {
+        sessionStorage.setItem('selectedShapeImage',"<%= filepath %>");
+        const images = document.querySelectorAll(".container2 img");
+        const selectedShapeImage = images[images.length - 1];
+        const savedColor = sessionStorage.getItem('selectedColour');
+        if (savedColor) { 
+            const image = document.querySelector(".container2 img");
+            const selectedShapeImage = images[images.length - 1];
+            if (image) {
+                // image.style.backgroundColor = savedColor;
+                nextButton.disabled = false
+            }
     
+            document.getElementById('colourForm').value = savedColor;
+        }
+
+          // Retrieve the selected shape from sessionStorage
+          // const selectedShapeImage = sessionStorage.getItem('selectedShapeImage');
+      }
+
      </script>
  </body>
 
