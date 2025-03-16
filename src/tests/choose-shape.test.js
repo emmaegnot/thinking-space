@@ -23,10 +23,9 @@ test("Checks that all shape options are present", async () => {
 
     const agent = request.agent(app); // Creates a persistent session
     await agent.post('/student_login');
-    const res = await request(app).get("/choose_shape");
+    // const res = await request(app).get("/choose_shape");
+    const res = await agent.get("/choose_shape");  // Make a request to the server
     const shapes = ["diamond", "circle", "square", "star", "triangle", "spiky", "puffy", "bouba"];
-    // const res = await agent.get("/choose_shape");  // Make a request to the server
-    // const shapes = ["diamond", "circle", "square", "star", "triangle", "spiky", "puffy", "bouba"];
 
     shapes.forEach(shape => {
         expect(res.text).toContain(`value="${shape}"`); // For each shape, check the response contains an input field with its name
