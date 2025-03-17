@@ -319,7 +319,6 @@ if (process.env.MONGO_URI != null){
 //     }
 // });
 
-
 app.set('view engine','ejs');
 app.set('views', path.join(__dirname, '../views'))
 
@@ -440,7 +439,11 @@ app.post('/next-shape', (req,res) => {
 
 app.get('/choose_colour', requireStep(2), (req,res) => {
     req.session.userRole = 'student';
-    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour", selectedColour: req.session.colour});
+    res.render('choose_colour', {
+        filepath: req.session.filePath,
+        title: "Choose A Colour", 
+        selectedColour: req.session.colour
+    });
 });
 
 app.post('/previous-colour', (req,res) => {
@@ -453,8 +456,8 @@ app.post('/next-colour', (req, res) => {
     req.session.colour = req.body.colour;
     req.session.progress = 3;
     // req.session.filePath2 = `images/character/shapes/${req.session.shape}/${req.session.shape}${req.session.colour}.png`;
-    var filePath = "images/character/shapes/"
-    req.session.filePath = filePath.concat(req.session.shape, "/", req.session.shape, req.session.colour, ".png")
+    var filePath = "images/character/shapes/";
+    req.session.filePath = filePath.concat(req.session.shape, "/", req.session.shape, req.session.colour, ".png");
     //req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
     res.redirect('/choose_word'); 
     
@@ -462,7 +465,11 @@ app.post('/next-colour', (req, res) => {
 
 app.get('/choose_word', requireStep(3), (req,res) => {
     req.session.userRole = 'student';
-    res.render('choose_word', {filepath: req.session.filePath, selectedColour: req.session.colour, title: "Choose A Word"});
+    res.render('choose_word', {
+        filepath: req.session.filePath,
+        selectedColour: req.session.colour,
+        title: "Choose A Word"
+    });
 });
 
 app.post('/previous-word', (req,res) => {
