@@ -2,14 +2,28 @@ const request = require("supertest");
 const {server, app, shapes, colours, words, additionalWords} = require("../server/server");
 
 test("Checks page is rendered with the correct title and icon", async () => {
-    const res = await request(app).get("/mood_summary");
+    const agent = request.agent(app); // Creates a persistent session
+    await agent.post('/student_login');
+    await agent.post("/next-shape");
+    await agent.post("/next-colour");
+    await agent.post("/next-word");
+    await agent.post("/next-additional");
+    await agent.post("/submit-force");
+    const res = await agent.get("/mood_summary");
     expect(res.status).toBe(200); // Status code 200 indicates a successful request and response
     expect(res.text).toContain("<title>The Thinking Space | Mood Summary</title>"); // Checks dynamic title
     expect(res.text).toEqual(expect.stringContaining('<link rel="icon" href="/images/icon.png" sizes="64x64">')); // Check icon is included in response
 });
 
 test("Checks nav contains title and home link", async () => {
-    const res = await request(app).get("/mood_summary");
+    const agent = request.agent(app); // Creates a persistent session
+    await agent.post('/student_login');
+    await agent.post("/next-shape");
+    await agent.post("/next-colour");
+    await agent.post("/next-word");
+    await agent.post("/next-additional");
+    await agent.post("/submit-force");
+    const res = await agent.get("/mood_summary");
     expect(res.status).toBe(200);
     expect(res.text).toContain('<li><a>THE THINKING SPACE</a></li>');
     expect(res.text).toContain('<li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>');
@@ -17,6 +31,7 @@ test("Checks nav contains title and home link", async () => {
 
 test("Checks page is rendered with a mood", async () => {
     const agent = request.agent(app); // Creates a persistent session
+    await agent.post("/student_login");
     await agent.post('/next-shape'); // Choose shape
     await agent.post('/next-colour'); // Choose colour
     await agent.post('/next-word'); // Choose word
@@ -36,6 +51,7 @@ test("Checks page is rendered with a mood for every shape, colour, and word comb
             for (const word of Object.keys(words)) { // For each word
                 // Nested for loops mean every combination of shape, colour and word is tested
                 // Send the server all the data
+                await agent.post('/student_login');
                 await agent.post('/next-shape').send("shape=" + shape);
                 await agent.post('/next-colour').send("colour=" + colour );
                 await agent.post('/next-word').send("selectedEmotion=" + word );
@@ -56,6 +72,7 @@ test("Checks that the selected mood persists across sessions", async () => {
     // In server, the cloud shape, yellow and Happy are all associated with the mood 'happy'
     // There is no better fit, so it is guaranteed to match as happy
     // So we send this data and check that it matches correctly
+    await agent.post('/student_login');
     await agent.post('/next-shape').send("shape=puffy");
     await agent.post('/next-colour').send("colour=yellow");
     await agent.post('/next-word').send("selectedEmotion=Happy");
@@ -68,7 +85,14 @@ test("Checks that the selected mood persists across sessions", async () => {
 });
 
 test("Checks footer contains the logo and motto", async () => {
-    const res = await request(app).get("/mood_summary");
+    const agent = request.agent(app); // Creates a persistent session
+    await agent.post('/student_login');
+    await agent.post("/next-shape");
+    await agent.post("/next-colour");
+    await agent.post("/next-word");
+    await agent.post("/next-additional");
+    await agent.post("/submit-force");
+    const res = await agent.get("/mood_summary");
     expect(res.status).toBe(200);
     expect(res.text).toContain('<img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd"');
     expect(res.text).toContain('<span class="motto mouseM">With emotional health in mind</span>');
