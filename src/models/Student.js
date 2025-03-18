@@ -9,6 +9,7 @@ const StudentSchema = new mongoose.Schema({
     uadditionalWords: [String], 
     uforce: Number, 
     umood: String,
+    whatHappened: String,
     utimestamp: { type: Date, default: Date.now }
 });
 
