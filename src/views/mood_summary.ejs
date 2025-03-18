@@ -8,7 +8,8 @@
       </ul>
     </nav>
 
-    <div class="container mouseM">  
+    <div class="maincontainer"> 
+    <div class="container1 mouseM">  
     <h1 class="colouredText">Mood Matcher</h1>
     <h2 class="colouredText">Are you feeling <%= mood %> ? </h2>
 
@@ -28,6 +29,21 @@
   </form>
 </div>
 
+<div class="container2 mouseM" class="colour-container">
+  <div align="center">
+  <div class="colour-container">
+  <h1 class="colouredText">Your character</h1>
+  <div style="position: relative;display: inline-block;">
+  <img src="<%= filepath %>" id="selectedShapeImage" alt="selected emotion">
+  <img id="emotionImage" src="" alt="Emotion Overlay" style="position: absolute; top: 0; left: 0;width: 100%; height: 100%; object-fit: contain; display: none;">
+</div>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+
+</div>
+
     <!-- Footer with logo and motto aligned to left and right -->
     <footer class="footer">
       <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
@@ -35,6 +51,24 @@
     </footer>
  </body>
  <script>
+ document.addEventListener('DOMContentLoaded', () => {
+        const selectedEmotion = sessionStorage.getItem('emotion');
+
+        const emotionImages = {
+    "Angry": "/images/character/expressions/angry.png",
+    "Disgusted": "/images/character/expressions/disgusted.png",
+    "Fearful": "/images/character/expressions/fearful.png",
+    "Happy": "/images/character/expressions/happy.png",
+    "Sad": "/images/character/expressions/sad.png",
+    "Surprised": "/images/character/expressions/surprised.png"
+  };
+
+  const emotionImage = document.getElementById('emotionImage');
+  emotionImage.src = emotionImages[selectedEmotion];
+    emotionImage.style.display = "block";
+    
+});
+
   const colourPicker = document.querySelector(".colourPicker");
   const image = document.querySelector(".chosen-shape");
   colourPicker.addEventListener("input", function() {
