@@ -507,7 +507,7 @@ app.post('/next-additional', (req, res) => {
 
 app.get('/feeling_force', requireStep(5), (req,res) => {
     req.session.userRole = 'student';
-    res.render('feeling_force', {title: "Feeling Force"});
+    res.render('feeling_force', {filepath: req.session.filePath, title: "Feeling Force"});
 });
 
 app.post('/previous-force', (req,res) => { //back
@@ -585,7 +585,7 @@ app.get('/mood_summary', requireStep(6),async (req,res) => {
         }
     }
     
-    res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
+    res.render('mood_summary', {filepath: req.session.filePath, mood: req.session.mood, title: "Mood Summary"});
 });
 
 app.post('/previous-mood', (req,res) => { //back
