@@ -628,24 +628,6 @@ app.get('/mood_summary', requireStep(6),async (req,res) => {
     }
 
     req.session.mood = mood;
-
-    if(db){
-        try {
-            await StudentMood.create({
-                name: req.session.name, // change to name when implemented
-                classCode: req.session.studentCode,
-                ushape: shape,
-                ucolor: colour,
-                uword: wordDB,
-                uadditionalWords: addWords, 
-                uforce: force,
-                umood: req.session.mood, 
-            });
-            console.log("Mood data saved!");
-        } catch (error) {
-            console.error("Error saving mood data:", error);
-        }
-    }
     
     res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
 });
@@ -671,11 +653,30 @@ app.post('/previous-happen', (req,res) => { //back
     res.redirect('/mood_summary');
 })
 
-app.post('/submit-text', (req, res) => { //next     
+app.post('/submit-text', async (req, res) => { //next     
     req.session.what = req.body.what;  
     const what = req.session.what;
     req.session.progress = 8;
     console.log(what);
+    if(db){
+        try {
+            await StudentMood.create({
+                name: req.session.name, // change to name when implemented
+                classCode: req.session.studentCode,
+                ushape: req.session.shape,
+                ucolor: req.session.colour,
+                uword: req.session.word,
+                uadditionalWords: req.session.additional, 
+                uforce: req.session.force,
+                whatHappened: req.session.what,
+                umood: req.session.mood, 
+            });
+            console.log("Mood data saved!");
+        } catch (error) {
+            console.error("Error saving mood data:", error);
+        }
+    }
+    res.redirect('/')
 });
 
 const server = app.listen(port, () => {
