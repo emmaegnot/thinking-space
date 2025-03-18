@@ -55,7 +55,9 @@
  
   <div id="specificStudent" class="index-container mouseM">
     <h2 id="specificName"></h2>
+    <h3>What happened:</h3>
     <p id="specificHappened"></p>
+    <h3>Feeling Force:</h3>
     <p id="specificForce"></p>
     <p></p>
     <button id="close">Close</button>
@@ -99,13 +101,15 @@
                 if (student) {
                     
                     document.getElementById("specificName").innerText = student.name;
-
+                    document.getElementById("specificHappened").innerText = student.whatHappened;
+                    document.getElementById("specificForce").innerText = student.uforce;
+                    
                     
                     document.getElementById("specificStudent").style.display = "block";
                     document.getElementById("overlay").style.display = "block";
                 }
             });
-            });
+        });
         document.getElementById("close").onclick = function() {
             document.getElementById("specificStudent").style.display = "none";
             document.getElementById("overlay").style.display = "none";
@@ -117,6 +121,9 @@
 <style>
 #specificStudent, #overlay {
     display: none; /* Hide by default */
+    border: 3px solid #ddd;
+    border-radius: 15px;
+    z-index: 1001;
 }
 body {
     font-family: Arial, sans-serif;
