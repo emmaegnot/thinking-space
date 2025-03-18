@@ -29,7 +29,7 @@ jobs:
         # Get EC2 IP using AWS CLI
         EC2_IP=$(aws ec2 describe-instances --instance-ids ${{ secrets.AWS_INSTANCE_ID }} --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
 
-        # Use SSM to deploy to EC2 instance
+        # Deploy application using AWS SSM
         aws ssm send-command \
           --instance-ids ${{ secrets.AWS_INSTANCE_ID }} \
           --document-name "AWS-RunShellScript" \
@@ -41,6 +41,7 @@ jobs:
             "docker build -t my-node-app .",
             "docker stop my-node-app || true",
             "docker rm my-node-app || true",
-            "docker run -d -p 3000:3000 --name my-node-app -e MONGO_URI=\"${{ secrets.MONGO_URI }}\" my-node-app"
+            "docker run -d -p 3000:3000 --name my-node-app -e MONGO_URI=\"${{ secrets.MONGO_URI }}\" my-node-app",
+            "sudo systemctl restart nginx"
           ]' \
-          --comment "Deploy app update"
+          --comment "Deploy app update and restart NGINX"
