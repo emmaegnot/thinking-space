@@ -15,8 +15,9 @@
             <!-- Selected words on the left will appear here -->
           </div>
 
-          <div align="center">
+          <div class="word-container" align="center" style="position: relative;">
             <img class="chosen-shape" src="<%= filepath %>" />
+            <img id="emotionImage" src="images/character/expressions/angry.png" alt="Emotion Overlay" style="position: absolute; top: 0; left: 0;width: 100%; height: 100%; object-fit: contain; z-index: 10;">
           </div>
 
           <div class="selected-words right-words">
@@ -146,6 +147,20 @@
       }
         
       document.addEventListener('DOMContentLoaded', () => {
+        const selectedEmotion = sessionStorage.getItem('emotion');
+
+        const emotionImages = {
+    "Angry": "/images/character/expressions/angry.png",
+    "Disgusted": "/images/character/expressions/disgusted.png",
+    "Fearful": "/images/character/expressions/fearful.png",
+    "Happy": "/images/character/expressions/happy.png",
+    "Sad": "/images/character/expressions/sad.png",
+    "Surprised": "/images/character/expressions/surprised.png"
+  };
+
+  const emotionImage = document.getElementById('emotionImage');
+  emotionImage.src = emotionImages[selectedEmotion];
+    emotionImage.style.display = "block";
         const selectedWordsString = sessionStorage.getItem('selectedWords') || '';
         const selectedWords = selectedWordsString.split(',');
         selectedWords.forEach(word => {

@@ -569,7 +569,7 @@ app.post('/next-additional', (req, res) => {
 
 app.get('/feeling_force', requireStep(5), (req,res) => {
     req.session.userRole = 'student';
-    res.render('feeling_force', {title: "Feeling Force"});
+    res.render('feeling_force', {filepath: req.session.filePath, title: "Feeling Force"});
 });
 
 app.post('/previous-force', (req,res) => { //back
@@ -629,7 +629,7 @@ app.get('/mood_summary', requireStep(6),async (req,res) => {
 
     req.session.mood = mood;
     
-    res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
+    res.render('mood_summary', {filepath: req.session.filePath, mood: req.session.mood, title: "Mood Summary"});
 });
 
 app.post('/previous-mood', (req,res) => { //back
@@ -676,11 +676,22 @@ app.post('/submit-text', async (req, res) => { //next
             console.error("Error saving mood data:", error);
         }
     }
-    res.redirect('/')
+    res.redirect('/weighing_things_up');
+
 });
+
+app.get('/weighing_things_up', requireStep(8), (req,res) => {
+    res.render('weighing_things_up', {mood: req.session.mood, title: "Weighing Things Up"});
+});
+
+app.post('/back-to-what-happened', (req,res) => { // Go back to "what happened" page from "weighing things up"
+    req.session.progress = 8;
+    res.redirect('/what_happened');
+})
 
 const server = app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
 
 module.exports = {generaliseColour, server, app, shapes, colours, words, connectDB, additionalWords};

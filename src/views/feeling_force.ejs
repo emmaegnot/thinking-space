@@ -15,7 +15,8 @@
         </ul>
     </nav>
 
-    <div class="container mouseM" style="width: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <div class="maincontainer">
+    <div class="container1 mouseM" style="height: 465px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
         <h2 class = "colouredText">Feeling force</h2>
 
         <p class="bodyText">How strong are your feelings right now? Press the plus and minus buttons!</p>
@@ -39,10 +40,7 @@
             </div>
             
             <p id="clickCount"></p>
-
         </div>
-
-    <!-- pass a force value -->
 
         <form id = "form" action="submit-force" method="post">
             <input id="clickCountInput" name="clickCount" type="hidden" value="5" >
@@ -56,13 +54,35 @@
                 <button type="button-div" id="backButton">BACK</button>
             </div>
         </form>
+        </div>
 
-    </div>
+        <div class="container2 mouseM" class="colour-container">
+            <div align="center">
+            <div class="colour-container">
+            <h1 class="colouredText">Your character</h1>
+            <div style="position: relative;display: inline-block;">
+            <img src="<%= filepath %>" id="selectedShapeImage" alt="selected emotion">
+            <img id="emotionImage" src="" alt="Emotion Overlay" style="position: absolute; top: 0; left: 0;width: 100%; height: 100%; object-fit: contain; display: none;">
+          </div>
+          </div>
+          <div class="clear"></div>
+          </div>
+          </div>
+            </div>
+          
+
+    <!-- pass a force value -->
+
+        
+
+
     
     <footer class="footer">
         <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
         <span class="motto mouseM">With emotional health in mind</span>
     </footer>
+
+    
 
     <script>
         function sendDataToServer() {
@@ -103,6 +123,24 @@
             document.getElementById("clickCount").innerHTML = clickCount;
             document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+        const selectedEmotion = sessionStorage.getItem('emotion');
+
+        const emotionImages = {
+    "Angry": "/images/character/expressions/angry.png",
+    "Disgusted": "/images/character/expressions/disgusted.png",
+    "Fearful": "/images/character/expressions/fearful.png",
+    "Happy": "/images/character/expressions/happy.png",
+    "Sad": "/images/character/expressions/sad.png",
+    "Surprised": "/images/character/expressions/surprised.png"
+  };
+
+  const emotionImage = document.getElementById('emotionImage');
+  emotionImage.src = emotionImages[selectedEmotion];
+    emotionImage.style.display = "block";
+
+});
     </script>
 
 </body>
