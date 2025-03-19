@@ -54,7 +54,7 @@ const shapeVectors = {
     puffy: [-1, 1.5],
     triangle: [3, -3],
     square: [-3, 3.5],
-    hexagon: [1, 1],
+    bouba: [1, 1],
     diamond: [1, -1]
 }
 
