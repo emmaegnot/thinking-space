@@ -100,13 +100,6 @@
     
 
     <script>
-        function shakeCharacter()
-        {
-            document.getElementById("emotionImage").style.animation  = "shake 0.5s";
-            document.getElementById("selectedShapeImage").style.animation  = "shake 0.5s";
-            document.getElementById("emotionImage").style.animationIterationCount = "infinite";
-            document.getElementById("selectedShapeImage").style.animationIterationCount = "infinite";
-        }
 
         function stopCharacterShake()
         {
@@ -114,7 +107,17 @@
             document.getElementById("selectedShapeImage").style.animation  = "shake 0.5s";
             document.getElementById("emotionImage").style.animationIterationCount = "0";
             document.getElementById("selectedShapeImage").style.animationIterationCount = "0";
+        } 
+		
+	function shakeCharacter(clickCount)
+        {
+	    if(clickCount == 0) { stopCharacterShake(); return; }
+            document.getElementById("emotionImage").style.animation  = "shake" + clickCount + " 0.5s";
+            document.getElementById("selectedShapeImage").style.animation  = "shake" + clickCount + " 0.5s";
+            document.getElementById("emotionImage").style.animationIterationCount = "infinite";
+            document.getElementById("selectedShapeImage").style.animationIterationCount = "infinite";
         }
+		
         function sendDataToServer() {
             document.getElementById("clickCountInput").value = clickCount;
             document.getElementById("form").submit();
@@ -141,7 +144,7 @@
             document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
         //    if(clickCount >= 7) shakeCharacter();
         //   else stopCharacterShake();
-	         		shakeCharacter();
+			shakeCharacter(clickCount);
         }
 
         function increase() {
@@ -154,7 +157,7 @@
             }
          //   if(clickCount >= 7) shakeCharacter();
          //   else stopCharacterShake();
-		 	        shakeCharacter();
+		 	shakeCharacter(clickCount);
             document.getElementById("clickCount").innerHTML = clickCount;
             document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
         }
