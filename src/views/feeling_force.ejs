@@ -102,6 +102,8 @@
     <script>
         function shakeCharacter()
         {
+            document.getElementById("emotionImage").style.animation  = "shake 0.5s";
+            document.getElementById("emotionImage").style.animation-iteration-count = "infinite";
         }
         function sendDataToServer() {
             document.getElementById("clickCountInput").value = clickCount;
