@@ -319,7 +319,6 @@ if (process.env.MONGO_URI != null){
 //     }
 // });
 
-
 app.set('view engine','ejs');
 app.set('views', path.join(__dirname, '../views'))
 
@@ -463,8 +462,6 @@ app.post('/next-colour', (req, res) => {
     res.redirect('/choose_word'); 
     
 });
-
-
 
 app.get('/choose_word', requireStep(3), (req,res) => {
     req.session.userRole = 'student';
