@@ -139,8 +139,9 @@
 
             document.getElementById("clickCount").innerHTML = clickCount;
             document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
-            if(clickCount >= 7) shakeCharacter();
-            else stopCharacterShake();
+        //    if(clickCount >= 7) shakeCharacter();
+        //   else stopCharacterShake();
+	         		shakeCharacter();
         }
 
         function increase() {
@@ -151,8 +152,9 @@
             if (clickCount < 10) {
                 clickCount++;
             }
-            if(clickCount >= 7) shakeCharacter();
-            else stopCharacterShake();
+         //   if(clickCount >= 7) shakeCharacter();
+         //   else stopCharacterShake();
+		 	        shakeCharacter();
             document.getElementById("clickCount").innerHTML = clickCount;
             document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
         }
