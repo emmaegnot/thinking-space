@@ -622,6 +622,17 @@ app.post('/back-to-what-happened', (req,res) => { // Go back to "what happened" 
     res.redirect('/what_happened');
 })
 
+app.post('/submit-what', (req, res) => { 
+    res.redirect('/feelings_families');
+});
+
+app.get('/what_happened', (req,res) => {
+res.render('what_happened', {title: "What Happened"});
+});
+
+app.get('/feelings_families', (req,res) => {
+res.render('feelings_families', {title: "Game"});
+});
 
 
 const server = app.listen(port, () => {
