@@ -7,6 +7,21 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <link rel="stylesheet" href="style.css">
 </head>
+<!-- <style>
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+</style> -->
 <body>
     <nav class="mouseM">
         <ul class="header">
@@ -85,6 +100,24 @@
     
 
     <script>
+
+        function stopCharacterShake()
+        {
+            document.getElementById("emotionImage").style.animation  = "shake 0.5s";
+            document.getElementById("selectedShapeImage").style.animation  = "shake 0.5s";
+            document.getElementById("emotionImage").style.animationIterationCount = "0";
+            document.getElementById("selectedShapeImage").style.animationIterationCount = "0";
+        } 
+		
+	function shakeCharacter(clickCount)
+        {
+	    if(clickCount == 0) { stopCharacterShake(); return; }
+            document.getElementById("emotionImage").style.animation  = "shake" + clickCount + " 0.5s";
+            document.getElementById("selectedShapeImage").style.animation  = "shake" + clickCount + " 0.5s";
+            document.getElementById("emotionImage").style.animationIterationCount = "infinite";
+            document.getElementById("selectedShapeImage").style.animationIterationCount = "infinite";
+        }
+		
         function sendDataToServer() {
             document.getElementById("clickCountInput").value = clickCount;
             document.getElementById("form").submit();
@@ -109,6 +142,9 @@
 
             document.getElementById("clickCount").innerHTML = clickCount;
             document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
+        //    if(clickCount >= 7) shakeCharacter();
+        //   else stopCharacterShake();
+			shakeCharacter(clickCount);
         }
 
         function increase() {
@@ -119,7 +155,9 @@
             if (clickCount < 10) {
                 clickCount++;
             }
-
+         //   if(clickCount >= 7) shakeCharacter();
+         //   else stopCharacterShake();
+		 	shakeCharacter(clickCount);
             document.getElementById("clickCount").innerHTML = clickCount;
             document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
         }
