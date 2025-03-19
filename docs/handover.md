@@ -6,7 +6,6 @@
 - [System Architecture](#system-architecture)
 - [Project Structure](#project-structure)
 - [Database Structure](#database-structure)
-- [AWS Setup](#aws-setup)
 - [Further Documentation](#further-documentation)
 
 ## Introduction
@@ -31,6 +30,8 @@ First, you will need Node.js and Docker installed on your machine:
 The next step is to create a local copy of the repository:
 
 - Run ```git clone https://github.com/spe-uob/2024-ThinkingSpace.git```
+
+In order to install all dependencies, run ```npm install```
 
 ### Environment variables
 
@@ -93,11 +94,21 @@ ssh -i /path/to/new-key.pem ec2-user@13.53.72.180
 ```
 
 ## System Architecture
+The architecure diagram can be found here:
+![arc-diagram drawio](https://github.com/user-attachments/assets/649f387c-295e-458c-8f54-b2d369a39919)
 
 ## Project Structure
+Code relating to the project itself can be found in the src folder at root level. Anything outside of this folder are files for Github, Docker, Node.js or generic project work like this README and some research. In src, the code can generally be organised into four sections: database, frontend, backend and CI.
+### Database
+Within the models folder, we have two pieces of Javascript code, Student.js and Teacher.js. These define the Student and Teacher data structures (referred to as schemas) that our database uses. It is similar to a class in OOP, where we define the attributes here, and create them later in the server code.
+### Backend
+Within the server folder, our main backend file, server.js can be found. This is the file we run to get the website up and running. It is decently long, but essentially it describes how our server should react to a multitude of different requests.
+### Frontend
+The code relating to the frontend can be found in a few different folders within src. First there is the public folder. In the server, we allow users of the website to be able to access anything in this folder. It includes images, font files and our stylesheet file, style.css, which are all needed to enhance the look of the webpages.
+There is also the views folder, which contains all of our different .ejs (essentially HTML) pages. These can be fully-defined pages, or partial ones that are then loaded into the other .ejs files.
+### Continuous Integration
+Within the tests folder, you can find all of the CI tests that Github will automatically run for us each time we push to a branch. They essentially make requests to the server and compare the actual response with the expected response. There is a different file for each page we test.
 
 ## Database Structure
-
-## AWS Setup
 
 ## Further Documentation
