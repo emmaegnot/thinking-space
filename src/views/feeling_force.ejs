@@ -105,6 +105,12 @@
             document.getElementById("emotionImage").style.animation  = "shake 0.5s";
             document.getElementById("emotionImage").style.animation-iteration-count = "infinite";
         }
+
+        function stopCharacterShake()
+        {
+            document.getElementById("emotionImage").style.animation  = "shake 0.5s";
+            document.getElementById("emotionImage").style.animation-iteration-count = "0";
+        }
         function sendDataToServer() {
             document.getElementById("clickCountInput").value = clickCount;
             document.getElementById("form").submit();
@@ -130,6 +136,7 @@
             document.getElementById("clickCount").innerHTML = clickCount;
             document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
             if(clickCount >= 7) shakeCharacter();
+            else stopCharacterShake();
         }
 
         function increase() {
@@ -141,6 +148,7 @@
                 clickCount++;
             }
             if(clickCount >= 7) shakeCharacter();
+            else stopCharacterShake();
             document.getElementById("clickCount").innerHTML = clickCount;
             document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
         }
