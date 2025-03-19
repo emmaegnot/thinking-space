@@ -7,21 +7,25 @@ const mongoose = require('mongoose');
 const { MongoClient } = require('mongodb');
 const Teacher = require("../models/Teacher");
 const Student = require("../models/Student");
+const bcrypt = require('bcrypt');
+
+var db = true;
 
 require('dotenv').config();
 
 const app = express();
+app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 const port = 3000;
 const shapes = {
-    cloud: ['friendly', 'comfortable', 'happy', 'dreamy'],
+    puffy: ['friendly', 'comfortable', 'happy', 'dreamy'],
     circle: ['calm', 'friendly', 'connected'],
     square: ['stable', 'calm', 'confused'],
     //parallelogram: ['unstable'],
     // hexagon: ['connected'],
     star: ['excited', 'dreamy'],
     triangle: ['angry', 'concerned', 'scared'],
-    spikeyball: ['irritated', 'scared', 'isolated']
+    spiky: ['irritated', 'scared', 'isolated']
 };
 const colours = {
     red: ['angry', 'scared'],
@@ -29,7 +33,7 @@ const colours = {
     green: ['calm'],
     yellow: ['happy'],
     cyan: ['dreamy'],
-    navy: ['dreamy'],
+    blue: ['dreamy'],
 }
 const words = {
     Angry: ['angry', 'concerned', 'confused', 'irritated'],
@@ -45,12 +49,12 @@ const words = {
 // this information has come from cross-modal correspondence research
 const shapeVectors = {
     star: [0.5, -2.5],
-    spikeyball: [-5, -5],
+    spiky: [-5, -5],
     circle: [-5, 5],
-    cloud: [-1, 1.5],
+    puffy: [-1, 1.5],
     triangle: [3, -3],
     square: [-3, 3.5],
-    bouba: [1, 1],
+    hexagon: [1, 1],
     diamond: [1, -1]
 }
 
@@ -67,7 +71,7 @@ const colourVectors = {
     green: [-0.5, 0.5],
     yellow: [3.5, 0.5],
     cyan: [-4.5, 2.5],
-    navy: [-3.5, 2.5],
+    blue: [-3.5, 2.5],
     orange: [1, -3],
     red: [-1.5, -4]
 }
@@ -295,20 +299,23 @@ async function connectDB() {
 if (process.env.MONGO_URI != null){
     connectDB();
 } else {
-    console.log("Skipping database connection")
+    console.log("Skipping database connection");
+    db = false;
 }
 
 // Example for getting users - localhost:3000/db-test should result in showing all teachers and all students in the database
 app.get('/db-test', async (req, res) => {
-    try {
-        // Fetch teachers but exclude passwords for security
-        const teachers = await Teacher.find({}, "-password");
-        // Fetch all students
-        const students = await Student.find();
-        // Return JSON response
-        res.json({ teachers, students });
-    } catch (error) {
-        res.status(500).json({ error: "Failed to fetch data" });
+    if (db){
+        try {
+            // Fetch teachers but exclude passwords for security
+            const teachers = await Teacher.find({}, "-password");
+            // Fetch all students
+            const students = await Student.find();
+            // Return JSON response
+            res.json({ teachers, students });
+        } catch (error) {
+            res.status(500).json({ error: "Failed to fetch data" });
+        }
     }
 });
 
@@ -325,44 +332,98 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname,'../public')));
 app.use(express.urlencoded({extended:true}))
 
+const requireStep = (requiredStep) => (req, res, next) => {
+    if (!req.session.progress || req.session.progress < requiredStep) {
+        req.session.destroy();
+        return res.redirect("/");
+    }
+    next();
+};
+
+const requireLogin = (requiredLogin) => (req, res, next) => {
+    if (!req.session.logged || (req.session.logged !== requiredLogin) || (req.session.userRole !== "teacher")){
+        return res.redirect("/");
+    }
+    next();
+};
+
 
 app.get('/', (req,res) => {
+    req.session.destroy(() => {
+        console.log("req.session is deleted :)");
+    });
+    
     res.render('index', { title: "Home", showConsentPopup: !req.cookies.consent });
 });
 
-app.get('/choose_shape', (req,res) => {
-    res.render('choose_shape', {title: "Choose A Shape"});
-});
 
 app.get('/student_login', (req, res) => {
+    req.session.userRole = 'student';
     res.render('student_login', {title: "Student Login"})
+
+});
+
+app.post('/student_login', (req, res) => {
+    req.session.name = req.body.name;
+    req.session.studentCode = req.body.classcode 
+    req.session.progress = 1;
+    res.redirect('/choose_shape');
 });
 
 app.get('/teacher_login', (req, res) => {
-    res.render('teacher_login', {title: "Teacher Login"})
+    req.session.logged = 0;
+    req.session.userRole = 'teacher';
+    res.render('teacher_login', {title: "Teacher Login"});
+    
 });
 
-app.post('/teacher_login', (req,res) => {
-    res.redirect('/student_info');
+app.post('/teacher_login', async (req,res) => {
+    const username = req.body.name;
+    const password = req.body.password;
+    console.log(username);
+    console.log(password);
+    if(db){
+        try {
+            const user = await Teacher.findOne({ username });
+
+            if (!user) {
+                return res.status(401).json({ error: 'Invalid credentials' });
+            }
+
+            if (!user.password.startsWith("$2b$")) { 
+                console.warn("Unhashed password detected! Hashing it now.");
+                user.password = await bcrypt.hash(user.password, 10);
+                await user.save(); 
+            }
+        
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return res.status(401).json({ error: 'Invalid credentials' });
+            }
+
+            // Save user session
+            req.session.user = { name: user.username };
+            req.session.userRole = 'teacher';
+            req.session.logged = 1;
+            res.json({ redirect: '/student_info' });
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Server error' });
+        }
+    } else {
+        return res.status(401).json({ error: 'The server has not connected to the database' });
+    }
 });
 
-app.get('/student_info', (req, res) => {
-    res.render('student_info', {title: "Student Login"})
+app.get('/student_info', requireLogin(1), (req, res) => {
+    res.render('student_info', {title: "Student Info"})
 });
 
-//PLACEHOLDER - Allows for testing of additional_words, must comment out lines 14-16
-// app.get('/', (req,res) => {
-//// Testing variables for now, server will do this in the future
-//     const colour = {
-//         r: 255,
-//         g: 0,
-//         b: 0,
-//     }
-//     // The words should be computed by server, then sent to a request like this (ideally)
-//     // I.e. in this case the original word picked was angry
-//     wordList = ['Irritated', 'Resentful', 'Miffed', 'Upset', 'Mad', 'Furious', 'Raging', 'Hot']
-//     res.render('additional_words', {filepath: "images/star.png", colour, wordList, title: "Additional words"});
-// });
+app.get('/choose_shape', requireStep(1),(req,res) => {
+    req.session.userRole = 'student';
+    res.render('choose_shape', {title: "Choose A Shape"});
+});
 
 app.post('/previous-shape', (req,res) => {
     res.redirect('/');
@@ -371,72 +432,92 @@ app.post('/previous-shape', (req,res) => {
 app.post('/next-shape', (req,res) => {
     console.log(req.body.shape)
     req.session.shape = req.body.shape
-    var filePath = "images/"
-    req.session.filePath = filePath.concat(req.session.shape, ".png")
+    req.session.progress = 2;
+    var filePath = "images/character/shapes/"
+    req.session.filePath = filePath.concat(req.session.shape, "/", req.session.shape, ".png")
     res.redirect('/choose_colour');
 })
-app.get('/choose_colour', (req,res) => {
-    res.render('choose_colour', {filepath: req.session.filePath, title: "Choose A Colour", selectedColour: req.session.colour});
+
+app.get('/choose_colour', requireStep(2), (req,res) => {
+    req.session.userRole = 'student';
+    res.render('choose_colour', {
+        filepath: req.session.filePath,
+        title: "Choose A Colour", 
+        selectedColour: req.session.colour
+    });
 });
 
 app.post('/previous-colour', (req,res) => {
+    req.session.progress = 2;
     res.redirect('/choose_shape');
 })
 
 app.post('/next-colour', (req, res) => {
+    console.log(req.body.colour)
     req.session.colour = req.body.colour;
+    req.session.progress = 3;
+    // req.session.filePath2 = `images/character/shapes/${req.session.shape}/${req.session.shape}${req.session.colour}.png`;
+    var filePath = "images/character/shapes/";
+    req.session.filePath = filePath.concat(req.session.shape, "/", req.session.shape, req.session.colour, ".png");
     //req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
     res.redirect('/choose_word'); 
     
 });
 
-app.post('/choose_shape', (req, res) => {
-    res.redirect('/choose_shape');
-});
 
-app.post('/student_login', (req, res) => {
-    res.redirect('/choose_shape');
-});
 
-app.get('/choose_word', (req,res) => {
-    res.render('choose_word', {title: "Choose A Word"});
+app.get('/choose_word', requireStep(3), (req,res) => {
+    req.session.userRole = 'student';
+    res.render('choose_word', {
+        filepath: req.session.filePath,
+        selectedColour: req.session.colour,
+        title: "Choose A Word"
+    });
 });
 
 app.post('/previous-word', (req,res) => {
+    req.session.progress = 3;
     res.redirect('/choose_colour');
 })
 
 app.post('/next-word', (req, res) => {
     req.session.word = req.body.selectedEmotion;
-    var filePath = "images/"
-    req.session.filePath = filePath.concat(req.session.shape, ".png")
+    req.session.progress = 4;
+    var filePath = "images/character/shapes/"
+    req.session.filePath = filePath.concat(req.session.shape, "/", req.session.shape, req.session.colour, ".png")
     res.redirect('/additional_words');     
 });
 
-app.get('/additional_words', (req,res) => {
+app.get('/additional_words', requireStep(4),(req,res) => {
+    req.session.userRole = 'student';
     res.render('additional_words', {filepath: req.session.filePath, title: "More Words", wordList : additionalWords[req.session.word]});
 });
 
 app.post('/previous-additional', (req,res) => { //back
+    req.session.progress = 4;
     res.redirect('/choose_word');
 })
 
 app.post('/next-additional', (req, res) => {
-    req.session.additional = req.body.words
+    req.session.additional = req.body.words;
+    req.session.progress = 5;
     res.redirect('/feeling_force');     
 });
 
 
-app.get('/feeling_force', (req,res) => {
+app.get('/feeling_force', requireStep(5), (req,res) => {
+    req.session.userRole = 'student';
     res.render('feeling_force', {title: "Feeling Force"});
 });
 
 app.post('/previous-force', (req,res) => { //back
+    req.session.progress = 5
     res.redirect('/additional_words');
 })
 
 app.post('/submit-force', (req, res) => { //next
-    req.session.force = req.body.clickCount;  
+    req.session.force = req.body.clickCount;
+    req.session.progress = 6;  
     //clickCount = req.body.clickCount; // Update stored value
 
     res.redirect('/mood_summary');          
@@ -445,11 +526,17 @@ app.post('/submit-force', (req, res) => { //next
 
 const StudentMood = require('../models/Student')
 
-app.get('/mood_summary', async (req,res) => {
+app.get('/mood_summary', requireStep(6),async (req,res) => {
+    req.session.userRole = 'student';
     const shape = req.session.shape;
     const colour = req.session.colour;
+    const force = req.session.force;
+    const wordDB = req.session.word;
+    const addWords = req.session.additional;
+   
     // let word = req.session.word.toLowerCase();
     let mood = "indecisive";
+
     if(req.session.word != undefined){
         word = req.session.word.toLowerCase();
         let words = req.session.additional;
@@ -465,7 +552,7 @@ app.get('/mood_summary', async (req,res) => {
         } else {
             words = []
         }
-        const force = req.session.force
+    
         console.log(shape)
         console.log(colour)
         console.log(word)
@@ -480,48 +567,53 @@ app.get('/mood_summary', async (req,res) => {
 
     req.session.mood = mood;
 
-    try {
-        await StudentMood.create({
-            name: req.sessionID, // change to name when implemented
-            year: 7,
-            classCode: "123",
-            ushape: shape,
-            ucolor: colour,
-            uword: word,
-            uadditionalWords: additionalWords, 
-            uforce: force,
-            umood: req.session.mood, 
-        });
-
-        console.log("Mood data saved!");
-    } catch (error) {
-        console.error("Error saving mood data:", error);
+    if(db){
+        try {
+            await StudentMood.create({
+                name: req.session.name, // change to name when implemented
+                classCode: req.session.studentCode,
+                ushape: shape,
+                ucolor: colour,
+                uword: wordDB,
+                uadditionalWords: addWords, 
+                uforce: force,
+                umood: req.session.mood, 
+            });
+            console.log("Mood data saved!");
+        } catch (error) {
+            console.error("Error saving mood data:", error);
+        }
     }
-
     
     res.render('mood_summary', {mood: req.session.mood, title: "Mood Summary"});
 });
 
-app.post('/submit-mood', (req, res) => { //next
-    res.redirect('/what_happened');          
-});
-
 app.post('/previous-mood', (req,res) => { //back
+    req.session.progress = 6;
     res.redirect('/mood_summary');
 })
 
-app.get('/what_happened', (req,res) => {
+app.post('/submit-mood', (req, res) => { //next
+    req.session.progress = 7;
+    res.redirect('/what_happened');          
+});
+
+
+app.get('/what_happened', requireStep(7), (req,res) => {
+    req.session.userRole = 'student';
     res.render('what_happened', {title: "What Happened"});
 });
 
 app.post('/previous-happen', (req,res) => { //back
+    req.session.progress = 7;
     res.redirect('/mood_summary');
 })
 
 app.post('/submit-text', (req, res) => { //next     
     req.session.what = req.body.what;  
-    const what = req.session.what
-    console.log(what)
+    const what = req.session.what;
+    req.session.progress = 8;
+    console.log(what);
 });
 
 const server = app.listen(port, () => {

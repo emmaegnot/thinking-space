@@ -1,0 +1,44 @@
+name: CI/CD Deployment to EC2
+
+on:
+  push:
+    branches:
+      - dev
+      - feature/deploy.yml # Testing
+    workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up AWS CLI with IAM Role
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_ROLE_NAME }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Deploy to EC2
+      run: |
+        # Get EC2 IP using AWS CLI
+        EC2_IP=$(aws ec2 describe-instances --instance-ids ${{ secrets.AWS_INSTANCE_ID }} --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
+
+        # Use SSM to deploy to EC2 instance
+        aws ssm send-command \
+          --instance-ids ${{ secrets.AWS_INSTANCE_ID }} \
+          --document-name "AWS-RunShellScript" \
+          --parameters 'commands=[
+            "cd 2024-ThinkingSpace/ && git pull origin dev",
+            "docker build -t my-node-app .",
+            "docker run -d -p 3000:3000 my-node-app",
+            "npm install",
+            "pm2 restart app"
+          ]' \
+          --comment "Deploy app update"

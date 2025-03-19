@@ -22,16 +22,20 @@
   <div class="pass-wrap">
       <input name="remember-me" type="checkbox" id="remember-me">Remember Me</div>
   <div align="center" class="button-container">
-    
-    <button id="backButton" class="buttonBelow" type="button">
+
+<!-- class changed from buttonBelow to button -->
+    <button id="backButton" class="button" type="button">
       HOME
     </button>
 
 <form id="form" action="submit-login" method="post">
-    <button id="nextButton" class="buttonBelow" type="submit" onclick="login()"><span>LOGIN</span>
-</button></form>
+    <button id="nextButton" class="button" type="submit" onclick="login()"><span>
+    LOGIN
+    </span></button></form>
+
   </div>
 </form>
+<p id="error-message" style="color: red; display: none"></p>
 </div>
  <style>
     
@@ -98,6 +102,38 @@
           eyeIcon.src = 'images/eye_open.svg';    
       }
   }); 
+
+  document.getElementById("loginForm").addEventListener("submit", async function(event) {
+        event.preventDefault(); // Prevent page reload
+
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        const response = await fetch("/teacher_login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            window.location.href = result.redirect; // Redirect if login is successful
+        } else {
+            document.getElementById("error-message").textContent = result.error;
+            document.getElementById("error-message").style.display = 'block';
+
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.style.borderColor = 'red';
+                input.addEventListener('input', () => input.style.borderColor = ''); // Reset on input
+            });
+            setTimeout(() => {
+                document.getElementById("error-message").style.display = 'none';
+            }, 3000);
+
+        }
+  });
 
   document.getElementById('backButton').addEventListener('click', function() {
     window.location.href = '/';

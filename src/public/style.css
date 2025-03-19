@@ -231,6 +231,7 @@ a:hover {
 }
 
 .index-container .button {
+    font-family: milkynice;
     text-align: center;
     background-color: rgba(0, 0, 0, 0);
     color: rgb(121, 166, 224);
@@ -327,6 +328,23 @@ a:hover {
     justify-items: center;
   }
 
+
+.colour-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+
+  #emotionImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: none; 
+  }
+
 .shape-item {
     text-align: center;
   }
@@ -365,6 +383,7 @@ a:hover {
     font-style: normal;
     color: rgb(121, 166, 224);
     margin: 5px auto;
+    font-size: 1.5rem;
 }
 
 .index-footer {
@@ -394,15 +413,6 @@ a:hover {
     }
 }
 
-@media (max-height: 850px){
-    .si-footer{
-        position: relative;
-    }
-    .si-container{
-        margin: 2rem auto 2rem;
-    }
-}
-
 @media (max-height: 590px) {
     .footer {
         position: relative;
@@ -411,9 +421,8 @@ a:hover {
         margin: 2rem auto 2rem;
     }
 }
-
 .chosen-shape {
-    width: 100%;
+    /* width: 100%; */
     max-width: 180px;
     max-height: 160px;
 }
@@ -842,8 +851,6 @@ left: +right */
     100% {background-color:rgb(255, 141, 141); left:1000px; top:-600px;}
 }
   
-
-
 /*========================================================*/
 
 /* table */
@@ -897,10 +904,17 @@ table {
 
 /* print ("hello world) */
 
-/* ============================================= */
+  /* ============================================= */
 
 /* Grey next when disabled */
-
+.expression {
+    display: none;
+    top: 330px;
+    left: 1120px;
+    width:200px;
+    position: absolute;
+    z-index: 2;
+}
 #nextButton {
     padding: 15px 30px;
     font-size: 1.5em;
@@ -932,8 +946,8 @@ table {
 } 
 
 input[name="colourValue"] {
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
     padding: 20px;
     border-radius: 12px;
     margin-bottom: 20px;
