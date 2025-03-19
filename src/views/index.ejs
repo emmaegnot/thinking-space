@@ -47,7 +47,8 @@
   <div id="cookiePopup" class="index-container mouseM">
     <h2>Cookie Consent</h2>
     <p>We use cookies to enhance your experience. Do you accept?</p>
-    <button id="accept">Accept</button>
+    <button id="accept">Accept</button><br><br>
+   <button id="reject">Continue with only necessary cookies</button>
   </div>
 <% } %>
 <footer class="index-footer">
@@ -90,8 +91,21 @@
         cursor: pointer;
     }
 
+    #reject {
+        background: #eb5234;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
     #accept:hover {
         background: #218838;
+    }
+
+    #reject:hover {
+        background: #f2a256;
     }
   </style>
   <script>
@@ -110,6 +124,13 @@
           document.getElementById("cookiePopup").style.display = "none";
           document.getElementById("overlay").style.display = "none";
       }; 
+    // Handle the reject button
+      document.getElementById("reject").onclick = function()
+      {
+          document.cookie = "consent=false; path=/; ";
+          document.getElementById("cookiePopup").style.display = "none";
+          document.getElementById("overlay").style.display = "none";
+      };
     };
 
     function ShowMessage(){
