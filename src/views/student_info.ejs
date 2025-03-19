@@ -55,13 +55,17 @@
  
   <div id="specificStudent" class="index-container mouseM">
     <h2 id="specificName"></h2>
-    <h3>What happened:</h3>
-    <p id="specificHappened"></p>
-    <h3>Feeling Force:</h3>
-    <p id="specificForce"></p>
+    <div class="info-section">
+        <h3>What Happened:</h3>
+        <p id="specificHappened" class="student-info"></p>
+    </div>
+    <div class="info-section">
+        <h3>Feeling Force:</h3>
+        <p id="specificForce" class="student-info"></p>
+    </div>
     <p></p>
     <button id="close">Close</button>
-  </div>
+</div>
 
 <footer class="footer si-footer">
     <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
@@ -157,10 +161,37 @@ body {
     z-index: 10;
 }
 
+
 #students th, #students td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
+}
+
+.student-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.info-section {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+h3 {
+    margin-bottom: 5px;
+    font-size: 18px;
+    color: #555;
+}
+
+.student-info {
+    font-family: "Open Sans", Arial, sans-serif; 
+    font-size: 16px;
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    line-height: 1.6; /* Increases spacing between lines */
 }
 
 .clickable-row {
