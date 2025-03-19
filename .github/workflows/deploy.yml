@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - dev
-      - bugfix/cd-commands
   workflow_dispatch:
 
 permissions:
@@ -43,7 +42,7 @@ jobs:
             \"ssh-add ~/.ssh/id_rsa\",
             \"git config --global --add safe.directory /home/ec2-user/2024-ThinkingSpace\",
             \"cd /home/ec2-user/2024-ThinkingSpace/ && git fetch origin\",
-            \"git checkout bugfix/cd-commands\",
+            \"git checkout dev\",
             \"git pull\",
             \"docker build -t my-node-app .\",
             \"docker stop my-node-app || true\",
