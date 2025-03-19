@@ -100,6 +100,9 @@
     
 
     <script>
+        function shakeCharacter()
+        {
+        }
         function sendDataToServer() {
             document.getElementById("clickCountInput").value = clickCount;
             document.getElementById("form").submit();
@@ -124,6 +127,7 @@
 
             document.getElementById("clickCount").innerHTML = clickCount;
             document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
+            if(clickCount >= 7) shakeCharacter();
         }
 
         function increase() {
@@ -134,7 +138,7 @@
             if (clickCount < 10) {
                 clickCount++;
             }
-
+            if(clickCount >= 7) shakeCharacter();
             document.getElementById("clickCount").innerHTML = clickCount;
             document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
         }
