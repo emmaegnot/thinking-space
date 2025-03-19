@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - dev
-    workflow_dispatch:
+      - bugfix/cd-commands
+  workflow_dispatch:
 
 permissions:
   id-token: write
@@ -29,19 +30,24 @@ jobs:
         # Get EC2 IP using AWS CLI
         EC2_IP=$(aws ec2 describe-instances --instance-ids ${{ secrets.AWS_INSTANCE_ID }} --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
 
-        # Deploy application using AWS SSM
+        # Send SSM command to deploy application
         aws ssm send-command \
           --instance-ids ${{ secrets.AWS_INSTANCE_ID }} \
           --document-name "AWS-RunShellScript" \
-          --parameters 'commands=[
-            "cd ~/2024-ThinkingSpace/",
-            "git fetch origin",
-            "git checkout dev",
-            "git pull",
-            "docker build -t my-node-app .",
-            "docker stop my-node-app || true",
-            "docker rm my-node-app || true",
-            "docker run -d -p 3000:3000 --name my-node-app -e MONGO_URI=\"${{ secrets.MONGO_URI }}\" my-node-app",
-            "sudo systemctl restart nginx"
-          ]' \
-          --comment "Deploy app update and restart NGINX"
+          --parameters "commands=[
+            \"set -x\",
+            \"export HOME=/home/ec2-user\",
+            \"mkdir -p ~/.ssh && chmod 700 ~/.ssh\",
+            \"eval \$(ssh-agent -s)\", 
+            \"ssh-keyscan github.com >> ~/.ssh/known_hosts\",
+            \"ssh-add ~/.ssh/id_rsa\",
+            \"git config --global --add safe.directory /home/ec2-user/2024-ThinkingSpace\",
+            \"cd /home/ec2-user/2024-ThinkingSpace/ && git fetch origin\",
+            \"git checkout bugfix/cd-commands\",
+            \"git pull\",
+            \"docker build -t my-node-app .\",
+            \"docker stop my-node-app || true\",
+            \"docker rm -f my-node-app || true\",
+            \"docker run -d -p 3000:3000 --name my-node-app -e MONGO_URI='${{ secrets.MONGO_URI }}' my-node-app\",
+            \"sudo systemctl restart nginx\"
+          ]"
