@@ -104,16 +104,16 @@
         {
             document.getElementById("emotionImage").style.animation  = "shake 0.5s";
             document.getElementById("selectedShapeImage").style.animation  = "shake 0.5s";
-            document.getElementById("emotionImage").style.animation-iteration-count = "infinite";
-            document.getElementById("selectedShapeImage").style.animation-iteration-count = "infinite";
+            document.getElementById("emotionImage").style.animationIterationCount = "infinite";
+            document.getElementById("selectedShapeImage").style.animationIterationCount = "infinite";
         }
 
         function stopCharacterShake()
         {
             document.getElementById("emotionImage").style.animation  = "shake 0.5s";
             document.getElementById("selectedShapeImage").style.animation  = "shake 0.5s";
-            document.getElementById("emotionImage").style.animation-iteration-count = "0";
-            document.getElementById("selectedShapeImage").style.animation-iteration-count = "0";
+            document.getElementById("emotionImage").style.animationIterationCount = "0";
+            document.getElementById("selectedShapeImage").style.animationIterationCount = "0";
         }
         function sendDataToServer() {
             document.getElementById("clickCountInput").value = clickCount;
