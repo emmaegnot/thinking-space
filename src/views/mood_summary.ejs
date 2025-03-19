@@ -1,6 +1,6 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
- <body>
+ <body onload="retrieveFeelingForce()">
     <nav class="mouseM">
       <ul class="header">
         <li><a>THE THINKING SPACE</a></li>
@@ -51,6 +51,11 @@
     </footer>
  </body>
  <script>
+ var feelingForce = 0;
+ function retrieveFeelingForce()
+ {
+     feelingForce = sessionStorage.getItem("feeling-force-strength");
+ }
  document.addEventListener('DOMContentLoaded', () => {
         const selectedEmotion = sessionStorage.getItem('emotion');
 
