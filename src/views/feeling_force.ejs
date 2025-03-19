@@ -145,6 +145,7 @@
         //    if(clickCount >= 7) shakeCharacter();
         //   else stopCharacterShake();
 			shakeCharacter(clickCount);
+            sessionStorage.setItem("feeling-force-strength", clickCount);
         }
 
         function increase() {
@@ -160,6 +161,7 @@
 		 	shakeCharacter(clickCount);
             document.getElementById("clickCount").innerHTML = clickCount;
             document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
+            sessionStorage.setItem("feeling-force-strength", clickCount);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
