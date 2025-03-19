@@ -62,7 +62,7 @@ Within the tests folder, you can find all of the CI tests that Github will autom
 
 ## User instructions
 ### Accessing the website
-To access the website on the internet, navigate to 13.53.72.180:3000, and this should connect you to the website, running on an AWS EC2 instance
+To access the website on the internet, navigate to https://www.thethinkingspace.me/ , and this should connect you to the website, running on an AWS EC2 instance
 
 Alternatively, to run the website locally using Docker, open this link: https://hub.docker.com/repository/docker/emmaegnot/thinking-space look at the command starting with ```docker pull```, copy that and paste it into the terminal in docker.
 Press the play button in the Images section of Docker, and when the pop up appears, in optional settings, set the host port to 3000.
