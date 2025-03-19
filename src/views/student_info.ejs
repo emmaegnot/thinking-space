@@ -107,12 +107,14 @@
                     
                     document.getElementById("specificStudent").style.display = "block";
                     document.getElementById("overlay").style.display = "block";
+                    document.body.classList.add("no-scroll");
                 }
             });
         });
         document.getElementById("close").onclick = function() {
             document.getElementById("specificStudent").style.display = "none";
             document.getElementById("overlay").style.display = "none";
+            document.body.classList.remove("no-scroll");
         }; 
             
     });
@@ -127,6 +129,10 @@
 }
 body {
     font-family: Arial, sans-serif;
+}
+.no-scroll {
+    overflow: hidden;
+    height: 100vh; /* Prevents scrolling */
 }
 
 .table-container {
