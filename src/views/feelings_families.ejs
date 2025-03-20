@@ -29,13 +29,14 @@
                     <br>Move your house left and right using the arrows to catch the falling words and avoid the unrelated words.
                     <br>You'll get points for every feeling word you bring home!
                 </p>
+		<p id="game-instructions" style="display:none">Use left/right arrow keys to move house<br>Try to catch all and only correct words</p>
                 <!--need to centre this button-->
                 <button onclick="startGame('angry')" class="button" id="angryButton">Angry</button>
-				<button onclick="startGame('disgusted')" class="button" id="disgustedButton">Disgusted</button>
-				<button onclick="startGame('fearful')" class="button" id="fearfulButton">Fearful</button>
-				<button onclick="startGame('happy')" class="button" id="happyButton">Happy</button>
-				<button onclick="startGame('sad')" class="button" id="sadButton">Sad</button>
-				<button onclick="startGame('surprised')" class="button" id="surprisedButton">Surprised</button>
+		<button onclick="startGame('disgusted')" class="button" id="disgustedButton">Disgusted</button>
+		<button onclick="startGame('fearful')" class="button" id="fearfulButton">Fearful</button>
+		<button onclick="startGame('happy')" class="button" id="happyButton">Happy</button>
+		<button onclick="startGame('sad')" class="button" id="sadButton">Sad</button>
+		<button onclick="startGame('surprised')" class="button" id="surprisedButton">Surprised</button>
                 
             </div>
 
@@ -50,14 +51,14 @@
                 </div>
             </div>
 			
-			<div id="gameOverPopup" class="index-container mouseM" style="display:none">
-			 <h2>Game Over</h2>
-			 <p id="gameScore"></p>
-			 <p id="correctWords"></p>
-			 <p id="incorrectWords"></p>
-			 <p id="percentage"></p>
-			 <button onclick="closePopup()">Close</button>
-			</div>
+	    <div id="gameOverPopup" class="index-container mouseM" style="display:none">
+	     <h2>Game Over</h2>
+	     <p id="gameScore"></p>
+	     <p id="correctWords"></p>
+	     <p id="incorrectWords"></p>
+	     <p id="percentage"></p>
+	     <button onclick="closePopup()">Close</button>
+	    </div>
 
         </div>
           <div class="clear"></div>
@@ -94,10 +95,10 @@
 			
             var wordsToFall = [];
             var fallingWords = [];
-	    // Correct words: words that should be in the family and are in the family (true positives)
-	    // Correct omissions: words that should not be in the family and are not in the family (true negatives)
-	    // Misclassifications: words that should not be in the family but are in the family (false positives)
-	    // Missed words: words that should be in the family but are not in the family (false negatives)
+	    // Correct words: words that should be in the family and are in the family
+	    // Correct omissions: words that should not be in the family and are not in the family
+	    // Misclassifications: words that should not be in the family but are in the family
+	    // Missed words: words that should  be in the family but are not in the family
 	    // Percent correct = (correct words + correct omissions) / (correct words + correct omissions + misclassifications + missed words) * 100%
 	    var correctWords = 0, correctOmissions = 0, misclassifications = 0, missedWords = 0;
             const image = document.getElementById("houseImage")
@@ -108,6 +109,8 @@
 
             function startGame(keyword) {
                 gameArea.start();
+		// Display ingame instructions
+		document.getElementById("game-instructions").style = "";
                 // create components for words, they have a random x beginning position 
                 house = new newHouse();
 		// Based on the emotion selected, populate the "words" and "filler words" arrays
@@ -240,7 +243,7 @@
                             if (word.family =="false"){
                                 document.getElementById("incorrectList").appendChild(li);
                                 gameArea.score -= 1;
-								misclassifications++;
+				misclassifications++;
                                 document.getElementById("score").innerHTML = scoreText.concat(String(gameArea.score));
                             } else {
                                 //x position in the house is a random number between 20 and 215
@@ -249,7 +252,7 @@
                                 y = Math.floor(140 + Math.random() * 110)
                                 document.getElementById("correctList").appendChild(li);
                                 gameArea.score += 3;
-								correctWords++;
+				correctWords++;
                                 document.getElementById("score").innerHTML = scoreText.concat(String(gameArea.score));
                             }
                             word.y = 400; //remove word from game display
@@ -257,10 +260,10 @@
                         } else {
                             if (word.family != "false"){ //misses and is in the family - lose a point
                                 gameArea.score -= 2
-								missedWords++;
+				missedWords++;
                                 document.getElementById("score").innerHTML = scoreText.concat(String(gameArea.score));
                             }
-							else correctOmissions++;
+			    else correctOmissions++;
                             word.y += 1
                             word.update();
                         }
@@ -309,6 +312,8 @@
                     if (wordsToFall.length ==0 && !gameArea.gameOver){
                         gameArea.gameOver = true;
                         gameArea.clear();
+			// Hide ingame instructions
+			document.getElementById("game-instructions").style = "display:none";
 			// Display the popup
 			document.getElementById("gameOverPopup").style = "";
 			document.getElementById("gameScore").innerHTML = "Your score is " + gameArea.score;
