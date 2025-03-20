@@ -94,10 +94,10 @@
 			
             var wordsToFall = [];
             var fallingWords = [];
-	    // Correct words: words that should be in the family and are in the family
-	    // Correct omissions: words that should not be in the family and are not in the family
-	    // Misclassifications: words that should not be in the family but are in the family
-	    // Missed words: words that should  be in the family but are not in the family
+	    // Correct words: words that should be in the family and are in the family (true positives)
+	    // Correct omissions: words that should not be in the family and are not in the family (true negatives)
+	    // Misclassifications: words that should not be in the family but are in the family (false positives)
+	    // Missed words: words that should be in the family but are not in the family (false negatives)
 	    // Percent correct = (correct words + correct omissions) / (correct words + correct omissions + misclassifications + missed words) * 100%
 	    var correctWords = 0, correctOmissions = 0, misclassifications = 0, missedWords = 0;
             const image = document.getElementById("houseImage")
@@ -330,7 +330,7 @@
                     }
                 }
 				
-				function closePopup() { document.getElementById("gameOverPopup").style = "display:none"; }
+		function closePopup() { document.getElementById("gameOverPopup").style = "display:none"; }
 
         </script>
 
