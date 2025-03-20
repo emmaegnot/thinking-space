@@ -94,7 +94,12 @@
 			
             var wordsToFall = [];
             var fallingWords = [];
-			var correctWords = 0, misclassifications = 0, missedWords = 0;
+	    // Correct words: words that should be in the family and are in the family
+	    // Correct omissions: words that should not be in the family and are not in the family
+	    // Misclassifications: words that should not be in the family but are in the family
+	    // Missed words: words that should  be in the family but are not in the family
+	    // Percent correct = (correct words + correct omissions) / (correct words + correct omissions + misclassifications + missed words)
+	    var correctWords = 0, correctOmissions = 0, misclassifications = 0, missedWords = 0;
             const image = document.getElementById("houseImage")
             let rightPressed = false;
             let leftPressed = false;
@@ -255,6 +260,7 @@
 								missedWords++;
                                 document.getElementById("score").innerHTML = scoreText.concat(String(gameArea.score));
                             }
+							else correctOmissions++;
                             word.y += 1
                             word.update();
                         }
@@ -309,7 +315,8 @@
 			document.getElementById("correctWords").innerHTML = "You got " + correctWords + " words right";
 			document.getElementById("incorrectWords").innerHTML = "You got " + (misclassifications + missedWords) + " words wrong ("
 				+ misclassifications + " misclassifications, " + missedWords + " missed words)";
-			document.getElementById("percentage").innerHTML = "";
+			var percentCorrect = (correctWords + correctOmissions) / (correctWords + correctOmissions + misclassifications + missedWords) * 100.0;
+			document.getElementById("percentage").innerHTML = "Your percent correct was " + Math.round(percentCorrect) + "%";
                     //    alert("GAME OVER \n Your score is ".concat(String(gameArea.score)));
                         document.getElementById("blueGameCanvas").remove()
                         let finishText = document.createTextNode("Well done for making your feelings family! \n The words in green are correct but the words in red aren't. Why do you think the red words aren't in the family?");
