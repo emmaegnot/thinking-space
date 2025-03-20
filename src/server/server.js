@@ -317,21 +317,20 @@ if (process.env.MONGO_URI != null){
 }
 
 // Example for getting users - localhost:3000/db-test should result in showing all teachers and all students in the database
-app.get('/db-test', async (req, res) => {
-    if (db){
-        try {
-            // Fetch teachers but exclude passwords for security
-            const teachers = await Teacher.find({}, "-password");
-            // Fetch all students
-            const students = await Student.find();
-            // Return JSON response
-            res.json({ teachers, students });
-        } catch (error) {
-            res.status(500).json({ error: "Failed to fetch data" });
-        }
-    }
-});
-
+// app.get('/db-test', async (req, res) => {
+//     if (db){
+//         try {
+//             // Fetch teachers but exclude passwords for security
+//             const teachers = await Teacher.find({}, "-password");
+//             // Fetch all students
+//             const students = await Student.find();
+//             // Return JSON response
+//             res.json({ teachers, students });
+//         } catch (error) {
+//             res.status(500).json({ error: "Failed to fetch data" });
+//         }
+//     }
+// });
 
 app.set('view engine','ejs');
 app.set('views', path.join(__dirname, '../views'))
@@ -526,8 +525,6 @@ app.post('/next-colour', (req, res) => {
     
 });
 
-
-
 app.get('/choose_word', requireStep(3), (req,res) => {
     req.session.userRole = 'student';
     res.render('choose_word', {
@@ -657,7 +654,6 @@ app.post('/submit-text', async (req, res) => { //next
     req.session.what = req.body.what;  
     const what = req.session.what;
     req.session.progress = 8;
-    console.log(what);
     if(db){
         try {
             await StudentMood.create({
@@ -688,6 +684,16 @@ app.post('/back-to-what-happened', (req,res) => { // Go back to "what happened" 
     req.session.progress = 8;
     res.redirect('/what_happened');
 })
+
+app.post('/submit-what', (req, res) => { 
+    req.session.progress = 9;
+    res.redirect('/feelings_families');
+});
+
+app.get('/feelings_families', requireStep(9), (req,res) => {
+res.render('feelings_families', {title: "Game"});
+});
+
 
 const server = app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
