@@ -94,6 +94,7 @@
 			
             var wordsToFall = [];
             var fallingWords = [];
+			var correctWords = 0, misclassifications = 0, missedWords = 0;
             const image = document.getElementById("houseImage")
             let rightPressed = false;
             let leftPressed = false;
@@ -104,37 +105,37 @@
                 gameArea.start();
                 // create components for words, they have a random x beginning position 
                 house = new newHouse();
-				// Based on the emotion selected, populate the "words" and "filler words" arrays
-				if(keyword == "angry")
-				{
-					level1words = level1angry;
-					fillerWords = fillerWordsAngry;
-				}
-				else if(keyword == "disgusted")
-				{
-					level1words = level1disgusted;
-					fillerWords = fillerWordsDisgusted;
-				}
-				else if(keyword == "fearful")
-				{
-					level1words = level1fearful;
-					fillerWords = fillerWordsFearful;
-				}
-				else if(keyword == "happy")
-				{
-					level1words = level1happy;
-					fillerWords = fillerWordsHappy;
-				}
-				else if(keyword == "sad")
-				{
-					level1words = level1sad;
-					fillerWords = fillerWordsSad;
-				}
-				else
-				{
-					level1words = level1surprised;
-					fillerWords = fillerWordsSurprised;
-				}
+		// Based on the emotion selected, populate the "words" and "filler words" arrays
+		if(keyword == "angry")
+		{
+			level1words = level1angry;
+			fillerWords = fillerWordsAngry;
+		}
+		else if(keyword == "disgusted")
+		{
+			level1words = level1disgusted;
+			fillerWords = fillerWordsDisgusted;
+		}
+		else if(keyword == "fearful")
+		{
+			level1words = level1fearful;
+			fillerWords = fillerWordsFearful;
+		}
+		else if(keyword == "happy")
+		{
+			level1words = level1happy;
+			fillerWords = fillerWordsHappy;
+		}
+		else if(keyword == "sad")
+		{
+			level1words = level1sad;
+			fillerWords = fillerWordsSad;
+		}
+		else
+		{
+			level1words = level1surprised;
+			fillerWords = fillerWordsSurprised;
+		}
                 level1words.forEach(word => {
                     var position = Math.floor(Math.random() * (425 - 5)) + 5;
                     wordsToFall.push(new wordComponent(word, keyword, position, 80))
@@ -160,11 +161,11 @@
                     this.canvas.style.backgroundColor = "rgb(121, 166, 224)";
                     this.context.font = "20px Comic Sans";
                     document.getElementById("angryButton").remove()
-					document.getElementById("disgustedButton").remove()
-					document.getElementById("fearfulButton").remove()
-					document.getElementById("happyButton").remove()
-					document.getElementById("sadButton").remove()
-					document.getElementById("surprisedButton").remove()
+		    document.getElementById("disgustedButton").remove()
+		    document.getElementById("fearfulButton").remove()
+		    document.getElementById("happyButton").remove()
+		    document.getElementById("sadButton").remove()
+		    document.getElementById("surprisedButton").remove()
                     document.getElementById("instructions").remove()
                     document.getElementById('gameCanvas').appendChild(this.canvas);
                     //runs updateGameArea every 20ms
@@ -234,6 +235,7 @@
                             if (word.family =="false"){
                                 document.getElementById("incorrectList").appendChild(li);
                                 gameArea.score -= 1;
+								misclassifications++;
                                 document.getElementById("score").innerHTML = scoreText.concat(String(gameArea.score));
                             } else {
                                 //x position in the house is a random number between 20 and 215
@@ -242,6 +244,7 @@
                                 y = Math.floor(140 + Math.random() * 110)
                                 document.getElementById("correctList").appendChild(li);
                                 gameArea.score += 3;
+								correctWords++;
                                 document.getElementById("score").innerHTML = scoreText.concat(String(gameArea.score));
                             }
                             word.y = 400; //remove word from game display
@@ -249,6 +252,7 @@
                         } else {
                             if (word.family != "false"){ //misses and is in the family - lose a point
                                 gameArea.score -= 2
+								missedWords++;
                                 document.getElementById("score").innerHTML = scoreText.concat(String(gameArea.score));
                             }
                             word.y += 1
@@ -299,12 +303,13 @@
                     if (wordsToFall.length ==0 && !gameArea.gameOver){
                         gameArea.gameOver = true;
                         gameArea.clear();
-						// Display the popup
-						document.getElementById("gameOverPopup").style = "";
-						document.getElementById("gameScore").innerHTML = "Your score is " + gameArea.score;
-						document.getElementById("correctWords").innerHTML = "";
-						document.getElementById("incorrectWords").innerHTML = "";
-						document.getElementById("percentage").innerHTML = "";
+			// Display the popup
+			document.getElementById("gameOverPopup").style = "";
+			document.getElementById("gameScore").innerHTML = "Your score is " + gameArea.score;
+			document.getElementById("correctWords").innerHTML = "You got " + correctWords + " words right";
+			document.getElementById("incorrectWords").innerHTML = "You got " + (misclassifications + missedWords) + " words wrong ("
+				+ misclassifications + " misclassifications, " + missedWords + " missed words)";
+			document.getElementById("percentage").innerHTML = "";
                     //    alert("GAME OVER \n Your score is ".concat(String(gameArea.score)));
                         document.getElementById("blueGameCanvas").remove()
                         let finishText = document.createTextNode("Well done for making your feelings family! \n The words in green are correct but the words in red aren't. Why do you think the red words aren't in the family?");
@@ -318,7 +323,7 @@
                     }
                 }
 				
-		function closePopup() { document.getElementById("gameOverPopup").style = "display:none"; }
+				function closePopup() { document.getElementById("gameOverPopup").style = "display:none"; }
 
         </script>
 
