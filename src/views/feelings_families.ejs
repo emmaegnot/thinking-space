@@ -83,6 +83,37 @@
                 gameArea.start();
                 // create components for words, they have a random x beginning position 
                 house = new newHouse();
+				// Based on the emotion selected, populate the "words" and "filler words" arrays
+				if(keyword == "angry")
+				{
+					level1words = level1angry;
+					fillerWords = fillerWordsAngry;
+				}
+				else if(keyword == "disgusted")
+				{
+					level1words = level1disgusted;
+					fillerWords = fillerWordsDisgusted;
+				}
+				else if(keyword == "fearful")
+				{
+					level1words = level1fearful;
+					fillerWords = fillerWordsFearful;
+				}
+				else if(keyword == "happy")
+				{
+					level1words = level1happy;
+					fillerWords = fillerWordsHappy;
+				}
+				else if(keyword == "sad")
+				{
+					level1words = level1sad;
+					fillerWords = fillerWordsSad;
+				}
+				else
+				{
+					level1words = level1surprised;
+					fillerWords = fillerWordsSurprised;
+				}
                 level1words.forEach(word => {
                     var position = Math.floor(Math.random() * (425 - 5)) + 5;
                     wordsToFall.push(new wordComponent(word, keyword, position, 80))
