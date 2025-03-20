@@ -917,7 +917,7 @@ table {
 /* Grey next when disabled */
 
 /* feelings families */
-#angryButton {
+#angryButton, #disgustedButton, #fearfulButton, #happyButton, #sadButton, #surprisedButton {
     padding: 10px 20px;
     font-size: 1em;
     font-family: milkynice;
