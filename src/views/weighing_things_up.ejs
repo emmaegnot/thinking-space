@@ -42,7 +42,10 @@
 	  </table>
 	  <div align="center"><progress id="balance" style="width:50%" max="100" value="50"></progress></div>
 	<div class="button-div" align="center">
-        <button type="submit" id="nextButton">NEXT</button></div>
+		<form action="/submit-what" method="post">
+        <button type="submit" id="nextButton">NEXT</button>
+		</form>
+	</div>
 	<div class="button-div" align="center">
 	<form action="/back-to-what-happened" method="post">
             <button type="button-div" id="backButton">BACK</button>

@@ -608,7 +608,6 @@ app.post('/previous-happen', (req,res) => { //back
 
 app.post('/submit-text', (req, res) => { //next     
     req.session.what = req.body.what;  
-
     const what = req.session.what
     console.log(what)
     res.redirect('/weighing_things_up');
@@ -622,6 +621,19 @@ app.get('/weighing_things_up', (req,res) => {
 app.post('/back-to-what-happened', (req,res) => { // Go back to "what happened" page from "weighing things up"
     res.redirect('/what_happened');
 })
+
+app.post('/submit-what', (req, res) => { 
+    res.redirect('/feelings_families');
+});
+
+app.get('/what_happened', (req,res) => {
+res.render('what_happened', {title: "What Happened"});
+});
+
+app.get('/feelings_families', (req,res) => {
+res.render('feelings_families', {title: "Game"});
+});
+
 
 const server = app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

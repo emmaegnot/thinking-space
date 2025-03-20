@@ -42,6 +42,11 @@ body{
     height: 110px
   }
 
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 .home{
     color: rgb(121, 166, 224);
     background-image: url(images/header2.png);
@@ -427,6 +432,7 @@ a:hover {
     max-height: 160px;
 }
 
+
 .colourPicker{
     display: none;
     text-align: center;
@@ -482,6 +488,8 @@ a:hover {
 .selected-word{
     padding: 3px;
 }
+
+
 
 .left-words, .right-words{
     font-size: 1.8em;
@@ -907,6 +915,55 @@ table {
   /* ============================================= */
 
 /* Grey next when disabled */
+
+/* feelings families */
+#angryButton {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-family: milkynice;
+    color: #fff;
+    background-color: #4a90e2;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.canvas{
+    border: 2px solid black;
+    background-color: #ebeacd;
+}
+
+.houseContainer {
+    position: relative;
+}
+
+.houseText {
+    position: absolute;
+}
+
+#correct{
+    color: rgb(37, 126, 38);
+    bottom: 10px;
+    left: 115px;
+}
+
+#incorrect{
+    color: rgb(235, 53, 53);
+    bottom: 10px;
+    left: 15px
+}
+
+#gameCanvas {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+}
+
+/* ============================================= */
+
+
 .expression {
     display: none;
     top: 330px;
