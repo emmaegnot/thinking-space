@@ -56,6 +56,7 @@
 			 <p id="correctWords"></p>
 			 <p id="incorrectWords"></p>
 			 <p id="percentage"></p>
+			 <button onclick="closePopup()">Close</button>
 			</div>
 
         </div>
@@ -298,6 +299,12 @@
                     if (wordsToFall.length ==0 && !gameArea.gameOver){
                         gameArea.gameOver = true;
                         gameArea.clear();
+						// Display the popup
+						document.getElementById("gameOverPopup").style = "";
+						document.getElementById("gameScore").innerHTML = "Your score is " + gameArea.score;
+						document.getElementById("correctWords").innerHTML = "";
+						document.getElementById("incorrectWords").innerHTML = "";
+						document.getElementById("percentage").innerHTML = "";
                     //    alert("GAME OVER \n Your score is ".concat(String(gameArea.score)));
                         document.getElementById("blueGameCanvas").remove()
                         let finishText = document.createTextNode("Well done for making your feelings family! \n The words in green are correct but the words in red aren't. Why do you think the red words aren't in the family?");
@@ -310,6 +317,8 @@
                         clearInterval(gameArea.interval);
                     }
                 }
+				
+		function closePopup() { document.getElementById("gameOverPopup").style = "display:none"; }
 
         </script>
 
