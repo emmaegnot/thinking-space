@@ -98,7 +98,7 @@
 	    // Correct omissions: words that should not be in the family and are not in the family
 	    // Misclassifications: words that should not be in the family but are in the family
 	    // Missed words: words that should  be in the family but are not in the family
-	    // Percent correct = (correct words + correct omissions) / (correct words + correct omissions + misclassifications + missed words)
+	    // Percent correct = (correct words + correct omissions) / (correct words + correct omissions + misclassifications + missed words) * 100%
 	    var correctWords = 0, correctOmissions = 0, misclassifications = 0, missedWords = 0;
             const image = document.getElementById("houseImage")
             let rightPressed = false;
@@ -312,7 +312,7 @@
 			// Display the popup
 			document.getElementById("gameOverPopup").style = "";
 			document.getElementById("gameScore").innerHTML = "Your score is " + gameArea.score;
-			document.getElementById("correctWords").innerHTML = "You got " + correctWords + " words right";
+			document.getElementById("correctWords").innerHTML = "You got " + (correctWords + correctOmissions) + " words right";
 			document.getElementById("incorrectWords").innerHTML = "You got " + (misclassifications + missedWords) + " words wrong ("
 				+ misclassifications + " misclassifications, " + missedWords + " missed words)";
 			var percentCorrect = (correctWords + correctOmissions) / (correctWords + correctOmissions + misclassifications + missedWords) * 100.0;
