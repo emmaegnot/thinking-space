@@ -7,6 +7,21 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <link rel="stylesheet" href="style.css">
 </head>
+<!-- <style>
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+</style> -->
 <body>
     <nav class="mouseM">
         <ul class="header">
@@ -15,7 +30,8 @@
         </ul>
     </nav>
 
-    <div class="container mouseM" style="width: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <div class="maincontainer">
+    <div class="container1 mouseM" style="height: 465px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
         <h2 class = "colouredText">Feeling force</h2>
 
         <p class="bodyText">How strong are your feelings right now? Press the plus and minus buttons!</p>
@@ -39,10 +55,7 @@
             </div>
             
             <p id="clickCount"></p>
-
         </div>
-
-    <!-- pass a force value -->
 
         <form id = "form" action="submit-force" method="post">
             <input id="clickCountInput" name="clickCount" type="hidden" value="5" >
@@ -56,15 +69,55 @@
                 <button type="button-div" id="backButton">BACK</button>
             </div>
         </form>
+        </div>
 
-    </div>
+        <div class="container2 mouseM" class="colour-container">
+            <div align="center">
+            <div class="colour-container">
+            <h1 class="colouredText">Your character</h1>
+            <div style="position: relative;display: inline-block;">
+            <img src="<%= filepath %>" id="selectedShapeImage" alt="selected emotion">
+            <img id="emotionImage" src="" alt="Emotion Overlay" style="position: absolute; top: 0; left: 0;width: 100%; height: 100%; object-fit: contain; display: none;">
+          </div>
+          </div>
+          <div class="clear"></div>
+          </div>
+          </div>
+            </div>
+          
+
+    <!-- pass a force value -->
+
+        
+
+
     
     <footer class="footer">
         <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
         <span class="motto mouseM">With emotional health in mind</span>
     </footer>
 
+    
+
     <script>
+
+        function stopCharacterShake()
+        {
+            document.getElementById("emotionImage").style.animation  = "shake 0.5s";
+            document.getElementById("selectedShapeImage").style.animation  = "shake 0.5s";
+            document.getElementById("emotionImage").style.animationIterationCount = "0";
+            document.getElementById("selectedShapeImage").style.animationIterationCount = "0";
+        } 
+		
+	function shakeCharacter(clickCount)
+        {
+	    if(clickCount == 0) { stopCharacterShake(); return; }
+            document.getElementById("emotionImage").style.animation  = "shake" + clickCount + " 0.5s";
+            document.getElementById("selectedShapeImage").style.animation  = "shake" + clickCount + " 0.5s";
+            document.getElementById("emotionImage").style.animationIterationCount = "infinite";
+            document.getElementById("selectedShapeImage").style.animationIterationCount = "infinite";
+        }
+		
         function sendDataToServer() {
             document.getElementById("clickCountInput").value = clickCount;
             document.getElementById("form").submit();
@@ -89,6 +142,9 @@
 
             document.getElementById("clickCount").innerHTML = clickCount;
             document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
+        //    if(clickCount >= 7) shakeCharacter();
+        //   else stopCharacterShake();
+			shakeCharacter(clickCount);
         }
 
         function increase() {
@@ -99,10 +155,30 @@
             if (clickCount < 10) {
                 clickCount++;
             }
-
+         //   if(clickCount >= 7) shakeCharacter();
+         //   else stopCharacterShake();
+		 	shakeCharacter(clickCount);
             document.getElementById("clickCount").innerHTML = clickCount;
             document.getElementById('arrow').style.transform = `translate(-50%, -50%) rotate(${rotationAngle}deg)`;
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+        const selectedEmotion = sessionStorage.getItem('emotion');
+
+        const emotionImages = {
+    "Angry": "/images/character/expressions/angry.png",
+    "Disgusted": "/images/character/expressions/disgusted.png",
+    "Fearful": "/images/character/expressions/fearful.png",
+    "Happy": "/images/character/expressions/happy.png",
+    "Sad": "/images/character/expressions/sad.png",
+    "Surprised": "/images/character/expressions/surprised.png"
+  };
+
+  const emotionImage = document.getElementById('emotionImage');
+  emotionImage.src = emotionImages[selectedEmotion];
+    emotionImage.style.display = "block";
+
+});
     </script>
 
 </body>
