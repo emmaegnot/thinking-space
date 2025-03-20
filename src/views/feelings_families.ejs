@@ -46,7 +46,26 @@
             var word1;
             //additional words 1 - angry
             var level1angry = ['aggressive', 'bitter', 'critical', 'distant', 'frustrated', 'hateful', 'humiliated', 'hurt', 'insecure', 'irritated', 'mad']
-            var fillerWords = ['happy', 'bright', 'bored', 'silly', 'strong', 'tense', 'confused']
+            var fillerWordsAngry = ['happy', 'bright', 'bored', 'silly', 'strong', 'tense', 'confused']
+			// additional words 2 - disgusted
+			var level1disgusted = ["embarassed", "awkward", "repelled", "offended", "nauseated", "humiliated", "ashamed", "disgraced"]
+			var fillerWordsDisgusted = ["silly", "disappointed", "shocked", "irritated", "excited"]
+			// additional words 3 - fearful
+			var level1fearful = ["scared", "frightened", "afraid", "concerned", "anxious", "worried", "terrified", "jittery", "panicked", "tense"]
+			var fillerWordsFearful = ["bright", "blue", "isolated", "calm", "bored", "content"]
+			// additional words 4 - happy
+			var level1happy = ["content", "calm", "comfortable", "bright", "elated", "glad", "satisfied", "pleased", "optimistic", "fulfilled", "excited"]
+			var fillerWordsHappy = ["isolated", "tense", "bored", "dazed", "blue", "insecure"]
+			// additional words 5 - sad
+			var level1sad = ["bitter", "blue", "concerned", "depressed", "disappointed", "down", "heartbroken", "hurt", "isolated", "pessimistic", "worried"]
+			var fillerWordsSad = ["scared", "bored", "confused", "afraid", "frightened", "frustrated", "shocked"]
+			// additional words 6 - surprised
+			var level1surprised = ["stunned", "shocked", "appalled", "frightened", "astonished", "startled", "sensational", "astounded"]
+			var fillerWordsSurprised = ["happy", "calm", "worried", "confused", "strong", "scared"]
+			
+			var level1words = []
+			var fillerWords = []
+			
             var wordsToFall = [];
             var fallingWords = [];
             const image = document.getElementById("houseImage")
@@ -59,7 +78,7 @@
                 gameArea.start();
                 // create components for words, they have a random x beginning position 
                 house = new newHouse();
-                level1angry.forEach(word => {
+                level1words.forEach(word => {
                     var position = Math.floor(Math.random() * (425 - 5)) + 5;
                     wordsToFall.push(new wordComponent(word, keyword, position, 80))
                 });
