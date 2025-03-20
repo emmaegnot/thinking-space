@@ -109,6 +109,38 @@ There is also the views folder, which contains all of our different .ejs (essent
 ### Continuous Integration
 Within the tests folder, you can find all of the CI tests that Github will automatically run for us each time we push to a branch. They essentially make requests to the server and compare the actual response with the expected response. There is a different file for each page we test.
 
+As mentioned earlier, anything not in the src folder is general work, but I think it would be valuable to describe as many files as possible.
+
+### Root level files
+
+In the root level, there exist a few different files, which do a variety of things.
+The first is .gitignore. This lists all of the files that we specifically do not want to track on GitHub. This includes files that are automatically generated in OS-specific and IDE-specific environments, our .env files (for security reasons) and also node modules - this last file is huge, and is only needed locally to store all of the dependencies for the project.#
+Secondly, there is the Dockerfile. While the docker scripts (see [here](#) for an explanation of these) exist in a folder, the Dockerfile itself should be in the root. This contains docker commands for deploying the project, which is very helpful.
+The next file is our license. This is simply a copy of the GNU AFFERO GENERAL PUBLIC LICENSE, which our client has chosen. It is designed to ensure that users who interact with a program over a network can access the source code of the modified version they are using.
+The next two are package-lock.json and package.json. They handle all the dependencies, with the latter storing their names (this is what the command ```npm install``` looks at when installing them), and the former contains exact versions of installed dependencies, including sub-dependencies.
+Finally, README.md. This is what anyone should read when first looking at our project. It is similar to this document, but goes more in depth to the user and client side of things.
+
+### .github
+
+The .github folder contains files that allow GitHub to automate parts of the development cycle. It contains templates and workflows.
+The templates include ones for pull requests, and kanban board issues.
+For our workflows, there are two files, deploy.yml and test.yml, which handle CD and CI respectively.
+Deploy.yml connects to our EC2 instance using AWS SSM and sends commands to it. These commands allow us to use git and docker to get the latest version of our project, and redeploy it.
+Test.yml will build the program and then run all of the tests in the test folder (see [here](#continuous-integration)). This allows us to ensure our website is functioning correctly, and as expected.
+
+
+### docker
+
+The docker file contains shell scripts for starting and stopping the docker image. There are .bat and .sh files so that it can work across OSs.
+
+### docs
+
+The docs folder contains informative documents and research relating to the project. Research includes UI design, analyses of ethics and a tech stack, among other things. It also contains this document, the client brief and architecture diagrams.
+
+### node_modules
+
+This folder is untracked by GitHub, but it will contains all of the modules that ```npm install``` creates. 
+
 ## Database Structure
 
 ## Further Documentation
