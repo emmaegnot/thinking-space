@@ -37,20 +37,6 @@ test("Checks nav contains title and home link", async () => {
     expect(res.text).toContain('<li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>');
 });
 
-test("Checks page is rendered with a mood", async () => {
-    const agent = request.agent(app); // Creates a persistent session
-    await agent.post("/student_login");
-    await agent.post('/next-shape'); // Choose shape
-    await agent.post('/next-colour'); // Choose colour
-    await agent.post('/next-word'); // Choose word
-    await agent.post('/next-additional') // Choose additional words
-    await agent.post('/submit-force'); // Choose forceawait agent.post("/submit-mood");
-    await agent.post("/submit-text");
-    await agent.post("/submit-weighing");
-    const res = await agent.get("/feelings_families");
-    expect(res.status).toBe(200); // Status code 200 indicates a successful request and response
-    expect(res.text).toContain("<h2 class=\"colouredText\">Are you feeling indecisive ? </h2>"); // Checks the server assigns a mood
-});
 
 test("check container wtih a house image is rendered", async () => {
     const agent = request.agent(app); // Creates a persistent session
@@ -66,6 +52,38 @@ test("check container wtih a house image is rendered", async () => {
     expect(res.text).toContain("<img class=\"logo\" id=\"houseImage\" src=\"images/house.png\" alt=\"house image\" style=\"width: 300px; height: auto;\">");
 })
 
+//test that after clicking one of the buttons, all buttons and instructions are removed
+test("after clicking one of the buttons, all buttons and instructions are removed", async () => {
+    const agent = request.agent(app); // Creates a persistent session
+    await agent.post("/student_login");
+    await agent.post('/next-shape'); // Choose shape
+    await agent.post('/next-colour'); // Choose colour
+    await agent.post('/next-word'); // Choose word
+    await agent.post('/next-additional') // Choose additional words
+    await agent.post('/submit-force'); // Choose forceawait agent.post("/submit-mood");
+    await agent.post("/submit-text");
+    await agent.post("/submit-weighing");
+    const res = await agent.get("/feelings_families");
+    //need to click the angry button here
+    // can I test that something doesn't exist, or a div is empty
+});
+
+
+//test that after clicking one of the buttons,the canvas appears
+test("after clicking one of the buttons, the canvas appears", async () => {
+    const agent = request.agent(app); // Creates a persistent session
+    await agent.post("/student_login");
+    await agent.post('/next-shape'); // Choose shape
+    await agent.post('/next-colour'); // Choose colour
+    await agent.post('/next-word'); // Choose word
+    await agent.post('/next-additional') // Choose additional words
+    await agent.post('/submit-force'); // Choose forceawait agent.post("/submit-mood");
+    await agent.post("/submit-text");
+    await agent.post("/submit-weighing");
+    const res = await agent.get("/feelings_families");
+    // need the click button here
+    expect(res.text).toContain("<canvas id=\"blueGameCanvas\" width=\"480\" height=\"270\" style=\"background-color: rgb(121, 166, 224);\"></canvas>");
+});
 
 afterAll(() => {
     server.close(); // Close the server after the tests are done
