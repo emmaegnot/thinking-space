@@ -223,7 +223,7 @@ This following is a guide that provides instructions to set up the project on AW
 #### Configure GitHub Actions Workflow
 
 In our repository, navigate to .github/workflows/ and locate the deploy.yml file. This should be working, but keep note that it uses GitHub secret variables so you may have to create your own. These are:
-![alt text](image-1.png)
+![github-secrets](github-secrets.png)
 which should all be fairly explanatory.
 
 ### 7. Configuring Nginx for Reverse Proxy
