@@ -56,7 +56,7 @@
 	     <p id="gameScore" class="bodyText"></p>
 	     <p id="correctWords" class="bodyText"></p>
 	     <p id="incorrectWords" class="bodyText"></p>
-	     <p id="percentage" class="bodyText"></p>
+	     <!-- <p id="percentage" class="bodyText"></p> -->
 	     <button onclick="closePopup()">Close</button>
 	    </div>
 
@@ -314,14 +314,16 @@
                         gameArea.clear();
 			// Hide ingame instructions
 			document.getElementById("game-instructions").style = "display:none";
+                        var percentCorrect = (correctWords + correctOmissions) / (correctWords + correctOmissions + misclassifications + missedWords) * 100.0;
 			// Display the popup
 			document.getElementById("gameOverPopup").style = "";
-			document.getElementById("gameScore").innerHTML = "Your score is " + gameArea.score;
-			document.getElementById("correctWords").innerHTML = "You got " + (correctWords + correctOmissions) + " words right";
-			document.getElementById("incorrectWords").innerHTML = "You got " + (misclassifications + missedWords) + " words wrong ("
-				+ misclassifications + " misclassifications, " + missedWords + " missed words)";
-			var percentCorrect = (correctWords + correctOmissions) / (correctWords + correctOmissions + misclassifications + missedWords) * 100.0;
-			document.getElementById("percentage").innerHTML = "Your percent correct was " + Math.round(percentCorrect) + "%";
+			document.getElementById("gameScore").innerHTML = "Your score is " + gameArea.score + " - " + Math.round(percentCorrect) + "%";;
+			document.getElementById("correctWords").innerHTML = "You got " + (correctWords + correctOmissions) + " words correctly in the family! Well done!";
+                        document.getElementById("incorrectWords").innerHTML = "You missed " + missedWords + " family members<br><br>"
+                            + misclassifications + " of the words shouldn't be in the family";
+		//	document.getElementById("incorrectWords").innerHTML = "You got " + (misclassifications + missedWords) + " words wrong ("
+		//		+ misclassifications + " misclassifications, " + missedWords + " missed words)";
+		//	document.getElementById("percentage").innerHTML = "Your percent correct was " + Math.round(percentCorrect) + "%";
                     //    alert("GAME OVER \n Your score is ".concat(String(gameArea.score)));
                         document.getElementById("blueGameCanvas").remove()
                         let finishText = document.createTextNode("Well done for making your feelings family! \n The words in green are correct but the words in red aren't. Why do you think the red words aren't in the family?");
