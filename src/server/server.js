@@ -685,7 +685,7 @@ app.post('/back-to-what-happened', (req,res) => { // Go back to "what happened" 
     res.redirect('/what_happened');
 })
 
-app.post('/submit-what', (req, res) => { 
+app.post('/submit-weighing', (req, res) => { 
     req.session.progress = 9;
     res.redirect('/feelings_families');
 });
