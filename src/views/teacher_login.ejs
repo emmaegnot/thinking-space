@@ -122,6 +122,12 @@
         } else {
             document.getElementById("error-message").textContent = result.error;
             document.getElementById("error-message").style.display = 'block';
+            if (result.error.includes("Locked for")) {
+              document.getElementById("nextButton").disabled = true;
+              setTimeout(() => {
+                  document.getElementById("nextButton").disabled = false;
+              }, 120000); // Unlock after 2 minutes
+            }
 
             const inputs = document.querySelectorAll('input');
             inputs.forEach(input => {
