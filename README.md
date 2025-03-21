@@ -48,6 +48,8 @@ This website aims to tackle behavioural problems in children by providing them w
 Code relating to the project itself can be found in the src folder at root level. Anything outside of this folder are files for Github, Docker, Node.js or generic project work like this README and some research. In src, the code can generally be organised into four sections: database, frontend, backend and CI.
 ### Database
 Within the models folder, we have two pieces of Javascript code, Student.js and Teacher.js. These define the Student and Teacher data structures (referred to as schemas) that our database uses. It is similar to a class in OOP, where we define the attributes here, and create them later in the server code.
+The Entity relationship diagram can be seen here:
+![erd](image.png)
 ### Backend
 Within the server folder, our main backend file, server.js can be found. This is the file we run to get the website up and running. It is decently long, but essentially it describes how our server should react to a multitude of different requests.
 ### Frontend
