@@ -103,7 +103,22 @@ Code relating to the project itself can be found in the src folder at root level
 ### Database
 Within the models folder, we have two pieces of Javascript code, Student.js and Teacher.js. These define the Student and Teacher data structures (referred to as schemas) that our database uses. It is similar to a class in OOP, where we define the attributes here, and create them later in the server code.
 ### Backend
-Within the server folder, our main backend file, server.js can be found. This is the file we run to get the website up and running. It is decently long, but essentially it describes how our server should react to a multitude of different requests.
+Within the server folder, our main backend file, server.js can be found. This is the file we run to get the website up and running. It is decently long, and has carries out a range of functions.
+#### Routing 
+The first is to know how our server should react to a multitude of different requests. We define different blocks of logic that, when a request is made to a certain url, the server will typcially respond with ejs files, and in some cases carry out additional computation. We also specify the port it should listen on as 3000.
+#### Mood matching
+One example of a key function that our server carries out is our mood match algorithm. Given the data that the student has already submitted, the server will call our moodMatch function, with the parameters of a chosen shape, colour, word, additional words and a feeling force. The way this works is that first we define a list of possible words that we can match a mood to, and assign each a 2D vector, on an unpleasent-calm graph. The parameters all also have a vector associated with them. This information comes from cross-modal correspondence research. We then take the average of the vectors, scale them by the feeling force, and return the word that is closest to the new vector we have calculated.
+#### Connecting to the database
+Another feature the server is responsible for is connecting to the database. In our connectDB function, we have included logic, mostly for the sake of our CI (as most tests do not need to connect to the database), to run the server in a "database-free" mode when a connection string is not provided.
+#### Helper functions
+There are also generic helper functions. These are:
+- matchMood (already mentioned)
+- getSharedWords: this is legacy code for our old mood matcher algorithm
+- colourToDec: legacy code. Translates a hex string to an array consisting of r, g and b int values
+- generaliseColour: also legacy code. We used to let users submit any rgb value, so it would return the closest defined colour
+- timeConvert: converts a timestamp to English (local) time
+- connectDB (already mentioned)
+- convertToValidDateFormat: converts a data string to ISO format
 ### Frontend
 The code relating to the frontend can be found in a few different folders within src. First there is the public folder. In the server, we allow users of the website to be able to access anything in this folder. It includes images, font files and our stylesheet file, style.css, which are all needed to enhance the look of the webpages.
 There is also the views folder, which contains all of our different .ejs (essentially HTML) pages. These can be fully-defined pages, or partial ones that are then loaded into the other .ejs files.
