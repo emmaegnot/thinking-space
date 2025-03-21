@@ -6,6 +6,7 @@
 - [System Architecture](#system-architecture)
 - [Project Structure](#project-structure)
 - [Database Structure](#database-structure)
+- [AWS Setup](#aws-setup)
 - [Further Documentation](#further-documentation)
 
 ## Introduction
@@ -144,11 +145,109 @@ This folder is untracked by GitHub, but it will contains all of the modules that
 ## Database Structure
 
 In src/models, you can find our two schemas for our database - these are Student and Teacher. We have created an Entity Relationship diagram to show how these two interact:
-![erd](image.png)
+![erd](entity-relationship-diagram)
 As you can see, the teacher and student are linked by their class code, which has a many-to-one relationship. The data of any students that go through the Thinking Space process can be seen only by their teachers, but no other teachers.
 We require a teacher's username to be unique, as they will use this to log in to their account. We don't bother to have accounts for students, they just need to enter their name and class code. Currently there is no way for a teacher to make an account, this must be done by manually creating one on MongoDB Atlas. We plan for this to be carried out by Raymer Enterprises, who can create accounts for teachers at schools where they choose to use this project. To access the database, see [here](#accessing-the-database).
 > [!NOTE]  
-> If you create an account, you should enter the password as intended. We have logic in the server that will detect if a password is unhashed, and use bcrypt to update the password
+> If you create an account, you should enter the password as intended. We have logic in the server that will detect if a password is unhashed, and use bcrypt to update the password.
+
+## AWS Setup
+
+This following is a guide that provides instructions to set up the project on AWS, including EC2, networking, domain configuration, SSL setup, and automated deployment using GitHub Actions and Docker.
+
+### 1. Creating an EC2 Instance
+
+1. Go to the AWS EC2 Console.
+2. Click Launch Instance.
+3. Choose an appropriate Amazon Machine Image (AMI), e.g., Ubuntu 22.04.
+4. Select an instance type (e.g., t2.micro for free-tier usage).
+5. Configure instance details
+6. Configure security group:
+ - Allow SSH (port 22) from your IP.
+ - Allow HTTP (port 80) and HTTPS (port 443) from anywhere.
+7. Launch the instance and download the SSH key pair (if creating a new one).
+
+### 2. Assigning an Elastic IP
+
+1. Go to the EC2 Dashboard > Elastic IPs.
+2. Allocate a new Elastic IP.
+3. Associate it with the created EC2 instance.
+
+### 3. Configuring a Domain Name with Namecheap
+
+1. Obtain a free domain from Namecheap FreeDNS. We used a GitHub education to do this
+2. In the Namecheap dashboard, update DNS settings:
+ - Create an A record pointing to your Elastic IP.
+ - Create a CNAME record if needed.
+
+### 4. Installing and Configuring Nginx for HTTPS
+
+1. SSH into the EC2 instance: ```ssh -i your-key.pem ubuntu@your-elastic-ip```
+2. Install Nginx: ```sudo apt update && sudo apt install -y nginx```
+3. Install Certbot for SSL: ```sudo apt install -y certbot python3-certbot-nginx```
+4. Obtain an SSL certificate: ```sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com```
+5. Verify the certificate renewal: ```sudo certbot renew --dry-run```
+
+### 5. Setting Up IAM for GitHub Actions
+
+1. Go to the AWS IAM Console.
+2. Create a new IAM user with programmatic access.
+3. Assign the following policy:
+```
+{
+  "Effect": "Allow",
+  "Action": [
+    "ssm:StartSession",
+    "ssm:SendCommand",
+    "ssm:GetCommandInvocation"
+  ],
+  "Resource": "*"
+}
+```
+4. Store the IAM credentials securely in GitHub Actions Secrets.
+
+### 6. Deploying the Project Using GitHub Actions & Docker
+
+#### Install Docker on the EC2 Instance
+
+1. SSH into the instance.
+2. Install Docker:
+ ```sudo apt update```
+ ```sudo apt install -y docker.io```
+3. Add the current user to the Docker group:
+ ```sudo usermod -aG docker $USER```
+4. Enable and start Docker:
+ ```sudo systemctl enable docker```
+ ```sudo systemctl start docker```
+
+#### Configure GitHub Actions Workflow
+
+In our repository, navigate to .github/workflows/ and locate the deploy.yml file. This should be working, but keep note that it uses GitHub secret variables so you may have to create your own. These are:
+![alt text](image-1.png)
+which should all be fairly explanatory.
+
+### 7. Configuring Nginx for Reverse Proxy
+
+1. Open the Nginx configuration file:
+ ```sudo nano /etc/nginx/sites-available/default```
+2. Update it to proxy traffic to your Docker container:
+```
+server {
+    listen 80;
+    server_name yourdomain.com;
+
+    location / {
+        proxy_pass http://localhost:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+```
+3. Restart Nginx:
+ ```sudo systemctl restart nginx```
+
+Hopefully by dollowing these steps, you will have an EC2 instance running your project, accessible via a custom domain, secured with HTTPS, and automatically deployed via GitHub Actions.
 
 ## Further Documentation
 
