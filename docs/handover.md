@@ -252,7 +252,7 @@ Hopefully by dollowing these steps, you will have an EC2 instance running your p
 The following table contains links to other useful documentation for tools/libraries/frameworks used within this project:
 
 | Tool                | Documentation Link                                                           |
-|----------------------------------------------------------------------------------------------------|
+|---------------------|------------------------------------------------------------------------------|
 | NPM                 | [https://docs.npmjs.com/](https://docs.npmjs.com/)                           |
 | NodeJS              | [https://nodejs.org/docs/latest/api/](https://nodejs.org/docs/latest/api/)   |
 | Express             | [https://devdocs.io/express/](https://devdocs.io/express/)                   |
