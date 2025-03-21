@@ -151,3 +151,15 @@ We require a teacher's username to be unique, as they will use this to log in to
 > If you create an account, you should enter the password as intended. We have logic in the server that will detect if a password is unhashed, and use bcrypt to update the password
 
 ## Further Documentation
+
+The following table contains links to other useful documentation for tools/libraries/frameworks used within this project:
+
+| Tool                | Documentation Link                                                           |
+|----------------------------------------------------------------------------------------------------|
+| NPM                 | [https://docs.npmjs.com/](https://docs.npmjs.com/)                           |
+| NodeJS              | [https://nodejs.org/docs/latest/api/](https://nodejs.org/docs/latest/api/)   |
+| Express             | [https://devdocs.io/express/](https://devdocs.io/express/)                   |
+| Mongoose            | [https://mongoosejs.com/docs/](https://mongoosejs.com/docs/)                 |
+| Bcrypt              | [https://www.npmjs.com/package/bcrypt](https://www.npmjs.com/package/bcrypt) |
+| Docker              | [https://docs.docker.com/](https://docs.docker.com/)                         |
+| AWS                 | [https://docs.aws.amazon.com/](https://docs.aws.amazon.com/)                 |
