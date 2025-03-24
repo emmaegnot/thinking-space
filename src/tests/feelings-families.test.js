@@ -66,6 +66,17 @@ test("after clicking one of the buttons, all buttons and instructions are remove
     const res = await agent.get("/feelings_families");
     //need to click the angry button here
     // can I test that something doesn't exist, or a div is empty
+
+    /*
+        I was thinking instead of testing that, just making sure that javascript for each word is called
+        Something like this maybe?
+            expect(res.text).toContain(`onclick="startGame('angry')"`);
+        I know its not ideal but I guess the tests don't have to be super in-depth
+        And then after we merge Zhongzheng's PR it will become something like:
+            for (var word of Object.keys(words)) {
+            expect(res.text).toContain(`onclick="startGame('${word.toLowerCase()}')"`);
+            }
+    */
 });
 
 
@@ -83,6 +94,10 @@ test("after clicking one of the buttons, the canvas appears", async () => {
     const res = await agent.get("/feelings_families");
     // need the click button here
     expect(res.text).toContain("<canvas id=\"blueGameCanvas\" width=\"480\" height=\"270\" style=\"background-color: rgb(121, 166, 224);\"></canvas>");
+    /*
+        For this one, maybe just checking that there is javascript to make the canvas appear:
+            expect(res.text).toContain('canvas : document.createElement("canvas")');
+    */
 });
 
 afterAll(() => {
