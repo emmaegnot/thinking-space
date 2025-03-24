@@ -81,3 +81,7 @@ test("Checks footer contains the logo and motto", async () => {
     expect(res.text).toContain('<img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd"');
     expect(res.text).toContain('<span class="motto mouseM">With emotional health in mind</span>');
 });
+
+afterAll(() => {
+    server.close(); // Close the server after the tests are done
+});
