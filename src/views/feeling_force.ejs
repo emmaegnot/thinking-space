@@ -40,11 +40,7 @@
             <img id="meter" src="images/meter.jpg" width="150" height="130">
             <img id="arrow" src="images/arrow.png" width="20" height="40">
         </div>
-
-        <!-- <img id="arrow" src="images/arrow.png" width="130" height="120" style="transition: transform 0.5s ease; top:480px; transform: rotate(283deg); position: absolute; z-index: 2;"> -->
-        <!-- <img src="images/meter.jpg" width="150" height="130" style="position: absolute; z-index: 1;"> -->
         
-
         <div style="display: flex; align-items: center; margin-top: -40px;">
             <div style="padding: 20px; margin-right: 70px;">
                 <button onclick="decrease()">-</button>
@@ -84,20 +80,11 @@
           </div>
           </div>
             </div>
-          
 
-    <!-- pass a force value -->
-
-        
-
-
-    
     <footer class="footer">
         <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
         <span class="motto mouseM">With emotional health in mind</span>
     </footer>
-
-    
 
     <script>
 
@@ -128,13 +115,13 @@
             sendDataToServer(); 
         });
 
-        let rotationAngle = 0; // Initial rotation angle
+        let rotationAngle = 0; // initial rotation angle
         let clickCount = 5;
         
         function decrease() {
-            const n = -18; // Number of degrees to rotate on each click
+            const n = -18; // number of degrees to rotate on each click
             if (rotationAngle + n >= -100) {
-            rotationAngle += n; // Increase the rotation by n degrees each time
+            rotationAngle += n; // increase the rotation by n degrees each time
             }
             if (clickCount > 0) {
                 clickCount--;
