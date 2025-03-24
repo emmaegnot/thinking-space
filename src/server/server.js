@@ -517,10 +517,8 @@ app.post('/next-colour', (req, res) => {
     console.log(req.body.colour)
     req.session.colour = req.body.colour;
     req.session.progress = 3;
-    // req.session.filePath2 = `images/character/shapes/${req.session.shape}/${req.session.shape}${req.session.colour}.png`;
     var filePath = "images/character/shapes/";
     req.session.filePath = filePath.concat(req.session.shape, "/", req.session.shape, req.session.colour, ".png");
-    //req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
     res.redirect('/choose_word'); 
     
 });
@@ -577,7 +575,6 @@ app.post('/previous-force', (req,res) => { //back
 app.post('/submit-force', (req, res) => { //next
     req.session.force = req.body.clickCount;
     req.session.progress = 6;  
-    //clickCount = req.body.clickCount; // Update stored value
 
     res.redirect('/mood_summary');          
 });
@@ -593,7 +590,6 @@ app.get('/mood_summary', requireStep(6),async (req,res) => {
     const wordDB = req.session.word;
     const addWords = req.session.additional;
    
-    // let word = req.session.word.toLowerCase();
     let mood = "indecisive";
 
     if(req.session.word != undefined){
