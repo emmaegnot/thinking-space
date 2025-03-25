@@ -14,10 +14,9 @@ const StudentSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        expires: 2592000 // deletes after 30 days 
     }
 });
-
+StudentSchema.index({ createdAt: 1 }, { expireAfterSeconds: 2592000 });
 
 const Student = mongoose.model("Student", StudentSchema);
 module.exports = Student;
