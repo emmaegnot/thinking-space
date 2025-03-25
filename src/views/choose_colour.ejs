@@ -20,7 +20,6 @@
         
         <div class="colour-container" style="height:350px">
           <div align="center">
-            <!-- <img class="chosen-shape" src="<%= filepath %>" alt="coloured shape"> -->
             <p class="bodyText">Click here to change!</p>
             <br>
           </div>
@@ -58,8 +57,6 @@
       <div class="colour-container">
       <h1 class="colouredText">Your character</h1>
       <img src="<%= filepath %>" alt="coloured shape">
-      <!-- <img id="selectedShapeImage" src="" alt="Selected Shape"></img> -->
-      <!-- <img id="selectedColourImage" src="" alt="Selected Colour" style="max-width: 100%; height: auto;"></img> -->
     </div>
     <div class="clear"></div>
   </div>
@@ -76,14 +73,12 @@
 
       <script>
       const nextButton = document.getElementById("nextButton");
-      // Update the chosen shape's background color on color change
       const image = document.querySelector('.chosen-shape');
  
       function ChangeColour(chosenColour){
         nextButton.disabled = false
         sessionStorage.setItem('selectedColour', chosenColour.value);
         document.getElementById('colourInput').value = chosenColour.value;
-        // image.style.backgroundColor = chosenColour.value;
       }
 
       document.getElementById('backButton').addEventListener('click', function() {
@@ -98,7 +93,7 @@
           form.submit();
       });
 
-        // Get all color buttons
+
         const colorButtons = document.querySelectorAll('input[name="colourValue"]');
         const selectedColourImage = document.getElementById("selectedColourImage");
 
@@ -110,12 +105,11 @@
       const selectedColour = chosenColour.value;
       if(selectedColour){
     selectedShapeImage.src = `images/character/shapes/${selectedShape}/${selectedShape}${selectedColour}.png`;
-    // Show the image
+
     selectedShapeImage.style.display = "block";
   }
   }
 
-  // Add event listener to each button
   colorButtons.forEach(button => {
     button.addEventListener("click", function () {
       updateImage(this);
@@ -131,15 +125,11 @@
             const image = document.querySelector(".container2 img");
             const selectedShapeImage = images[images.length - 1];
             if (image) {
-                // image.style.backgroundColor = savedColor;
                 nextButton.disabled = false
             }
     
             document.getElementById('colourForm').value = savedColor;
         }
-
-          // Retrieve the selected shape from sessionStorage
-          // const selectedShapeImage = sessionStorage.getItem('selectedShapeImage');
       }
 
      </script>
