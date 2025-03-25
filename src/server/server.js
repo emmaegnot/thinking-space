@@ -139,6 +139,18 @@ const wordAddVectors = {
     energetic: [-1.5, -4]
 }
 
+
+function insertMood(closestMoods, mood, distance) {
+    newMood = [mood, distance]
+    closestMoods.push(newMood);
+    closestMoods.sort((a, b) => a[1] - b[1]); // Sort based on the second index (mood score)
+    
+    // Keep only the lowest 4 moods
+    if (closestMoods.length > 4) {
+        closestMoods.pop(); // Remove the highest mood
+    }
+}
+
 function matchMood(shape, colour, word1, words, force){
     // get value of three vectors corresponding to shape, colour, word
     shapeVector = shapeVectors[shape];
@@ -156,20 +168,16 @@ function matchMood(shape, colour, word1, words, force){
     averageVector[0] = averageVector[0] * (0.5 + (force/10))
     averageVector[1] = averageVector[1] * (0.5 + (force/10))
     // use the same code as generalise colour function to find the closest mood to the average vector
-    minDistance = 10000;
-    let closestMood = null;
+    let closestMoods = [];
     for (const mood in moodVectors){
         unpleasantLength = (averageVector[0] - moodVectors[mood][0]) * (averageVector[0] - moodVectors[mood][0]);
         excitedLength = (averageVector[1] - moodVectors[mood][1]) * (averageVector[1] - moodVectors[mood][1]);
         distance = Math.sqrt(unpleasantLength + excitedLength)
-        if (distance < minDistance){
-            minDistance = distance
-            closestMood = mood
-        }
+        console.log(mood)
+        insertMood(closestMoods, mood, distance)
     }
     // return that current mood
-    console.log("MOOD: ",closestMood);
-    return closestMood;
+    return closestMoods;
 }
 
 const additionalWords = {
@@ -621,7 +629,9 @@ app.get('/mood_summary', requireStep(6),async (req,res) => {
         //Gets associations between all of the choicees
         const randomIndex = Math.floor(Math.random() * potentialMoods.length)
         mood = potentialMoods[randomIndex]
-        mood = matchMood(shape, colour, word, words, force)
+        moods = matchMood(shape, colour, word, words, force)
+        console.log(moods)
+        mood = moods[0][0]
     }
 
     req.session.mood = mood;
