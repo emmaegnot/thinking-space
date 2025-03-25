@@ -11,8 +11,10 @@ const StudentSchema = new mongoose.Schema({
     umood: String,
     whatHappened: String,
     utimestamp: { type: Date, default: Date.now },
-    createdAt: { type: Date, default: Date.now, index: { expires: '30d' } }
+    createdAt: { type: Date, default: Date.now }
 });
+
+
 
 const Student = mongoose.model("Student", StudentSchema);
 module.exports = Student;

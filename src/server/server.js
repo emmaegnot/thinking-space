@@ -678,7 +678,7 @@ app.post('/submit-text', async (req, res) => { //next
     if(db){
         try {
             await StudentMood.create({
-                name: req.session.name, // change to name when implemented
+                name: req.session.name,
                 classCode: req.session.studentCode,
                 ushape: req.session.shape,
                 ucolor: req.session.colour,
