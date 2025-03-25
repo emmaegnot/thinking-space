@@ -652,6 +652,11 @@ app.post('/previous-mood', (req,res) => { //back
 
 app.post('/submit-mood', (req, res) => { //next
     req.session.progress = 7;
+    req.session.selectedMood = req.body.selectedMood;
+    console.log(req.session.selectedMood)
+    if (req.session.selectedMood && req.session.selectedMood.trim() !== "") {
+        req.session.mood = req.session.selectedMood
+    }
     res.redirect('/what_happened');          
 });
 
@@ -681,7 +686,7 @@ app.post('/submit-text', async (req, res) => { //next
                 uadditionalWords: req.session.additional, 
                 uforce: req.session.force,
                 whatHappened: req.session.what,
-                umood: req.session.mood, 
+                umood: req.session.mood,
             });
             console.log("Mood data saved!");
         } catch (error) {

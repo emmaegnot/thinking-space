@@ -12,9 +12,11 @@
     <div class="container1 mouseM" style="height: 465px; display: flex; flex-direction: column; justify-content: center; align-items: center;" >  
     <h1 class="colouredText">Mood Matcher</h1>
     <h2 class="colouredText" id="speak">Are you feeling <%= mood1 %> ? </h2>
+    
 
   <!-- yes button -->
     <form id = "form" action="submit-mood" method="post">
+      <input type="hidden" id="selectedMood" name="selectedMood" value="">
       <input id="moodSummary" name="mood" type="hidden" >
       <div class="button" align="center">
               <button onclick="sendDataToServer()" type="submit" id = "nextButton">Yes</button>
@@ -92,7 +94,7 @@
           extraButtonsContainer.style.borderRadius = "5px";
 
           
-          const buttonLabels = ["<%= mood2 %>", "<%= mood3 %>", "<%= mood4 %>"];
+          const buttonLabels = [<%- JSON.stringify(mood2) %>, <%- JSON.stringify(mood3) %>, <%- JSON.stringify(mood4) %>];
           speak.textContent = "What matches your mood the most?"
           backButton.textContent = "BACK"
           buttonLabels.forEach(label => {
@@ -105,8 +107,11 @@
   
               
               button.addEventListener("click", function () {
-                  alert(`You clicked: ${label}`);
-                  // LOGIC
+                document.getElementById("selectedMood").value = label;
+                document.getElementById("form").action = "submit-mood";
+                setTimeout(() => {
+                  document.getElementById("form").submit();
+                }, 100); 
               });
 
               extraButtonsContainer.appendChild(button);
@@ -115,10 +120,10 @@
           
           backButton.parentNode.appendChild(extraButtonsContainer);
 
-          backButton.onclick = function() {
-            form.action = 'previous-mood';
-            form.submit();
-          }
+          backButton.addEventListener("click", function () {
+            document.getElementById("form").action = "previous-mood";
+            document.getElementById("form").submit();
+          });
      });      
   });
 
