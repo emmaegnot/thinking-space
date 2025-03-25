@@ -116,11 +116,23 @@
       const selectedShapeImage = images[images.length - 1];
       const selectedColour = chosenColour.value;
       if(selectedColour){
-    selectedShapeImage.src = `images/character/shapes/${selectedShape}/${selectedShape}${selectedColour}.png`;
-    // Show the image
-    selectedShapeImage.style.display = "block";
-  }
-  }
+        selectedShapeImage.src = `images/character/shapes/${selectedShape}/${selectedShape}${selectedColour}.png`;
+        // Show the image
+        selectedShapeImage.style.display = "block";
+      }
+    }
+    function updateImageSession(chosenColour) {
+      const selectedShape = sessionStorage.getItem('selectedShape');
+
+      const images = document.querySelectorAll(".container2 img");
+      const selectedShapeImage = images[images.length - 1];
+      const selectedColour = chosenColour;
+      if(selectedColour){
+        selectedShapeImage.src = `images/character/shapes/${selectedShape}/${selectedShape}${selectedColour}.png`;
+        // Show the image
+        selectedShapeImage.style.display = "block";
+      }
+    }
 
   // Add event listener to each button
   colorButtons.forEach(button => {
@@ -142,6 +154,7 @@
                 nextButton.disabled = false
             }
             ChangeColourSession(savedColor);
+            updateImageSession(savedColor);
             document.getElementById('colourForm').value = savedColor;
         }
 
