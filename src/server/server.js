@@ -636,7 +636,7 @@ app.get('/mood_summary', requireStep(6),async (req,res) => {
         mood3 = moods[2][0]
         mood4 = moods[3][0]
     }
-
+    req.session.mood = mood1;
     req.session.mood1 = mood1;
     req.session.mood2 = mood2;
     req.session.mood3 = mood3;
