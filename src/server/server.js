@@ -139,6 +139,30 @@ const wordAddVectors = {
     energetic: [-1.5, -4]
 }
 
+function insertNewMood(closestMoods, mood, distance){
+    let placed = false
+    let i = 3 // position currently being inspected
+    console.log('\n\n moods: ' + closestMoods)
+    console.log('distance: '+ distance)
+    console.log('mood: '+ mood)
+    while (!placed) {
+        console.log("i: " + i + ", compare distance: " + closestMoods[i][1])
+        // when word needs to move up a place
+        // smallest distance at the top
+        if (distance < closestMoods[i][1] && i != 0){
+            temp = closestMoods[i]
+            closestMoods[i+1] = closestMoods[i]
+            i = i - 1
+            
+        } else { // when word needs to be positioned
+            placed = true
+            closestMoods[i][1] = distance
+            closestMoods [i][0] = mood
+        }
+    }
+    return closestMoods
+}
+
 function matchMood(shape, colour, word1, words, force){
     // get value of three vectors corresponding to shape, colour, word
     shapeVector = shapeVectors[shape];
@@ -156,20 +180,22 @@ function matchMood(shape, colour, word1, words, force){
     averageVector[0] = averageVector[0] * (0.5 + (force/10))
     averageVector[1] = averageVector[1] * (0.5 + (force/10))
     // use the same code as generalise colour function to find the closest mood to the average vector
-    minDistance = 10000;
-    let closestMood = null;
+    let closestMoods = [
+        ['mood1', 1000],
+        ['mood2', 1000],
+        ['mood3', 1000],
+        ['mood4', 1000],
+    ];
     for (const mood in moodVectors){
         unpleasantLength = (averageVector[0] - moodVectors[mood][0]) * (averageVector[0] - moodVectors[mood][0]);
         excitedLength = (averageVector[1] - moodVectors[mood][1]) * (averageVector[1] - moodVectors[mood][1]);
         distance = Math.sqrt(unpleasantLength + excitedLength)
-        if (distance < minDistance){
-            minDistance = distance
-            closestMood = mood
+        if (distance < closestMoods[3][1]){
+            closestMoods = insertNewMood(closestMoods, mood, distance)
         }
     }
     // return that current mood
-    console.log("MOOD: ",closestMood);
-    return closestMood;
+    return closestMoods;
 }
 
 const additionalWords = {
@@ -621,7 +647,9 @@ app.get('/mood_summary', requireStep(6),async (req,res) => {
         //Gets associations between all of the choicees
         const randomIndex = Math.floor(Math.random() * potentialMoods.length)
         mood = potentialMoods[randomIndex]
-        mood = matchMood(shape, colour, word, words, force)
+        moods = matchMood(shape, colour, word, words, force)
+        console.log(moods)
+        mood = moods[0][0]
     }
 
     req.session.mood = mood;
