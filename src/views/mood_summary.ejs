@@ -16,17 +16,17 @@
   <!-- yes button -->
     <form id = "form" action="submit-mood" method="post">
       <input id="moodSummary" name="mood" type="hidden" >
-      <div class="button-div" align="center">
+      <div class="button" align="center">
               <button onclick="sendDataToServer()" type="submit" id = "nextButton">Yes</button>
       </div>
   </form>
 
   <!-- no button -->
-  <form action="/previous-mood" method="post">
-      <div class="button-div" align="center">
-          <button type="button-div" id="backButton">No</button>
-      </div>
-  </form>
+  
+    <div class="button-div" align="center">
+        <button type="button" id="backButton">No</button>
+    </div>
+  
 </div>
 
 <div class="container2 mouseM" class="colour-container">
@@ -68,10 +68,13 @@
     emotionImage.style.display = "block";
 
     const backButton = document.getElementById("backButton");
+    const yesButton = document.getElementById("nextButton");
     backButton.addEventListener("click", function () {
           event.preventDefault();
+
           // Check if buttons already exist to prevent duplicates
           if (document.getElementById("extraButtons")) return;
+          if (yesButton) yesButton.parentNode.removeChild(yesButton);
 
           const speak = document.getElementById("speak");
           const extraButtonsContainer = document.createElement("div");
