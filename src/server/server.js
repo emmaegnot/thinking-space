@@ -139,31 +139,16 @@ const wordAddVectors = {
     energetic: [-1.5, -4]
 }
 
-function insertNewMood(closestMoods, mood, distance){
-    let placed = false
-    let i = 3 // position currently being inspected
-    console.log('\n\n moods: ' + closestMoods)
-    console.log('distance: '+ distance)
-    console.log('mood: '+ mood)
-    while (!placed) {
-        console.log("i: " + i + ", compare distance: " + closestMoods[i][1])
-        // when the the value has been checked to be smaller than the greatest value
-        if (i == 0){
-            placed = true
-            closestMoods[i][1] = distance
-            closestMoods [i][0] = mood
-            // check if the distance is less than the next lower value, if it is, inspect next value
-        } else if (distance < closestMoods[i-1][1]){
-            closestMoods[i] = closestMoods[i-1]
-            i = i - 1
-            
-        } else { // when word needs to be positioned because the next value is greater
-            placed = true
-            closestMoods[i][1] = distance
-            closestMoods [i][0] = mood
-        }
+
+function insertMood(closestMoods, mood, distance) {
+    newMood = [mood, distance]
+    closestMoods.push(newMood);
+    closestMoods.sort((a, b) => a[1] - b[1]); // Sort based on the second index (mood score)
+    
+    // Keep only the lowest 4 moods
+    if (closestMoods.length > 4) {
+        closestMoods.pop(); // Remove the highest mood
     }
-    return closestMoods
 }
 
 function matchMood(shape, colour, word1, words, force){
@@ -183,19 +168,13 @@ function matchMood(shape, colour, word1, words, force){
     averageVector[0] = averageVector[0] * (0.5 + (force/10))
     averageVector[1] = averageVector[1] * (0.5 + (force/10))
     // use the same code as generalise colour function to find the closest mood to the average vector
-    let closestMoods = [
-        ['mood1', 1000],
-        ['mood2', 1000],
-        ['mood3', 1000],
-        ['mood4', 1000],
-    ];
+    let closestMoods = [];
     for (const mood in moodVectors){
         unpleasantLength = (averageVector[0] - moodVectors[mood][0]) * (averageVector[0] - moodVectors[mood][0]);
         excitedLength = (averageVector[1] - moodVectors[mood][1]) * (averageVector[1] - moodVectors[mood][1]);
         distance = Math.sqrt(unpleasantLength + excitedLength)
-        if (distance < closestMoods[3][1]){
-            closestMoods = insertNewMood(closestMoods, mood, distance)
-        }
+        console.log(mood)
+        insertMood(closestMoods, mood, distance)
     }
     // return that current mood
     return closestMoods;
