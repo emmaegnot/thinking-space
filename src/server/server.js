@@ -631,12 +631,18 @@ app.get('/mood_summary', requireStep(6),async (req,res) => {
         mood = potentialMoods[randomIndex]
         moods = matchMood(shape, colour, word, words, force)
         console.log(moods)
-        mood = moods[0][0]
+        mood1 = moods[0][0]
+        mood2 = moods[1][0]
+        mood3 = moods[2][0]
+        mood4 = moods[3][0]
     }
 
-    req.session.mood = mood;
+    req.session.mood1 = mood1;
+    req.session.mood2 = mood2;
+    req.session.mood3 = mood3;
+    req.session.mood4 = mood4;
     
-    res.render('mood_summary', {filepath: req.session.filePath, mood: req.session.mood, title: "Mood Summary"});
+    res.render('mood_summary', {filepath: req.session.filePath, mood1: req.session.mood1, mood2: req.session.mood2, mood3: req.session.mood3, mood4: req.session.mood4, title: "Mood Summary"});
 });
 
 app.post('/previous-mood', (req,res) => { //back

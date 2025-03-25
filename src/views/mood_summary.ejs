@@ -11,7 +11,7 @@
     <div class="maincontainer"> 
     <div class="container1 mouseM" style="height: 465px; display: flex; flex-direction: column; justify-content: center; align-items: center;" >  
     <h1 class="colouredText">Mood Matcher</h1>
-    <h2 class="colouredText" id="speak">Are you feeling <%= mood %> ? </h2>
+    <h2 class="colouredText" id="speak">Are you feeling <%= mood1 %> ? </h2>
 
   <!-- yes button -->
     <form id = "form" action="submit-mood" method="post">
@@ -92,7 +92,7 @@
           extraButtonsContainer.style.borderRadius = "5px";
 
           
-          const buttonLabels = ["Mood1", "Mood2", "Mood3"];
+          const buttonLabels = ["<%= mood2 %>", "<%= mood3 %>", "<%= mood4 %>"];
           speak.textContent = "What matches your mood the most?"
           backButton.textContent = "BACK"
           buttonLabels.forEach(label => {
@@ -121,11 +121,6 @@
           }
      });      
   });
-  
-  const colourPicker = document.querySelector(".colourPicker");
-  const image = document.querySelector(".chosen-shape");
-  colourPicker.addEventListener("input", function() {
-      image.style.backgroundColor = colourPicker.value;
-  });
+
 </script>
 </html>
