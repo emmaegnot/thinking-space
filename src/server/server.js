@@ -147,14 +147,17 @@ function insertNewMood(closestMoods, mood, distance){
     console.log('mood: '+ mood)
     while (!placed) {
         console.log("i: " + i + ", compare distance: " + closestMoods[i][1])
-        // when word needs to move up a place
-        // smallest distance at the top
-        if (distance < closestMoods[i][1] && i != 0){
-            temp = closestMoods[i]
-            closestMoods[i+1] = closestMoods[i]
+        // when the the value has been checked to be smaller than the greatest value
+        if (i == 0){
+            placed = true
+            closestMoods[i][1] = distance
+            closestMoods [i][0] = mood
+            // check if the distance is less than the next lower value, if it is, inspect next value
+        } else if (distance < closestMoods[i-1][1]){
+            closestMoods[i] = closestMoods[i-1]
             i = i - 1
             
-        } else { // when word needs to be positioned
+        } else { // when word needs to be positioned because the next value is greater
             placed = true
             closestMoods[i][1] = distance
             closestMoods [i][0] = mood
