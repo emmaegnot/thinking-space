@@ -631,7 +631,7 @@ app.get('/mood_summary', requireStep(6),async (req,res) => {
 
 app.post('/previous-mood', (req,res) => { //back
     req.session.progress = 6;
-    res.redirect('/mood_summary');
+    res.redirect('/feeling_force');
 })
 
 app.post('/submit-mood', (req, res) => { //next

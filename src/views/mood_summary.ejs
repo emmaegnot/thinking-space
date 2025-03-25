@@ -69,12 +69,19 @@
 
     const backButton = document.getElementById("backButton");
     const yesButton = document.getElementById("nextButton");
-    backButton.addEventListener("click", function () {
+    backButton.addEventListener("click", function (event) {
           event.preventDefault();
 
           // Check if buttons already exist to prevent duplicates
-          if (document.getElementById("extraButtons")) return;
-          if (yesButton) yesButton.parentNode.removeChild(yesButton);
+          const existingButtons = document.getElementById("extraButtons");
+          if (existingButtons) {
+            existingButtons.remove();
+          }
+
+          // Remove "Yes" button
+          if (yesButton) {
+              yesButton.parentNode.removeChild(yesButton);
+          }
 
           const speak = document.getElementById("speak");
           const extraButtonsContainer = document.createElement("div");
@@ -82,7 +89,7 @@
           extraButtonsContainer.style.display = "flex";
           extraButtonsContainer.style.gap = "10px";
           extraButtonsContainer.style.marginTop = "10px";
-          extraButtonsContainer.style.border-radius = "5px";
+          extraButtonsContainer.style.borderRadius = "5px";
 
           
           const buttonLabels = ["Mood1", "Mood2", "Mood3"];
@@ -105,6 +112,11 @@
 
           
           backButton.parentNode.appendChild(extraButtonsContainer);
+
+          backButton.onclick = function() {
+            form.action = 'previous-mood';
+            form.submit();
+          }
      });      
   });
   
