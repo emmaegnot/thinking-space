@@ -11,7 +11,7 @@
     <div class="maincontainer"> 
     <div class="container1 mouseM" style="height: 465px; display: flex; flex-direction: column; justify-content: center; align-items: center;" >  
     <h1 class="colouredText">Mood Matcher</h1>
-    <h2 class="colouredText">Are you feeling <%= mood %> ? </h2>
+    <h2 class="colouredText" id="speak">Are you feeling <%= mood %> ? </h2>
 
   <!-- yes button -->
     <form id = "form" action="submit-mood" method="post">
@@ -51,24 +51,60 @@
     </footer>
  </body>
  <script>
- document.addEventListener('DOMContentLoaded', () => {
-        const selectedEmotion = sessionStorage.getItem('emotion');
+  document.addEventListener('DOMContentLoaded', () => {
+            const selectedEmotion = sessionStorage.getItem('emotion');
 
-        const emotionImages = {
-    "Angry": "/images/character/expressions/angry.png",
-    "Disgusted": "/images/character/expressions/disgusted.png",
-    "Fearful": "/images/character/expressions/fearful.png",
-    "Happy": "/images/character/expressions/happy.png",
-    "Sad": "/images/character/expressions/sad.png",
-    "Surprised": "/images/character/expressions/surprised.png"
-  };
+            const emotionImages = {
+        "Angry": "/images/character/expressions/angry.png",
+        "Disgusted": "/images/character/expressions/disgusted.png",
+        "Fearful": "/images/character/expressions/fearful.png",
+        "Happy": "/images/character/expressions/happy.png",
+        "Sad": "/images/character/expressions/sad.png",
+        "Surprised": "/images/character/expressions/surprised.png"
+      };
 
-  const emotionImage = document.getElementById('emotionImage');
-  emotionImage.src = emotionImages[selectedEmotion];
+    const emotionImage = document.getElementById('emotionImage');
+    emotionImage.src = emotionImages[selectedEmotion];
     emotionImage.style.display = "block";
-    
-});
 
+    const backButton = document.getElementById("backButton");
+    backButton.addEventListener("click", function () {
+          event.preventDefault();
+          // Check if buttons already exist to prevent duplicates
+          if (document.getElementById("extraButtons")) return;
+
+          const speak = document.getElementById("speak");
+          const extraButtonsContainer = document.createElement("div");
+          extraButtonsContainer.id = "extraButtons";
+          extraButtonsContainer.style.display = "flex";
+          extraButtonsContainer.style.gap = "10px";
+          extraButtonsContainer.style.marginTop = "10px";
+          extraButtonsContainer.style.border-radius = "5px";
+
+          
+          const buttonLabels = ["Mood1", "Mood2", "Mood3"];
+          speak.textContent = "What matches your mood the most?"
+          backButton.textContent = "BACK"
+          buttonLabels.forEach(label => {
+              const button = document.createElement("button");
+              button.textContent = label;
+              button.style.padding = "15px 30px";
+              button.style.cursor = "pointer";
+              
+              
+              button.addEventListener("click", function () {
+                  alert(`You clicked: ${label}`);
+                  // LOGIC
+              });
+
+              extraButtonsContainer.appendChild(button);
+          });
+
+          
+          backButton.parentNode.appendChild(extraButtonsContainer);
+     });      
+  });
+  
   const colourPicker = document.querySelector(".colourPicker");
   const image = document.querySelector(".chosen-shape");
   colourPicker.addEventListener("input", function() {
