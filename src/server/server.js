@@ -3,10 +3,6 @@ const session = require('express-session'); //npm install express-session
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const { closeSync } = require('fs');
-const mongoose = require('mongoose');
-const { MongoClient } = require('mongodb');
-const Teacher = require("../models/Teacher");
-const Student = require("../models/Student");
 const bcrypt = require('bcrypt');
 
 var db = true;
@@ -178,11 +174,12 @@ function matchMood(shape, colour, word1, words, force){
     }
     // return that current mood
     return closestMoods;
+
 }
 
 const additionalWords = {
     Angry: ['Irritated', 'Resentful', 'Miffed', 'Upset', 'Mad', 'Furious', 'Raging', 'Hot'],
-    Disgusted: ['Awful', 'Disappointed', 'Repelled', 'Horrified', 'Hesitant', 'Judgmental', 'Embarrassed', 'Revolted'],
+    Disgusted: ['Awful', 'Disappointed', 'Repelled', 'Horrified', 'Hesitant', 'Judgemental', 'Embarrassed', 'Revolted'],
     Fearful: ['Scared', 'Anxious', 'Insecure', 'Weak', 'Rejected', 'Threatened', 'Nervous', 'Helpless'],
     Happy: ['Playful', 'Interested', 'Optimistic', 'Inspired', 'Proud', 'Thankful', 'Cheeky', 'Free'],
     Sad: ['Lonely', 'Hurt', 'Guilty', 'Powerless', 'Abandoned', 'Ashamed', 'Disappointed', 'Embarrassed'],
@@ -318,6 +315,11 @@ async function connectDB() {
     }
 }
 if (process.env.MONGO_URI != null){
+    const mongoose = require('mongoose');
+    const { MongoClient } = require('mongodb');
+    const Teacher = require("../models/Teacher");
+    const Student = require("../models/Student");
+    const StudentMood = require('../models/Student')
     connectDB();
 } else {
     console.log("Skipping database connection");
@@ -483,7 +485,7 @@ app.get('/student_info', requireLogin(1), async (req, res) => {
             const dateB = new Date(convertToValidDateFormat(b.utimestamp));
             return dateB - dateA;  // Sort in descending order (most recent first)
         });
-        res.render('student_info', { students: formattedStudents }); // Pass students to EJS
+        res.render('student_info', { students: formattedStudents, title: "Student Info" }); // Pass students to EJS
     } catch (error) {
         res.status(500).send("Error fetching students");
     }
@@ -499,7 +501,6 @@ app.post('/previous-shape', (req,res) => {
 })
 
 app.post('/next-shape', (req,res) => {
-    console.log(req.body.shape)
     req.session.shape = req.body.shape
     req.session.progress = 2;
     var filePath = "images/character/shapes/"
@@ -522,7 +523,6 @@ app.post('/previous-colour', (req,res) => {
 })
 
 app.post('/next-colour', (req, res) => {
-    console.log(req.body.colour)
     req.session.colour = req.body.colour;
     req.session.progress = 3;
     var filePath = "images/character/shapes/";
@@ -587,9 +587,6 @@ app.post('/submit-force', (req, res) => { //next
     res.redirect('/mood_summary');          
 });
 
-
-const StudentMood = require('../models/Student')
-
 app.get('/mood_summary', requireStep(6),async (req,res) => {
     req.session.userRole = 'student';
     const shape = req.session.shape;
@@ -615,12 +612,6 @@ app.get('/mood_summary', requireStep(6),async (req,res) => {
         } else {
             words = []
         }
-    
-        console.log(shape)
-        console.log(colour)
-        console.log(word)
-        console.log(force +"/10")
-        console.log(words)
         const potentialMoods = getSharedWords(shape, colour, word)
         //Gets associations between all of the choicees
         const randomIndex = Math.floor(Math.random() * potentialMoods.length)

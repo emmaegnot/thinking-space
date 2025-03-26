@@ -406,7 +406,7 @@ a:hover {
     }
 }
 
-@media (max-height: 590px) {
+@media (max-height: 800px) {
     .footer {
         position: relative;
     }
@@ -879,7 +879,7 @@ table {
 }
 
 /* feelings families */
-#angryButton {
+#angryButton, #disgustedButton, #fearfulButton, #happyButton, #sadButton, #surprisedButton {
     padding: 10px 20px;
     font-size: 1em;
     font-family: milkynice;
@@ -889,6 +889,7 @@ table {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+	margin:5px;
 }
 
 .canvas{

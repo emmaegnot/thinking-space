@@ -1,6 +1,6 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
- <body>
+ <body onload="retrieveFeelingForce()">
     <nav class="mouseM">
       <ul class="header">
         <li><a>THE THINKING SPACE</a></li>
@@ -53,20 +53,45 @@
     </footer>
  </body>
  <script>
-  document.addEventListener('DOMContentLoaded', () => {
-            const selectedEmotion = sessionStorage.getItem('emotion');
 
-            const emotionImages = {
-        "Angry": "/images/character/expressions/angry.png",
-        "Disgusted": "/images/character/expressions/disgusted.png",
-        "Fearful": "/images/character/expressions/fearful.png",
-        "Happy": "/images/character/expressions/happy.png",
-        "Sad": "/images/character/expressions/sad.png",
-        "Surprised": "/images/character/expressions/surprised.png"
-      };
+ var feelingForce = 0;
 
-    const emotionImage = document.getElementById('emotionImage');
-    emotionImage.src = emotionImages[selectedEmotion];
+ function stopCharacterShake()
+ {
+     document.getElementById("emotionImage").style.animation  = "shake 0.5s";
+     document.getElementById("selectedShapeImage").style.animation  = "shake 0.5s";
+     document.getElementById("emotionImage").style.animationIterationCount = "0";
+     document.getElementById("selectedShapeImage").style.animationIterationCount = "0";
+ } 
+		
+	function shakeCharacter(clickCount)
+ {
+	     if(clickCount == 0) { stopCharacterShake(); return; }
+      document.getElementById("emotionImage").style.animation  = "shake" + clickCount + " 0.5s";
+      document.getElementById("selectedShapeImage").style.animation  = "shake" + clickCount + " 0.5s";
+      document.getElementById("emotionImage").style.animationIterationCount = "infinite";
+      document.getElementById("selectedShapeImage").style.animationIterationCount = "infinite";
+ }
+
+ function retrieveFeelingForce()
+ {
+     feelingForce = sessionStorage.getItem("feeling-force-strength");
+     shakeCharacter(feelingForce);
+ }
+ document.addEventListener('DOMContentLoaded', () => {
+        const selectedEmotion = sessionStorage.getItem('emotion');
+
+        const emotionImages = {
+    "Angry": "/images/character/expressions/angry.png",
+    "Disgusted": "/images/character/expressions/disgusted.png",
+    "Fearful": "/images/character/expressions/fearful.png",
+    "Happy": "/images/character/expressions/happy.png",
+    "Sad": "/images/character/expressions/sad.png",
+    "Surprised": "/images/character/expressions/surprised.png"
+  };
+
+  const emotionImage = document.getElementById('emotionImage');
+  emotionImage.src = emotionImages[selectedEmotion];
     emotionImage.style.display = "block";
 
     const backButton = document.getElementById("backButton");
