@@ -475,7 +475,7 @@ app.get('/student_info', requireLogin(1), async (req, res) => {
             const dateB = new Date(convertToValidDateFormat(b.utimestamp));
             return dateB - dateA;  // Sort in descending order (most recent first)
         });
-        res.render('student_info', { students: formattedStudents }); // Pass students to EJS
+        res.render('student_info', { students: formattedStudents, title: "Student Info" }); // Pass students to EJS
     } catch (error) {
         res.status(500).send("Error fetching students");
     }
