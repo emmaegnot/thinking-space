@@ -8,7 +8,6 @@
       </ul>
     </nav>
     <div class="maincontainer">
-      <!-- container1 -->
     <div class="container1 mouseM">
       <form id="shapeForm" method="post">
         <h1 class="colouredText">Choose a shape!</h1>
@@ -77,20 +76,20 @@
     <div class="clear"></div>
 
     <script>
-      // Get all radio buttons
+  
       const buttons = document.getElementsByName("shape");
       const selectedShapeImage = document.getElementById("selectedShapeImage");
     
-      // Function to update the displayed image
+      // update the displayed image
       function updateImage() {
         const selectedShape = document.querySelector('input[name="shape"]:checked');
         if (selectedShape) {
           selectedShapeImage.src = `images/character/shapes/${selectedShape.value}/${selectedShape.value}.png`;
-          selectedShapeImage.style.display = "block"; // Show the image
+          selectedShapeImage.style.display = "block";
         }
       }
     
-      // Add event listener to each radio button
+
       buttons.forEach(radio => {
         radio.addEventListener("change", updateImage);
       });
@@ -121,7 +120,6 @@
         }
       }
 
-      // Add an event listener to each radio button
       radioButtons.forEach((radioButton) => {
         radioButton.addEventListener('change', () => {
           sessionStorage.setItem('selectedShape', radioButton.value);

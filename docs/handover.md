@@ -160,8 +160,9 @@ This folder is untracked by GitHub, but it will contains all of the modules that
 ## Database Structure
 
 In src/models, you can find our two schemas for our database - these are Student and Teacher. We have created an Entity Relationship diagram to show how these two interact:
-![erd](entity-relationship-diagram)
+![erd](entity-relationship-diagram.png)
 As you can see, the teacher and student are linked by their class code, which has a many-to-one relationship. The data of any students that go through the Thinking Space process can be seen only by their teachers, but no other teachers.
+To include some additional security for teacher accounts, we have also introduced a lock feature, so when a certain amount of failed login attempts are made, the account will be frozen for a period of time.
 We require a teacher's username to be unique, as they will use this to log in to their account. We don't bother to have accounts for students, they just need to enter their name and class code. Currently there is no way for a teacher to make an account, this must be done by manually creating one on MongoDB Atlas. We plan for this to be carried out by Raymer Enterprises, who can create accounts for teachers at schools where they choose to use this project. To access the database, see [here](#accessing-the-database).
 > [!NOTE]  
 > If you create an account, you should enter the password as intended. We have logic in the server that will detect if a password is unhashed, and use bcrypt to update the password.

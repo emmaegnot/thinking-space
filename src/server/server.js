@@ -3,10 +3,6 @@ const session = require('express-session'); //npm install express-session
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const { closeSync } = require('fs');
-const mongoose = require('mongoose');
-const { MongoClient } = require('mongodb');
-const Teacher = require("../models/Teacher");
-const Student = require("../models/Student");
 const bcrypt = require('bcrypt');
 
 var db = true;
@@ -168,7 +164,6 @@ function matchMood(shape, colour, word1, words, force){
         }
     }
     // return that current mood
-    console.log("MOOD: ",closestMood);
     return closestMood;
 }
 
@@ -310,6 +305,11 @@ async function connectDB() {
     }
 }
 if (process.env.MONGO_URI != null){
+    const mongoose = require('mongoose');
+    const { MongoClient } = require('mongodb');
+    const Teacher = require("../models/Teacher");
+    const Student = require("../models/Student");
+    const StudentMood = require('../models/Student')
     connectDB();
 } else {
     console.log("Skipping database connection");
@@ -491,7 +491,6 @@ app.post('/previous-shape', (req,res) => {
 })
 
 app.post('/next-shape', (req,res) => {
-    console.log(req.body.shape)
     req.session.shape = req.body.shape
     req.session.progress = 2;
     var filePath = "images/character/shapes/"
@@ -514,13 +513,10 @@ app.post('/previous-colour', (req,res) => {
 })
 
 app.post('/next-colour', (req, res) => {
-    console.log(req.body.colour)
     req.session.colour = req.body.colour;
     req.session.progress = 3;
-    // req.session.filePath2 = `images/character/shapes/${req.session.shape}/${req.session.shape}${req.session.colour}.png`;
     var filePath = "images/character/shapes/";
     req.session.filePath = filePath.concat(req.session.shape, "/", req.session.shape, req.session.colour, ".png");
-    //req.session.colour = generaliseColour(req.session.colour) //not sure if this is in the right place
     res.redirect('/choose_word'); 
     
 });
@@ -577,13 +573,9 @@ app.post('/previous-force', (req,res) => { //back
 app.post('/submit-force', (req, res) => { //next
     req.session.force = req.body.clickCount;
     req.session.progress = 6;  
-    //clickCount = req.body.clickCount; // Update stored value
 
     res.redirect('/mood_summary');          
 });
-
-
-const StudentMood = require('../models/Student')
 
 app.get('/mood_summary', requireStep(6),async (req,res) => {
     req.session.userRole = 'student';
@@ -593,7 +585,6 @@ app.get('/mood_summary', requireStep(6),async (req,res) => {
     const wordDB = req.session.word;
     const addWords = req.session.additional;
    
-    // let word = req.session.word.toLowerCase();
     let mood = "indecisive";
 
     if(req.session.word != undefined){
@@ -611,12 +602,6 @@ app.get('/mood_summary', requireStep(6),async (req,res) => {
         } else {
             words = []
         }
-    
-        console.log(shape)
-        console.log(colour)
-        console.log(word)
-        console.log(force +"/10")
-        console.log(words)
         const potentialMoods = getSharedWords(shape, colour, word)
         //Gets associations between all of the choicees
         const randomIndex = Math.floor(Math.random() * potentialMoods.length)

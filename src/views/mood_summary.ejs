@@ -1,6 +1,6 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
- <body>
+ <body onload="retrieveFeelingForce()">
     <nav class="mouseM">
       <ul class="header">
         <li><a>THE THINKING SPACE</a></li>
@@ -51,6 +51,30 @@
     </footer>
  </body>
  <script>
+ var feelingForce = 0;
+
+ function stopCharacterShake()
+ {
+     document.getElementById("emotionImage").style.animation  = "shake 0.5s";
+     document.getElementById("selectedShapeImage").style.animation  = "shake 0.5s";
+     document.getElementById("emotionImage").style.animationIterationCount = "0";
+     document.getElementById("selectedShapeImage").style.animationIterationCount = "0";
+ } 
+		
+	function shakeCharacter(clickCount)
+ {
+	     if(clickCount == 0) { stopCharacterShake(); return; }
+      document.getElementById("emotionImage").style.animation  = "shake" + clickCount + " 0.5s";
+      document.getElementById("selectedShapeImage").style.animation  = "shake" + clickCount + " 0.5s";
+      document.getElementById("emotionImage").style.animationIterationCount = "infinite";
+      document.getElementById("selectedShapeImage").style.animationIterationCount = "infinite";
+ }
+
+ function retrieveFeelingForce()
+ {
+     feelingForce = sessionStorage.getItem("feeling-force-strength");
+     shakeCharacter(feelingForce);
+ }
  document.addEventListener('DOMContentLoaded', () => {
         const selectedEmotion = sessionStorage.getItem('emotion');
 

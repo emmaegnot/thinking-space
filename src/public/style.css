@@ -28,14 +28,12 @@ body{
 }
 
 .header {
-    /* border-radius: 25px; */
     font-size: 46px;
     color: rgb(121, 166, 224);
     padding: 15;
     list-style-type: none;
     margin: 0;
     overflow: hidden;
-    /* background-color: rgb(255, 241, 195); */
     background-image: url(images/header.png);
     background-repeat: no-repeat;
     width: 100%;
@@ -141,17 +139,14 @@ a:hover {
 
 .maincontainer {
     display: flex;
-    justify-content: center; /* Centers horizontally */
-    align-items: flex-start; /* Centers vertically */
+    justify-content: center;
+    align-items: flex-start;
     width: 100%;
     background-color: transparent;
     margin: auto;
-    /* flex-wrap: wrap; */
 }
 
 .container1 {
-    /* max-width: 50%;
-    margin: 8rem auto 16rem; */
     margin:30px;
     padding: 1.2rem;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
@@ -164,8 +159,6 @@ a:hover {
 }
 
 .container2 {
-    /* max-width: 50%;
-    margin: 8rem auto 16rem; */
     margin:30px;
     padding: 1.2rem;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
@@ -175,13 +168,11 @@ a:hover {
     min-height: 460px;
     width:600px;
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: top; /* Center horizontally */
-    text-align: top; /* Center text */
-    justify-content: flex-start; /* Keep content at the top */
-    height: 100%; /* Ensures full height */
-
-
+    flex-direction: column; 
+    align-items: top; 
+    text-align: top; 
+    justify-content: flex-start; 
+    height: 100%; 
 }
 
 .container1, .container2 {
@@ -194,7 +185,7 @@ a:hover {
     clear: both;
 }
 
-/* replace with container 1 and 2 */
+/*for container 1 and 2 */
 .container {
     max-width: 50%;
     margin: 8rem auto 16rem;
@@ -205,13 +196,12 @@ a:hover {
     color: rgb(121, 166, 224);
     min-height: 250px;
 }
-/* ====================================== */
 
 .moodSummary{
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centers everything vertically */
-    align-items: center; /* Centers everything horizontally */
+    justify-content: center;
+    align-items: center; 
     text-align: center;
 }
 
@@ -308,13 +298,11 @@ a:hover {
     margin-bottom: 10px;
 }
 
-/* maybe replace */
 .container h1 {
     text-align: center;
     margin: 0;
     margin-bottom: 10px;
 }
-
 
 .student {
     font-size: 25px;
@@ -418,7 +406,7 @@ a:hover {
     }
 }
 
-@media (max-height: 590px) {
+@media (max-height: 800px) {
     .footer {
         position: relative;
     }
@@ -427,7 +415,6 @@ a:hover {
     }
 }
 .chosen-shape {
-    /* width: 100%; */
     max-width: 180px;
     max-height: 160px;
 }
@@ -489,8 +476,6 @@ a:hover {
     padding: 3px;
 }
 
-
-
 .left-words, .right-words{
     font-size: 1.8em;
     font-weight: bold;
@@ -502,7 +487,6 @@ a:hover {
     -1px  1px 0 var(--add-colour),
     1px  1px 0 var(--add-colour);
 }
-
 
 /* END OF ADDITIONAL WORDS STYLING*/
 
@@ -578,7 +562,6 @@ a:hover {
 
 /* Background shapes ------------------------------------------------------------------------------------------------------- */
 
-/* HTML: <div class="cloud"></div> */
 .cloud1 {
     height: 180px;
     aspect-ratio: 1.8;
@@ -615,10 +598,6 @@ a:hover {
     animation-iteration-count: infinite;
 }
 
-/* <<<<<<< feature/update-index-page */
-
-/* HTML: <div class="sparkle"></div> */
-
 .square {
     width: 100px;
     height: 100px;
@@ -639,14 +618,8 @@ a:hover {
     animation-duration: 75s;
     animation-iteration-count: infinite;
     mask: radial-gradient(#0000 71%, #000 72%) 10000% 10000%/99.5% 99.5%;
-  
-    /* if you will use a different unit than px consider round()
-     height: round(__,1px);
-     width: round(__,1px);
-    */
   }
 
-  /* HTML: <div class="star"></div> */
 .star {
     width: 100px;  
     aspect-ratio: 1;
@@ -676,7 +649,7 @@ a:hover {
   }
 
   .flower {
-    width: 140px; /* adjust to control the size */
+    width: 140px;
     aspect-ratio: 1;
     animation: float4;
     position: relative;
@@ -688,7 +661,7 @@ a:hover {
   }
 
   .starburst {
-    width: 150px; /* adjust to control the size */
+    width: 150px;
     aspect-ratio: 1;
     animation: float5;
     position: relative;
@@ -708,9 +681,6 @@ a:hover {
     background: red;
     border-radius: 50%
   }
-
-/* top: +down
-left: +right */
 
   @keyframes colour {
     0%   {background-color:red; left:0px; top:0px;}
@@ -894,7 +864,6 @@ table {
     color: rgb(255, 255, 255);
   }
 
-  /* Round the top-left and top-right corners of the first row */
 #students tr:first-child th:first-child {
     border-top-left-radius: 10px;
 }
@@ -902,7 +871,6 @@ table {
     border-top-right-radius: 10px;
 }
 
-/* Round the bottom-left and bottom-right corners of the last row */
 #students tr:last-child td:first-child {
     border-bottom-left-radius: 10px;
 }
@@ -910,14 +878,8 @@ table {
     border-bottom-right-radius: 10px;
 }
 
-/* print ("hello world) */
-
-  /* ============================================= */
-
-/* Grey next when disabled */
-
 /* feelings families */
-#angryButton {
+#angryButton, #disgustedButton, #fearfulButton, #happyButton, #sadButton, #surprisedButton {
     padding: 10px 20px;
     font-size: 1em;
     font-family: milkynice;
@@ -927,6 +889,7 @@ table {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+	margin:5px;
 }
 
 .canvas{
