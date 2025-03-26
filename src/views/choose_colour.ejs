@@ -71,7 +71,7 @@
 
 
 
-      <script>
+<script>
       const nextButton = document.getElementById("nextButton");
       const image = document.querySelector('.chosen-shape');
  
@@ -79,6 +79,13 @@
         nextButton.disabled = false
         sessionStorage.setItem('selectedColour', chosenColour.value);
         document.getElementById('colourInput').value = chosenColour.value;
+      }
+
+      function ChangeColourSession(chosenColour){
+        nextButton.disabled = false
+        sessionStorage.setItem('selectedColour', chosenColour);
+        document.getElementById('colourInput').value = chosenColour;
+        // image.style.backgroundColor = chosenColour.value;
       }
 
       document.getElementById('backButton').addEventListener('click', function() {
@@ -101,14 +108,27 @@
       const selectedShape = sessionStorage.getItem('selectedShape');
 
       const images = document.querySelectorAll(".container2 img");
-    const selectedShapeImage = images[images.length - 1];
+      const selectedShapeImage = images[images.length - 1];
       const selectedColour = chosenColour.value;
       if(selectedColour){
-    selectedShapeImage.src = `images/character/shapes/${selectedShape}/${selectedShape}${selectedColour}.png`;
+        selectedShapeImage.src = `images/character/shapes/${selectedShape}/${selectedShape}${selectedColour}.png`;
+        // Show the image
+        selectedShapeImage.style.display = "block";
+      }
+    }
+    function updateImageSession(chosenColour) {
+      const selectedShape = sessionStorage.getItem('selectedShape');
 
-    selectedShapeImage.style.display = "block";
-  }
-  }
+      const images = document.querySelectorAll(".container2 img");
+      const selectedShapeImage = images[images.length - 1];
+      const selectedColour = chosenColour;
+      if(selectedColour){
+        selectedShapeImage.src = `images/character/shapes/${selectedShape}/${selectedShape}${selectedColour}.png`;
+        // Show the image
+        selectedShapeImage.style.display = "block";
+      }
+    }
+
 
   colorButtons.forEach(button => {
     button.addEventListener("click", function () {
@@ -127,12 +147,14 @@
             if (image) {
                 nextButton.disabled = false
             }
-    
+            ChangeColourSession(savedColor);
+            updateImageSession(savedColor);
             document.getElementById('colourForm').value = savedColor;
         }
       }
 
-     </script>
+     
+</script>
  </body>
 
  

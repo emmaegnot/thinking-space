@@ -11,22 +11,24 @@
     <div class="maincontainer"> 
     <div class="container1 mouseM" style="height: 465px; display: flex; flex-direction: column; justify-content: center; align-items: center;" >  
     <h1 class="colouredText">Mood Matcher</h1>
-    <h2 class="colouredText">Are you feeling <%= mood %> ? </h2>
+    <h2 class="colouredText" id="speak">Are you feeling <%= mood1 %> ? </h2>
+    
 
   <!-- yes button -->
     <form id = "form" action="submit-mood" method="post">
+      <input type="hidden" id="selectedMood" name="selectedMood" value="">
       <input id="moodSummary" name="mood" type="hidden" >
-      <div class="button-div" align="center">
+      <div class="button" align="center">
               <button onclick="sendDataToServer()" type="submit" id = "nextButton">Yes</button>
       </div>
   </form>
 
   <!-- no button -->
-  <form action="/previous-mood" method="post">
-      <div class="button-div" align="center">
-          <button type="button-div" id="backButton">No</button>
-      </div>
-  </form>
+  
+    <div class="button-div" align="center">
+        <button type="button" id="backButton">No</button>
+    </div>
+  
 </div>
 
 <div class="container2 mouseM" class="colour-container">
@@ -51,6 +53,7 @@
     </footer>
  </body>
  <script>
+
  var feelingForce = 0;
 
  function stopCharacterShake()
@@ -90,13 +93,64 @@
   const emotionImage = document.getElementById('emotionImage');
   emotionImage.src = emotionImages[selectedEmotion];
     emotionImage.style.display = "block";
-    
-});
 
-  const colourPicker = document.querySelector(".colourPicker");
-  const image = document.querySelector(".chosen-shape");
-  colourPicker.addEventListener("input", function() {
-      image.style.backgroundColor = colourPicker.value;
+    const backButton = document.getElementById("backButton");
+    const yesButton = document.getElementById("nextButton");
+    backButton.addEventListener("click", function (event) {
+          event.preventDefault();
+
+          // Check if buttons already exist to prevent duplicates
+          const existingButtons = document.getElementById("extraButtons");
+          if (existingButtons) {
+            existingButtons.remove();
+          }
+
+          // Remove "Yes" button
+          if (yesButton) {
+              yesButton.parentNode.removeChild(yesButton);
+          }
+
+          const speak = document.getElementById("speak");
+          const extraButtonsContainer = document.createElement("div");
+          extraButtonsContainer.id = "extraButtons";
+          extraButtonsContainer.style.display = "flex";
+          extraButtonsContainer.style.gap = "10px";
+          extraButtonsContainer.style.marginTop = "10px";
+          extraButtonsContainer.style.borderRadius = "5px";
+
+          
+          const buttonLabels = [<%- JSON.stringify(mood2) %>, <%- JSON.stringify(mood3) %>, <%- JSON.stringify(mood4) %>];
+          speak.textContent = "What matches your mood the most?"
+          backButton.textContent = "BACK"
+          buttonLabels.forEach(label => {
+              const button = document.createElement("button");
+              button.textContent = label;
+              button.style.padding = "15px 30px";
+              button.style.cursor = "pointer";
+              button.style.fontFamily = "milkynice";
+              button.style.fontSize = "1.5em";
+  
+              
+              button.addEventListener("click", function () {
+                document.getElementById("selectedMood").value = label;
+                document.getElementById("form").action = "submit-mood";
+                setTimeout(() => {
+                  document.getElementById("form").submit();
+                }, 100); 
+              });
+
+              extraButtonsContainer.appendChild(button);
+          });
+
+          
+          backButton.parentNode.appendChild(extraButtonsContainer);
+
+          backButton.addEventListener("click", function () {
+            document.getElementById("form").action = "previous-mood";
+            document.getElementById("form").submit();
+          });
+     });      
   });
+
 </script>
 </html>

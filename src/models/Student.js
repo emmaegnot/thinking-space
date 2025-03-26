@@ -11,12 +11,9 @@ const StudentSchema = new mongoose.Schema({
     umood: String,
     whatHappened: String,
     utimestamp: { type: Date, default: Date.now },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-        expires: 2592000 // deletes after 30 days 
-    }
+    createdAt: { type: Date, default: Date.now }
 });
+
 
 
 const Student = mongoose.model("Student", StudentSchema);
