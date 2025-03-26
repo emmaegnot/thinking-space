@@ -59,7 +59,7 @@ test("Checks that the form submits to /submit-what when NEXT is clicked", async 
     await agent.post("/submit-mood");
     await agent.post("/submit-text");
     const res = await agent.get("/weighing_things_up");
-    expect(res.text).toContain('action="/submit-what"'); // The response should contain code for submitting the form
+    expect(res.text).toContain('action=\"/submit-weighing\"'); // The response should contain code for submitting the form
 });
 
 test("Checks that clicking BACK submits to /back-to-what-happened", async () => {
