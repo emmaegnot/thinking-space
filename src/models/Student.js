@@ -10,7 +10,12 @@ const StudentSchema = new mongoose.Schema({
     uforce: Number, 
     umood: String,
     whatHappened: String,
-    utimestamp: { type: Date, default: Date.now }
+    utimestamp: { type: Date, default: Date.now },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        expires: 2592000 // deletes after 30 days 
+    }
 });
 
 
