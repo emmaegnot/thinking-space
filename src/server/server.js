@@ -4,6 +4,11 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const { closeSync } = require('fs');
 const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const { MongoClient } = require('mongodb');
+const Teacher = require("../models/Teacher");
+const Student = require("../models/Student");
+const StudentMood = require('../models/Student');
 
 var db = true;
 
@@ -315,11 +320,6 @@ async function connectDB() {
     }
 }
 if (process.env.MONGO_URI != null){
-    const mongoose = require('mongoose');
-    const { MongoClient } = require('mongodb');
-    const Teacher = require("../models/Teacher");
-    const Student = require("../models/Student");
-    const StudentMood = require('../models/Student')
     connectDB();
 } else {
     console.log("Skipping database connection");
