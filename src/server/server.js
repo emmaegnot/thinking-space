@@ -3,10 +3,6 @@ const session = require('express-session'); //npm install express-session
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const { closeSync } = require('fs');
-const mongoose = require('mongoose');
-const { MongoClient } = require('mongodb');
-const Teacher = require("../models/Teacher");
-const Student = require("../models/Student");
 const bcrypt = require('bcrypt');
 
 var db = true;
@@ -168,7 +164,6 @@ function matchMood(shape, colour, word1, words, force){
         }
     }
     // return that current mood
-    console.log("MOOD: ",closestMood);
     return closestMood;
 }
 
@@ -310,6 +305,11 @@ async function connectDB() {
     }
 }
 if (process.env.MONGO_URI != null){
+    const mongoose = require('mongoose');
+    const { MongoClient } = require('mongodb');
+    const Teacher = require("../models/Teacher");
+    const Student = require("../models/Student");
+    const StudentMood = require('../models/Student')
     connectDB();
 } else {
     console.log("Skipping database connection");
@@ -491,7 +491,6 @@ app.post('/previous-shape', (req,res) => {
 })
 
 app.post('/next-shape', (req,res) => {
-    console.log(req.body.shape)
     req.session.shape = req.body.shape
     req.session.progress = 2;
     var filePath = "images/character/shapes/"
@@ -514,7 +513,6 @@ app.post('/previous-colour', (req,res) => {
 })
 
 app.post('/next-colour', (req, res) => {
-    console.log(req.body.colour)
     req.session.colour = req.body.colour;
     req.session.progress = 3;
     // req.session.filePath2 = `images/character/shapes/${req.session.shape}/${req.session.shape}${req.session.colour}.png`;
@@ -582,9 +580,6 @@ app.post('/submit-force', (req, res) => { //next
     res.redirect('/mood_summary');          
 });
 
-
-const StudentMood = require('../models/Student')
-
 app.get('/mood_summary', requireStep(6),async (req,res) => {
     req.session.userRole = 'student';
     const shape = req.session.shape;
@@ -611,12 +606,6 @@ app.get('/mood_summary', requireStep(6),async (req,res) => {
         } else {
             words = []
         }
-    
-        console.log(shape)
-        console.log(colour)
-        console.log(word)
-        console.log(force +"/10")
-        console.log(words)
         const potentialMoods = getSharedWords(shape, colour, word)
         //Gets associations between all of the choicees
         const randomIndex = Math.floor(Math.random() * potentialMoods.length)
