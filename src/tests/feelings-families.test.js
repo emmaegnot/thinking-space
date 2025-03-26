@@ -65,9 +65,6 @@ test("after clicking angry button, startGame is called", async () => {
     const res = await agent.get("/feelings_families");
     //ensure that when the button is clicked, it calls the startGame function with the correct word
     expect(res.text).toContain(`onclick="startGame('angry')"`);
-    for (var word of Object.keys(words)) {
-    expect(res.text).toContain(`onclick="startGame('${word.toLowerCase()}')"`);
-    }
 });
 
 test("after clicking any of the buttons, startGame is called", async () => {
