@@ -49,6 +49,7 @@
                     <div class="houseText" id="correct"><ul id ="correctList" style="list-style-type: none;"></ul></div>
                     <div class="houseText" id="incorrect"><ul id ="incorrectList" style="list-style-type: none;"></ul></div>
                 </div>
+                <p class="bodyText" id="keyword"</p>
             </div>
 			
 	    <div id="gameOverPopup" class="index-container mouseM" style="display:none">
@@ -111,6 +112,8 @@
                 gameArea.start();
 		// Display ingame instructions
 		document.getElementById("game-instructions").style = "";
+                // Show the key word below the house
+                document.getElementById("keyword").innerHTML = "Key Word: " + keyword;
                 // create components for words, they have a random x beginning position 
                 house = new newHouse();
 		// Based on the emotion selected, populate the "words" and "filler words" arrays
