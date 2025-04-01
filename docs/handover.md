@@ -151,7 +151,7 @@ The docker file contains shell scripts for starting and stopping the docker imag
 
 ### docs
 
-The docs folder contains informative documents and research relating to the project. Research includes UI design, analyses of ethics and a tech stack, among other things. It also contains this document, the client brief and architecture diagrams.
+The docs folder contains informative documents and research relating to the project. Research includes UI design, analyses of ethics and a tech stack, among other things. It also contains this document, the client brief and architecture diagrams. It also houses ai-tools.md, a document where we have disclosed all the AI tools we have used throughout this project.
 
 ### node_modules
 
