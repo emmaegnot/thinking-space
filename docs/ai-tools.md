@@ -45,7 +45,7 @@ How each member has used AI throughout the project
 ### Other usage:
 - Often when implementing something new to the code I could ask ChatGPT to educate me on it so I can be more informed on how to do my task.
 
-- ## Anni: 
+## Anni: 
 ### Tools Used:
 - ChatGPT
 
