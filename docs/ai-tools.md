@@ -44,3 +44,16 @@ How each member has used AI throughout the project
 
 ### Other usage:
 - Often when implementing something new to the code I could ask ChatGPT to educate me on it so I can be more informed on how to do my task.
+
+- ## Anni: 
+### Tools Used:
+- ChatGPT
+
+### AI Generated Code:
+- Approaching unfamiliar languages, if syntax was too specific for external sources, I used AI for a basic outline which I could then develop to more advanced code that does the certain task.
+
+### Debugging with AI:
+- Quickly identifying errors in large amounts of code. It was effective in checking inconsistent naming of variables, mis-ordering and pinpointing what is wrong to which I then resolve independently or following suggested steps. 
+
+### Other usage:
+- Explaining unfamiliar concepts such as passing images and data between HTML pages so that I could understand the logic to work with.
