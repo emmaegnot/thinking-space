@@ -50,7 +50,7 @@ How each member has used AI throughout the project
 - ChatGPT
 
 ### AI Generated Code:
-- Approaching unfamiliar languages, if syntax was too specific for external sources, I occasionally used AI for a basic outline which I could then develop to more advanced code that does the certain task.
+- Approaching unfamiliar languages, if syntax was too specific for external sources, I occasionally used AI for a basic syntax outline which I could then develop using my own logic to more advanced code that does the certain task.
 
 ### Debugging with AI:
 - Quickly identifying errors in large amounts of code. It was effective in checking inconsistent naming of variables, mis-ordering and pinpointing what is wrong to which I then resolve independently or following suggested steps. 
