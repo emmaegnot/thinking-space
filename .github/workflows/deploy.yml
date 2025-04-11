@@ -1,0 +1,51 @@
+name: CI/CD Deployment to EC2
+
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up AWS CLI with IAM Role
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_ROLE_NAME }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Deploy to EC2
+      run: |
+        # Get EC2 IP using AWS CLI
+        EC2_IP=$(aws ec2 describe-instances --instance-ids ${{ secrets.AWS_INSTANCE_ID }} --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
+        # Send SSM command to deploy application
+        aws ssm send-command \
+          --instance-ids ${{ secrets.AWS_INSTANCE_ID }} \
+          --document-name "AWS-RunShellScript" \
+          --parameters "commands=[
+            \"set -x\",
+            \"export HOME=/home/ec2-user\",
+            \"mkdir -p ~/.ssh && chmod 700 ~/.ssh\",
+            \"eval \$(ssh-agent -s)\", 
+            \"ssh-keyscan github.com >> ~/.ssh/known_hosts\",
+            \"ssh-add ~/.ssh/id_rsa\",
+            \"git config --global --add safe.directory /home/ec2-user/2024-ThinkingSpace\",
+            \"cd /home/ec2-user/2024-ThinkingSpace/ && git fetch origin\",
+            \"git checkout dev\",
+            \"git pull\",
+            \"docker build -t my-node-app .\",
+            \"docker stop my-node-app || true\",
+            \"docker rm -f my-node-app || true\",
+            \"docker run -d -p 3000:3000 --name my-node-app -e MONGO_URI='${{ secrets.MONGO_URI }}' my-node-app\",
+            \"sudo systemctl restart nginx\"
+          ]"

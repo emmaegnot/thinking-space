@@ -7,57 +7,58 @@
         <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
       </ul>
     </nav>
-    <div class="container mouseM">
+    <div class="maincontainer">
+    <div class="container1 mouseM">
       <form id="shapeForm" method="post">
         <h1 class="colouredText">Choose a shape!</h1>
         <p class="bodyText">Which shape shows how you feel right now?</p>
         <div class="shape-container">
           <div class="shape-item">
             <label>
-              <input type="radio" name="shape" value="parallelogram">
-              <img src="images/parallelogram.png" />
+              <input type="radio" name="shape" value="diamond">
+              <img src="images/character/shapes/diamond/diamond.png" />
             </label>
           </div>
           <div class="shape-item">
             <label>
               <input type="radio" name="shape" value="circle">
-              <img src="images/circle.png" />
+              <img src="images/character/shapes/circle/circle.png" />
             </label>
           </div>
           <div class="shape-item">
             <label>
               <input type="radio" name="shape" value="square">
-              <img src="images/square.png" />
+              <img src="images/character/shapes/square/square.png" />
             </label>
           </div>
           <div class="shape-item">
             <label>
               <input type="radio" name="shape" value="star">
-              <img src="images/star.png" />
+              <img src="images/character/shapes/star/star.png" />
             </label>
           </div>
           <div class="shape-item">
             <label>
               <input type="radio" name="shape" value="triangle">
-              <img src="images/triangle.png" />
+              <img src="images/character/shapes/triangle/triangle.png" />
             </label>
           </div>
           <div class="shape-item">
             <label>
-              <input type="radio" name="shape" value="spikeyball">
-              <img src="images/spikeyball.png" />
+              <input type="radio" name="shape" value="spiky">
+              <img src="images/character/shapes/spiky/spiky.png" />
             </label>
           </div>
           <div class="shape-item">
             <label>
-              <input type="radio" name="shape" value="cloud">
-              <img src="images/cloud.png" />
+              <input type="radio" name="shape" value="puffy">
+              <img src="images/character/shapes/puffy/puffy.png" />
             </label>
           </div>
           <div class="shape-item">
             <label>
-              <input type="radio" name="shape" value="hexagon">
-              <img src="images/hexagon.png" />
+              <input type="radio" name="shape" value="bouba">
+              <img src="images/character/shapes/bouba/bouba.png" />
             </label>
           </div>
         </div>
@@ -67,6 +68,34 @@
         </div>
       </form>
     </div>
+
+    <div class="container2 mouseM">
+      <h1 class="colouredText">Your character</h1>
+      <img id="selectedShapeImage" src="" style="max-width: 100%; height: auto;">
+    </div>
+    <div class="clear"></div>
+
+    <script>
+  
+      const buttons = document.getElementsByName("shape");
+      const selectedShapeImage = document.getElementById("selectedShapeImage");
+    
+      // update the displayed image
+      function updateImage() {
+        const selectedShape = document.querySelector('input[name="shape"]:checked');
+        if (selectedShape) {
+          selectedShapeImage.src = `images/character/shapes/${selectedShape.value}/${selectedShape.value}.png`;
+          selectedShapeImage.style.display = "block";
+        }
+      }
+    
+
+      buttons.forEach(radio => {
+        radio.addEventListener("change", updateImage);
+      });
+    </script>
+
+  </div>
     <footer class="footer">
       <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
       <span class="motto mouseM">With emotional health in mind</span>
@@ -85,12 +114,12 @@
           );
           if (selectedRadio) {
             selectedRadio.checked = true;
+            updateImage();
             nextButton.disabled = false;
           }
         }
       }
 
-      // Add an event listener to each radio button
       radioButtons.forEach((radioButton) => {
         radioButton.addEventListener('change', () => {
           sessionStorage.setItem('selectedShape', radioButton.value);

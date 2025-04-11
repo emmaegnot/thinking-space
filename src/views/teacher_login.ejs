@@ -6,7 +6,7 @@
    <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
   </ul>
  </nav>
- <body>
+ <body onLoad="remember()">
 <div class="index-container mouseM">
 <h1 class="h1">Login</h1>
 <form id="loginForm" method="POST">
@@ -19,21 +19,23 @@
         <input type="password" placeholder="Enter your Password" id="password" name="password" required>
         <img src="images/eye_open.svg" alt="Show Password" id="show-passwd" />
   </div>
+  <div class="pass-wrap">
+      <input name="remember-me" type="checkbox" id="remember-me">Remember Me</div>
   <div align="center" class="button-container">
-    <button id="backButton" class="buttonBelow" type="button">
+
+<!-- class changed from buttonBelow to button -->
+    <button id="backButton" class="button" type="button">
       HOME
     </button>
 
-    <!-- <button id="submit" class="buttonBelow" type="button"><span>
-      LOGIN
-    </span></button> -->
-
-    <form id = "form" action="submit-login" method="post">
-    <button id="nextButton" class="buttonBelow" type="submit"><span>
-      LOGIN
+<form id="form" action="submit-login" method="post">
+    <button id="nextButton" class="button" type="submit" onclick="login()"><span>
+    LOGIN
     </span></button></form>
+
   </div>
 </form>
+<p id="error-message" style="color: red; display: none"></p>
 </div>
  <style>
     
@@ -68,17 +70,6 @@
         gap: 15px;
         margin-top: 10px;
     }
-    .buttonBelow {
-      padding: 10px 20px;
-      width: 120px;
-      font-size: 1em;
-      color: #fff;
-      background-color: #4a90e2;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
 
     #submit {
       display: flex;
@@ -112,9 +103,72 @@
       }
   }); 
 
+  document.getElementById("loginForm").addEventListener("submit", async function(event) {
+        event.preventDefault(); // Prevent page reload
+
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        const response = await fetch("/teacher_login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            window.location.href = result.redirect; // Redirect if login is successful
+        } else {
+            document.getElementById("error-message").textContent = result.error;
+            document.getElementById("error-message").style.display = 'block';
+            if (result.error.includes("Locked for")) {
+              document.getElementById("nextButton").disabled = true;
+              setTimeout(() => {
+                  document.getElementById("nextButton").disabled = false;
+              }, 120000); // Unlock after 2 minutes
+            }
+
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.style.borderColor = 'red';
+                input.addEventListener('input', () => input.style.borderColor = ''); // Reset on input
+            });
+            setTimeout(() => {
+                document.getElementById("error-message").style.display = 'none';
+            }, 3000);
+
+        }
+  });
+
   document.getElementById('backButton').addEventListener('click', function() {
     window.location.href = '/';
   });
+  
+  function remember()
+  {
+  
+  	document.getElementById("name").value = localStorage.getItem("username");
+	document.getElementById("password").value = localStorage.getItem("password");
+  }
+  
+  function login()
+  {
+  	// Handle "Remember Me", storing username and password in local storage
+	if(document.getElementById("remember-me").checked)
+	{
+		const username = document.getElementById("name").value;
+		const password = document.getElementById("password").value;
+		localStorage.setItem("username", username);
+		localStorage.setItem("password", password);
+	}
+	else // If "Remember Me" is deselected, clear the local storage
+	{
+		localStorage.setItem("username", "");
+		localStorage.setItem("password", "");
+	}
+  }
+  
  </script>
 
 <footer class="index-footer">

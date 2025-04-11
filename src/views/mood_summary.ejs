@@ -1,6 +1,6 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
- <body>
+ <body onload="retrieveFeelingForce()">
     <nav class="mouseM">
       <ul class="header">
         <li><a>THE THINKING SPACE</a></li>
@@ -8,24 +8,42 @@
       </ul>
     </nav>
 
-    <div class="container mouseM">  
+    <div class="maincontainer"> 
+    <div class="container1 mouseM" style="height: 465px; display: flex; flex-direction: column; justify-content: center; align-items: center;" >  
     <h1 class="colouredText">Mood Matcher</h1>
-    <h2 class="colouredText">Are you feeling <%= mood %> ? </h2>
+    <h2 class="colouredText" id="speak">Are you feeling <%= mood1 %> ? </h2>
+    
 
   <!-- yes button -->
     <form id = "form" action="submit-mood" method="post">
+      <input type="hidden" id="selectedMood" name="selectedMood" value="">
       <input id="moodSummary" name="mood" type="hidden" >
-      <div class="button-div" align="center">
+      <div class="button" align="center">
               <button onclick="sendDataToServer()" type="submit" id = "nextButton">Yes</button>
       </div>
   </form>
 
   <!-- no button -->
-  <form action="/previous-mood" method="post">
-      <div class="button-div" align="center">
-          <button type="button-div" id="backButton">No</button>
-      </div>
-  </form>
+  
+    <div class="button-div" align="center">
+        <button type="button" id="backButton">No</button>
+    </div>
+  
+</div>
+
+<div class="container2 mouseM" class="colour-container">
+  <div align="center">
+  <div class="colour-container">
+  <h1 class="colouredText">Your character</h1>
+  <div style="position: relative;display: inline-block;">
+  <img src="<%= filepath %>" id="selectedShapeImage" alt="selected emotion">
+  <img id="emotionImage" src="" alt="Emotion Overlay" style="position: absolute; top: 0; left: 0;width: 100%; height: 100%; object-fit: contain; display: none;">
+</div>
+</div>
+<div class="clear"></div>
+</div>
+</div>
+
 </div>
 
     <!-- Footer with logo and motto aligned to left and right -->
@@ -35,10 +53,104 @@
     </footer>
  </body>
  <script>
-  const colourPicker = document.querySelector(".colourPicker");
-  const image = document.querySelector(".chosen-shape");
-  colourPicker.addEventListener("input", function() {
-      image.style.backgroundColor = colourPicker.value;
+
+ var feelingForce = 0;
+
+ function stopCharacterShake()
+ {
+     document.getElementById("emotionImage").style.animation  = "shake 0.5s";
+     document.getElementById("selectedShapeImage").style.animation  = "shake 0.5s";
+     document.getElementById("emotionImage").style.animationIterationCount = "0";
+     document.getElementById("selectedShapeImage").style.animationIterationCount = "0";
+ } 
+		
+	function shakeCharacter(clickCount)
+ {
+	     if(clickCount == 0) { stopCharacterShake(); return; }
+      document.getElementById("emotionImage").style.animation  = "shake" + clickCount + " 0.5s";
+      document.getElementById("selectedShapeImage").style.animation  = "shake" + clickCount + " 0.5s";
+      document.getElementById("emotionImage").style.animationIterationCount = "infinite";
+      document.getElementById("selectedShapeImage").style.animationIterationCount = "infinite";
+ }
+
+ function retrieveFeelingForce()
+ {
+     feelingForce = sessionStorage.getItem("feeling-force-strength");
+     shakeCharacter(feelingForce);
+ }
+ document.addEventListener('DOMContentLoaded', () => {
+        const selectedEmotion = sessionStorage.getItem('emotion');
+
+        const emotionImages = {
+    "Angry": "/images/character/expressions/angry.png",
+    "Disgusted": "/images/character/expressions/disgusted.png",
+    "Fearful": "/images/character/expressions/fearful.png",
+    "Happy": "/images/character/expressions/happy.png",
+    "Sad": "/images/character/expressions/sad.png",
+    "Surprised": "/images/character/expressions/surprised.png"
+  };
+
+  const emotionImage = document.getElementById('emotionImage');
+  emotionImage.src = emotionImages[selectedEmotion];
+    emotionImage.style.display = "block";
+
+    const backButton = document.getElementById("backButton");
+    const yesButton = document.getElementById("nextButton");
+    backButton.addEventListener("click", function (event) {
+          event.preventDefault();
+
+          // Check if buttons already exist to prevent duplicates
+          const existingButtons = document.getElementById("extraButtons");
+          if (existingButtons) {
+            existingButtons.remove();
+          }
+
+          // Remove "Yes" button
+          if (yesButton) {
+              yesButton.parentNode.removeChild(yesButton);
+          }
+
+          const speak = document.getElementById("speak");
+          const extraButtonsContainer = document.createElement("div");
+          extraButtonsContainer.id = "extraButtons";
+          extraButtonsContainer.style.display = "flex";
+          extraButtonsContainer.style.gap = "10px";
+          extraButtonsContainer.style.marginTop = "10px";
+          extraButtonsContainer.style.borderRadius = "5px";
+
+          
+          const buttonLabels = [<%- JSON.stringify(mood2) %>, <%- JSON.stringify(mood3) %>, <%- JSON.stringify(mood4) %>];
+          speak.textContent = "What matches your mood the most?"
+          backButton.textContent = "BACK"
+          buttonLabels.forEach(label => {
+              const button = document.createElement("button");
+              button.textContent = label;
+              button.style.padding = "15px 30px";
+              button.style.cursor = "pointer";
+              button.style.fontFamily = "milkynice";
+              button.style.fontSize = "1.5em";
+  
+              
+              button.addEventListener("click", function () {
+                document.getElementById("selectedMood").value = label;
+                document.getElementById("form").action = "submit-mood";
+                setTimeout(() => {
+                  document.getElementById("form").submit();
+                }, 100); 
+              });
+
+              extraButtonsContainer.appendChild(button);
+          });
+
+          
+          backButton.parentNode.appendChild(extraButtonsContainer);
+
+          backButton.addEventListener("click", function () {
+            document.getElementById("form").action = "previous-mood";
+            document.getElementById("form").submit();
+          });
+     });      
   });
+
 </script>
 </html>

@@ -1,0 +1,94 @@
+<html lang="en">
+ <%- include('partials/head') %>
+ <body>
+    <nav class="mouseM">
+      <ul class="header">
+        <li><a>THE THINKING SPACE</a></li>
+        <li class="home" style="float: right;"><a href="/"><i class="fa-solid fa-house"></i></a></li>
+      </ul>
+    </nav>
+
+ <div class="container mouseM">   
+	<div align="center">
+      <h1>Weighing Things Up</h1>
+	<h2>Feeling <%= mood %>? </h2></div>
+      <table width="100%" border="0">
+       <!-- <tr>
+          <td width="50%"><h2>Feeling <%= mood %>? </h2></td> 
+          <td width="50%">&nbsp;</td>
+        </tr> -->
+        <tr>
+          <p class="bodyText">How you are feeling or thinking is what we need to work on together. If you only think about things you are unhappy with it makes it harder to get out of that bad mood. </p>
+          <p class="bodyText">We need to &quot;weigh&quot; the good and not just the bad if we want to start feeling better again... </p>
+        </tr>
+      </table>
+	<p class="bodyText">Put your &quot;good&quot; and &quot;bad&quot; things here in list format, one per line...</p>
+	  <table border="0" width="100%">
+	  <tr>
+	  <td width="50%"><div align="center" style="color:#3486eb">Good</div></td>
+	  <td width="50%"><div align="center" style="color:#3486eb">Bad</div></td>
+	  </tr>
+	  <tr>
+	    <td><textarea onchange="updateBalance()" id="good" rows="5" cols="50" style="width:100%"></textarea></td>
+	    <td width="50%"><textarea onchange="updateBalance()" id="bad"  rows="5" cols="50" style="width:100%"></textarea></td>
+	    </tr>
+	  </table>
+	  <div align="center"><progress id="balance" style="width:50%" max="100" value="50"></progress></div>
+	<div class="button-div" align="center">
+		<form action="/submit-weighing" method="post">
+        <button type="submit" id="nextButton">NEXT</button>
+		</form>
+	</div>
+	<div class="button-div" align="center">
+	<form action="/back-to-what-happened" method="post">
+            <button type="button-div" id="backButton">BACK</button>
+	</form></div>
+        </div>
+ </div>
+    <!-- Footer with logo and motto aligned to left and right -->
+    <footer class="footer">
+      <img class="logo" src="images/logo.png" alt="Raymer Enterprises Ltd" width="212" height="104">
+      <span class="motto mouseM">With emotional health in mind</span>
+    </footer>
+ </body>
+ <script>
+ 
+ function updateBalance()
+ {
+ 	// Get the # of lines in the "Good" and "Bad" text areas
+ 	var good = document.getElementById("good").value;
+ 	var bad = document.getElementById("bad").value;
+ 	var linesGood = 0, linesBad = 0;
+ 	var inLine = false;
+ 	for(var i = 0; i < good.length; i++)
+ 	{
+ 		if(good.charAt(i) === '\n' && inLine)
+ 		{
+ 			inLine = false;
+ 		}
+ 		else if(!inLine && good.charAt(i) != '\n')
+ 		{
+ 			linesGood++;
+ 			inLine = true;
+ 		}
+ 	}
+ 	inLine = false;
+  	for(var i = 0; i < bad.length; i++)
+ 	{
+ 		if(bad.charAt(i) === '\n' && inLine)
+ 		{
+ 			inLine = false;
+ 		}
+ 		else if(!inLine && bad.charAt(i) != '\n')
+ 		{
+ 			linesBad++;
+ 			inLine = true;
+ 		}
+ 	}
+ 	// Get the fraction of "good" things and update progress bar accordingly
+ 	var totalLines = linesGood + linesBad;
+ 	var fractionGood = linesGood / totalLines;
+ 	document.getElementById("balance").value = fractionGood * 100;
+ }
+</script>
+</html>

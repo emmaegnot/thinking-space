@@ -28,24 +28,27 @@ body{
 }
 
 .header {
-    /* border-radius: 25px; */
     font-size: 46px;
     color: rgb(121, 166, 224);
     padding: 15;
     list-style-type: none;
     margin: 0;
     overflow: hidden;
-    /* background-color: rgb(255, 241, 195); */
     background-image: url(images/header.png);
     background-repeat: no-repeat;
     width: 100%;
     height: 110px
   }
 
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 .home{
     color: rgb(121, 166, 224);
     background-image: url(images/header2.png);
-    height: 80px;
+    height: 100px;
     width: 120px;
     padding-right: 30px;
     list-style-type: none;
@@ -57,7 +60,9 @@ body{
 }
 
 .fa-house{
-    margin-left: 30px;
+    font-size: 70px;
+    margin-left: 25px;
+    margin-bottom: 10px;
     cursor: pointer;
 }
 
@@ -132,6 +137,55 @@ a:hover {
     text-align: right;
 }
 
+.maincontainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    background-color: transparent;
+    margin: auto;
+}
+
+.container1 {
+    margin:30px;
+    padding: 1.2rem;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    background: #ffffff;
+    color: rgb(121, 166, 224);
+    min-height: 250px;
+    width:900px;
+
+}
+
+.container2 {
+    margin:30px;
+    padding: 1.2rem;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    background: #ffffff;
+    color: rgb(121, 166, 224);
+    min-height: 460px;
+    width:600px;
+    display: flex;
+    flex-direction: column; 
+    align-items: top; 
+    text-align: top; 
+    justify-content: flex-start; 
+    height: 100%; 
+}
+
+.container1, .container2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#clear {
+    clear: both;
+}
+
+/*for container 1 and 2 */
 .container {
     max-width: 50%;
     margin: 8rem auto 16rem;
@@ -146,15 +200,20 @@ a:hover {
 .moodSummary{
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centers everything vertically */
-    align-items: center; /* Centers everything horizontally */
+    justify-content: center;
+    align-items: center; 
     text-align: center;
 }
 
 .index-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
     text-align: center;
-    max-width: 50%;
-    min-width: 190px;
+    max-width: 200%;
+    min-width: 400px;
+    height: 320px;
     padding: 2rem;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
     border-radius: 20px;
@@ -167,14 +226,16 @@ a:hover {
 }
 
 .index-container .button {
+    font-family: milkynice;
     text-align: center;
     background-color: rgba(0, 0, 0, 0);
     color: rgb(121, 166, 224);
     margin: 5px;
-    width: 70%;
+    width: auto;
+    min-width: 300px;
     padding: 1rem 2rem;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 1.8rem;
     border: 1px solid black;
     border-radius: 4px;
     cursor: pointer;
@@ -186,6 +247,7 @@ a:hover {
 }
 
 .index-container h1 {
+    font-size: 2.5rem;
     margin-top: 0px;
 }
 
@@ -219,14 +281,27 @@ a:hover {
     margin-bottom: 10px;
 }
 
-.container h1 {
+.container1 h1 {
     text-align: center;
+    width:100%;
+    display:block;
     margin: 0;
     margin-bottom: 10px;
 }
 
-.button-div{
-    margin-top: 10px;
+.container2 h1 {
+    text-align: center;
+    padding:-100px;
+    width:100%;
+    display:block;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.container h1 {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 10px;
 }
 
 .student {
@@ -244,6 +319,23 @@ a:hover {
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     justify-items: center;
+  }
+
+
+.colour-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+
+  #emotionImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: none; 
   }
 
 .shape-item {
@@ -284,6 +376,7 @@ a:hover {
     font-style: normal;
     color: rgb(121, 166, 224);
     margin: 5px auto;
+    font-size: 1.5rem;
 }
 
 .index-footer {
@@ -313,7 +406,7 @@ a:hover {
     }
 }
 
-@media (max-height: 590px) {
+@media (max-height: 800px) {
     .footer {
         position: relative;
     }
@@ -321,12 +414,11 @@ a:hover {
         margin: 2rem auto 2rem;
     }
 }
-
 .chosen-shape {
-    width: 100%;
     max-width: 180px;
     max-height: 160px;
 }
+
 
 .colourPicker{
     display: none;
@@ -396,7 +488,6 @@ a:hover {
     1px  1px 0 var(--add-colour);
 }
 
-
 /* END OF ADDITIONAL WORDS STYLING*/
 
 .palette{
@@ -439,14 +530,17 @@ a:hover {
     background-color: #90f9a0;
   }
 
-  .button-div {
-    margin-top: 20px;
-    text-align: center;
-  }
+  .button-div{
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
 
   .button-div button {
-    padding: 10px 20px;
-    font-size: 1em;
+    padding: 20px 40px;
+    font-size: 1.5em;
     color: #fff;
     background-color: #4a90e2;
     border: none;
@@ -468,7 +562,6 @@ a:hover {
 
 /* Background shapes ------------------------------------------------------------------------------------------------------- */
 
-/* HTML: <div class="cloud"></div> */
 .cloud1 {
     height: 180px;
     aspect-ratio: 1.8;
@@ -505,10 +598,6 @@ a:hover {
     animation-iteration-count: infinite;
 }
 
-/* <<<<<<< feature/update-index-page */
-
-/* HTML: <div class="sparkle"></div> */
-
 .square {
     width: 100px;
     height: 100px;
@@ -529,14 +618,8 @@ a:hover {
     animation-duration: 75s;
     animation-iteration-count: infinite;
     mask: radial-gradient(#0000 71%, #000 72%) 10000% 10000%/99.5% 99.5%;
-  
-    /* if you will use a different unit than px consider round()
-     height: round(__,1px);
-     width: round(__,1px);
-    */
   }
 
-  /* HTML: <div class="star"></div> */
 .star {
     width: 100px;  
     aspect-ratio: 1;
@@ -566,7 +649,7 @@ a:hover {
   }
 
   .flower {
-    width: 140px; /* adjust to control the size */
+    width: 140px;
     aspect-ratio: 1;
     animation: float4;
     position: relative;
@@ -578,7 +661,7 @@ a:hover {
   }
 
   .starburst {
-    width: 150px; /* adjust to control the size */
+    width: 150px;
     aspect-ratio: 1;
     animation: float5;
     position: relative;
@@ -598,9 +681,6 @@ a:hover {
     background: red;
     border-radius: 50%
   }
-
-/* top: +down
-left: +right */
 
   @keyframes colour {
     0%   {background-color:red; left:0px; top:0px;}
@@ -749,7 +829,6 @@ left: +right */
     100% {background-color:rgb(255, 141, 141); left:1000px; top:-600px;}
 }
   
-
 /*========================================================*/
 
 /* table */
@@ -785,7 +864,6 @@ table {
     color: rgb(255, 255, 255);
   }
 
-  /* Round the top-left and top-right corners of the first row */
 #students tr:first-child th:first-child {
     border-top-left-radius: 10px;
 }
@@ -793,7 +871,6 @@ table {
     border-top-right-radius: 10px;
 }
 
-/* Round the bottom-left and bottom-right corners of the last row */
 #students tr:last-child td:first-child {
     border-bottom-left-radius: 10px;
 }
@@ -801,14 +878,66 @@ table {
     border-bottom-right-radius: 10px;
 }
 
-/* print ("hello world) */
-/* ============================================= */
-
-/* Grey next when disabled */
-
-#nextButton {
+/* feelings families */
+#angryButton, #disgustedButton, #fearfulButton, #happyButton, #sadButton, #surprisedButton {
     padding: 10px 20px;
     font-size: 1em;
+    font-family: milkynice;
+    color: #fff;
+    background-color: #4a90e2;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+	margin:5px;
+}
+
+.canvas{
+    border: 2px solid black;
+    background-color: #ebeacd;
+}
+
+.houseContainer {
+    position: relative;
+}
+
+.houseText {
+    position: absolute;
+}
+
+#correct{
+    color: rgb(37, 126, 38);
+    bottom: 10px;
+    left: 115px;
+}
+
+#incorrect{
+    color: rgb(235, 53, 53);
+    bottom: 10px;
+    left: 15px
+}
+
+#gameCanvas {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+}
+
+/* ============================================= */
+
+
+.expression {
+    display: none;
+    top: 330px;
+    left: 1120px;
+    width:200px;
+    position: absolute;
+    z-index: 2;
+}
+#nextButton {
+    padding: 15px 30px;
+    font-size: 1.5em;
     font-family: milkynice;
     color: #fff;
     background-color: #4a90e2;
@@ -819,8 +948,8 @@ table {
 }
 
 #backButton {
-    padding: 10px 20px;
-    font-size: 1em;
+    padding: 15px 30px;
+    font-size: 1.5em;
     font-family: milkynice;
     color: #fff;
     background-color: #4a90e2;
@@ -837,8 +966,8 @@ table {
 } 
 
 input[name="colourValue"] {
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
     padding: 20px;
     border-radius: 12px;
     margin-bottom: 20px;
@@ -876,4 +1005,160 @@ input[name="colourValue"] {
     margin: 5px 0px 0px 5px;
     width: 20px;                 
     height: 20px;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@keyframes shake1 {
+  0% { transform: translate(1px, 0px) rotate(0deg); }
+  10% { transform: translate(0px, 0px) rotate(0deg); }
+  20% { transform: translate(0px, 0px) rotate(0deg); }
+  30% { transform: translate(0px, 0px) rotate(0deg); }
+  40% { transform: translate(1px, 0px) rotate(1deg); }
+  50% { transform: translate(0px, 0px) rotate(0deg); }
+  60% { transform: translate(-1px, 0px) rotate(0deg); }
+  70% { transform: translate(0px, 0px) rotate(0deg); }
+  80% { transform: translate(0px, 0px) rotate(0deg); }
+  90% { transform: translate(0px, 0px) rotate(0deg); }
+  100% { transform: translate(1px, 0px) rotate(-1deg); }
+}
+
+@keyframes shake2 {
+  0% { transform: translate(1px, 0px) rotate(0deg); }
+  10% { transform: translate(0px, -1px) rotate(-1deg); }
+  20% { transform: translate(0px, 0px) rotate(0deg); }
+  30% { transform: translate(0px, 1px) rotate(0deg); }
+  40% { transform: translate(1px, 0px) rotate(1deg); }
+  50% { transform: translate(0px, 0px) rotate(0deg); }
+  60% { transform: translate(-1px, 0px) rotate(0deg); }
+  70% { transform: translate(0px, 1px) rotate(-1deg); }
+  80% { transform: translate(0px, 0px) rotate(0deg); }
+  90% { transform: translate(0px, 1px) rotate(0deg); }
+  100% { transform: translate(1px, 0px) rotate(-1deg); }
+}
+
+
+@keyframes shake3 {
+  0% { transform: translate(1px, 0px) rotate(0deg); }
+  10% { transform: translate(0px, -1px) rotate(-1deg); }
+  20% { transform: translate(-1px, 0px) rotate(1deg); }
+  30% { transform: translate(0px, 1px) rotate(0deg); }
+  40% { transform: translate(1px, 0px) rotate(1deg); }
+  50% { transform: translate(0px, 1px) rotate(-1deg); }
+  60% { transform: translate(-1px, 0px) rotate(0deg); }
+  70% { transform: translate(0px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, 0px) rotate(1deg); }
+  90% { transform: translate(0px, 1px) rotate(0deg); }
+  100% { transform: translate(1px, 0px) rotate(-1deg); }
+}
+
+
+@keyframes shake4 {
+  0% { transform: translate(1px, 0px) rotate(0deg); }
+  10% { transform: translate(-1px, -1px) rotate(-1deg); }
+  20% { transform: translate(-1px, 0px) rotate(1deg); }
+  30% { transform: translate(1px, 1px) rotate(0deg); }
+  40% { transform: translate(1px, 0px) rotate(1deg); }
+  50% { transform: translate(-1px, 1px) rotate(-1deg); }
+  60% { transform: translate(-1px, 0px) rotate(0deg); }
+  70% { transform: translate(1px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, 0px) rotate(1deg); }
+  90% { transform: translate(1px, 1px) rotate(0deg); }
+  100% { transform: translate(1px, 0px) rotate(-1deg); }
+}
+
+@keyframes shake5 {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -1px) rotate(-1deg); }
+  20% { transform: translate(-1px, 1px) rotate(1deg); }
+  30% { transform: translate(1px, 1px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 1px) rotate(-1deg); }
+  60% { transform: translate(-1px, 1px) rotate(0deg); }
+  70% { transform: translate(1px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 1px) rotate(0deg); }
+  100% { transform: translate(1px, -1px) rotate(-1deg); }
+}
+
+@keyframes shake6 {
+  0% { transform: translate(2px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-2px, 1px) rotate(1deg); }
+  30% { transform: translate(1px, 2px) rotate(0deg); }
+  40% { transform: translate(2px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-2px, 1px) rotate(0deg); }
+  70% { transform: translate(1px, 2px) rotate(-1deg); }
+  80% { transform: translate(-2px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(2px, -1px) rotate(-1deg); }
+}
+
+@keyframes shake7 {
+  0% { transform: translate(2px, 2px) rotate(0deg); }
+  10% { transform: translate(-2px, -2px) rotate(-1deg); }
+  20% { transform: translate(-2px, 2px) rotate(1deg); }
+  30% { transform: translate(2px, 2px) rotate(0deg); }
+  40% { transform: translate(2px, -2px) rotate(1deg); }
+  50% { transform: translate(-2px, 2px) rotate(-1deg); }
+  60% { transform: translate(-2px, 2px) rotate(0deg); }
+  70% { transform: translate(2px, 2px) rotate(-1deg); }
+  80% { transform: translate(-2px, -2px) rotate(1deg); }
+  90% { transform: translate(2px, 2px) rotate(0deg); }
+  100% { transform: translate(2px, -2px) rotate(-1deg); }
+}
+
+@keyframes shake8 {
+  0% { transform: translate(3px, 2px) rotate(0deg); }
+  10% { transform: translate(-2px, -3px) rotate(-1deg); }
+  20% { transform: translate(-3px, 2px) rotate(1deg); }
+  30% { transform: translate(2px, 3px) rotate(0deg); }
+  40% { transform: translate(3px, -2px) rotate(1deg); }
+  50% { transform: translate(-2px, 3px) rotate(-1deg); }
+  60% { transform: translate(-3px, 2px) rotate(0deg); }
+  70% { transform: translate(2px, 3px) rotate(-1deg); }
+  80% { transform: translate(-3px, -2px) rotate(1deg); }
+  90% { transform: translate(2px, 3px) rotate(0deg); }
+  100% { transform: translate(3px, -2px) rotate(-1deg); }
+}
+
+@keyframes shake9 {
+  0% { transform: translate(3px, 3px) rotate(1deg); }
+  10% { transform: translate(-3px, -3px) rotate(-1deg); }
+  20% { transform: translate(-3px, 3px) rotate(1deg); }
+  30% { transform: translate(3px, 3px) rotate(1deg); }
+  40% { transform: translate(3px, -3px) rotate(1deg); }
+  50% { transform: translate(-3px, 3px) rotate(-1deg); }
+  60% { transform: translate(-3px, 3px) rotate(1deg); }
+  70% { transform: translate(3px, 3px) rotate(-1deg); }
+  80% { transform: translate(-3px, -3px) rotate(1deg); }
+  90% { transform: translate(3px, 3px) rotate(1deg); }
+  100% { transform: translate(3px, -3px) rotate(-1deg); }
+}
+
+@keyframes shake10 {
+  0% { transform: translate(5px, 3px) rotate(1deg); }
+  10% { transform: translate(-3px, -5px) rotate(-1deg); }
+  20% { transform: translate(-5px, 3px) rotate(1deg); }
+  30% { transform: translate(3px, 5px) rotate(1deg); }
+  40% { transform: translate(5px, -3px) rotate(1deg); }
+  50% { transform: translate(-3px, 5px) rotate(-1deg); }
+  60% { transform: translate(-5px, 3px) rotate(1deg); }
+  70% { transform: translate(3px, 5px) rotate(-1deg); }
+  80% { transform: translate(-5px, -3px) rotate(1deg); }
+  90% { transform: translate(3px, 5px) rotate(1deg); }
+  100% { transform: translate(5px, -3px) rotate(-1deg); }
 }
